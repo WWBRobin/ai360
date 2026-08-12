@@ -193,6 +193,20 @@ export const SCENARIO_ICONS: Record<string, string> = {
   'security': '🛡️',
 }
 
+// ===== 订阅相关 =====
+
+// 提交邮箱订阅（简单收集，不做双重确认）
+// 返回 { success: boolean, error?: string }
+export async function subscribeEmail(email: string): Promise<{ success: boolean; error?: string }> {
+  const { error } = await supabase
+    .from('subscribers')
+    .upsert({ email: email.trim(), source: 'website' }, { onConflict: 'email' })
+  if (error) {
+    return { success: false, error: '订阅暂时不可用，请稍后再试' }
+  }
+  return { success: true }
+}
+
 // flatten helper
 function flattenSkill(raw: any): any {
   const platform = raw.platforms || {}

@@ -5,8 +5,13 @@ import {
   getScenarios,
   getSkillsByCategory,
 } from '@/lib/supabase'
+import { getAllArticleMetas } from '@/lib/articles'
 import SkillCardComponent from '@/components/SkillCard'
 import type { SkillCard } from '@/types'
+import SubscribeForm from '@/components/SubscribeForm'
+
+// ISR：首页每 5 分钟增量静态重新生成
+export const revalidate = 300
 
 // ===== 装机必备四个分类卡片配置（含静态 fallback，DB 为空时也能展示）=====
 const ESSENTIAL_CARDS = [
@@ -77,6 +82,9 @@ export default async function HomePage() {
     getScenarios(),
     getSkillsByCategory('infra'),
   ])
+
+  // 深度指南文章列表（静态，构建期读取）
+  const guides = getAllArticleMetas()
 
   // 按场景 slug 把 infra 工具分桶，供装机必备卡片用真实数据填充
   const infraByScenario = new Map<string, SkillCard[]>()
@@ -337,6 +345,58 @@ export default async function HomePage() {
           )}
         </div>
       </section>
+
+      {/* ===== 7. 深度指南区（4 篇横评文章入口）===== */}
+      <section id="guides" className="max-w-7xl mx-auto px-4 py-16">
+        <div className="mb-8 flex items-end justify-between">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">📚 深度指南</h2>
+            <p className="text-gray-500 mt-1">装机必备完整指南 + 记忆/搜索/电商文案横评，每篇都实测过。</p>
+          </div>
+          <Link href="/guide" className="hidden sm:block text-sm text-indigo-600 font-medium hover:underline">
+            查看全部 →
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {guides.map((g) => (
+            <Link
+              key={g.slug}
+              href={`/guide/${g.slug}`}
+              className="group block bg-white rounded-2xl border border-gray-200 p-5 card-hover hover:border-indigo-300"
+            >
+              <div className="text-3xl mb-3">{g.icon}</div>
+              <span className="inline-block bg-indigo-100 text-indigo-600 text-xs px-2 py-0.5 rounded font-medium mb-2">
+                {g.tag}
+              </span>
+              <h3 className="font-bold text-gray-900 group-hover:text-indigo-600 transition line-clamp-2">
+                {g.title}
+              </h3>
+              <p className="text-sm text-gray-500 mt-2 line-clamp-2">{g.summary}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ===== 8. 订阅周报 CTA ===== */}
+      <section id="subscribe" className="bg-gradient-to-br from-indigo-600 to-purple-600 py-16">
+        <div className="max-w-3xl mx-auto px-4 text-center">
+          <div className="text-5xl mb-4">📬</div>
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+            订阅 AI360 周报
+          </h2>
+          <p className="text-indigo-100 text-lg mb-8">
+            每周收到最新的 Skill 评测 + 行业动态，下周一见
+          </p>
+          <div className="max-w-md mx-auto">
+            <SubscribeForm withCard={false} placeholder="you@example.com" buttonText="立即订阅" />
+          </div>
+          <p className="text-indigo-200 text-xs mt-6">
+            🔒 只用于发送周报，绝不分享给第三方
+          </p>
+        </div>
+      </section>
+
     </>
   )
 }

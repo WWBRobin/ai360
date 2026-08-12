@@ -38,3 +38,132 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* ===== 深度指南 markdown 排版（react-markdown 输出，无 Tailwind Typography 插件）===== */
+.prose-guide {
+  color: #374151;
+  font-size: 16px;
+  line-height: 1.8;
+}
+.prose-guide > *:first-child {
+  margin-top: 0;
+}
+.prose-guide h1,
+.prose-guide h2,
+.prose-guide h3,
+.prose-guide h4 {
+  color: #111827;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+}
+.prose-guide h1 {
+  font-size: 1.8em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #e5e7eb;
+}
+.prose-guide h2 {
+  font-size: 1.4em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #f3f4f6;
+}
+.prose-guide h3 {
+  font-size: 1.2em;
+}
+.prose-guide h4 {
+  font-size: 1.05em;
+}
+.prose-guide p {
+  margin: 1em 0;
+}
+.prose-guide a {
+  color: #4f46e5;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-guide strong {
+  color: #111827;
+  font-weight: 700;
+}
+.prose-guide ul,
+.prose-guide ol {
+  margin: 1em 0;
+  padding-left: 1.6em;
+}
+.prose-guide ul {
+  list-style: disc;
+}
+.prose-guide ol {
+  list-style: decimal;
+}
+.prose-guide li {
+  margin: 0.4em 0;
+}
+.prose-guide blockquote {
+  margin: 1.2em 0;
+  padding: 0.6em 1em;
+  border-left: 4px solid #c7d2fe;
+  background: #f5f3ff;
+  color: #4b5563;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+.prose-guide blockquote > p {
+  margin: 0.3em 0;
+}
+.prose-guide code {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.88em;
+  background: #f3f4f6;
+  padding: 0.15em 0.4em;
+  border-radius: 0.3rem;
+}
+.prose-guide pre {
+  margin: 1.2em 0;
+  padding: 1em 1.2em;
+  background: #1f2937;
+  color: #e5e7eb;
+  border-radius: 0.75rem;
+  overflow-x: auto;
+  line-height: 1.6;
+}
+.prose-guide pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  font-size: 0.85em;
+}
+.prose-guide table {
+  width: 100%;
+  margin: 1.2em 0;
+  border-collapse: collapse;
+  font-size: 0.92em;
+  display: block;
+  overflow-x: auto;
+}
+.prose-guide th,
+.prose-guide td {
+  border: 1px solid #e5e7eb;
+  padding: 0.6em 0.9em;
+  text-align: left;
+}
+.prose-guide thead {
+  background: #f9fafb;
+}
+.prose-guide th {
+  font-weight: 600;
+  color: #111827;
+}
+.prose-guide tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+.prose-guide hr {
+  margin: 2em 0;
+  border: 0;
+  border-top: 1px solid #e5e7eb;
+}
+.prose-guide img {
+  max-width: 100%;
+  border-radius: 0.5rem;
+  margin: 1.2em 0;
+}

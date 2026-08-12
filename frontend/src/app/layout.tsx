@@ -2,16 +2,101 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import './globals.css'
 
+// 站点根域名。生产部署到 vokki.cn；可用 NEXT_PUBLIC_SITE_URL 覆盖（如预览部署）。
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://vokki.cn'
+
 export const metadata: Metadata = {
-  title: 'AI360 — AI Agent 时代的 360',
-  description: '发现好工具 · 判断哪个好 · 基础工具一次配齐。AI Skill 独立第三方评测聚合平台。',
-  keywords: ['AI Skill', 'AI工具推荐', 'Agent技能', '装机必备', '扣子', 'Claude Skills', 'GPTs'],
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'AI360 — AI Agent 时代的 360',
+    template: '%s · AI360',
+  },
+  description:
+    '发现好工具 · 判断哪个好 · 基础工具一次配齐。AI Skill 独立第三方评测聚合平台。',
+  keywords: [
+    'AI Skill',
+    'AI工具推荐',
+    'Agent技能',
+    '装机必备',
+    '扣子',
+    'Claude Skills',
+    'GPTs',
+  ],
+  applicationName: 'AI360',
+  authors: [{ name: 'AI360' }],
+  creator: 'AI360',
+  publisher: 'AI360',
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'AI360 — AI Agent 时代的 360',
+    description:
+      '发现好工具 · 判断哪个好 · 基础工具一次配齐。AI Skill 独立第三方评测聚合平台。',
+    url: SITE_URL,
+    siteName: 'AI360',
+    locale: 'zh_CN',
+    type: 'website',
+    // og:image 由根级 opengraph-image.tsx 文件约定自动注入，无需在此重复声明
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AI360 — AI Agent 时代的 360',
+    description:
+      '发现好工具 · 判断哪个好 · 基础工具一次配齐。AI Skill 独立第三方评测聚合平台。',
+    // twitter:image 同样由根级 opengraph-image.tsx 自动注入
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
+  manifest: '/manifest.webmanifest',
+}
+
+// JSON-LD 结构化数据：WebSite + Organization（全站级别，放在根 layout）
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: 'AI360',
+      description: 'AI Agent 时代的 360 — AI Skill 独立第三方评测聚合平台',
+      inLanguage: 'zh-CN',
+      publisher: { '@id': `${SITE_URL}/#organization` },
+    },
+    {
+      '@type': 'Organization',
+      '@id': `${SITE_URL}/#organization`,
+      name: 'AI360',
+      url: SITE_URL,
+      slogan: 'AI Agent 时代的 360',
+      description:
+        '发现好工具 · 判断哪个好 · 基础工具一次配齐。AI Skill 独立第三方评测聚合平台。',
+    },
+  ],
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh-CN">
       <body className="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+        {/* JSON-LD 结构化数据 */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+          }}
+        />
+
         {/* 顶部导航 */}
         <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-md bg-white/90">
           <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">

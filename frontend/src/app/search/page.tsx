@@ -1,8 +1,23 @@
+import type { Metadata } from 'next'
 import { searchSkills } from '@/lib/supabase'
 import SkillCardComponent from '@/components/SkillCard'
 
-export default async function SearchPage({ searchParams }: { searchParams: { q?: string } }) {
-  const query = searchParams.q || ''
+// 搜索结果页不索引（低价值、易产生重复内容）
+export const metadata: Metadata = {
+  title: '搜索',
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
+
+export default async function SearchPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>
+}) {
+  const sp = await searchParams
+  const query = sp.q || ''
   const results = query ? await searchSkills(query) : []
 
   return (
@@ -16,7 +31,7 @@ export default async function SearchPage({ searchParams }: { searchParams: { q?:
 
       {results.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {results.map(skill => (
+          {results.map((skill) => (
             <SkillCardComponent key={skill.id} skill={skill} />
           ))}
         </div>

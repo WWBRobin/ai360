@@ -70,6 +70,9 @@ function groupByPlatform(skills: SkillCard[]): Map<string, { name: string; slug:
   )
 }
 
+// ISR：场景页每 10 分钟增量静态重新生成
+export const revalidate = 600
+
 // 预生成常见场景页
 export async function generateStaticParams() {
   try {
@@ -95,12 +98,24 @@ export async function generateMetadata({
   const name = scenario?.name || slug
   const icon = SCENARIO_ICONS[slug] || '🎯'
 
+  const title = `${name}场景 — AI Skill 横评`
+  const description = `${icon} ${name}场景下精选 AI Skill 横向对比：按平台分组展示扣子、GPTs 等 Skill，含上手难度、稳定性和免费额度评测。`
+
   return {
-    title: `${name}场景 - AI Skill 评测 | AI360`,
-    description: `${icon} ${name}场景下精选 AI Skill 横向对比：按平台分组展示扣子、GPTs 等 Skill，含上手难度、稳定性和免费额度评测。`,
+    title,
+    description,
+    alternates: {
+      canonical: `/scenario/${slug}`,
+    },
     openGraph: {
-      title: `${name}场景 - AI Skill 评测`,
-      description: `精选 ${name}场景 AI Skill，按平台分组对比评测。`,
+      title,
+      description,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
     },
   }
 }

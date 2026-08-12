@@ -12,6 +12,9 @@ import {
 import SkillCardComponent from '@/components/SkillCard'
 import TrialBox from '@/components/TrialBox'
 
+// ISR：详情页每 1 小时增量静态重新生成
+export const revalidate = 3600
+
 // ===== 元数据 =====
 
 export async function generateMetadata({
@@ -23,10 +26,10 @@ export async function generateMetadata({
   const skill = await getSkillDetail(slug)
 
   if (!skill) {
-    return { title: '未找到该 Skill · AI360' }
+    return { title: '未找到该 Skill' }
   }
 
-  const title = `${skill.name} — 评测 / 试用 / 安装 · AI360`
+  const title = `${skill.name} — 评测 / 试用 / 安装`
   const description =
     skill.tagline ||
     `${skill.name}：5 维度评测（场景/上手/稳定/免费额度/Token 成本），含同类对比与在线试用。`
@@ -49,6 +52,11 @@ export async function generateMetadata({
       description,
       type: 'article',
       ...(skill.icon_url ? { images: [skill.icon_url] } : {}),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
     },
   }
 }
@@ -127,6 +135,7 @@ export default async function SkillDetailPage({
               <img
                 src={skill.icon_url}
                 alt={skill.name}
+                loading="lazy"
                 className="w-full h-full object-cover"
               />
             ) : (

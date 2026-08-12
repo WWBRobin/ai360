@@ -298,18 +298,18 @@ WHERE p.slug = v.slug;
 
 -- 5.2 场景（能力层级 + 叶子场景）
 INSERT INTO scenarios (name, slug, icon, sort_order) VALUES
-  ('基础设施增强', 'infra', '🛡️', 1),
+  ('基础设施增强', 'infrastructure', '🛡️', 1),
   ('场景应用',     'scene', '🎯', 2),
   ('效率工具',     'efficiency', '⚡', 3)
 ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO scenarios (name, slug, icon, parent_id, sort_order) VALUES
-  ('记忆增强',   'memory',        '🧠', (SELECT id FROM scenarios WHERE slug='infra'), 1),
-  ('联网搜索',   'search',        '🌐', (SELECT id FROM scenarios WHERE slug='infra'), 2),
-  ('文件操作',   'file',          '📁', (SELECT id FROM scenarios WHERE slug='infra'), 3),
-  ('代码执行',   'code',          '💻', (SELECT id FROM scenarios WHERE slug='infra'), 4),
-  ('工具连接',   'connect',       '🔌', (SELECT id FROM scenarios WHERE slug='infra'), 5),
-  ('文档处理',   'document',      '📄', (SELECT id FROM scenarios WHERE slug='infra'), 6),
+  ('记忆增强',   'memory',        '🧠', (SELECT id FROM scenarios WHERE slug='infrastructure'), 1),
+  ('联网搜索',   'search',        '🌐', (SELECT id FROM scenarios WHERE slug='infrastructure'), 2),
+  ('文件操作',   'file',          '📁', (SELECT id FROM scenarios WHERE slug='infrastructure'), 3),
+  ('代码执行',   'code',          '💻', (SELECT id FROM scenarios WHERE slug='infrastructure'), 4),
+  ('工具连接',   'connect',       '🔌', (SELECT id FROM scenarios WHERE slug='infrastructure'), 5),
+  ('文档处理',   'document',      '📄', (SELECT id FROM scenarios WHERE slug='infrastructure'), 6),
   ('电商文案',   'ecommerce-copy','🛒', (SELECT id FROM scenarios WHERE slug='scene'), 1),
   ('内容创作',   'content-creation','✍️', (SELECT id FROM scenarios WHERE slug='scene'), 2),
   ('数据分析',   'data-analysis', '📈', (SELECT id FROM scenarios WHERE slug='scene'), 3),
@@ -667,7 +667,7 @@ ON CONFLICT (slug) DO NOTHING;
 -- 5.9 场景教程
 INSERT INTO tutorials (title, slug, scenario_id, content, published_at, status) VALUES
 ('新手必装：3 个基础设施技能一次配齐', 'newbie-essential-skills',
- (SELECT id FROM scenarios WHERE slug='infra'),
+ (SELECT id FROM scenarios WHERE slug='infrastructure'),
  '## 为什么先装基础设施类\nAI 记不住、不能联网、不能跑代码，是新手最常遇到的三个坑。\n\n## 清单\n1. 记忆增强：Hermes Hindsight（LongMemEval 94.6%，自托管零成本）或 claude-mem（Claude Code 零配置）\n2. 联网搜索：Brave Search MCP（质量第一+最省 token）或 Tavily（免费层最慷慨）\n3. 代码执行：E2B 沙箱（Firecracker 微 VM，安全执行 AI 生成代码）',
  NOW() - INTERVAL '2 days', 'published')
 ON CONFLICT (slug) DO NOTHING;

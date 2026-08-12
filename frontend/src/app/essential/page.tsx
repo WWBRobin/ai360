@@ -4,15 +4,26 @@ import { getSkillsByCategory } from '@/lib/supabase'
 import type { SkillCard } from '@/types'
 import EssentialTabs, { type EssentialTab } from '@/components/EssentialTabs'
 
+// ISR：装机必备页每 1 小时增量静态重新生成
+export const revalidate = 3600
+
 export const metadata: Metadata = {
-  title: 'AI Agent 装机必备 | AI360 评测',
+  title: 'AI Agent 装机必备',
   description:
     '刚接触 AI Agent？先装这些核心工具，一步到位。记忆增强、联网搜索、文件与代码、工具连接四大分类精选，附上手难度、稳定性与免费额度。',
   keywords: ['AI Agent', '装机必备', 'MCP', '记忆增强', '联网搜索', 'AI 工具推荐', 'AI360'],
+  alternates: {
+    canonical: '/essential',
+  },
   openGraph: {
-    title: 'AI Agent 装机必备 | AI360',
+    title: 'AI Agent 装机必备 · AI360',
     description: '刚接触 AI Agent？先装这些核心工具，一步到位。',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AI Agent 装机必备 · AI360',
+    description: '刚接触 AI Agent？先装这些核心工具，一步到位。',
   },
 }
 
@@ -200,7 +211,7 @@ export default async function EssentialPage() {
             含常见报错排查与环境准备清单。
           </p>
           <Link
-            href="/guide/install"
+            href="/guide/install-guide"
             className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-base font-bold text-indigo-700 shadow-lg transition hover:bg-indigo-50"
           >
             查看完整装机指南

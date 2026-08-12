@@ -30,10 +30,25 @@ export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
             )}
           </div>
 
-          {/* 标题 + 描述 */}
-          <h3 className="font-bold text-gray-900 mb-1 group-hover:text-indigo-600 transition">
-            {skill.name}
-          </h3>
+          {/* 图标 + 标题 */}
+          <div className="flex items-center gap-3 mb-1">
+            {skill.icon_url ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={skill.icon_url}
+                alt=""
+                loading="lazy"
+                className="w-8 h-8 rounded-lg object-cover flex-shrink-0"
+              />
+            ) : (
+              <span className="text-xl flex-shrink-0" aria-hidden>
+                {CATEGORY_ICONS[skill.category]}
+              </span>
+            )}
+            <h3 className="font-bold text-gray-900 group-hover:text-indigo-600 transition">
+              {skill.name}
+            </h3>
+          </div>
           <p className="text-sm text-gray-500 mb-3 line-clamp-2">{skill.tagline}</p>
 
           {/* 评测摘要 */}

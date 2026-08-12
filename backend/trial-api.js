@@ -7,6 +7,7 @@
  * 部署：ECS /app/skill-trial/，PM2 管理，端口 3072
  */
 
+require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const { createClient: createSupabaseClient } = require('@supabase/supabase-js')
