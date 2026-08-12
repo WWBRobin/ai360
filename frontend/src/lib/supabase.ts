@@ -78,7 +78,8 @@ export async function getSkillDetail(slug: string): Promise<SkillDetail | null> 
       platforms (name, slug, base_url, api_supported),
       evaluations (
         scenario_summary, difficulty_score, difficulty_notes,
-        stability_score, stability_notes, free_quota, token_cost,
+        stability_score, stability_notes, free_quota, free_quota_score,
+        token_cost, token_efficiency_score,
         overall_score, evaluation_method, test_cases, version_at_eval, evaluated_at
       ),
       guides (content, difficulty_level)
@@ -117,7 +118,8 @@ export async function getSkillDetailsBySlugs(slugs: string[]): Promise<SkillDeta
       platforms (name, slug, base_url, api_supported),
       evaluations (
         scenario_summary, difficulty_score, difficulty_notes,
-        stability_score, stability_notes, free_quota, token_cost,
+        stability_score, stability_notes, free_quota, free_quota_score,
+        token_cost, token_efficiency_score,
         overall_score, evaluation_method, test_cases, version_at_eval, evaluated_at
       ),
       guides (content, difficulty_level)
@@ -238,6 +240,13 @@ export async function subscribeEmail(email: string): Promise<{ success: boolean;
   return { success: true }
 }
 
+// 安全数值化：null/undefined/空串 -> null
+function numOr(v: unknown): number | null {
+  if (v === null || v === undefined || v === '') return null
+  const n = Number(v)
+  return Number.isNaN(n) ? null : n
+}
+
 // flatten helper
 function flattenSkill(raw: any): any {
   const platform = raw.platforms || {}
@@ -264,7 +273,9 @@ function flattenSkill(raw: any): any {
     stability_score: eval0.stability_score || null,
     stability_notes: eval0.stability_notes || null,
     free_quota: eval0.free_quota || null,
+    free_quota_score: numOr(eval0.free_quota_score),
     token_cost: eval0.token_cost || null,
+    token_efficiency_score: numOr(eval0.token_efficiency_score),
     scenario_summary: eval0.scenario_summary || null,
     evaluation_method: eval0.evaluation_method || null,
     test_cases: eval0.test_cases || null,

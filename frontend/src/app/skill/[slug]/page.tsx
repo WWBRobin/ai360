@@ -232,9 +232,11 @@ export default async function SkillDetailPage({
                 notes={skill.stability_notes}
                 scoreLabel="稳定"
               />
-              <QuestionRow
+              <ScoreQuestionRow
                 index={4}
                 title="免费额度够用吗？"
+                score={skill.free_quota_score}
+                scoreLabel="免费额度"
                 body={
                   skill.free_quota ? (
                     <span className="font-medium text-green-600">
@@ -245,9 +247,11 @@ export default async function SkillDetailPage({
                   )
                 }
               />
-              <QuestionRow
+              <ScoreQuestionRow
                 index={5}
                 title="Token 成本高吗？"
+                score={skill.token_efficiency_score}
+                scoreLabel="Token 成本"
                 body={
                   skill.token_cost ? (
                     <span>{skill.token_cost}</span>
@@ -481,12 +485,14 @@ function ScoreQuestionRow({
   score,
   notes,
   scoreLabel,
+  body,
 }: {
   index: number
   title: string
   score: number | null
-  notes: string | null
+  notes?: string | null
   scoreLabel: string
+  body?: React.ReactNode
 }) {
   return (
     <QuestionRow
@@ -506,7 +512,11 @@ function ScoreQuestionRow({
           ) : (
             <span className="text-gray-400">暂无评分</span>
           )}
-          {notes && <p className="text-gray-500">{notes}</p>}
+          {body ? (
+            <div className="text-gray-600">{body}</div>
+          ) : (
+            notes && <p className="text-gray-500">{notes}</p>
+          )}
         </div>
       }
     />

@@ -44,7 +44,9 @@ export interface SkillDetail {
   stability_score: number | null
   stability_notes: string | null
   free_quota: string | null
+  free_quota_score: number | null
   token_cost: string | null
+  token_efficiency_score: number | null
   scenario_summary: string | null
   evaluation_method: string | null
   test_cases: string | null
