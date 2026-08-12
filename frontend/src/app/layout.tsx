@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import './globals.css'
+import MobileNav from '@/components/MobileNav'
 
 // 站点根域名。生产部署到 vokki.cn；可用 NEXT_PUBLIC_SITE_URL 覆盖（如预览部署）。
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://vokki.cn'
@@ -118,9 +119,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 type="text"
                 name="q"
                 placeholder="搜索工具 / 场景..."
-                className="w-32 md:w-48 px-3 py-1.5 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-indigo-400 focus:bg-white transition"
+                className="w-24 md:w-48 px-3 py-1.5 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-indigo-400 focus:bg-white transition"
               />
             </form>
+            {/* 移动端汉堡菜单（md 以下显示，补充被隐藏的导航链接） */}
+            <MobileNav />
           </div>
         </nav>
 
