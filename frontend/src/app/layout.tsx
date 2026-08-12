@@ -109,6 +109,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Link href="/essential" className="hover:text-indigo-600 transition">装机必备</Link>
                 <Link href="/scenario/content-creation" className="hover:text-indigo-600 transition">场景推荐</Link>
                 <Link href="/platform/coze" className="hover:text-indigo-600 transition">按平台</Link>
+                <Link href="/compare" className="hover:text-indigo-600 transition">对比</Link>
               </div>
             </div>
             {/* 搜索框 */}

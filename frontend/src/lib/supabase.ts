@@ -104,6 +104,37 @@ export async function getSkillDetail(slug: string): Promise<SkillDetail | null> 
   } as SkillDetail
 }
 
+// 批量获取多个 Skill 详情（对比页用，避免 N 次单查）
+export async function getSkillDetailsBySlugs(slugs: string[]): Promise<SkillDetail[]> {
+  if (slugs.length === 0) return []
+  // 去重 + 最多 3 个（对比页上限）
+  const unique = Array.from(new Set(slugs.filter(Boolean))).slice(0, 3)
+
+  const { data, error } = await supabase
+    .from('skills')
+    .select(`
+      *,
+      platforms (name, slug, base_url, api_supported),
+      evaluations (
+        scenario_summary, difficulty_score, difficulty_notes,
+        stability_score, stability_notes, free_quota, token_cost,
+        overall_score, evaluation_method, test_cases, version_at_eval, evaluated_at
+      ),
+      guides (content, difficulty_level)
+    `)
+    .in('slug', unique)
+    .eq('status', 'published')
+    .order('evaluated_at', { foreignTable: 'evaluations', ascending: false })
+    .limit(1, { foreignTable: 'evaluations' })
+
+  if (error || !data) {
+    console.error('getSkillDetailsBySlugs error:', error)
+    return []
+  }
+
+  return data.map((s) => flattenSkill(s)) as SkillDetail[]
+}
+
 // 获取所有平台
 export async function getPlatforms(): Promise<Platform[]> {
   const { data, error } = await supabase
