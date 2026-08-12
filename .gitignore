@@ -24,3 +24,5 @@ init.sql.bak
 # 前端构建缓存
 frontend/.next/
 frontend/node_modules/
+.vercel
+.env*
