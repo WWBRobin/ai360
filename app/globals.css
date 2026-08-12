@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #f07a3a;
+}
+
+body {
+  @apply bg-gray-50 text-gray-900 antialiased;
+}
+
+.button-primary {
+  background: linear-gradient(180deg, #f07a3a, #ff8c50);
+  @apply rounded-btn px-4 py-2 text-sm font-medium text-white transition-transform;
+}
+.button-primary:hover {
+  transform: translateY(-1px);
+}
+.button-primary:disabled {
+  opacity: 0.6;
+  transform: none;
+}

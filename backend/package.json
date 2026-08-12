@@ -1,0 +1,14 @@
+{
+  "name": "ai360-trial-api",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node trial-api.js",
+    "dev": "node --watch trial-api.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "cors": "^2.8.5",
+    "@supabase/supabase-js": "^2.45.0"
+  }
+}

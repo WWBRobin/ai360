@@ -1,0 +1,515 @@
+-- ============================================================
+-- AI Skill 评测聚合平台 — Supabase 初始化脚本
+-- 版本: v1.0 (2026-08-13)  依据: SPEC v2.0
+-- 用法: 在 Supabase SQL Editor 中一次性执行（幂等，可重复执行）
+-- 说明: RLS 全部启用；公共表匿名只读；trial_logs 仅 service_role 可写
+--       （前端不直接读 trial_logs，试用配额由 ECS 中转 API 通过 service_role 查询）
+-- ============================================================
+
+-- ---------- 扩展 ----------
+CREATE EXTENSION IF NOT EXISTS pg_trgm;   -- 搜索用三元组索引
+
+-- ---------- 更新时间触发器 ----------
+CREATE OR REPLACE FUNCTION set_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- ============================================================
+-- 1. 建表（SPEC 第七章数据模型，含 3 处增强）
+--    增强1: skills.category 能力层级（基础设施增强/场景应用/效率工具）→ 装机必备页直接过滤
+--    增强2: evaluations.free_quota_score / token_efficiency_score 数值化 → 综合评分可计算
+--    增强3: skill_cards_view 聚合视图 → 列表页单查询出卡片数据
+-- ============================================================
+
+-- 平台
+CREATE TABLE IF NOT EXISTS platforms (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  slug VARCHAR(50) UNIQUE NOT NULL,
+  logo_url TEXT,
+  description TEXT,
+  base_url TEXT,                          -- 平台官方地址
+  skill_count INTEGER DEFAULT 0,
+  api_supported BOOLEAN DEFAULT FALSE,    -- 是否支持中转
+  sort_order INTEGER DEFAULT 0,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- 场景（parent_id 实现两级：能力层级顶层 + 叶子场景）
+CREATE TABLE IF NOT EXISTS scenarios (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  slug VARCHAR(100) UNIQUE NOT NULL,
+  icon VARCHAR(50),
+  parent_id INTEGER REFERENCES scenarios(id),
+  sort_order INTEGER DEFAULT 0,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Skill
+CREATE TABLE IF NOT EXISTS skills (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(200) NOT NULL,
+  slug VARCHAR(200) UNIQUE NOT NULL,
+  tagline VARCHAR(500),
+  description TEXT,
+  category VARCHAR(20) DEFAULT 'scene'
+    CHECK (category IN ('infrastructure', 'scene', 'efficiency')),
+  platform_id INTEGER REFERENCES platforms(id),
+  install_url TEXT NOT NULL,
+  icon_url TEXT,
+  developer_name VARCHAR(200),
+  version VARCHAR(50),
+  status VARCHAR(20) DEFAULT 'published', -- published | draft | archived
+  trial_enabled BOOLEAN DEFAULT FALSE,    -- 是否支持中转试用
+  trial_config JSONB,                     -- 中转配置（provider/bot_id/api_base/prompt_template 等）
+  source VARCHAR(50) DEFAULT 'manual',    -- manual | listed（收录层）
+  last_updated TIMESTAMP,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+CREATE TRIGGER trg_skills_updated_at BEFORE UPDATE ON skills
+  FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+
+-- Skill × 场景
+CREATE TABLE IF NOT EXISTS skill_scenarios (
+  skill_id INTEGER REFERENCES skills(id) ON DELETE CASCADE,
+  scenario_id INTEGER REFERENCES scenarios(id) ON DELETE CASCADE,
+  PRIMARY KEY (skill_id, scenario_id)
+);
+
+-- 评测记录
+CREATE TABLE IF NOT EXISTS evaluations (
+  id SERIAL PRIMARY KEY,
+  skill_id INTEGER REFERENCES skills(id) ON DELETE CASCADE,
+  scenario_summary TEXT,                  -- Q1 解决什么场景
+  difficulty_score INTEGER CHECK (difficulty_score BETWEEN 1 AND 5),  -- Q2
+  difficulty_notes TEXT,
+  stability_score INTEGER CHECK (stability_score BETWEEN 1 AND 5),    -- Q3
+  stability_notes TEXT,
+  free_quota TEXT,                        -- Q4
+  free_quota_score INTEGER CHECK (free_quota_score BETWEEN 1 AND 5),  -- Q4 数值化
+  token_cost TEXT,                        -- Q5
+  token_efficiency_score INTEGER CHECK (token_efficiency_score BETWEEN 1 AND 5), -- Q5 数值化
+  overall_score DECIMAL(2,1),             -- 0.2*difficulty + 0.4*stability + 0.2*free_quota + 0.2*token_eff
+  evaluated_by VARCHAR(50),
+  evaluation_method VARCHAR(20),          -- ai_first | manual
+  test_cases TEXT,                        -- JSON 数组字符串
+  version_at_eval VARCHAR(50),
+  evaluated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- 同类替代
+CREATE TABLE IF NOT EXISTS skill_alternatives (
+  skill_id INTEGER REFERENCES skills(id) ON DELETE CASCADE,
+  alternative_skill_id INTEGER REFERENCES skills(id) ON DELETE CASCADE,
+  note TEXT,
+  PRIMARY KEY (skill_id, alternative_skill_id)
+);
+
+-- 使用指南
+CREATE TABLE IF NOT EXISTS guides (
+  id SERIAL PRIMARY KEY,
+  skill_id INTEGER REFERENCES skills(id) ON DELETE CASCADE,
+  content TEXT NOT NULL,
+  difficulty_level VARCHAR(20),
+  video_url TEXT,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+CREATE TRIGGER trg_guides_updated_at BEFORE UPDATE ON guides
+  FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+
+-- 横评文章
+CREATE TABLE IF NOT EXISTS comparison_articles (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(200) NOT NULL,
+  slug VARCHAR(200) UNIQUE NOT NULL,
+  scenario_id INTEGER REFERENCES scenarios(id),
+  content TEXT NOT NULL,
+  skills_included INT[] DEFAULT '{}',
+  published_at TIMESTAMP DEFAULT NOW(),
+  status VARCHAR(20) DEFAULT 'draft'
+);
+
+-- 场景教程
+CREATE TABLE IF NOT EXISTS tutorials (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(200) NOT NULL,
+  slug VARCHAR(200) UNIQUE NOT NULL,
+  scenario_id INTEGER REFERENCES scenarios(id),
+  content TEXT NOT NULL,
+  published_at TIMESTAMP DEFAULT NOW(),
+  status VARCHAR(20) DEFAULT 'draft'
+);
+
+-- 场景方案（轻量工作流）
+CREATE TABLE IF NOT EXISTS scenario_solutions (
+  id SERIAL PRIMARY KEY,
+  scenario_id INTEGER REFERENCES scenarios(id),
+  title VARCHAR(200) NOT NULL,
+  description TEXT,
+  steps JSONB NOT NULL,                   -- [{step, skill_id, action, params}]
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- 配置（导航/Tab/推荐位等全部配置化）
+CREATE TABLE IF NOT EXISTS site_config (
+  id SERIAL PRIMARY KEY,
+  config_key VARCHAR(100) UNIQUE NOT NULL,
+  config_value JSONB NOT NULL,
+  description TEXT,
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+CREATE TRIGGER trg_site_config_updated_at BEFORE UPDATE ON site_config
+  FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+
+-- 试用记录（配额限流 + 后期分析，无用户系统，用 session_token 标识）
+CREATE TABLE IF NOT EXISTS trial_logs (
+  id SERIAL PRIMARY KEY,
+  skill_id INTEGER REFERENCES skills(id) ON DELETE CASCADE,
+  session_token VARCHAR(100) NOT NULL,    -- 浏览器指纹或随机 token
+  input_text TEXT,
+  output_text TEXT,
+  tokens_used INTEGER,
+  status VARCHAR(20) DEFAULT 'success',   -- success | failed | limited
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- ============================================================
+-- 2. 索引（查询路径全覆盖）
+-- ============================================================
+CREATE INDEX IF NOT EXISTS idx_skills_platform ON skills(platform_id) WHERE status = 'published';
+CREATE INDEX IF NOT EXISTS idx_skills_category ON skills(category) WHERE status = 'published';
+CREATE INDEX IF NOT EXISTS idx_skills_trial ON skills(trial_enabled) WHERE trial_enabled = TRUE;
+CREATE INDEX IF NOT EXISTS idx_skills_name_trgm ON skills USING gin (name gin_trgm_ops);
+CREATE INDEX IF NOT EXISTS idx_skills_slug ON skills(slug);
+CREATE INDEX IF NOT EXISTS idx_skill_scenarios_scenario ON skill_scenarios(scenario_id);
+CREATE INDEX IF NOT EXISTS idx_evaluations_skill_latest ON evaluations(skill_id, evaluated_at DESC);
+CREATE INDEX IF NOT EXISTS idx_alternatives_target ON skill_alternatives(alternative_skill_id);
+CREATE INDEX IF NOT EXISTS idx_trial_logs_quota ON trial_logs(skill_id, session_token, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_articles_status ON comparison_articles(status, published_at DESC);
+CREATE INDEX IF NOT EXISTS idx_tutorials_status ON tutorials(status, published_at DESC);
+CREATE INDEX IF NOT EXISTS idx_scenarios_parent ON scenarios(parent_id);
+
+-- ============================================================
+-- 3. 聚合视图：Skill 卡片（列表页单查询）
+-- ============================================================
+CREATE OR REPLACE VIEW skill_cards_view
+WITH (security_invoker = true) AS
+SELECT
+  s.id, s.name, s.slug, s.tagline, s.icon_url, s.category,
+  p.name AS platform_name, p.slug AS platform_slug, p.api_supported,
+  e.overall_score, e.difficulty_score, e.stability_score,
+  e.evaluated_at, e.free_quota,
+  s.trial_enabled, s.install_url,
+  COALESCE(array_agg(sc.slug ORDER BY sc.slug) FILTER (WHERE sc.slug IS NOT NULL), '{}') AS scenario_slugs
+FROM skills s
+JOIN platforms p ON p.id = s.platform_id
+LEFT JOIN LATERAL (
+  SELECT overall_score, difficulty_score, stability_score, evaluated_at, free_quota
+  FROM evaluations
+  WHERE skill_id = s.id AND overall_score IS NOT NULL
+  ORDER BY evaluated_at DESC
+  LIMIT 1
+) e ON true
+LEFT JOIN skill_scenarios ss ON ss.skill_id = s.id
+LEFT JOIN scenarios sc ON sc.id = ss.scenario_id
+WHERE s.status = 'published'
+GROUP BY s.id, p.name, p.slug, p.api_supported,
+         e.overall_score, e.difficulty_score, e.stability_score,
+         e.evaluated_at, e.free_quota;
+
+GRANT SELECT ON skill_cards_view TO anon, authenticated;
+
+-- ============================================================
+-- 4. RLS 策略（匿名只读；trial_logs 无匿名策略 → 仅 service_role 可访问）
+-- ============================================================
+ALTER TABLE platforms           ENABLE ROW LEVEL SECURITY;
+ALTER TABLE scenarios           ENABLE ROW LEVEL SECURITY;
+ALTER TABLE skills              ENABLE ROW LEVEL SECURITY;
+ALTER TABLE skill_scenarios     ENABLE ROW LEVEL SECURITY;
+ALTER TABLE evaluations         ENABLE ROW LEVEL SECURITY;
+ALTER TABLE skill_alternatives  ENABLE ROW LEVEL SECURITY;
+ALTER TABLE guides              ENABLE ROW LEVEL SECURITY;
+ALTER TABLE comparison_articles ENABLE ROW LEVEL SECURITY;
+ALTER TABLE tutorials           ENABLE ROW LEVEL SECURITY;
+ALTER TABLE scenario_solutions  ENABLE ROW LEVEL SECURITY;
+ALTER TABLE site_config         ENABLE ROW LEVEL SECURITY;
+ALTER TABLE trial_logs          ENABLE ROW LEVEL SECURITY;   -- 无 policy = 匿名拒绝
+
+DO $$
+DECLARE t TEXT;
+BEGIN
+  FOREACH t IN ARRAY ARRAY[
+    'platforms','scenarios','skills','skill_scenarios','evaluations',
+    'skill_alternatives','guides','comparison_articles','tutorials',
+    'scenario_solutions','site_config'
+  ] LOOP
+    EXECUTE format(
+      'CREATE POLICY public_read_%s ON %I FOR SELECT USING (true);', t, t);
+  END LOOP;
+END $$;
+
+-- 4.1 显式授权（anon/authenticated 读内容表；trial_logs 故意不授 → 仅 service_role 可访问）
+GRANT SELECT ON platforms, scenarios, skills, skill_scenarios, evaluations,
+  skill_alternatives, guides, comparison_articles, tutorials,
+  scenario_solutions, site_config TO anon, authenticated;
+
+-- ============================================================
+-- 5. 示例数据（幂等：ON CONFLICT 跳过）
+-- ============================================================
+
+-- 5.1 平台（SPEC 第四节，前 10 平台）
+INSERT INTO platforms (name, slug, description, base_url, api_supported, sort_order, skill_count) VALUES
+  ('扣子 Coze',   'coze',    '字节跳动 Agent 平台，国内生态最丰富', 'https://www.coze.cn',     TRUE,  1, 18),
+  ('GPTs',        'gpts',    'OpenAI 官方 Skill 商店',            'https://chatgpt.com/gpts', TRUE,  2, 6),
+  ('Claude Skills','claude', 'Anthropic Agent 技能',              'https://claude.ai',        FALSE, 3, 4),
+  ('Dify',        'dify',    '开源 Agent 平台，可自部署',           'https://dify.ai',          TRUE,  4, 4),
+  ('Hermes Skills','hermes', 'Hermes Agent 本地技能',              'https://hermes-agent.nousresearch.com', FALSE, 5, 4),
+  ('Codex',       'codex',   'OpenAI 编程 Agent',                 'https://chatgpt.com/codex', FALSE, 6, 3),
+  ('通义千问',      'qwen',    '阿里云 Agent 平台',                'https://tongyi.aliyun.com', TRUE,  7, 4),
+  ('文心一言',      'ernie',   '百度 Agent 平台',                  'https://yiyan.baidu.com',   TRUE,  8, 3),
+  ('WorkBuddy',   'workbuddy','企业级 Agent 平台',                 NULL, FALSE, 9, 2),
+  ('LobeChat',    'lobechat','开源 AI 客户端',                    'https://lobehub.com',      FALSE, 10, 2)
+ON CONFLICT (slug) DO NOTHING;
+
+-- 5.2 场景（三级能力层级 + 叶子场景）
+INSERT INTO scenarios (name, slug, icon, sort_order) VALUES
+  ('基础设施增强', 'infrastructure', '🛡️', 1),
+  ('场景应用',     'scene-apps',     '🎯', 2),
+  ('效率工具',     'efficiency-tools','⚡', 3)
+ON CONFLICT (slug) DO NOTHING;
+
+INSERT INTO scenarios (name, slug, icon, parent_id, sort_order) VALUES
+  ('记忆增强',   'memory',        '🧠', (SELECT id FROM scenarios WHERE slug='infrastructure'), 1),
+  ('联网搜索',   'web-search',    '🌐', (SELECT id FROM scenarios WHERE slug='infrastructure'), 2),
+  ('知识库',     'knowledge-base','📚', (SELECT id FROM scenarios WHERE slug='infrastructure'), 3),
+  ('工具连接',   'tool-connect',  '🔌', (SELECT id FROM scenarios WHERE slug='infrastructure'), 4),
+  ('文件处理',   'file-processing','📁', (SELECT id FROM scenarios WHERE slug='infrastructure'), 5),
+  ('做电商文案', 'ecommerce-copy','🛒', (SELECT id FROM scenarios WHERE slug='scene-apps'), 1),
+  ('做PPT',      'ppt',           '📊', (SELECT id FROM scenarios WHERE slug='scene-apps'), 2),
+  ('做短视频',   'short-video',   '🎬', (SELECT id FROM scenarios WHERE slug='scene-apps'), 3),
+  ('写代码',     'coding',        '💻', (SELECT id FROM scenarios WHERE slug='scene-apps'), 4),
+  ('数据分析',   'data-analysis', '📈', (SELECT id FROM scenarios WHERE slug='scene-apps'), 5),
+  ('做海报',     'poster',        '🎨', (SELECT id FROM scenarios WHERE slug='scene-apps'), 6),
+  ('客服Bot',    'customer-service-bot','🤖', (SELECT id FROM scenarios WHERE slug='scene-apps'), 7),
+  ('写周报',     'weekly-report', '📝', (SELECT id FROM scenarios WHERE slug='scene-apps'), 8),
+  ('批量翻译',   'batch-translate','🌍', (SELECT id FROM scenarios WHERE slug='efficiency-tools'), 1),
+  ('工作流自动化','workflow-automation','🔁', (SELECT id FROM scenarios WHERE slug='efficiency-tools'), 2)
+ON CONFLICT (slug) DO NOTHING;
+
+-- 5.3 Skill（示例 9 个，覆盖 6 平台 + 3 能力层级）
+-- ⚠️ trial_config.bot_id 为占位符，上线前替换为真实扣子 Bot ID
+INSERT INTO skills (name, slug, tagline, description, category, platform_id, install_url, icon_url,
+                    developer_name, version, status, trial_enabled, trial_config, source, last_updated) VALUES
+('电商文案大师', 'ecommerce-copy-master',
+ '输入商品信息，生成多平台电商文案',
+ '覆盖淘宝/京东/拼多多/抖音四个平台的标题、卖点、详情页文案，支持语气切换。',
+ 'scene', (SELECT id FROM platforms WHERE slug='coze'),
+ 'https://www.coze.cn/store', NULL, '老吴评测组', '1.2.0', 'published', TRUE,
+ '{"provider":"coze","api_base":"https://api.coze.cn","bot_id":"REPLACE_WITH_BOT_ID_1","prompt_template":"你是电商文案专家。请根据商品信息生成标题、卖点、详情页文案。商品信息：{{input}}","placeholder":"例如：无线蓝牙耳机 售价199 主打降噪","max_output_chars":2000}',
+ 'manual', NOW()),
+
+('PPT 一键生成', 'ppt-one-shot',
+ '一句话生成 20 页完整 PPT',
+ '输入主题即生成带大纲、配图建议、演讲备注的 PPT，支持导出。',
+ 'scene', (SELECT id FROM platforms WHERE slug='coze'),
+ 'https://www.coze.cn/store', NULL, '老吴评测组', '0.9.1', 'published', TRUE,
+ '{"provider":"coze","api_base":"https://api.coze.cn","bot_id":"REPLACE_WITH_BOT_ID_2","prompt_template":"请为主题生成PPT大纲与内容建议。主题：{{input}}","placeholder":"例如：Q3 电商运营复盘汇报","max_output_chars":2000}',
+ 'manual', NOW()),
+
+('周报生成器', 'weekly-report-gen',
+ '碎片化记录自动汇总成周报',
+ '把本周零散记录整理成结构化的周报，支持周报模板。',
+ 'scene', (SELECT id FROM platforms WHERE slug='coze'),
+ 'https://www.coze.cn/store', NULL, '老吴评测组', '1.0.0', 'published', FALSE, NULL, 'manual', NOW()),
+
+('记忆增强插件', 'memory-boost',
+ '让 AI 记住你说过的每句话',
+ '持久记忆 + 跨会话上下文，解决"AI 记不住我说过什么"。',
+ 'infrastructure', (SELECT id FROM platforms WHERE slug='hermes'),
+ 'https://hermes-agent.nousresearch.com/docs', NULL, 'Nous Research', '2.3.0', 'published', FALSE, NULL, 'manual', NOW()),
+
+('联网搜索助手', 'web-search-assistant',
+ 'AI 实时联网获取最新信息',
+ '接入搜索引擎 API，回答带来源引用，适合查最新资讯。',
+ 'infrastructure', (SELECT id FROM platforms WHERE slug='dify'),
+ 'https://dify.ai', NULL, '老吴评测组', '1.1.0', 'published', FALSE, NULL, 'manual', NOW()),
+
+('电商数据分析师', 'ecommerce-data-analyst',
+ '店铺数据一句话出分析结论',
+ '对接生意参谋/蝉妈妈数据，输出销售趋势与优化建议。',
+ 'scene', (SELECT id FROM platforms WHERE slug='qwen'),
+ 'https://tongyi.aliyun.com', NULL, '老吴评测组', '0.8.0', 'published', FALSE, NULL, 'manual', NOW()),
+
+('批量翻译工作流', 'batch-translate-workflow',
+ '100 个文件一键批量翻译',
+ '支持中英日韩四语互译，保留原格式输出。',
+ 'efficiency', (SELECT id FROM platforms WHERE slug='coze'),
+ 'https://www.coze.cn/store', NULL, '老吴评测组', '1.3.0', 'published', FALSE, NULL, 'manual', NOW()),
+
+('短视频脚本助手', 'short-video-script',
+ '3 秒生成爆款短视频脚本',
+ '输入主题输出分镜脚本 + 口播文案 + 标题建议。',
+ 'scene', (SELECT id FROM platforms WHERE slug='gpts'),
+ 'https://chatgpt.com/gpts', NULL, '老吴评测组', '1.0.0', 'published', FALSE, NULL, 'manual', NOW()),
+
+('商品主图生成', 'product-image-gen',
+ '商品图自动生成电商风格主图',
+ '输入商品描述生成白底图/场景图/卖点图。',
+ 'scene', (SELECT id FROM platforms WHERE slug='gpts'),
+ 'https://chatgpt.com/gpts', NULL, '老吴评测组', '0.7.0', 'published', FALSE, NULL, 'manual', NOW())
+ON CONFLICT (slug) DO NOTHING;
+
+-- 5.4 Skill × 场景 关联
+INSERT INTO skill_scenarios (skill_id, scenario_id) VALUES
+  ((SELECT id FROM skills WHERE slug='ecommerce-copy-master'), (SELECT id FROM scenarios WHERE slug='ecommerce-copy')),
+  ((SELECT id FROM skills WHERE slug='ppt-one-shot'),          (SELECT id FROM scenarios WHERE slug='ppt')),
+  ((SELECT id FROM skills WHERE slug='weekly-report-gen'),     (SELECT id FROM scenarios WHERE slug='weekly-report')),
+  ((SELECT id FROM skills WHERE slug='memory-boost'),          (SELECT id FROM scenarios WHERE slug='memory')),
+  ((SELECT id FROM skills WHERE slug='web-search-assistant'),  (SELECT id FROM scenarios WHERE slug='web-search')),
+  ((SELECT id FROM skills WHERE slug='ecommerce-data-analyst'),(SELECT id FROM scenarios WHERE slug='data-analysis')),
+  ((SELECT id FROM skills WHERE slug='batch-translate-workflow'),(SELECT id FROM scenarios WHERE slug='batch-translate')),
+  ((SELECT id FROM skills WHERE slug='short-video-script'),    (SELECT id FROM scenarios WHERE slug='short-video')),
+  ((SELECT id FROM skills WHERE slug='product-image-gen'),     (SELECT id FROM scenarios WHERE slug='poster'))
+ON CONFLICT DO NOTHING;
+
+-- 5.5 评测记录（含 5 问 + 综合评分）
+-- overall_score = 0.2*difficulty + 0.4*stability + 0.2*free_quota + 0.2*token_efficiency
+INSERT INTO evaluations (skill_id, scenario_summary, difficulty_score, difficulty_notes,
+                         stability_score, stability_notes, free_quota, free_quota_score,
+                         token_cost, token_efficiency_score, overall_score,
+                         evaluated_by, evaluation_method, test_cases, version_at_eval, evaluated_at) VALUES
+((SELECT id FROM skills WHERE slug='ecommerce-copy-master'),
+ '输入商品信息，生成淘宝/京东/抖音多平台电商文案',
+ 2, '无需配置，打开即用', 5, '同一商品跑 5 次，结构稳定无乱码', '免费额度充足，日常使用够', 4,
+ '约 2000 Token/次（约 ¥0.01）', 4, 4.5, '老吴', 'manual',
+ '[{"case":"蓝牙耳机文案","result":"四平台文案完整"},{"case":"茶叶礼盒文案","result":"卖点提取准确"}]',
+ '1.2.0', NOW() - INTERVAL '2 days'),
+
+((SELECT id FROM skills WHERE slug='ppt-one-shot'),
+ '输入主题一键生成 20 页 PPT 大纲与内容',
+ 3, '首次使用需授权', 4, '长文档偶有段落重复', '每日免费 3 次', 4,
+ '约 8000 Token/次', 3, 3.9, '老吴', 'manual',
+ '[{"case":"Q3复盘主题","result":"20页完整生成"}]', '0.9.1', NOW() - INTERVAL '5 days'),
+
+((SELECT id FROM skills WHERE slug='weekly-report-gen'),
+ '碎片记录自动汇总周报',
+ 2, '简单', 4, '中文长记录偶有遗漏', '免费', 5, '约 1500 Token/次', 4, 4.2,
+ '老吴', 'manual', '[{"case":"10条碎片记录","result":"周报结构清晰"}]', '1.0.0', NOW() - INTERVAL '3 days'),
+
+((SELECT id FROM skills WHERE slug='memory-boost'),
+ '跨会话持久记忆，AI 记住用户偏好',
+ 3, '需安装 Hermes 插件', 5, '非常稳定', '开源免费', 5, '本地运行 0 Token 成本', 5, 4.8,
+ '老吴', 'manual', '[{"case":"跨会话记住名字","result":"第二次会话仍记得"}]', '2.3.0', NOW() - INTERVAL '1 day'),
+
+((SELECT id FROM skills WHERE slug='web-search-assistant'),
+ '实时联网搜索带来源引用',
+ 2, '配置一个 API Key', 4, '搜索源偶尔失效', '有免费额度', 4, '约 1200 Token/次', 4, 4.0,
+ '老吴', 'manual', '[{"case":"查最新新闻","result":"带来源引用返回"}]', '1.1.0', NOW() - INTERVAL '4 days'),
+
+((SELECT id FROM skills WHERE slug='ecommerce-data-analyst'),
+ '店铺数据一句话出结论',
+ 4, '需对接生意参谋数据源', 3, '数据对接偶有延迟', '按量付费', 3, '约 3000 Token/次', 3, 3.3,
+ '老吴', 'manual', '[{"case":"月度销售数据","result":"趋势结论合理"}]', '0.8.0', NOW() - INTERVAL '6 days'),
+
+((SELECT id FROM skills WHERE slug='batch-translate-workflow'),
+ '批量文件翻译保留格式',
+ 3, '上传文件即可', 4, '复杂表格偶有错位', '免费', 5, '约 500 Token/文件', 4, 4.3,
+ '老吴', 'manual', '[{"case":"10个txt文件","result":"全部翻译成功"}]', '1.3.0', NOW() - INTERVAL '2 days'),
+
+((SELECT id FROM skills WHERE slug='short-video-script'),
+ '输入主题输出分镜脚本',
+ 2, '简单', 3, '爆款风格随机性大', '免费', 5, '约 2500 Token/次', 3, 3.6,
+ '老吴', 'manual', '[{"case":"美食探店主题","result":"脚本可用"}]', '1.0.0', NOW() - INTERVAL '7 days'),
+
+((SELECT id FROM skills WHERE slug='product-image-gen'),
+ '商品图生成电商风格主图',
+ 3, '英文提示词效果更好', 4, '中文提示词偶有偏差', '有免费额度', 4, '约 4000 Token/次', 3, 3.9,
+ '老吴', 'manual', '[{"case":"保温杯白底图","result":"可直接使用"}]', '0.7.0', NOW() - INTERVAL '5 days')
+ON CONFLICT DO NOTHING;
+
+-- 5.6 同类替代
+INSERT INTO skill_alternatives (skill_id, alternative_skill_id, note) VALUES
+  ((SELECT id FROM skills WHERE slug='ecommerce-copy-master'),
+   (SELECT id FROM skills WHERE slug='short-video-script'), '短视频脚本场景可替代'),
+  ((SELECT id FROM skills WHERE slug='ppt-one-shot'),
+   (SELECT id FROM skills WHERE slug='weekly-report-gen'), '轻量文档场景可替代'),
+  ((SELECT id FROM skills WHERE slug='web-search-assistant'),
+   (SELECT id FROM skills WHERE slug='memory-boost'), '都是基础设施增强类')
+ON CONFLICT DO NOTHING;
+
+-- 5.7 使用指南
+INSERT INTO guides (skill_id, content, difficulty_level) VALUES
+((SELECT id FROM skills WHERE slug='ecommerce-copy-master'),
+ '## 快速上手\n1. 打开扣子进入电商文案大师\n2. 输入商品名称/价格/卖点\n3. 选择目标平台（淘宝/京东/抖音）\n4. 复制生成的文案到商品后台\n\n## 技巧\n- 输入越具体，输出越精准\n- 卖点字段建议 3-5 个关键词',
+ 'beginner')
+ON CONFLICT DO NOTHING;
+
+-- 5.8 横评文章
+INSERT INTO comparison_articles (title, slug, scenario_id, content, skills_included, published_at, status) VALUES
+('10 个电商文案 Skill 实测对比：谁最能打？', 'ecommerce-copy-showdown',
+ (SELECT id FROM scenarios WHERE slug='ecommerce-copy'),
+ '## 评测方法\n本文对 10 个电商文案类 Skill 使用同一商品（无线蓝牙耳机）进行 5 次实测，对比生成速度、文案质量、平台覆盖。\n\n## 结论\n- 电商文案大师综合最佳（4.5 分）\n- 短视频脚本助手在抖音口播场景更有优势',
+ ARRAY[(SELECT id FROM skills WHERE slug='ecommerce-copy-master'),
+       (SELECT id FROM skills WHERE slug='short-video-script')],
+ NOW() - INTERVAL '1 day', 'published')
+ON CONFLICT (slug) DO NOTHING;
+
+-- 5.9 场景教程
+INSERT INTO tutorials (title, slug, scenario_id, content, published_at, status) VALUES
+('新手必装：5 个基础技能一次配齐', 'newbie-essential-skills',
+ (SELECT id FROM scenarios WHERE slug='infrastructure'),
+ '## 为什么先装基础设施类\nAI 记不住、不能联网、没有知识库，是新手最常遇到的三个坑。\n\n## 清单\n1. 记忆增强插件\n2. 联网搜索助手\n3. 知识库（推荐 Dify 自建）',
+ NOW() - INTERVAL '2 days', 'published')
+ON CONFLICT (slug) DO NOTHING;
+
+-- 5.10 场景方案（轻量工作流：做电商主图完整方案）
+INSERT INTO scenario_solutions (scenario_id, title, description, steps) VALUES
+((SELECT id FROM scenarios WHERE slug='ecommerce-copy'),
+ '做电商主图完整方案', '文案 → 生图 → 排版的轻量三步工作流',
+ jsonb_build_array(
+   jsonb_build_object('step', 1,
+     'skill_id', (SELECT id FROM skills WHERE slug='ecommerce-copy-master'),
+     'action', '生成商品文案', 'params', jsonb_build_object('platform', '淘宝')),
+   jsonb_build_object('step', 2,
+     'skill_id', (SELECT id FROM skills WHERE slug='product-image-gen'),
+     'action', '生成商品主图', 'params', jsonb_build_object('style', '白底图')),
+   jsonb_build_object('step', 3,
+     'skill_id', (SELECT id FROM skills WHERE slug='product-image-gen'),
+     'action', '生成卖点图', 'params', jsonb_build_object('style', '场景图'))
+ ))
+ON CONFLICT DO NOTHING;
+
+-- 5.11 站点配置（首页入口全部配置化）
+INSERT INTO site_config (config_key, config_value, description) VALUES
+('home_scenario_tags',
+ '[{"name":"做电商文案","slug":"ecommerce-copy"},{"name":"做PPT","slug":"ppt"},{"name":"做短视频","slug":"short-video"},{"name":"写代码","slug":"coding"},{"name":"数据分析","slug":"data-analysis"},{"name":"做海报","slug":"poster"},{"name":"客服Bot","slug":"customer-service-bot"},{"name":"写周报","slug":"weekly-report"}]'::jsonb,
+ '首页场景标签入口（入口2）'),
+('home_platforms',
+ '["coze","gpts","claude","dify","hermes","qwen","ernie","codex","workbuddy","lobechat"]'::jsonb,
+ '首页平台导航入口（入口3），按 platforms.sort_order 排序'),
+('featured_comparison',
+ '{"slug":"ecommerce-copy-showdown","title":"本周横评"}'::jsonb,
+ '首页横评推荐位（入口4）'),
+('trial_default_limit', '{"per_skill_daily":5,"global_daily":200}'::jsonb,
+ '试用配额默认值，ECS 中转 API 读取'),
+('install_categories',
+ '{"order":["infrastructure","scene","efficiency"]}'::jsonb,
+ '装机必备页能力层级展示顺序')
+ON CONFLICT (config_key) DO NOTHING;
+
+-- ============================================================
+-- 6. 完成检查（执行后应各返回 1 行）
+-- ============================================================
+SELECT 'platforms' AS table_name, count(*) FROM platforms
+UNION ALL SELECT 'scenarios', count(*) FROM scenarios
+UNION ALL SELECT 'skills', count(*) FROM skills
+UNION ALL SELECT 'evaluations', count(*) FROM evaluations
+UNION ALL SELECT 'site_config', count(*) FROM site_config
+UNION ALL SELECT 'skill_cards_view', count(*) FROM skill_cards_view;
