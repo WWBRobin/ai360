@@ -190,14 +190,14 @@ export function scoreToStars(score: number | null): string {
 
 // 分类标签
 export const CATEGORY_LABELS: Record<string, string> = {
-  infra: '装机必备',
+  infrastructure: '装机必备',
   scene: '场景应用',
   efficiency: '效率工具',
 }
 
 // 分类图标
 export const CATEGORY_ICONS: Record<string, string> = {
-  infra: '🔧',
+  infrastructure: '🔧',
   scene: '🎯',
   efficiency: '⚡',
 }

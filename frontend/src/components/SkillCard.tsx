@@ -11,7 +11,7 @@ export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <span className={`text-xs px-2 py-0.5 rounded ${
-                skill.category === 'infra' ? 'bg-blue-100 text-blue-600' :
+                skill.category === 'infrastructure' ? 'bg-blue-100 text-blue-600' :
                 skill.category === 'scene' ? 'bg-indigo-100 text-indigo-600' :
                 'bg-amber-100 text-amber-600'
               }`}>

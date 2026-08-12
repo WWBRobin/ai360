@@ -5,7 +5,7 @@ export interface SkillCard {
   slug: string
   tagline: string | null
   icon_url: string | null
-  category: 'infra' | 'scene' | 'efficiency'
+  category: 'infrastructure' | 'scene' | 'efficiency'
   platform_name: string
   platform_slug: string
   api_supported: boolean
@@ -26,7 +26,7 @@ export interface SkillDetail {
   slug: string
   tagline: string | null
   description: string | null
-  category: 'infra' | 'scene' | 'efficiency'
+  category: 'infrastructure' | 'scene' | 'efficiency'
   install_url: string
   icon_url: string | null
   developer_name: string | null

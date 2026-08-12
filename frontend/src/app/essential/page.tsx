@@ -101,7 +101,7 @@ const RECOMMENDATIONS: Recommendation[] = [
 ]
 
 export default async function EssentialPage() {
-  const allSkills: SkillCard[] = await getSkillsByCategory('infra')
+  const allSkills: SkillCard[] = await getSkillsByCategory('infrastructure')
 
   // 按 Tab 配置分组
   const tabs: EssentialTab[] = TAB_CONFIG.map((cfg) => ({

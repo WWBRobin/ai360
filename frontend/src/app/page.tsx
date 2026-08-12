@@ -80,7 +80,7 @@ export default async function HomePage() {
     getFeaturedSkills(6),
     getPlatforms(),
     getScenarios(),
-    getSkillsByCategory('infra'),
+    getSkillsByCategory('infrastructure'),
   ])
 
   // 深度指南文章列表（静态，构建期读取）
