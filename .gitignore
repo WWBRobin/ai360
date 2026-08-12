@@ -1,32 +1,26 @@
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+# 依赖
+node_modules/
+.next/
+out/
 
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# env files
+# 环境变量
 .env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*.local
 backend/.env
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# 系统
+.DS_Store
+*.log
+
+# 备份
+*.bak
+init.sql.bak
+
+# IDE
+.vscode/
+.idea/
+
+# 前端构建缓存
+frontend/.next/
+frontend/node_modules/
