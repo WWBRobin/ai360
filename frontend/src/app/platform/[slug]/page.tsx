@@ -1,15 +1,21 @@
-import { getSkillsByPlatform, getSkillsCountByPlatform, getPlatforms } from '@/lib/supabase'
-import SkillCardComponent from '@/components/SkillCard'
-import ScenarioFilter from '@/components/ScenarioFilter'
-import SelectionGuide from '@/components/SelectionGuide'
-import Pagination from '@/components/Pagination'
+import Link from 'next/link'
 import type { Metadata } from 'next'
-import type { SkillCard } from '@/types'
+import {
+  getSkillsByPlatform,
+  getSkillsCountByPlatform,
+  getPlatforms,
+  getScenarios,
+} from '@/lib/supabase'
+import SkillCardProto7 from '@/components/SkillCardProto7'
+import AppSidebar from '@/components/AppSidebar'
+import ScenarioTabs from '@/components/ScenarioTabs'
+import SubTags from '@/components/SubTags'
+import FilterBar from '@/components/FilterBar'
+import Pagination from '@/components/Pagination'
+import type { SkillCard, Platform } from '@/types'
 
-// Bug2: 平台页分页，每页 24 条（3列×8行）
 const PAGE_SIZE = 24
 
-// ISR：平台页每 10 分钟增量静态重新生成
 export const revalidate = 600
 
 type SortKey = 'recommended' | 'latest' | 'rating'
@@ -59,19 +65,9 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: {
-      canonical: `/platform/${slug}`,
-    },
-    openGraph: {
-      title: `${title} · AI360`,
-      description,
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: `${title} · AI360`,
-      description,
-    },
+    alternates: { canonical: `/platform/${slug}` },
+    openGraph: { title: `${title} · AI360`, description, type: 'website' },
+    twitter: { card: 'summary_large_image', title: `${title} · AI360`, description },
   }
 }
 
@@ -85,91 +81,201 @@ export default async function PlatformPage({
   const { slug } = await params
   const sp = await searchParams
   const sort = (typeof sp.sort === 'string' ? sp.sort : 'recommended') as SortKey
-
-  // Bug2: 分页参数
   const page = Math.max(1, parseInt(typeof sp.page === 'string' ? sp.page : '1', 10) || 1)
 
-  // 获取总数 + 当前页数据（并行）
-  const [totalCount, currentPageSkills, platforms] = await Promise.all([
+  const [totalCount, currentPageSkills, platforms, scenarios] = await Promise.all([
     getSkillsCountByPlatform(slug),
     getSkillsByPlatform(slug, PAGE_SIZE, (page - 1) * PAGE_SIZE),
     getPlatforms(),
+    getScenarios().catch(() => []),
   ])
   const platform = platforms.find((p) => p.slug === slug)
 
-  if (!platform) return <div className="max-w-7xl mx-auto px-4 py-20 text-center text-gray-400">平台不存在</div>
+  if (!platform) {
+    return (
+      <div className="flex min-h-screen relative">
+        <AppSidebar />
+        <main className="flex-1 min-w-0 relative z-10 px-8 py-20 text-center text-[#9CA3AF]">
+          平台不存在
+        </main>
+      </div>
+    )
+  }
 
   const totalPages = Math.ceil(totalCount / PAGE_SIZE)
   const skills = sortSkills(currentPageSkills, sort)
 
-  // 保留的查询参数（sort），给分页组件用
+  // 整体平均分（基于当前页数据的已评测项）
+  const evaluatedOnPage = currentPageSkills.filter((s) => s.overall_score != null)
+  const avgScore =
+    evaluatedOnPage.length > 0
+      ? evaluatedOnPage.reduce((sum, s) => sum + (s.overall_score ?? 0), 0) / evaluatedOnPage.length
+      : null
+  const testedCount = evaluatedOnPage.length
+
   const paginationParams: Record<string, string | undefined> = {
     sort: typeof sp.sort === 'string' ? sp.sort : undefined,
   }
 
+  // 场景 Tab + 二级标签数据
+  const sceneTabs = scenarios.length > 0
+    ? scenarios.map((s) => ({ slug: s.slug, name: s.name, count: s.skill_count ?? 0 }))
+    : []
+  const subTags = [
+    { id: 'all', icon: '★', label: '全部', count: totalCount },
+    ...scenarios.slice(0, 8).map((s) => ({
+      id: s.slug,
+      icon: '◆',
+      label: s.name,
+      count: s.skill_count ?? 0,
+    })),
+  ]
+
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      {/* 面包屑 */}
-      <div className="text-sm text-gray-400 mb-4">
-        <a href="/" className="hover:text-indigo-500">首页</a> / {platform.name}
-      </div>
+    <div className="flex min-h-screen relative">
+      <AppSidebar />
 
-      {/* 标题 */}
-      <h1 className="text-2xl font-bold mb-1">{platform.name}</h1>
-      <p className="text-gray-500 text-sm mb-2">{platform.description}</p>
-      <p className="text-sm text-gray-400 mb-6">{totalCount} 个已评测 Skill{totalPages > 1 && ` · 第 ${page}/${totalPages} 页`}</p>
+      <main className="flex-1 min-w-0 relative z-10 px-8 py-7 max-w-[1080px]">
+        {/* 面包屑 */}
+        <nav className="text-[12px] text-[#9CA3AF] mb-4">
+          <Link href="/" className="hover:text-[#7C3AED]">首页</Link>
+          <span> / </span>
+          <span className="text-[#6B7280]">{platform.name}</span>
+        </nav>
 
-      {/* 平台切换 */}
-      <div className="flex flex-wrap gap-2 mb-6">
-        {platforms.map((p) => (
-          <a
-            key={p.slug}
-            href={`/platform/${p.slug}`}
-            className={`px-3 py-1 text-sm rounded-lg transition ${
-              p.slug === slug
-                ? 'bg-indigo-500 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-            }`}
-          >
-            {p.name}
-          </a>
-        ))}
-      </div>
+        {/* 平台 Hero 区（glass-card） */}
+        <PlatformHero platform={platform} totalCount={totalCount} avgScore={avgScore} testedCount={testedCount} />
 
-      {/* 排序栏（平台页不需要平台筛选） */}
-      {totalCount > 0 && (
-        <div className="border-y border-gray-100">
-          <ScenarioFilter total={currentPageSkills.length} showPlatformFilter={false} />
-        </div>
-      )}
+        {/* 双行 Tab：场景 7 + 类型 4 */}
+        {sceneTabs.length > 0 && <ScenarioTabs scenes={sceneTabs} activeScene="" />}
 
-      {/* Skill 列表 */}
-      {skills.length > 0 ? (
-        <>
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {skills.map((skill) => (
-              <SkillCardComponent key={skill.id} skill={skill} />
-            ))}
+        {/* 二级横排标签（场景维度筛选） */}
+        <SubTags tags={subTags} />
+
+        {/* 排序栏 */}
+        <FilterBar total={currentPageSkills.length} showPlatformFilter={false} />
+
+        {/* Skill 卡片网格（双列） */}
+        {skills.length > 0 ? (
+          <>
+            <div className="mt-3 grid grid-cols-1 lg:grid-cols-2 gap-4">
+              {skills.map((skill) => (
+                <SkillCardProto7 key={skill.id} skill={skill} />
+              ))}
+            </div>
+            <Pagination
+              currentPage={page}
+              totalPages={totalPages}
+              basePath={`/platform/${slug}`}
+              searchParams={paginationParams}
+            />
+          </>
+        ) : (
+          <div className="text-center py-20">
+            <div className="text-5xl mb-4">📦</div>
+            <p className="text-[#9CA3AF]">该平台暂无已评测 Skill</p>
+            <p className="text-[#9CA3AF] text-sm mt-2">我们正在持续收录中</p>
           </div>
+        )}
+      </main>
+    </div>
+  )
+}
 
-          {/* Bug2: 分页 */}
-          <Pagination
-            currentPage={page}
-            totalPages={totalPages}
-            basePath={`/platform/${slug}`}
-            searchParams={paginationParams}
-          />
-        </>
-      ) : (
-        <div className="text-center py-20">
-          <div className="text-5xl mb-4">📦</div>
-          <p className="text-gray-400">该平台暂无已评测 Skill</p>
-          <p className="text-gray-400 text-sm mt-2">我们正在持续收录中</p>
+/**
+ * 平台 Hero 区组件（glass-card）
+ * 对齐 proto7-platform.html 的 .hero：大 Logo + H1 + 描述 + 整体评分徽章 + stats
+ */
+function PlatformHero({
+  platform,
+  totalCount,
+  avgScore,
+  testedCount,
+}: {
+  platform: Platform
+  totalCount: number
+  avgScore: number | null
+  testedCount: number
+}) {
+  return (
+    <div className="glass-card p-7 mb-6 flex items-start gap-5 flex-wrap">
+      {/* 大 Logo 占位 */}
+      <div
+        className="w-[72px] h-[72px] rounded-[18px] flex items-center justify-center text-[34px] font-extrabold text-white shrink-0"
+        style={{
+          background: 'linear-gradient(135deg,#7C3AED,#6D28D9)',
+          boxShadow: '0 6px 18px rgba(124,58,237,0.30)',
+        }}
+      >
+        {platform.name.charAt(0).toUpperCase()}
+      </div>
+
+      <div className="flex-1 min-w-0">
+        <h1 className="text-[26px] font-bold text-[#1A1A1A] mb-1.5" style={{ letterSpacing: '-0.5px' }}>
+          {platform.name}
+        </h1>
+        {platform.description && (
+          <p className="text-[15px] font-semibold text-[#7C3AED] mb-2">{platform.description}</p>
+        )}
+        <p className="text-[14px] text-[#6B7280] max-w-[680px] mb-3 leading-[1.7]">
+          {platform.name}平台共 {totalCount} 个工具与技能，覆盖编程、写作、研究、运维全场景。
+        </p>
+
+        {/* 链接 */}
+        <div className="flex gap-2.5 flex-wrap items-center mb-3">
+          {platform.base_url && (
+            <a
+              href={platform.base_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#FAFAFA] text-[12px] text-[#6B7280] transition hover:bg-[#F0F0F0] hover:text-[#1A1A1A]"
+            >
+              官网 ↗
+            </a>
+          )}
+          {platform.api_supported && (
+            <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#FAFAFA] text-[12px] text-[#6B7280]">
+              支持 API
+            </span>
+          )}
+        </div>
+
+        {/* stats */}
+        <div className="flex gap-7 pt-3 border-t border-[#EEF0F3]">
+          <Stat label="工具总数" value={String(totalCount)} />
+          <Stat label="AI360 实测" value={String(testedCount)} />
+          {avgScore != null && (
+            <Stat label="平均得分" value={avgScore.toFixed(1)} highlight />
+          )}
+        </div>
+      </div>
+
+      {/* 整体评分徽章 */}
+      {avgScore != null && (
+        <div className="flex flex-col items-end gap-3 shrink-0">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[rgba(237,233,254,0.6)] border border-[rgba(124,58,237,0.18)] backdrop-blur">
+            <span className="text-[22px] font-extrabold text-[#7C3AED]">{avgScore.toFixed(1)}</span>
+            <span className="text-[11px] text-[#9CA3AF] leading-[1.3]">
+              整体
+              <br />
+              评分
+            </span>
+          </div>
         </div>
       )}
+    </div>
+  )
+}
 
-      {/* 底部选型建议：仅第一页展示（基于当前页数据，避免全量加载） */}
-      {skills.length > 0 && page === 1 && <SelectionGuide skills={currentPageSkills} />}
+function Stat({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
+  return (
+    <div className="text-[12px] text-[#9CA3AF]">
+      <strong
+        className={`text-[18px] font-bold block mb-0.5 ${highlight ? 'text-[#7C3AED]' : 'text-[#1A1A1A]'}`}
+      >
+        {value}
+      </strong>
+      {label}
     </div>
   )
 }

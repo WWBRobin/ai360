@@ -24,14 +24,12 @@ export default function CompareClient({
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  // 选中项用 slug 去重维护；SkillDetail 列表作为真相源
   const [selected, setSelected] = useState<SkillDetail[]>(initialSelected)
   const [query, setQuery] = useState('')
   const [showDropdown, setShowDropdown] = useState(false)
 
   const selectedSlugs = useMemo(() => selected.map((s) => s.slug), [selected])
 
-  // 同步 URL（slugs 查询参数），便于分享/刷新
   const syncUrl = useCallback(
     (slugs: string[]) => {
       const params = new URLSearchParams(searchParams.toString())
@@ -46,7 +44,6 @@ export default function CompareClient({
     [router, searchParams]
   )
 
-  // 添加 Skill（从候选池找卡片，转成精简 detail 形态）
   const addSkill = useCallback(
     (card: SkillCard) => {
       setSelected((prev) => {
@@ -63,7 +60,6 @@ export default function CompareClient({
     [maxSelect, syncUrl]
   )
 
-  // 移除 Skill
   const removeSkill = useCallback(
     (slug: string) => {
       setSelected((prev) => {
@@ -75,13 +71,11 @@ export default function CompareClient({
     [syncUrl]
   )
 
-  // 清空
   const clearAll = useCallback(() => {
     setSelected([])
     syncUrl([])
   }, [syncUrl])
 
-  // 过滤候选（搜索 + 排除已选）
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
     return candidates
@@ -98,128 +92,117 @@ export default function CompareClient({
 
   return (
     <div>
-      {/* ===== 选择器 ===== */}
-      <section className="mb-8">
-        <div className="bg-white rounded-2xl border border-gray-200 p-5">
-          <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
-            <h2 className="font-bold text-gray-900 flex items-center gap-2">
-              <span>🎯</span> 选择要对比的 Skill
-              <span className="text-xs font-normal text-gray-400">
-                （{selected.length}/{maxSelect}）
-              </span>
-            </h2>
-            {selected.length > 0 && (
-              <button
-                onClick={clearAll}
-                className="text-xs text-gray-400 hover:text-red-500 transition"
+      {/* ===== 工具选择器（glass-card） ===== */}
+      <section className="glass-card p-5 mb-7">
+        <div className="flex items-center justify-between mb-3.5 flex-wrap gap-2">
+          <div className="text-[12px] font-bold text-[#000] uppercase tracking-wide">
+            已选工具
+            <span className="text-[12px] font-normal text-[#aaa] normal-case ml-2">
+              （{selected.length}/{maxSelect}）
+            </span>
+          </div>
+          {selected.length > 0 && (
+            <button onClick={clearAll} className="text-[12px] text-[#aaa] hover:text-red-500 transition">
+              清空全部
+            </button>
+          )}
+        </div>
+
+        {/* 搜索 + 下拉 */}
+        <div className="relative mb-4">
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value)
+              setShowDropdown(true)
+            }}
+            onFocus={() => setShowDropdown(true)}
+            onBlur={() => setTimeout(() => setShowDropdown(false), 150)}
+            placeholder={
+              selected.length >= maxSelect
+                ? `已达上限（${maxSelect} 个），移除一个后再添加`
+                : '搜索并添加 Skill…'
+            }
+            disabled={selected.length >= maxSelect}
+            className="w-full px-4 py-2.5 text-[13px] bg-[#F5F3FF]/70 border border-[#eee] rounded-xl focus:outline-none focus:border-[#7C3AED] focus:bg-white transition disabled:opacity-50 disabled:cursor-not-allowed"
+          />
+          {showDropdown && selected.length < maxSelect && (
+            <div className="absolute z-20 mt-1 w-full bg-white border border-[#eee] rounded-xl shadow-lg max-h-72 overflow-y-auto">
+              {filtered.length > 0 ? (
+                filtered.map((c) => (
+                  <button
+                    key={c.slug}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => addSkill(c)}
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-[#F5F3FF] transition border-b border-gray-50 last:border-0"
+                  >
+                    <span className="text-lg flex-shrink-0">
+                      {c.icon_url ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={c.icon_url} alt="" className="w-6 h-6 rounded-md object-cover" />
+                      ) : (
+                        CATEGORY_ICONS[c.category] || '🧩'
+                      )}
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-[13px] font-medium text-gray-800 truncate">{c.name}</div>
+                      <div className="text-[12px] text-gray-400 truncate">
+                        {c.platform_name}
+                        {c.tagline ? ` · ${c.tagline}` : ''}
+                      </div>
+                    </div>
+                    {c.overall_score != null && (
+                      <span className="text-[12px] text-[#7C3AED] flex-shrink-0">⭐{c.overall_score.toFixed(1)}</span>
+                    )}
+                    <span className="text-[#7C3AED] text-sm flex-shrink-0">+</span>
+                  </button>
+                ))
+              ) : (
+                <div className="px-4 py-6 text-center text-[13px] text-gray-400">
+                  {query ? `没有找到"${query}"` : '输入关键词搜索'}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* 已选 chips（chip 样式：圆角 + × 移除） */}
+        {selected.length > 0 ? (
+          <div className="flex flex-wrap gap-2.5">
+            {selected.map((s) => (
+              <span
+                key={s.slug}
+                className="inline-flex items-center gap-2 bg-[#F5F3FF]/70 border border-[#eee] rounded-full px-4 py-2 text-[13px] text-[#333] font-medium"
               >
-                清空全部
+                <Link href={`/skill/${s.slug}`} className="flex items-center gap-1.5 hover:text-[#7C3AED] transition">
+                  {s.name}
+                  <span className="text-[11px] text-[#aaa]">{s.platform_name}</span>
+                </Link>
+                <button
+                  onClick={() => removeSkill(s.slug)}
+                  className="w-4 h-4 rounded-full bg-[#ccc] text-white flex items-center justify-center text-[10px] hover:bg-red-600 transition ml-1"
+                  aria-label={`移除 ${s.name}`}
+                >
+                  ×
+                </button>
+              </span>
+            ))}
+            {selected.length < maxSelect && (
+              <button
+                onClick={() => {
+                  const input = document.querySelector<HTMLInputElement>('input[type="text"]')
+                  input?.focus()
+                }}
+                className="inline-flex items-center gap-1.5 bg-white border border-dashed border-[#ccc] rounded-full px-4 py-2 text-[13px] text-[#999] hover:border-[#7C3AED] hover:text-[#7C3AED] transition"
+              >
+                + 添加工具
               </button>
             )}
           </div>
-
-          {/* 搜索 + 下拉 */}
-          <div className="relative mb-4">
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => {
-                setQuery(e.target.value)
-                setShowDropdown(true)
-              }}
-              onFocus={() => setShowDropdown(true)}
-              onBlur={() => setTimeout(() => setShowDropdown(false), 150)}
-              placeholder={
-                selected.length >= maxSelect
-                  ? `已达上限（${maxSelect} 个），移除一个后再添加`
-                  : '搜索并添加 Skill…'
-              }
-              disabled={selected.length >= maxSelect}
-              className="w-full px-4 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-indigo-400 focus:bg-white transition disabled:opacity-50 disabled:cursor-not-allowed"
-            />
-
-            {showDropdown && selected.length < maxSelect && (
-              <div className="absolute z-20 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg max-h-72 overflow-y-auto">
-                {filtered.length > 0 ? (
-                  filtered.map((c) => (
-                    <button
-                      key={c.slug}
-                      onMouseDown={(e) => e.preventDefault()}
-                      onClick={() => addSkill(c)}
-                      className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-indigo-50 transition border-b border-gray-50 last:border-0"
-                    >
-                      <span className="text-lg flex-shrink-0">
-                        {c.icon_url ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            src={c.icon_url}
-                            alt=""
-                            className="w-6 h-6 rounded-md object-cover"
-                          />
-                        ) : (
-                          CATEGORY_ICONS[c.category] || '🧩'
-                        )}
-                      </span>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-sm font-medium text-gray-800 truncate">
-                          {c.name}
-                        </div>
-                        <div className="text-xs text-gray-400 truncate">
-                          {c.platform_name}
-                          {c.tagline ? ` · ${c.tagline}` : ''}
-                        </div>
-                      </div>
-                      {c.overall_score != null && (
-                        <span className="text-xs text-amber-500 flex-shrink-0">
-                          ⭐{c.overall_score.toFixed(1)}
-                        </span>
-                      )}
-                      <span className="text-indigo-400 text-sm flex-shrink-0">+</span>
-                    </button>
-                  ))
-                ) : (
-                  <div className="px-4 py-6 text-center text-sm text-gray-400">
-                    {query ? `没有找到"${query}"` : '输入关键词搜索'}
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* 已选 chips */}
-          {selected.length > 0 ? (
-            <div className="flex flex-wrap gap-2">
-              {selected.map((s) => (
-                <span
-                  key={s.slug}
-                  className="inline-flex items-center gap-2 bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-lg text-sm"
-                >
-                  <span className="text-base">
-                    {CATEGORY_ICONS[s.category] || '🧩'}
-                  </span>
-                  <Link
-                    href={`/skill/${s.slug}`}
-                    className="font-medium hover:underline"
-                  >
-                    {s.name}
-                  </Link>
-                  <span className="text-xs text-indigo-300">{s.platform_name}</span>
-                  <button
-                    onClick={() => removeSkill(s.slug)}
-                    className="ml-1 text-indigo-300 hover:text-red-500 transition"
-                    aria-label={`移除 ${s.name}`}
-                  >
-                    ✕
-                  </button>
-                </span>
-              ))}
-            </div>
-          ) : (
-            <p className="text-sm text-gray-400">
-              还没有选择。在上方搜索框输入 Skill 名称开始对比。
-            </p>
-          )}
-        </div>
+        ) : (
+          <p className="text-[13px] text-[#999]">还没有选择。在上方搜索框输入 Skill 名称开始对比。</p>
+        )}
       </section>
 
       {/* ===== 对比结果 ===== */}
@@ -232,238 +215,204 @@ export default function CompareClient({
   )
 }
 
-// ===== 对比表格 =====
+// ===== 对比表格（斑马纹 + 胜出高亮）=====
 
 function CompareTable({ selected }: { selected: SkillDetail[] }) {
-  // 计算每个维度（越高越好）的"最佳" winner slug
   const bestOverall = pickBest(selected, (s) => s.overall_score)
   const bestDifficulty = pickBest(selected, (s) => s.difficulty_score)
   const bestStability = pickBest(selected, (s) => s.stability_score)
 
   return (
     <section>
-      <div className="mb-4 flex items-center justify-between flex-wrap gap-2">
-        <h2 className="font-bold text-gray-900 flex items-center gap-2">
-          <span>📋</span> 五问评测对比
+      <div className="mb-4 flex items-center gap-2 flex-wrap">
+        <h2 className="text-[17px] font-bold text-[#000] flex items-center gap-2">
+          多维对比
         </h2>
-        <p className="text-xs text-gray-400">
-          <span className="inline-block w-2.5 h-2.5 bg-green-100 border border-green-300 rounded mr-1 align-middle" />
-          绿底 = 该维度最佳
-        </p>
+        <span className="text-[12px] text-[#aaa]">
+          <span className="text-[#16a34a] font-bold">⬆</span> 为优势项 · 紫色高亮为胜出
+        </span>
       </div>
 
-      <div className="overflow-x-auto -mx-4 px-4">
-        <table className="w-full border-collapse text-sm min-w-[640px]">
-          <tbody>
-            {/* 表头：Skill 名 */}
-            <tr>
-              <th className="sticky left-0 z-10 bg-white w-32 min-w-[8rem] align-bottom text-left p-3 border-b border-gray-200">
-                <span className="text-xs text-gray-400 font-normal">对比项</span>
-              </th>
-              {selected.map((s) => (
-                <th
-                  key={s.slug}
-                  className="align-bottom text-left p-3 border-b border-gray-200 min-w-[200px]"
-                >
-                  <div className="flex items-start gap-2">
-                    <span className="text-xl flex-shrink-0">
-                      {s.icon_url ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={s.icon_url}
-                          alt=""
-                          className="w-7 h-7 rounded-lg object-cover"
-                        />
-                      ) : (
-                        CATEGORY_ICONS[s.category] || '🧩'
-                      )}
-                    </span>
-                    <div className="min-w-0">
-                      <Link
-                        href={`/skill/${s.slug}`}
-                        className="font-bold text-gray-900 hover:text-indigo-600 transition block truncate"
-                      >
-                        {s.name}
-                      </Link>
-                      <span className="text-xs text-gray-400">
-                        {s.platform_name}
-                      </span>
-                    </div>
-                  </div>
+      {/* 表格容器（glass-card） */}
+      <div className="glass-card overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse text-[14px] min-w-[640px]">
+            <tbody>
+              {/* 表头：Skill 名（紫底） */}
+              <tr>
+                <th className="sticky left-0 z-10 bg-[rgba(245,243,255,0.6)] w-[170px] min-w-[170px] align-bottom text-left p-3.5 text-[12px] font-semibold text-[#000] uppercase tracking-wide border-b border-[#f0f0f0]">
+                  维度
                 </th>
-              ))}
-            </tr>
-
-            {/* 综合评分 */}
-            <Row
-              label="综合评分"
-              highlight={bestOverall}
-              selected={selected}
-              cell={(s) =>
-                s.overall_score != null ? (
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-amber-400 text-xs">
-                      {scoreToStars(s.overall_score)}
-                    </span>
-                    <span className="font-semibold text-gray-800">
-                      {s.overall_score.toFixed(1)}
-                    </span>
-                    <span className="text-gray-400 text-xs">/5</span>
-                  </div>
-                ) : (
-                  <span className="text-gray-400">—</span>
-                )
-              }
-            />
-
-            {/* Q1 场景 */}
-            <Row
-              label="① 解决什么场景"
-              selected={selected}
-              cell={(s) =>
-                s.scenario_summary ? (
-                  <p className="text-gray-600 leading-relaxed">{s.scenario_summary}</p>
-                ) : (
-                  <span className="text-gray-400">暂无</span>
-                )
-              }
-            />
-
-            {/* Q2 上手难度 */}
-            <Row
-              label="② 上手难度"
-              highlight={bestDifficulty}
-              selected={selected}
-              cell={(s) =>
-                s.difficulty_score != null ? (
-                  <div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-amber-400 text-xs">
-                        {scoreToStars(s.difficulty_score)}
-                      </span>
-                      <span className="font-medium text-gray-800">
-                        {s.difficulty_score}/5
-                      </span>
-                    </div>
-                    {s.difficulty_notes && (
-                      <p className="text-gray-500 text-xs mt-1">{s.difficulty_notes}</p>
-                    )}
-                  </div>
-                ) : (
-                  <span className="text-gray-400">暂无评分</span>
-                )
-              }
-            />
-
-            {/* Q3 稳定性 */}
-            <Row
-              label="③ 输出稳定性"
-              highlight={bestStability}
-              selected={selected}
-              cell={(s) =>
-                s.stability_score != null ? (
-                  <div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-amber-400 text-xs">
-                        {scoreToStars(s.stability_score)}
-                      </span>
-                      <span className="font-medium text-gray-800">
-                        {s.stability_score}/5
-                      </span>
-                    </div>
-                    {s.stability_notes && (
-                      <p className="text-gray-500 text-xs mt-1">{s.stability_notes}</p>
-                    )}
-                  </div>
-                ) : (
-                  <span className="text-gray-400">暂无评分</span>
-                )
-              }
-            />
-
-            {/* Q4 免费额度 */}
-            <Row
-              label="④ 免费额度"
-              selected={selected}
-              cell={(s) =>
-                s.free_quota ? (
-                  <span className="font-medium text-green-600">{s.free_quota}</span>
-                ) : (
-                  <span className="text-gray-400">未提供</span>
-                )
-              }
-            />
-
-            {/* Q5 Token 成本 */}
-            <Row
-              label="⑤ Token 成本"
-              selected={selected}
-              cell={(s) =>
-                s.token_cost ? (
-                  <span className="text-gray-700">{s.token_cost}</span>
-                ) : (
-                  <span className="text-gray-400">暂无</span>
-                )
-              }
-            />
-
-            {/* 分类 */}
-            <Row
-              label="分类"
-              selected={selected}
-              cell={(s) => (
-                <span
-                  className={`text-xs px-2 py-0.5 rounded ${
-                    s.category === 'infrastructure'
-                      ? 'bg-blue-100 text-blue-600'
-                      : s.category === 'scene'
-                      ? 'bg-indigo-100 text-indigo-600'
-                      : 'bg-amber-100 text-amber-600'
-                  }`}
-                >
-                  {CATEGORY_ICONS[s.category]} {CATEGORY_LABELS[s.category] || s.category}
-                </span>
-              )}
-            />
-
-            {/* 试用 */}
-            <Row
-              label="在线试用"
-              selected={selected}
-              cell={(s) =>
-                s.trial_enabled ? (
-                  <Link
-                    href={`/skill/${s.slug}`}
-                    className="text-xs bg-indigo-50 text-indigo-600 px-2.5 py-1 rounded-lg font-medium inline-block"
+                {selected.map((s) => (
+                  <th
+                    key={s.slug}
+                    className="align-bottom text-left p-3.5 border-b border-[#f0f0f0] min-w-[200px]"
                   >
-                    支持试用 →
-                  </Link>
-                ) : (
-                  <span className="text-xs text-gray-400">不支持</span>
-                )
-              }
-            />
+                    <div className="text-[15px] font-bold text-[#000] mb-1.5">{s.name}</div>
+                    <div className="flex gap-1 flex-wrap mb-1.5">
+                      <span className="tag tag-official">{s.platform_name}</span>
+                      {s.overall_score != null && (
+                        <span className="tag tag-tested">实测 {s.overall_score.toFixed(1)}</span>
+                      )}
+                    </div>
+                    <div className="text-[11px] text-[#aaa]">{CATEGORY_LABELS[s.category] || s.category}</div>
+                  </th>
+                ))}
+              </tr>
 
-            {/* 操作：安装 */}
-            <Row
-              label="安装"
-              selected={selected}
-              cell={(s) => (
-                <a
-                  href={s.install_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block text-xs px-3 py-1.5 text-white bg-gray-900 rounded-lg hover:bg-gray-800 transition"
-                >
-                  去 {s.platform_name} →
-                </a>
-              )}
-            />
-          </tbody>
-        </table>
+              {/* 综合评分 */}
+              <Row
+                label="综合评分"
+                highlight={bestOverall}
+                selected={selected}
+                zebra={1}
+                cell={(s) =>
+                  s.overall_score != null ? (
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[#7C3AED] text-xs">{scoreToStars(s.overall_score)}</span>
+                      <span className="font-semibold text-gray-800">{s.overall_score.toFixed(1)}</span>
+                      <span className="text-gray-400 text-xs">/5</span>
+                    </div>
+                  ) : (
+                    <span className="text-gray-400">—</span>
+                  )
+                }
+              />
+
+              {/* Q1 场景 */}
+              <Row
+                label="① 解决什么场景"
+                selected={selected}
+                zebra={2}
+                cell={(s) =>
+                  s.scenario_summary ? (
+                    <p className="text-gray-600 leading-relaxed">{s.scenario_summary}</p>
+                  ) : (
+                    <span className="text-gray-400">暂无</span>
+                  )
+                }
+              />
+
+              {/* Q2 上手难度 */}
+              <Row
+                label="② 上手难度"
+                highlight={bestDifficulty}
+                selected={selected}
+                zebra={1}
+                cell={(s) =>
+                  s.difficulty_score != null ? (
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[#7C3AED] text-xs">{scoreToStars(s.difficulty_score)}</span>
+                        <span className="font-medium text-gray-800">{s.difficulty_score}/5</span>
+                      </div>
+                      {s.difficulty_notes && <p className="text-gray-500 text-xs mt-1">{s.difficulty_notes}</p>}
+                    </div>
+                  ) : (
+                    <span className="text-gray-400">暂无评分</span>
+                  )
+                }
+              />
+
+              {/* Q3 稳定性 */}
+              <Row
+                label="③ 输出稳定性"
+                highlight={bestStability}
+                selected={selected}
+                zebra={2}
+                cell={(s) =>
+                  s.stability_score != null ? (
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[#7C3AED] text-xs">{scoreToStars(s.stability_score)}</span>
+                        <span className="font-medium text-gray-800">{s.stability_score}/5</span>
+                      </div>
+                      {s.stability_notes && <p className="text-gray-500 text-xs mt-1">{s.stability_notes}</p>}
+                    </div>
+                  ) : (
+                    <span className="text-gray-400">暂无评分</span>
+                  )
+                }
+              />
+
+              {/* Q4 免费额度 */}
+              <Row
+                label="④ 免费额度"
+                selected={selected}
+                zebra={1}
+                cell={(s) =>
+                  s.free_quota ? (
+                    <span className="font-medium text-[#16a34a]">{s.free_quota}</span>
+                  ) : (
+                    <span className="text-gray-400">未提供</span>
+                  )
+                }
+              />
+
+              {/* Q5 Token 成本 */}
+              <Row
+                label="⑤ Token 成本"
+                selected={selected}
+                zebra={2}
+                cell={(s) =>
+                  s.token_cost ? <span className="text-gray-700">{s.token_cost}</span> : <span className="text-gray-400">暂无</span>
+                }
+              />
+
+              {/* 分类 */}
+              <Row
+                label="分类"
+                selected={selected}
+                zebra={1}
+                cell={(s) => (
+                  <span className="text-xs px-2 py-0.5 rounded tag-free">
+                    {CATEGORY_ICONS[s.category]} {CATEGORY_LABELS[s.category] || s.category}
+                  </span>
+                )}
+              />
+
+              {/* 试用 */}
+              <Row
+                label="在线试用"
+                selected={selected}
+                zebra={2}
+                cell={(s) =>
+                  s.trial_enabled ? (
+                    <Link
+                      href={`/skill/${s.slug}`}
+                      className="text-[12px] bg-[#F5F3FF] text-[#7C3AED] px-2.5 py-1 rounded-lg font-medium inline-block"
+                    >
+                      支持试用 →
+                    </Link>
+                  ) : (
+                    <span className="text-[12px] text-gray-400">不支持</span>
+                  )
+                }
+              />
+
+              {/* 安装 */}
+              <Row
+                label="安装"
+                selected={selected}
+                zebra={1}
+                cell={(s) => (
+                  <a
+                    href={s.install_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block btn-metal text-[12px] px-3 py-1.5"
+                  >
+                    去 {s.platform_name} →
+                  </a>
+                )}
+              />
+            </tbody>
+          </table>
+        </div>
       </div>
+      <p className="text-[12px] text-[#aaa] mt-3">数据基于 AI360 实测。胜出项以紫色高亮 + ⬆ 标注。</p>
 
-      {/* 结论提示 */}
+      {/* 结论区（glass-card + 紫顶条） */}
       <ConclusionBar
         selected={selected}
         bestOverall={bestOverall}
@@ -474,39 +423,53 @@ function CompareTable({ selected }: { selected: SkillDetail[] }) {
   )
 }
 
-// ===== 单行（横向对比一项维度）=====
+// ===== 单行（斑马纹 + 胜出高亮）=====
 
 function Row({
   label,
   selected,
   cell,
   highlight,
+  zebra,
 }: {
   label: string
   selected: SkillDetail[]
   cell: (s: SkillDetail) => React.ReactNode
   highlight?: string | null
+  zebra?: number
 }) {
+  // 斑马纹：奇数行 #F8F7FC，偶数行透明
+  const baseBg = zebra === 1 ? '#F8F7FC' : 'rgba(255,255,255,0.4)'
   return (
-    <tr className="hover:bg-gray-50/50 transition">
-      <th className="sticky left-0 z-10 bg-white bg-inherit text-left p-3 border-b border-gray-100 text-xs font-medium text-gray-500 align-top whitespace-nowrap">
+    <tr className="transition">
+      <th
+        className="sticky left-0 z-10 text-left p-3.5 border-b border-[#f0f0f0] text-[12px] font-semibold text-[#000] uppercase tracking-wide align-top whitespace-nowrap"
+        style={{ background: baseBg }}
+      >
         {label}
       </th>
-      {selected.map((s) => (
-        <td
-          key={s.slug}
-          className={`p-3 border-b border-gray-100 align-top ${
-            highlight && highlight === s.slug ? 'bg-green-50' : ''
-          }`}
-        >
-          {cell(s)}
-        </td>
-      ))}
+      {selected.map((s) => {
+        const isBest = highlight && highlight === s.slug
+        return (
+          <td
+            key={s.slug}
+            className="p-3.5 border-b border-[#f0f0f0] align-top"
+            style={{
+              background: isBest ? 'rgba(124,58,237,0.08)' : baseBg,
+              color: isBest ? '#16a34a' : undefined,
+              fontWeight: isBest ? 700 : undefined,
+            }}
+          >
+            {isBest && <span className="text-[#16a34a] mr-1">⬆</span>}
+            {cell(s)}
+          </td>
+        )
+      })}
     </tr>
   )
 }
 
-// ===== 结论栏 =====
+// ===== 结论区（glass-card + 紫色顶条 + 渐变标题）=====
 
 function ConclusionBar({
   selected,
@@ -520,48 +483,78 @@ function ConclusionBar({
   bestStability: string | null
 }) {
   const winner = selected.find((s) => s.slug === bestOverall)
-  if (!winner) return null
+  const winnerName = winner?.name
+  const winnerScore = winner?.overall_score?.toFixed(1)
+  const easiestName = selected.find((s) => s.slug === bestDifficulty)?.name
+  const stableName = selected.find((s) => s.slug === bestStability)?.name
+
+  const items = [
+    {
+      label: `最佳综合 · ${winnerName || ''}`,
+      text:
+        winner && winnerScore
+          ? `综合评分最高（${winnerScore}/5）。如果你不确定选哪个，选它通常不会错。`
+          : '暂无综合评分数据。',
+      show: !!winnerName,
+    },
+    {
+      label: '上手最简单',
+      text: easiestName ? `${easiestName} 的上手难度评分最高，新手友好。` : '暂无上手难度数据。',
+      show: !!easiestName,
+    },
+    {
+      label: '输出最稳定',
+      text: stableName ? `${stableName} 的输出稳定性评分最高，适合对一致性要求高的场景。` : '暂无稳定性数据。',
+      show: !!stableName,
+    },
+    {
+      label: '一句话建议',
+      text: '综合评分高不一定最适合你。如果你的核心诉求是"好上手"或"免费够用"，优先看对应维度。',
+      show: true,
+    },
+  ].filter((x) => x.show)
 
   return (
-    <div className="mt-6 bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-2xl p-5">
-      <div className="flex items-start gap-3">
-        <span className="text-2xl flex-shrink-0">💡</span>
-        <div className="text-sm text-gray-700 leading-relaxed">
-          <p className="font-medium text-gray-900 mb-1">对比结论</p>
-          <p>
-            综合评分最高：
-            <Link
-              href={`/skill/${winner.slug}`}
-              className="text-indigo-600 font-medium hover:underline mx-0.5"
+    <section className="mt-8">
+      <h2 className="text-[17px] font-bold text-[#000] mb-4 flex items-center gap-2">
+        AI360 评测结论 <span className="text-[12px] text-[#aaa] font-normal">实测推荐</span>
+      </h2>
+      <div
+        className="glass-card p-7 relative overflow-hidden"
+        style={{ background: 'rgba(255,255,255,0.7)', boxShadow: '0 4px 24px rgba(124,58,237,0.08),0 8px 32px rgba(0,0,0,0.05)' }}
+      >
+        {/* 紫色顶条 */}
+        <div
+          className="absolute top-0 left-0 right-0 h-[5px]"
+          style={{ background: 'linear-gradient(135deg,#7C3AED,#6366F1)' }}
+        />
+        <h3
+          className="text-[22px] font-bold mb-1.5"
+          style={{
+            background: 'linear-gradient(135deg,#7C3AED,#6366F1)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            letterSpacing: '0.02em',
+          }}
+        >
+          最终推荐
+        </h3>
+        <p className="text-[13px] text-[#aaa] mb-5">基于多维度实测对比，按场景给出选型建议</p>
+
+        {items.map((it, i) => (
+          <div key={i} className="py-4 border-b border-[#f0f0f0] last:border-b-0">
+            <div
+              className="inline-flex items-center text-[12px] font-bold text-white uppercase tracking-wide mb-2 px-3 py-1 rounded-md"
+              style={{ background: 'linear-gradient(135deg,#7C3AED,#6366F1)' }}
             >
-              {winner.name}（{winner.overall_score?.toFixed(1)}/5）
-            </Link>
-            。
-            {bestDifficulty && (
-              <>
-                {' '}上手最简单：
-                <span className="text-gray-800 font-medium">
-                  {selected.find((s) => s.slug === bestDifficulty)?.name}
-                </span>
-                。
-              </>
-            )}
-            {bestStability && (
-              <>
-                {' '}输出最稳定：
-                <span className="text-gray-800 font-medium">
-                  {selected.find((s) => s.slug === bestStability)?.name}
-                </span>
-                。
-              </>
-            )}
-          </p>
-          <p className="text-gray-500 mt-1.5 text-xs">
-            提示：综合评分高不一定最适合你。如果你的核心诉求是"好上手"或"免费够用"，优先看对应维度。
-          </p>
-        </div>
+              {it.label}
+            </div>
+            <p className="text-[14px] text-[#666] leading-[1.7]">{it.text}</p>
+          </div>
+        ))}
       </div>
-    </div>
+    </section>
   )
 }
 
@@ -569,12 +562,16 @@ function ConclusionBar({
 
 function EmptyHint() {
   return (
-    <div className="text-center py-16">
-      <div className="text-5xl mb-4">⚖️</div>
-      <p className="text-gray-500 mb-1">至少选择 2 个 Skill 才能对比</p>
-      <p className="text-gray-400 text-sm">
+    <div className="glass-card text-center py-16">
+      <div className="w-[72px] h-[72px] rounded-full mx-auto mb-4 flex items-center justify-center text-[#7C3AED] bg-[#F5F3FF]">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M12 3v18M3 12h18" />
+        </svg>
+      </div>
+      <p className="text-[15px] text-[#666] mb-1.5">至少选择 2 个 Skill 才能对比</p>
+      <p className="text-[13px] text-[#999]">
         在上方搜索框添加，或从
-        <Link href="/" className="text-indigo-500 mx-1 hover:underline">
+        <Link href="/" className="text-[#7C3AED] mx-1 hover:underline">
           首页精选
         </Link>
         里挑两个感兴趣的试试。
@@ -585,7 +582,6 @@ function EmptyHint() {
 
 // ===== 工具函数 =====
 
-// 取"越高越好"维度中得分最高者的 slug（并列时返回第一个，无数据返回 null）
 function pickBest(
   selected: SkillDetail[],
   getter: (s: SkillDetail) => number | null
@@ -604,7 +600,6 @@ function pickBest(
   return hasAny ? bestSlug : null
 }
 
-// 把 SkillCard 转成精简 SkillDetail（客户端新增项没有评测 notes，可接受）
 function cardToDetail(card: SkillCard): SkillDetail {
   return {
     id: card.id,

@@ -3,6 +3,7 @@ import {
   getSkillDetailsBySlugs,
   getFeaturedSkills,
 } from '@/lib/supabase'
+import AppSidebar from '@/components/AppSidebar'
 import CompareClient from '@/components/CompareClient'
 
 // 对比页：低优先级索引（聚合页，内容随选择变化）
@@ -29,23 +30,34 @@ export default async function ComparePage({
 
   // 已选 Skill 的详情（服务端预取，首屏直出 + SEO 友好）
   const selected = await getSkillDetailsBySlugs(slugs)
-
-  // 候选池：最近评测的 Skill（供选择器下拉）。取多一点便于搜索。
+  // 候选池：最近评测的 Skill
   const candidates = await getFeaturedSkills(60)
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      {/* 标题 */}
-      <header className="mb-6">
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 flex items-center gap-2">
-          <span>⚖️</span> Skill 对比
-        </h1>
-        <p className="text-gray-500 mt-1.5 text-sm md:text-base">
-          选 2-3 个 Skill，5 维度并排对比，一眼看清哪个更适合你。
-        </p>
-      </header>
+    <div className="flex min-h-screen relative">
+      <AppSidebar />
+      <main className="flex-1 min-w-0 relative z-10">
+        <div className="px-8 py-8 max-w-[1080px]">
+          {/* 面包屑 */}
+          <nav className="flex items-center gap-2 text-[12px] text-[#aaa] mb-4">
+            <span>首页</span>
+            <span>/</span>
+            <span className="text-[#333]">工具对比</span>
+          </nav>
 
-      <CompareClient initialSelected={selected} candidates={candidates} maxSelect={3} />
+          {/* 标题 */}
+          <header className="mb-6">
+            <h1 className="text-[26px] font-bold text-[#000] mb-1.5" style={{ letterSpacing: '0.02em' }}>
+              Skill 对比
+            </h1>
+            <p className="text-[14px] text-[#aaa]">
+              已选 {selected.length} 个工具 · 可添加至 3 个 · 数据基于 AI360 实测
+            </p>
+          </header>
+
+          <CompareClient initialSelected={selected} candidates={candidates} maxSelect={3} />
+        </div>
+      </main>
     </div>
   )
 }
