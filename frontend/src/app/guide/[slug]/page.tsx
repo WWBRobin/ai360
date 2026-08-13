@@ -54,11 +54,11 @@ export default async function GuideArticlePage({
         <div className="px-8 py-8 max-w-[820px]">
           {/* 面包屑 */}
           <nav className="flex items-center gap-2 text-[12px] text-[#aaa] mb-5">
-            <Link href="/" className="hover:text-[#7C3AED] transition">
+            <Link href="/" className="hover:text-[#C99700] transition">
               首页
             </Link>
             <span>/</span>
-            <Link href="/guide" className="hover:text-[#7C3AED] transition">
+            <Link href="/guide" className="hover:text-[#C99700] transition">
               深度评测
             </Link>
             <span>/</span>
@@ -70,7 +70,7 @@ export default async function GuideArticlePage({
             <div className="flex items-center gap-2 mb-3">
               <span
                 className="text-[11px] font-medium px-2 py-0.5 rounded-md"
-                style={{ background: '#EDE9FE', color: '#7C3AED' }}
+                style={{ background: 'rgba(201,151,0,0.06)', color: '#C99700' }}
               >
                 {article.tag}
               </span>
@@ -88,18 +88,18 @@ export default async function GuideArticlePage({
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content}</ReactMarkdown>
           </article>
 
-          {/* 相关文章（glass-card） */}
+          {/* 相关文章（content-card） */}
           {related.length > 0 && (
             <section className="mt-14 border-t border-[#F0F0F0] pt-8">
               <h2 className="mb-4 text-[17px] font-bold text-[#000]">继续阅读</h2>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {related.map((a) => (
-                  <Link key={a.slug} href={`/guide/${a.slug}`} className="glass-card block p-4 group">
+                  <Link key={a.slug} href={`/guide/${a.slug}`} className="content-card block p-4 group">
                     <div className="text-2xl mb-2">{a.icon}</div>
-                    <div className="font-medium text-[#000] text-sm line-clamp-2 group-hover:text-[#7C3AED] transition">
+                    <div className="font-medium text-[#000] text-sm line-clamp-2 group-hover:text-[#C99700] transition">
                       {a.title}
                     </div>
-                    <div className="text-[12px] text-[#7C3AED] mt-2 font-medium">阅读 →</div>
+                    <div className="text-[12px] text-[#C99700] mt-2 font-medium">阅读 →</div>
                   </Link>
                 ))}
               </div>
@@ -110,7 +110,7 @@ export default async function GuideArticlePage({
           <div className="mt-10 text-center">
             <Link
               href="/guide"
-              className="inline-block text-sm text-[#7C3AED] font-medium hover:underline"
+              className="inline-block text-sm text-[#C99700] font-medium hover:underline"
             >
               ← 查看全部评测
             </Link>

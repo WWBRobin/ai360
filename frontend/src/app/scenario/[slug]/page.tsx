@@ -152,7 +152,7 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
         <AppSidebar />
         <main className="flex-1 min-w-0 relative z-10 px-8 py-7">
           <nav className="text-[12px] text-[#9CA3AF] mb-3.5">
-            <Link href="/" className="hover:text-[#7C3AED]">首页</Link>
+            <Link href="/" className="hover:text-[#C99700]">首页</Link>
             <span> / </span>
             <span className="text-[#6B7280]">{scenarioName}</span>
           </nav>
@@ -163,7 +163,7 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
               我们正在加紧评测该场景下的 AI Skill，请稍后再来看看。
             </p>
             <div className="flex gap-3">
-              <Link href="/" className="btn-metal px-5 py-2.5">浏览首页精选</Link>
+              <Link href="/" className="btn-primary px-5 py-2.5">浏览首页精选</Link>
               <Link href="/" className="btn-outline px-5 py-2.5">查看全部场景</Link>
             </div>
           </div>
@@ -188,7 +188,7 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
       <main className="flex-1 min-w-0 relative z-10 px-8 py-7 max-w-[1080px]">
         {/* 面包屑 */}
         <nav className="text-[12px] text-[#9CA3AF] mb-3.5">
-          <Link href="/" className="hover:text-[#7C3AED]">首页</Link>
+          <Link href="/" className="hover:text-[#C99700]">首页</Link>
           <span> / </span>
           <span className="text-[#6B7280]">{scenarioName}</span>
         </nav>
@@ -213,7 +213,7 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
         {/* 排序栏 */}
         <FilterBar platforms={platformOptions} total={filtered.length} />
 
-        {/* 按平台分组卡片网格（双列 glass-card） */}
+        {/* 按平台分组卡片网格（双列 content-card） */}
         <div className="mt-5 space-y-8">
           {groups.size === 0 ? (
             <div className="flex flex-col items-center justify-center py-16 text-center">
@@ -230,7 +230,7 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
                     {group.skills.length} 个
                   </span>
                   {platformRank(pslug) <= 2 && (
-                    <span className="rounded-full bg-[#EDE9FE] px-2.5 py-0.5 text-[11px] font-medium text-[#7C3AED]">
+                    <span className="rounded-full bg-[rgba(201,151,0,0.10)] px-2.5 py-0.5 text-[11px] font-medium text-[#C99700]">
                       主流平台
                     </span>
                   )}
@@ -245,7 +245,7 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
           )}
         </div>
 
-        {/* 底部选型建议区（glass-card 4 卡片） */}
+        {/* 底部选型建议区（content-card 4 卡片） */}
         <SelectionGuideProto7 skills={filtered} scenarioName={scenarioName} />
 
         {/* 相关场景推荐 */}
@@ -257,7 +257,7 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
                 <Link
                   key={s.slug}
                   href={`/scenario/${s.slug}`}
-                  className="inline-flex items-center gap-2 rounded-full bg-[rgba(255,255,255,0.6)] backdrop-blur border border-[rgba(255,255,255,0.4)] px-4 py-2 text-sm text-[#6B7280] transition hover:-translate-y-0.5 hover:shadow-md hover:text-[#7C3AED]"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#FFFFFF] border border-[#F0F0F0] px-4 py-2 text-sm text-[#6B7280] transition hover:border-[#C99700] hover:text-[#C99700]"
                 >
                   <span>{SCENARIO_ICONS[s.slug] || '🎯'}</span>
                   {s.name}

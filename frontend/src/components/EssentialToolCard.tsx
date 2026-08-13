@@ -7,13 +7,13 @@ import type { SkillCard } from '@/types'
 /**
  * proto7 装机工具卡片（装机必备页）
  * 对齐 proto7-essential.html 的 .tool-card + .btn-install
- * 玻璃态卡片 + btn-metal [安装] 按钮 + 星级评分
+ * 玻璃态卡片 + btn-primary [安装] 按钮 + 星级评分
  */
 function StarRating({ score }: { score: number | null }) {
   if (!score) return null
   return (
-    <span className="inline-flex items-center gap-1 text-[12px] text-[#6B7280] font-semibold whitespace-nowrap bg-[rgba(237,233,254,0.5)] px-2 py-[3px] rounded-lg">
-      <span className="text-[#7C3AED]">★</span>
+    <span className="inline-flex items-center gap-1 text-[12px] text-[#6B7280] font-semibold whitespace-nowrap bg-[rgba(201,151,0,0.5)] px-2 py-[3px] rounded-lg">
+      <span className="text-[#C99700]">★</span>
       {score.toFixed(1)}
     </span>
   )
@@ -37,7 +37,7 @@ export default function EssentialToolCard({
   }
 
   return (
-    <div className="glass-card p-4.5 flex flex-col gap-2.5" style={{ padding: '18px' }}>
+    <div className="content-card p-4.5 flex flex-col gap-2.5" style={{ padding: '18px' }}>
       {/* 顶部：名称 + 评分 */}
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1 min-w-0">
@@ -70,7 +70,7 @@ export default function EssentialToolCard({
           type="button"
           onClick={toggle}
           disabled={installed}
-          className={installed ? 'btn-outline px-4 py-1.5 text-[12px] font-semibold' : 'btn-metal px-4 py-1.5 text-[12px] font-semibold'}
+          className={installed ? 'btn-outline px-4 py-1.5 text-[12px] font-semibold' : 'btn-primary px-4 py-1.5 text-[12px] font-semibold'}
           style={installed ? { background: '#f0fdf4', color: '#059669', borderColor: '#bbf7d0' } : {}}
         >
           {installed ? '已安装' : '安装'}

@@ -187,7 +187,7 @@ function OverviewTab({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <section>
           <h2 className="text-[17px] font-bold text-[#1A1A1A] mb-4">功能亮点</h2>
-          <div className="glass-card p-5">
+          <div className="content-card p-5">
             <ul className="space-y-0">
               {skill.tagline && (
                 <FeatureItem text={skill.tagline} />
@@ -204,7 +204,7 @@ function OverviewTab({
 
         <section>
           <h2 className="text-[17px] font-bold text-[#1A1A1A] mb-4">基本信息</h2>
-          <div className="glass-card p-5">
+          <div className="content-card p-5">
             <dl className="divide-y divide-[#F5F5F5]">
               <MetaRow label="开发者" value={skill.developer_name || '—'} />
               <MetaRow
@@ -235,9 +235,9 @@ function EvalCard({
   scoreLabel?: string
 }) {
   return (
-    <div className="glass-card p-5">
+    <div className="content-card p-5">
       <div className="flex items-center gap-2.5 mb-2">
-        <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#7C3AED] to-[#6366F1] text-white text-xs font-bold flex items-center justify-center shrink-0">
+        <span className="w-6 h-6 rounded-full bg-[#C99700] text-white text-xs font-bold flex items-center justify-center shrink-0">
           {num}
         </span>
         <span className="text-[15px] font-semibold text-[#1A1A1A]">{question}</span>
@@ -371,12 +371,12 @@ function InstallTab({
         <h2 className="text-[17px] font-bold text-[#1A1A1A] mb-4 flex items-center gap-2">
           📦 安装入口
         </h2>
-        <div className="glass-card p-6">
+        <div className="content-card p-6">
           <a
             href={skill.install_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-metal inline-flex items-center gap-2 px-6 py-3 text-sm"
+            className="btn-primary inline-flex items-center gap-2 px-6 py-3 text-sm"
           >
             <span>🚀</span> 去 {skill.platform_name} 安装
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -395,7 +395,7 @@ function InstallTab({
       {github && (
         <section>
           <h2 className="text-[17px] font-bold text-[#1A1A1A] mb-4">🔧 开发者信息</h2>
-          <div className="glass-card p-5">
+          <div className="content-card p-5">
             <div className="flex items-center gap-2 mb-3">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden className="text-[#374151]">
                 <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
@@ -404,7 +404,7 @@ function InstallTab({
                 href={github.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-semibold text-[#374151] hover:text-[#7C3AED] transition truncate"
+                className="text-xs font-semibold text-[#374151] hover:text-[#C99700] transition truncate"
               >
                 {github.full_name}
               </a>
@@ -414,11 +414,11 @@ function InstallTab({
                 <div className="text-xs text-[#d97706]">★ Star</div>
                 <div className="text-sm font-bold text-[#1A1A1A]">{formatStars(github.stars)}</div>
               </div>
-              <div className="bg-[#F5F3FF] rounded-lg py-2">
+              <div className="bg-[rgba(201,151,0,0.06)] rounded-lg py-2">
                 <div className="text-xs text-[#9CA3AF]">⑂ Fork</div>
                 <div className="text-sm font-bold text-[#1A1A1A]">{formatStars(github.forks)}</div>
               </div>
-              <div className="bg-[#F5F3FF] rounded-lg py-2">
+              <div className="bg-[rgba(201,151,0,0.06)] rounded-lg py-2">
                 <div className="text-xs text-[#9CA3AF]">License</div>
                 <div className="text-xs font-bold text-[#1A1A1A] truncate px-1">{github.license || '—'}</div>
               </div>
@@ -448,8 +448,8 @@ function StepCard({
     : undefined
 
   return (
-    <div className="glass-card p-5">
-      <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#7C3AED] to-[#6366F1] text-white text-base font-bold flex items-center justify-center mb-3.5 shadow-[0_4px_10px_rgba(124,58,237,0.28)]">
+    <div className="content-card p-5">
+      <div className="w-9 h-9 rounded-full bg-[#C99700] text-white text-base font-bold flex items-center justify-center mb-3.5 shadow-[0_4px_10px_rgba(201,151,0,0.28)]">
         {num}
       </div>
       <h3 className="text-[15px] font-bold text-[#1A1A1A] mb-2">{title}</h3>
@@ -465,9 +465,9 @@ function TutorialTab({ skill }: { skill: SkillDetail }) {
   return (
     <div className="space-y-4">
       {/* 使用技巧 */}
-      <div className="glass-card p-5">
+      <div className="content-card p-5">
         <div className="flex items-center gap-2.5 mb-2">
-          <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#7C3AED] to-[#6366F1] text-white text-xs font-bold flex items-center justify-center shrink-0">
+          <span className="w-6 h-6 rounded-full bg-[#C99700] text-white text-xs font-bold flex items-center justify-center shrink-0">
             ★
           </span>
           <span className="text-[15px] font-semibold text-[#1A1A1A]">使用技巧</span>
@@ -483,9 +483,9 @@ function TutorialTab({ skill }: { skill: SkillDetail }) {
 
       {/* 使用指南 */}
       {skill.guide_content && (
-        <div className="glass-card p-6">
+        <div className="content-card p-6">
           <div className="flex items-center gap-2.5 mb-3">
-            <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#7C3AED] to-[#6366F1] text-white text-xs font-bold flex items-center justify-center shrink-0">
+            <span className="w-6 h-6 rounded-full bg-[#C99700] text-white text-xs font-bold flex items-center justify-center shrink-0">
               📖
             </span>
             <span className="text-[15px] font-semibold text-[#1A1A1A]">详细指南</span>
@@ -503,12 +503,12 @@ function TutorialTab({ skill }: { skill: SkillDetail }) {
 
       {/* 在线试用 */}
       {skill.trial_enabled ? (
-        <div className="glass-card p-6">
+        <div className="content-card p-6">
           <h3 className="text-[15px] font-semibold text-[#1A1A1A] mb-3">🧪 在线试用 {skill.name}</h3>
           <TrialBox skillId={skill.id} skillName={skill.name} />
         </div>
       ) : (
-        <div className="glass-card p-6 text-center">
+        <div className="content-card p-6 text-center">
           <span className="text-2xl">🔒</span>
           <p className="text-sm text-[#6B7280] mt-2">
             该 Skill 暂不支持在线试用，请直接安装体验。
@@ -534,11 +534,11 @@ function ReviewsTab({ skill }: { skill: SkillDetail }) {
 
         {/* 评分摘要 */}
         {skill.overall_score != null && (
-          <div className="glass-card p-5 mb-4">
+          <div className="content-card p-5 mb-4">
             <div className="flex items-center gap-3">
               <span className="score-text text-3xl">{skill.overall_score.toFixed(1)}</span>
               <div>
-                <div className="text-[#7C3AED] text-sm">{scoreToStars(skill.overall_score)}</div>
+                <div className="text-[#C99700] text-sm">{scoreToStars(skill.overall_score)}</div>
                 <div className="text-xs text-[#9CA3AF]">综合评分</div>
               </div>
             </div>
@@ -546,7 +546,7 @@ function ReviewsTab({ skill }: { skill: SkillDetail }) {
         )}
 
         {/* 评价列表（占位） */}
-        <div className="glass-card p-8 text-center">
+        <div className="content-card p-8 text-center">
           <span className="text-3xl">📝</span>
           <p className="text-sm text-[#6B7280] mt-3">
             评价系统即将上线。目前可通过 AI360 五问评测了解本工具的实测表现。
@@ -586,10 +586,10 @@ function RelatedTab({
             ⚖️ 同类对比
             <span className="text-xs font-normal text-[#9CA3AF]">向上箭头为最优值</span>
           </h2>
-          <div className="glass-card overflow-hidden">
+          <div className="content-card overflow-hidden">
             <table className="w-full border-collapse">
               <thead>
-                <tr className="bg-[rgba(245,243,255,0.6)]">
+                <tr className="bg-[rgba(201,151,0,0.6)]">
                   <th className="px-4 py-3 text-left text-xs font-semibold text-[#1A1A1A] uppercase tracking-wide">工具</th>
                   <th className="px-4 py-3 text-center text-xs font-semibold text-[#1A1A1A] uppercase tracking-wide">综合</th>
                   <th className="px-4 py-3 text-center text-xs font-semibold text-[#1A1A1A] uppercase tracking-wide">上手</th>
@@ -603,8 +603,8 @@ function RelatedTab({
                   return (
                     <tr
                       key={row.slug}
-                      className={`border-b border-[#F0F0F0] last:border-b-0 transition hover:bg-[rgba(124,58,237,0.04)] ${
-                        isCurrent ? 'bg-[rgba(245,243,255,0.5)]' : ''
+                      className={`border-b border-[#F0F0F0] last:border-b-0 transition hover:bg-[rgba(201,151,0,0.04)] ${
+                        isCurrent ? 'bg-[rgba(201,151,0,0.5)]' : ''
                       }`}
                     >
                       <td className="px-4 py-3">
@@ -616,12 +616,12 @@ function RelatedTab({
                             <span className="text-base shrink-0" aria-hidden>{CATEGORY_ICONS[row.category] || '🧩'}</span>
                           )}
                           {isCurrent ? (
-                            <span className="font-semibold text-[#7C3AED]">
+                            <span className="font-semibold text-[#C99700]">
                               {row.name}
-                              <span className="ml-1 text-[10px] align-middle bg-[#F5F3FF] text-[#7C3AED] px-1 py-px rounded">当前</span>
+                              <span className="ml-1 text-[10px] align-middle bg-[rgba(201,151,0,0.06)] text-[#C99700] px-1 py-px rounded">当前</span>
                             </span>
                           ) : (
-                            <Link href={`/skill/${row.slug}`} className="font-semibold text-[#1A1A1A] hover:text-[#7C3AED] transition">
+                            <Link href={`/skill/${row.slug}`} className="font-semibold text-[#1A1A1A] hover:text-[#C99700] transition">
                               {row.name}
                             </Link>
                           )}
@@ -708,7 +708,7 @@ function CompareScoreCell({ score }: { score: number | null }) {
 function AlternativeCard({ row }: { row: CompareRow }) {
   return (
     <Link href={`/skill/${row.slug}`} className="block group">
-      <div className="glass-card p-5 h-full flex flex-col">
+      <div className="content-card p-5 h-full flex flex-col">
         <div className="flex items-center gap-2 mb-2">
           {row.icon_url ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -717,7 +717,7 @@ function AlternativeCard({ row }: { row: CompareRow }) {
             <span className="text-xl shrink-0" aria-hidden>{CATEGORY_ICONS[row.category] || '🧩'}</span>
           )}
           <div className="min-w-0">
-            <h3 className="font-bold text-[#1A1A1A] group-hover:text-[#7C3AED] transition truncate">
+            <h3 className="font-bold text-[#1A1A1A] group-hover:text-[#C99700] transition truncate">
               {row.name}
             </h3>
             <span className="text-xs text-[#9CA3AF]">{row.platform_name}</span>
@@ -729,13 +729,13 @@ function AlternativeCard({ row }: { row: CompareRow }) {
         <div className="flex items-center justify-between text-xs">
           {row.overall_score != null ? (
             <span className="flex items-center gap-1">
-              <span className="text-[#7C3AED]">★</span>
+              <span className="text-[#C99700]">★</span>
               <span className="font-bold text-[#059669]">{row.overall_score.toFixed(1)}</span>
             </span>
           ) : (
             <span className="text-[#9CA3AF]">暂无评分</span>
           )}
-          <span className="text-[#7C3AED] font-medium group-hover:underline">查看评测 →</span>
+          <span className="text-[#C99700] font-medium group-hover:underline">查看评测 →</span>
         </div>
       </div>
     </Link>
@@ -745,20 +745,20 @@ function AlternativeCard({ row }: { row: CompareRow }) {
 function RelatedArticleCard({ article }: { article: ArticleMeta }) {
   return (
     <Link href={`/guide/${article.slug}`} className="group block">
-      <div className="glass-card p-5 h-full">
+      <div className="content-card p-5 h-full">
         <div className="flex items-start gap-3">
           <div className="text-2xl shrink-0">{article.icon}</div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1.5">
-              <span className="bg-[#F5F3FF] text-[#7C3AED] text-[10px] px-1.5 py-0.5 rounded font-medium">
+              <span className="bg-[rgba(201,151,0,0.06)] text-[#C99700] text-[10px] px-1.5 py-0.5 rounded font-medium">
                 {article.tag}
               </span>
             </div>
-            <h3 className="font-semibold text-[#1A1A1A] group-hover:text-[#7C3AED] transition line-clamp-2 text-sm">
+            <h3 className="font-semibold text-[#1A1A1A] group-hover:text-[#C99700] transition line-clamp-2 text-sm">
               {article.title}
             </h3>
             <p className="text-xs text-[#6B7280] mt-1.5 line-clamp-2">{article.summary}</p>
-            <div className="mt-2 text-xs text-[#7C3AED] font-medium">阅读 →</div>
+            <div className="mt-2 text-xs text-[#C99700] font-medium">阅读 →</div>
           </div>
         </div>
       </div>

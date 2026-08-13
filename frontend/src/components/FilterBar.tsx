@@ -55,8 +55,8 @@ export default function FilterBar({
 
   const selectClass =
     'text-[13px] text-[#1f2937] rounded-lg px-3 py-[7px] cursor-pointer outline-none transition ' +
-    'border border-[rgba(255,255,255,0.4)] bg-[rgba(255,255,255,0.6)] backdrop-blur ' +
-    'focus:border-[#7C3AED] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.12)]'
+    'border border-[#F0F0F0] bg-[#FFFFFF] ' +
+    'focus:border-[#C99700] focus:shadow-[0_0_0_3px_rgba(201,151,0,0.12)]'
 
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 py-4">

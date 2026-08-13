@@ -18,8 +18,8 @@ const PLATFORM_TABS = ['Claude', '扣子', 'Hermes', 'GPTs', 'MCP']
 /**
  * proto7 装机必备页主体（客户端交互）
  * - 平台 Tab 切换
- * - 按功能分类展示工具卡片（glass-card）
- * - 每个工具卡片 [安装] btn-metal 按钮
+ * - 按功能分类展示工具卡片（content-card）
+ * - 每个工具卡片 [安装] btn-primary 按钮
  * - 底部进度条（score-bar 样式）
  */
 export default function EssentialBoard({ categories }: { categories: EssentialCategory[] }) {
@@ -83,13 +83,13 @@ export default function EssentialBoard({ categories }: { categories: EssentialCa
         <section key={cat.id} className="mb-10">
           <div className="flex items-center gap-2.5 mb-4">
             <h2 className="text-[17px] font-bold text-[#1A1A1A]">{cat.label}</h2>
-            <span className="text-[11px] font-semibold text-[#7C3AED] bg-[#EDE9FE] px-2.5 py-1 rounded-[10px]">
+            <span className="text-[11px] font-semibold text-[#C99700] bg-[rgba(201,151,0,0.10)] px-2.5 py-1 rounded-[10px]">
               {cat.skills.length} 个工具
             </span>
           </div>
 
           {cat.skills.length === 0 ? (
-            <div className="glass-card p-10 text-center text-[13px] text-[#9CA3AF]">
+            <div className="content-card p-10 text-center text-[13px] text-[#9CA3AF]">
               「{cat.label}」分类下的工具正在评测中，敬请期待。
             </div>
           ) : (
@@ -108,7 +108,7 @@ export default function EssentialBoard({ categories }: { categories: EssentialCa
       ))}
 
       {/* 底部进度条（score-bar 样式） */}
-      <div className="glass-card p-6 mt-4">
+      <div className="content-card p-6 mt-4">
         <div className="flex items-center justify-between mb-3">
           <span className="text-[14px] font-bold text-[#1A1A1A]">装机进度</span>
           <span className="text-[13px] text-[#6B7280]">
@@ -118,7 +118,7 @@ export default function EssentialBoard({ categories }: { categories: EssentialCa
         <div className="h-2.5 bg-[#F0F0F0] rounded-[5px] overflow-hidden">
           <div
             className="score-bar h-full transition-all duration-500"
-            style={{ width: `${progressPct}%`, boxShadow: '0 0 8px rgba(124,58,237,0.4)' }}
+            style={{ width: `${progressPct}%` }}
           />
         </div>
         <p className="text-[12px] text-[#9CA3AF] mt-2.5">

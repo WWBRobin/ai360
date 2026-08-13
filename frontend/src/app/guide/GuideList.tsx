@@ -4,14 +4,14 @@ import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import type { ArticleMeta } from '@/lib/articles'
 
-// 标签 → 颜色分类映射（对应原型 tag.review/compare/tutorial/beginner/tested）
+// 标签 → 金色 tag-free 样式（统一极简线条金色）
 type TagKind = 'compare' | 'review' | 'tutorial' | 'beginner' | 'tested'
 const TAG_STYLES: Record<TagKind, { bg: string; color: string }> = {
-  compare: { bg: '#F0FDF4', color: '#15803D' },
-  review: { bg: '#EDE9FE', color: '#7C3AED' },
-  tutorial: { bg: '#EDE9FE', color: '#7C3AED' },
-  beginner: { bg: '#F3F4F6', color: '#6B7280' },
-  tested: { bg: '#F0FDF4', color: '#15803D' },
+  compare: { bg: 'rgba(201,151,0,0.06)', color: '#C99700' },
+  review: { bg: 'rgba(201,151,0,0.06)', color: '#C99700' },
+  tutorial: { bg: 'rgba(201,151,0,0.06)', color: '#C99700' },
+  beginner: { bg: 'rgba(201,151,0,0.06)', color: '#C99700' },
+  tested: { bg: 'rgba(201,151,0,0.06)', color: '#C99700' },
 }
 const TAG_LABELS: Record<TagKind, string> = {
   review: '评测',
@@ -100,7 +100,7 @@ export function GuideList({ articles }: { articles: ArticleMeta[] }) {
                 onClick={() => switchTab(t.key)}
                 className={`px-[18px] py-2.5 text-[14px] border-b-[3px] -mb-px transition ${
                   activeTab === t.key
-                    ? 'text-[#7C3AED] font-bold border-[#7C3AED]'
+                    ? 'text-[#C99700] font-bold border-[#C99700]'
                     : 'text-[#888] font-medium border-transparent hover:text-[#000]'
                 }`}
               >
@@ -114,10 +114,10 @@ export function GuideList({ articles }: { articles: ArticleMeta[] }) {
       {/* 文章列表（单列） */}
       <div className="px-8 py-7 flex flex-col gap-4">
         {pageItems.map(({ a, info }) => (
-          <Link key={a.slug} href={`/guide/${a.slug}`} className="glass-card block p-[22px_24px] group">
+          <Link key={a.slug} href={`/guide/${a.slug}`} className="content-card block p-[22px_24px] group">
             {/* 标题 */}
             <div className="flex items-start justify-between gap-3 mb-2.5">
-              <h2 className="text-[18px] font-bold text-[#000] leading-[1.4] flex-1 group-hover:text-[#7C3AED] transition">
+              <h2 className="text-[18px] font-bold text-[#000] leading-[1.4] flex-1 group-hover:text-[#C99700] transition">
                 {a.title}
               </h2>
             </div>
@@ -136,7 +136,7 @@ export function GuideList({ articles }: { articles: ArticleMeta[] }) {
               {info.hasTutorial && (
                 <span
                   className="inline-flex items-center text-[10px] font-bold px-2 py-[3px] rounded-md leading-[1.4]"
-                  style={{ background: '#EDE9FE', color: '#7C3AED' }}
+                  style={{ background: 'rgba(201,151,0,0.06)', color: '#C99700' }}
                 >
                   有教程
                 </span>
@@ -153,12 +153,12 @@ export function GuideList({ articles }: { articles: ArticleMeta[] }) {
               <span className="text-[12px] text-[#aaa]">{info.duration}阅读</span>
               <span
                 className="text-[12px] font-semibold px-3 py-1 rounded-full ml-auto"
-                style={{ background: '#EDE9FE', color: '#7C3AED' }}
+                style={{ background: 'rgba(201,151,0,0.06)', color: '#C99700' }}
               >
                 {info.conclusion}
               </span>
               {info.hasTutorial && (
-                <span className="text-[12px] font-semibold text-[#7C3AED] inline-flex items-center gap-1">
+                <span className="text-[12px] font-semibold text-[#C99700] inline-flex items-center gap-1">
                   查看配套教程
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="M5 12h14" />
@@ -183,7 +183,7 @@ export function GuideList({ articles }: { articles: ArticleMeta[] }) {
           <button
             onClick={() => setPage(Math.max(1, current - 1))}
             disabled={current <= 1}
-            className="min-w-[36px] h-9 px-2.5 flex items-center justify-center text-[13px] text-[#666] rounded-[10px] hover:bg-[rgba(124,58,237,0.1)] hover:text-[#7C3AED] transition disabled:opacity-40 disabled:hover:bg-transparent"
+            className="min-w-[36px] h-9 px-2.5 flex items-center justify-center text-[13px] text-[#666] rounded-[10px] hover:bg-[rgba(201,151,0,0.08)] hover:text-[#C99700] transition disabled:opacity-40 disabled:hover:bg-transparent"
           >
             «
           </button>
@@ -193,10 +193,9 @@ export function GuideList({ articles }: { articles: ArticleMeta[] }) {
               onClick={() => setPage(p)}
               className={`min-w-[36px] h-9 px-2.5 flex items-center justify-center text-[13px] rounded-[10px] transition ${
                 p === current
-                  ? 'text-white font-bold shadow-[0_2px_8px_rgba(124,58,237,0.25)]'
-                  : 'text-[#666] hover:bg-[rgba(124,58,237,0.1)] hover:text-[#7C3AED]'
+                  ? 'text-white font-bold bg-[#C99700]'
+                  : 'text-[#666] hover:bg-[rgba(201,151,0,0.08)] hover:text-[#C99700]'
               }`}
-              style={p === current ? { background: '#7C3AED' } : {}}
             >
               {p}
             </button>
@@ -204,7 +203,7 @@ export function GuideList({ articles }: { articles: ArticleMeta[] }) {
           <button
             onClick={() => setPage(Math.min(totalPages, current + 1))}
             disabled={current >= totalPages}
-            className="min-w-[36px] h-9 px-2.5 flex items-center justify-center text-[13px] text-[#666] rounded-[10px] hover:bg-[rgba(124,58,237,0.1)] hover:text-[#7C3AED] transition disabled:opacity-40 disabled:hover:bg-transparent"
+            className="min-w-[36px] h-9 px-2.5 flex items-center justify-center text-[13px] text-[#666] rounded-[10px] hover:bg-[rgba(201,151,0,0.08)] hover:text-[#C99700] transition disabled:opacity-40 disabled:hover:bg-transparent"
           >
             »
           </button>

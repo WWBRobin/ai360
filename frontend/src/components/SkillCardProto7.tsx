@@ -3,7 +3,7 @@ import type { SkillCard } from '@/types'
 
 /**
  * proto7 玻璃态工具卡片（场景页 / 平台页共用）
- * 使用全局样式：glass-card / score-bar / tag-tested / tag-free / score-text
+ * 使用全局样式：content-card / score-bar / tag-tested / tag-free / score-text
  */
 function ScoreBar({ label, value }: { label: string; value: number | null | undefined }) {
   const pct = value ? (value / 5) * 100 : 0
@@ -13,7 +13,7 @@ function ScoreBar({ label, value }: { label: string; value: number | null | unde
       <div className="h-[5px] bg-[#F0F0F0] rounded-[3px] overflow-hidden">
         <div className="score-bar h-full transition-all duration-500" style={{ width: `${pct}%` }} />
       </div>
-      <div className="text-[11px] text-[#7C3AED] font-semibold mt-[3px]">
+      <div className="text-[11px] text-[#C99700] font-semibold mt-[3px]">
         {value ? value.toFixed(1) : '—'}
       </div>
     </div>
@@ -23,15 +23,15 @@ function ScoreBar({ label, value }: { label: string; value: number | null | unde
 export default function SkillCardProto7({ skill }: { skill: SkillCard }) {
   const hasEval = !!skill.overall_score
   return (
-    <Link href={`/skill/${skill.slug}`} className="glass-card p-5 block group">
+    <Link href={`/skill/${skill.slug}`} className="content-card p-5 block group">
       {/* 头部：图标 + 标题 + 评分 */}
       <div className="flex items-start justify-between mb-2.5">
         <div className="flex items-center gap-2.5 min-w-0">
-          <span className="w-9 h-9 rounded-[10px] bg-gradient-to-br from-[#7C3AED] to-[#6D28D9] flex items-center justify-center text-[13px] font-bold text-white shrink-0">
+          <span className="w-9 h-9 rounded-[10px] bg-[#C99700] flex items-center justify-center text-[13px] font-bold text-white shrink-0">
             {skill.name.charAt(0).toUpperCase()}
           </span>
           <div className="min-w-0">
-            <div className="text-[15px] font-semibold text-[#1A1A1A] group-hover:text-[#7C3AED] transition truncate">
+            <div className="text-[15px] font-semibold text-[#1A1A1A] group-hover:text-[#C99700] transition truncate">
               {skill.name}
             </div>
             <div className="text-[11px] text-[#9CA3AF] truncate">{skill.platform_name}</div>

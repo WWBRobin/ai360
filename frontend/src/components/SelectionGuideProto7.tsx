@@ -4,7 +4,7 @@ import type { SkillCard } from '@/types'
 /**
  * proto7 选型建议区（场景页）
  * 对齐 proto7-scenario.html 的 .suggest + .suggest-grid + .suggest-card
- * 外层 glass-card，内层 4 个分类卡片（综合最佳/新手友好/免费额度/最稳定）
+ * 外层 content-card，内层 4 个分类卡片（综合最佳/新手友好/免费额度/最稳定）
  */
 interface Badge {
   text: string
@@ -12,10 +12,10 @@ interface Badge {
 }
 
 const BADGES: Record<string, Badge> = {
-  best: { text: '综合最佳', cls: 'bg-[#EEF2FF] text-[#6366F1]' },
+  best: { text: '综合最佳', cls: 'bg-[rgba(201,151,0,0.10)] text-[#C99700]' },
   newbie: { text: '新手友好', cls: 'bg-[#f0fdf4] text-[#059669]' },
-  free: { text: '免费额度', cls: 'bg-[#EDE9FE] text-[#7C3AED]' },
-  stable: { text: '最稳定', cls: 'bg-[#EDE9FE] text-[#7C3AED]' },
+  free: { text: '免费额度', cls: 'bg-[rgba(201,151,0,0.10)] text-[#C99700]' },
+  stable: { text: '最稳定', cls: 'bg-[rgba(201,151,0,0.10)] text-[#C99700]' },
 }
 
 export default function SelectionGuideProto7({
@@ -74,7 +74,7 @@ export default function SelectionGuideProto7({
   ]
 
   return (
-    <section className="glass-card mt-10 p-7">
+    <section className="content-card mt-10 p-7">
       <h2 className="text-[18px] font-bold text-[#1A1A1A] mb-1.5">{scenarioName}场景 · 选型建议</h2>
       <p className="text-[13px] text-[#9CA3AF] mb-5">基于 AI360 三维实测评分，按典型需求给出推荐</p>
 
@@ -82,7 +82,7 @@ export default function SelectionGuideProto7({
         {recs.map((rec) => (
           <div
             key={rec.badge.text}
-            className="rounded-xl p-4 bg-[rgba(255,255,255,0.6)] backdrop-blur border border-[rgba(255,255,255,0.4)] transition hover:-translate-y-[3px] hover:shadow-lg"
+            className="rounded-xl p-4 bg-[#FFFFFF] border border-[#F0F0F0] transition hover:border-[#E5E7EB]"
           >
             <span
               className={`inline-block text-[11px] font-bold uppercase tracking-[0.4px] px-2.5 py-[3px] rounded-md mb-2 ${rec.badge.cls}`}
@@ -91,7 +91,7 @@ export default function SelectionGuideProto7({
             </span>
             {rec.skill ? (
               <Link href={`/skill/${rec.skill.slug}`} className="block group">
-                <div className="text-[14px] font-semibold text-[#1A1A1A] group-hover:text-[#7C3AED] transition mb-1.5">
+                <div className="text-[14px] font-semibold text-[#1A1A1A] group-hover:text-[#C99700] transition mb-1.5">
                   {rec.skill.name}
                 </div>
                 <p className="text-[12px] text-[#6B7280] leading-[1.6]">{rec.why}</p>

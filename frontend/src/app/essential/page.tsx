@@ -90,14 +90,14 @@ export default async function EssentialPage() {
         <EssentialBoard categories={categories} />
 
         {/* 装机指南 CTA */}
-        <section className="glass-card mt-12 p-8 text-center" style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.08), rgba(109,40,217,0.05))' }}>
+        <section className="content-card mt-12 p-8 text-center">
           <h2 className="text-[20px] font-bold text-[#1A1A1A] mb-2">📖 装机不知道从何下手？</h2>
           <p className="mx-auto mt-2 max-w-xl text-[14px] text-[#6B7280] leading-[1.7]">
             我们准备了一份从零开始的完整装机指南，手把手带你完成第一次配置，含常见报错排查与环境准备清单。
           </p>
           <Link
             href="/guide/install-guide"
-            className="btn-metal inline-flex items-center gap-2 mt-6 px-7 py-3 text-[15px] font-bold"
+            className="btn-primary inline-flex items-center gap-2 mt-6 px-7 py-3 text-[15px] font-bold"
           >
             查看完整装机指南
             <span aria-hidden>→</span>

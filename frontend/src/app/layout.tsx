@@ -143,7 +143,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </p>
                 <Link
                   href="/subscribe"
-                  className="inline-flex items-center gap-1.5 mt-4 text-xs font-medium text-[#A78BFA] hover:text-[#7C3AED] transition"
+                  className="inline-flex items-center gap-1.5 mt-4 text-xs font-medium text-[#C99700] hover:text-[#B8860B] transition"
                 >
                   订阅每周更新
                   <span aria-hidden>→</span>

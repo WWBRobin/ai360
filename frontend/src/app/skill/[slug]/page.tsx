@@ -172,10 +172,10 @@ export default async function SkillDetailPage({
     <div className="max-w-5xl mx-auto px-4 md:px-8 py-6 relative z-10">
       {/* 1. 面包屑 */}
       <nav className="flex items-center gap-1.5 text-xs text-[#9CA3AF] mb-5 flex-wrap">
-        <Link href="/" className="hover:text-[#7C3AED] transition">首页</Link>
+        <Link href="/" className="hover:text-[#C99700] transition">首页</Link>
         <span>/</span>
         {skill.platform_slug ? (
-          <Link href={`/platform/${skill.platform_slug}`} className="hover:text-[#7C3AED] transition">
+          <Link href={`/platform/${skill.platform_slug}`} className="hover:text-[#C99700] transition">
             {CATEGORY_LABELS[skill.category] || skill.platform_name || '场景'}
           </Link>
         ) : (
@@ -186,13 +186,13 @@ export default async function SkillDetailPage({
       </nav>
 
       {/* 2. Hero 工具头部 */}
-      <div className="glass-card p-6 md:p-8 mb-6">
+      <div className="content-card p-6 md:p-8 mb-6">
         <div className="flex items-start justify-between gap-6 flex-wrap">
           {/* 左：标题+标签+评分+描述 */}
           <div className="flex-1 min-w-0">
             {/* 标题行：图标 + 名称 */}
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1f2937] to-[#374151] flex items-center justify-center text-white text-xl font-bold shrink-0 overflow-hidden">
+              <div className="w-12 h-12 rounded-xl bg-[#1f2937] flex items-center justify-center text-white text-xl font-bold shrink-0 overflow-hidden">
                 {skill.icon_url ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={skill.icon_url} alt={skill.name} loading="lazy" className="w-full h-full object-cover" />
@@ -218,7 +218,7 @@ export default async function SkillDetailPage({
             {/* 评分行 */}
             {skill.overall_score != null && (
               <div className="flex items-center gap-2 mb-3 text-sm">
-                <span className="text-[#7C3AED] tracking-wide">
+                <span className="text-[#C99700] tracking-wide">
                   {scoreToStars(skill.overall_score)}
                 </span>
                 <span className="font-bold text-[#6B7280]">{skill.overall_score.toFixed(1)}</span>
@@ -241,7 +241,7 @@ export default async function SkillDetailPage({
               href={skill.install_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-metal px-5 py-3 text-center text-sm font-medium"
+              className="btn-primary px-5 py-3 text-center text-sm font-medium"
             >
               去安装 →
             </a>

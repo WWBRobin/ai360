@@ -92,8 +92,8 @@ export default function CompareClient({
 
   return (
     <div>
-      {/* ===== 工具选择器（glass-card） ===== */}
-      <section className="glass-card p-5 mb-7">
+      {/* ===== 工具选择器（content-card） ===== */}
+      <section className="content-card p-5 mb-7">
         <div className="flex items-center justify-between mb-3.5 flex-wrap gap-2">
           <div className="text-[12px] font-bold text-[#000] uppercase tracking-wide">
             已选工具
@@ -125,7 +125,7 @@ export default function CompareClient({
                 : '搜索并添加 Skill…'
             }
             disabled={selected.length >= maxSelect}
-            className="w-full px-4 py-2.5 text-[13px] bg-[#F5F3FF]/70 border border-[#eee] rounded-xl focus:outline-none focus:border-[#7C3AED] focus:bg-white transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-4 py-2.5 text-[13px] bg-white border border-[#E5E7EB] rounded-xl focus:outline-none focus:border-[#C99700] transition disabled:opacity-50 disabled:cursor-not-allowed"
           />
           {showDropdown && selected.length < maxSelect && (
             <div className="absolute z-20 mt-1 w-full bg-white border border-[#eee] rounded-xl shadow-lg max-h-72 overflow-y-auto">
@@ -135,7 +135,7 @@ export default function CompareClient({
                     key={c.slug}
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={() => addSkill(c)}
-                    className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-[#F5F3FF] transition border-b border-gray-50 last:border-0"
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-[#FAFAFA] transition border-b border-gray-50 last:border-0"
                   >
                     <span className="text-lg flex-shrink-0">
                       {c.icon_url ? (
@@ -153,9 +153,9 @@ export default function CompareClient({
                       </div>
                     </div>
                     {c.overall_score != null && (
-                      <span className="text-[12px] text-[#7C3AED] flex-shrink-0">⭐{c.overall_score.toFixed(1)}</span>
+                      <span className="text-[12px] text-[#C99700] flex-shrink-0">⭐{c.overall_score.toFixed(1)}</span>
                     )}
-                    <span className="text-[#7C3AED] text-sm flex-shrink-0">+</span>
+                    <span className="text-[#C99700] text-sm flex-shrink-0">+</span>
                   </button>
                 ))
               ) : (
@@ -173,9 +173,9 @@ export default function CompareClient({
             {selected.map((s) => (
               <span
                 key={s.slug}
-                className="inline-flex items-center gap-2 bg-[#F5F3FF]/70 border border-[#eee] rounded-full px-4 py-2 text-[13px] text-[#333] font-medium"
+                className="inline-flex items-center gap-2 bg-[#FAFAFA] border border-[#E5E7EB] rounded-full px-4 py-2 text-[13px] text-[#333] font-medium"
               >
-                <Link href={`/skill/${s.slug}`} className="flex items-center gap-1.5 hover:text-[#7C3AED] transition">
+                <Link href={`/skill/${s.slug}`} className="flex items-center gap-1.5 hover:text-[#C99700] transition">
                   {s.name}
                   <span className="text-[11px] text-[#aaa]">{s.platform_name}</span>
                 </Link>
@@ -194,7 +194,7 @@ export default function CompareClient({
                   const input = document.querySelector<HTMLInputElement>('input[type="text"]')
                   input?.focus()
                 }}
-                className="inline-flex items-center gap-1.5 bg-white border border-dashed border-[#ccc] rounded-full px-4 py-2 text-[13px] text-[#999] hover:border-[#7C3AED] hover:text-[#7C3AED] transition"
+                className="inline-flex items-center gap-1.5 bg-white border border-dashed border-[#ccc] rounded-full px-4 py-2 text-[13px] text-[#999] hover:border-[#C99700] hover:text-[#C99700] transition"
               >
                 + 添加工具
               </button>
@@ -229,18 +229,18 @@ function CompareTable({ selected }: { selected: SkillDetail[] }) {
           多维对比
         </h2>
         <span className="text-[12px] text-[#aaa]">
-          <span className="text-[#16a34a] font-bold">⬆</span> 为优势项 · 紫色高亮为胜出
+          <span className="text-[#16a34a] font-bold">⬆</span> 为优势项 · 金色高亮为胜出
         </span>
       </div>
 
-      {/* 表格容器（glass-card） */}
-      <div className="glass-card overflow-hidden">
+      {/* 表格容器（content-card） */}
+      <div className="content-card overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-[14px] min-w-[640px]">
             <tbody>
-              {/* 表头：Skill 名（紫底） */}
+              {/* 表头：Skill 名 */}
               <tr>
-                <th className="sticky left-0 z-10 bg-[rgba(245,243,255,0.6)] w-[170px] min-w-[170px] align-bottom text-left p-3.5 text-[12px] font-semibold text-[#000] uppercase tracking-wide border-b border-[#f0f0f0]">
+                <th className="sticky left-0 z-10 bg-[#FAFAFA] w-[170px] min-w-[170px] align-bottom text-left p-3.5 text-[12px] font-semibold text-[#000] uppercase tracking-wide border-b border-[#f0f0f0]">
                   维度
                 </th>
                 {selected.map((s) => (
@@ -269,7 +269,7 @@ function CompareTable({ selected }: { selected: SkillDetail[] }) {
                 cell={(s) =>
                   s.overall_score != null ? (
                     <div className="flex items-center gap-1.5">
-                      <span className="text-[#7C3AED] text-xs">{scoreToStars(s.overall_score)}</span>
+                      <span className="text-[#C99700] text-xs">{scoreToStars(s.overall_score)}</span>
                       <span className="font-semibold text-gray-800">{s.overall_score.toFixed(1)}</span>
                       <span className="text-gray-400 text-xs">/5</span>
                     </div>
@@ -303,7 +303,7 @@ function CompareTable({ selected }: { selected: SkillDetail[] }) {
                   s.difficulty_score != null ? (
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <span className="text-[#7C3AED] text-xs">{scoreToStars(s.difficulty_score)}</span>
+                        <span className="text-[#C99700] text-xs">{scoreToStars(s.difficulty_score)}</span>
                         <span className="font-medium text-gray-800">{s.difficulty_score}/5</span>
                       </div>
                       {s.difficulty_notes && <p className="text-gray-500 text-xs mt-1">{s.difficulty_notes}</p>}
@@ -324,7 +324,7 @@ function CompareTable({ selected }: { selected: SkillDetail[] }) {
                   s.stability_score != null ? (
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <span className="text-[#7C3AED] text-xs">{scoreToStars(s.stability_score)}</span>
+                        <span className="text-[#C99700] text-xs">{scoreToStars(s.stability_score)}</span>
                         <span className="font-medium text-gray-800">{s.stability_score}/5</span>
                       </div>
                       {s.stability_notes && <p className="text-gray-500 text-xs mt-1">{s.stability_notes}</p>}
@@ -380,7 +380,7 @@ function CompareTable({ selected }: { selected: SkillDetail[] }) {
                   s.trial_enabled ? (
                     <Link
                       href={`/skill/${s.slug}`}
-                      className="text-[12px] bg-[#F5F3FF] text-[#7C3AED] px-2.5 py-1 rounded-lg font-medium inline-block"
+                      className="text-[12px] bg-[rgba(201,151,0,0.06)] text-[#C99700] px-2.5 py-1 rounded-lg font-medium inline-block"
                     >
                       支持试用 →
                     </Link>
@@ -400,7 +400,7 @@ function CompareTable({ selected }: { selected: SkillDetail[] }) {
                     href={s.install_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block btn-metal text-[12px] px-3 py-1.5"
+                    className="inline-block btn-primary text-[12px] px-3 py-1.5"
                   >
                     去 {s.platform_name} →
                   </a>
@@ -410,9 +410,9 @@ function CompareTable({ selected }: { selected: SkillDetail[] }) {
           </table>
         </div>
       </div>
-      <p className="text-[12px] text-[#aaa] mt-3">数据基于 AI360 实测。胜出项以紫色高亮 + ⬆ 标注。</p>
+      <p className="text-[12px] text-[#aaa] mt-3">数据基于 AI360 实测。胜出项以金色高亮 + ⬆ 标注。</p>
 
-      {/* 结论区（glass-card + 紫顶条） */}
+      {/* 结论区（content-card + 金顶条） */}
       <ConclusionBar
         selected={selected}
         bestOverall={bestOverall}
@@ -438,8 +438,8 @@ function Row({
   highlight?: string | null
   zebra?: number
 }) {
-  // 斑马纹：奇数行 #F8F7FC，偶数行透明
-  const baseBg = zebra === 1 ? '#F8F7FC' : 'rgba(255,255,255,0.4)'
+  // 斑马纹：奇数行 #FAFAFA，偶数行透明
+  const baseBg = zebra === 1 ? '#FAFAFA' : 'rgba(255,255,255,0.4)'
   return (
     <tr className="transition">
       <th
@@ -455,7 +455,7 @@ function Row({
             key={s.slug}
             className="p-3.5 border-b border-[#f0f0f0] align-top"
             style={{
-              background: isBest ? 'rgba(124,58,237,0.08)' : baseBg,
+              background: isBest ? 'rgba(201,151,0,0.06)' : baseBg,
               color: isBest ? '#16a34a' : undefined,
               fontWeight: isBest ? 700 : undefined,
             }}
@@ -469,7 +469,7 @@ function Row({
   )
 }
 
-// ===== 结论区（glass-card + 紫色顶条 + 渐变标题）=====
+// ===== 结论区（content-card + 金色顶条 + 金色标题）=====
 
 function ConclusionBar({
   selected,
@@ -519,25 +519,10 @@ function ConclusionBar({
       <h2 className="text-[17px] font-bold text-[#000] mb-4 flex items-center gap-2">
         AI360 评测结论 <span className="text-[12px] text-[#aaa] font-normal">实测推荐</span>
       </h2>
-      <div
-        className="glass-card p-7 relative overflow-hidden"
-        style={{ background: 'rgba(255,255,255,0.7)', boxShadow: '0 4px 24px rgba(124,58,237,0.08),0 8px 32px rgba(0,0,0,0.05)' }}
-      >
-        {/* 紫色顶条 */}
-        <div
-          className="absolute top-0 left-0 right-0 h-[5px]"
-          style={{ background: 'linear-gradient(135deg,#7C3AED,#6366F1)' }}
-        />
-        <h3
-          className="text-[22px] font-bold mb-1.5"
-          style={{
-            background: 'linear-gradient(135deg,#7C3AED,#6366F1)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            letterSpacing: '0.02em',
-          }}
-        >
+      <div className="content-card p-7 relative overflow-hidden">
+        {/* 金色顶条 */}
+        <div className="absolute top-0 left-0 right-0 h-[5px] bg-[#C99700]" />
+        <h3 className="text-[22px] font-bold mb-1.5 text-[#C99700]" style={{ letterSpacing: '0.02em' }}>
           最终推荐
         </h3>
         <p className="text-[13px] text-[#aaa] mb-5">基于多维度实测对比，按场景给出选型建议</p>
@@ -545,8 +530,7 @@ function ConclusionBar({
         {items.map((it, i) => (
           <div key={i} className="py-4 border-b border-[#f0f0f0] last:border-b-0">
             <div
-              className="inline-flex items-center text-[12px] font-bold text-white uppercase tracking-wide mb-2 px-3 py-1 rounded-md"
-              style={{ background: 'linear-gradient(135deg,#7C3AED,#6366F1)' }}
+              className="inline-flex items-center text-[12px] font-bold text-white uppercase tracking-wide mb-2 px-3 py-1 rounded-md bg-[#C99700]"
             >
               {it.label}
             </div>
@@ -562,8 +546,8 @@ function ConclusionBar({
 
 function EmptyHint() {
   return (
-    <div className="glass-card text-center py-16">
-      <div className="w-[72px] h-[72px] rounded-full mx-auto mb-4 flex items-center justify-center text-[#7C3AED] bg-[#F5F3FF]">
+    <div className="content-card text-center py-16">
+      <div className="w-[72px] h-[72px] rounded-full mx-auto mb-4 flex items-center justify-center text-[#C99700] bg-[#FFF8E1]">
         <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path d="M12 3v18M3 12h18" />
         </svg>
@@ -571,7 +555,7 @@ function EmptyHint() {
       <p className="text-[15px] text-[#666] mb-1.5">至少选择 2 个 Skill 才能对比</p>
       <p className="text-[13px] text-[#999]">
         在上方搜索框添加，或从
-        <Link href="/" className="text-[#7C3AED] mx-1 hover:underline">
+        <Link href="/" className="text-[#C99700] mx-1 hover:underline">
           首页精选
         </Link>
         里挑两个感兴趣的试试。
