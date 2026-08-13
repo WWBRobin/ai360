@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import type { SkillCard } from '@/types'
 import { CATEGORY_LABELS, CATEGORY_ICONS } from '@/lib/supabase'
