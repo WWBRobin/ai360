@@ -24,12 +24,12 @@ const PLATFORMS = [
 ]
 
 const FEATURED = [
-  { name: 'Tavily', score: 4.9, platform: 'MCP', desc: '让 AI 联网搜索最新信息', free: '免费1000次/月', difficulty: 4, stability: 5, href: '/skill/tavily-search' },
-  { name: 'claude-mem', score: 4.8, platform: 'Claude', desc: '让 AI 跨会话记住项目上下文', free: '完全免费', difficulty: 2, stability: 3, href: '/skill/claude-mem' },
-  { name: 'Composio', score: 4.7, platform: 'MCP', desc: '让 AI 一次连接 1000+ 外部应用', free: '免费2万次/月', difficulty: 3, stability: 4, href: '/skill/composio' },
-  { name: 'Brave Search', score: 4.8, platform: 'MCP', desc: '免费 AI 搜索引擎，无需 API Key', free: '免费2000次/月', difficulty: 4, stability: 4, href: '/skill/brave-search-mcp' },
-  { name: 'Frontend Design', score: 4.7, platform: 'Claude', desc: 'AI 生成专业级前端 UI 设计', free: '免费', difficulty: 3, stability: 4, href: '/skill/frontend-design' },
-  { name: 'Systematic Debugging', score: 4.5, platform: 'Hermes', desc: '4 阶段根因调试方法论', free: '完全免费', difficulty: 4, stability: 5, href: '/skill/systematic-debugging' },
+  { name: 'Tavily', score: 4.9, platform: 'MCP', desc: '让 AI 联网搜索最新信息', free: '免费1000次/月', difficulty: 4, stability: 5, href: '/skill/tavily-search', icon: 'https://avatars.githubusercontent.com/u/167026044?v=4' },
+  { name: 'claude-mem', score: 4.8, platform: 'Claude', desc: '让 AI 跨会话记住项目上下文', free: '完全免费', difficulty: 2, stability: 3, href: '/skill/claude-mem', icon: 'https://avatars.githubusercontent.com/u/1693663?v=4' },
+  { name: 'Composio', score: 4.7, platform: 'MCP', desc: '让 AI 一次连接 1000+ 外部应用', free: '免费2万次/月', difficulty: 3, stability: 4, href: '/skill/composio', icon: 'https://avatars.githubusercontent.com/u/161758604?v=4' },
+  { name: 'Brave Search', score: 4.8, platform: 'MCP', desc: '免费 AI 搜索引擎，无需 API Key', free: '免费2000次/月', difficulty: 4, stability: 4, href: '/skill/brave-search-mcp', icon: 'https://search.brave.com/favicon.ico' },
+  { name: 'Frontend Design', score: 4.7, platform: 'Claude', desc: 'AI 生成专业级前端 UI 设计', free: '免费', difficulty: 3, stability: 4, href: '/skill/frontend-design', icon: 'https://avatars.githubusercontent.com/u/1693663?v=4' },
+  { name: 'Systematic Debugging', score: 4.5, platform: 'Hermes', desc: '4 阶段根因调试方法论', free: '完全免费', difficulty: 4, stability: 5, href: '/skill/systematic-debugging', icon: 'https://avatars.githubusercontent.com/u/193596547?v=4' },
 ]
 
 const GUIDES = [
@@ -180,9 +180,12 @@ export default function HomePortal() {
             <Link key={skill.href} href={skill.href}
               className="content-card block p-5 group">
               <div className="flex items-start justify-between mb-2">
-                <div>
-                  <span className="text-sm font-semibold text-[#1F2937] group-hover:text-[#FF8C00]">{skill.name}</span>
-                  <span className="ml-2 text-[11px] text-[#9CA3AF]">{skill.platform}</span>
+                <div className="flex items-center gap-2">
+                  {skill.icon && <img src={skill.icon} alt="" className="w-8 h-8 rounded-lg object-cover shrink-0" />}
+                  <div>
+                    <span className="text-sm font-semibold text-[#1F2937] group-hover:text-[#FF8C00]">{skill.name}</span>
+                    <span className="ml-2 text-[11px] text-[#9CA3AF]">{skill.platform}</span>
+                  </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="tag tag-free">免费</span>

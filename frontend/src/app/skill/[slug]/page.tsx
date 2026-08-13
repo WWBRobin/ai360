@@ -271,6 +271,7 @@ export default async function SkillDetailPage({
         github={github}
         evaluatedDate={evaluatedDate}
       />
+      </main>
     </div>
   )
 }
