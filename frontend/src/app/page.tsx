@@ -62,7 +62,7 @@ export default function HomePage() {
             <div className="flex gap-3">
               {TYPES.map((t, i) => (
                 <button key={t} onClick={() => setActiveType(i)}
-                  className={`text-[13px] py-1 px-2 rounded transition ${activeType === i ? 'text-[#C99700] font-medium' : 'text-[#9CA3AF] hover:text-[#1F2937]'}`}>
+                  className={`text-[13px] py-1 px-2 rounded transition ${activeType === i ? 'text-[#FF8C00] font-medium' : 'text-[#9CA3AF] hover:text-[#1F2937]'}`}>
                   {t}
                 </button>
               ))}
@@ -93,7 +93,7 @@ export default function HomePage() {
                       {card.name[0]}
                     </span>
                     <div>
-                      <span className="text-[15px] font-semibold text-[#1F2937] group-hover:text-[#C99700] transition">{card.name}</span>
+                      <span className="text-[15px] font-semibold text-[#1F2937] group-hover:text-[#FF8C00] transition">{card.name}</span>
                       <span className="text-[11px] text-[#9CA3AF] ml-2">{card.platform}</span>
                     </div>
                   </div>

@@ -152,7 +152,7 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
         <AppSidebar />
         <main className="flex-1 min-w-0 relative z-10 px-8 py-7">
           <nav className="text-[12px] text-[#9CA3AF] mb-3.5">
-            <Link href="/" className="hover:text-[#C99700]">首页</Link>
+            <Link href="/" className="hover:text-[#FF8C00]">首页</Link>
             <span> / </span>
             <span className="text-[#6B7280]">{scenarioName}</span>
           </nav>
@@ -188,7 +188,7 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
       <main className="flex-1 min-w-0 relative z-10 px-8 py-7 max-w-[1080px]">
         {/* 面包屑 */}
         <nav className="text-[12px] text-[#9CA3AF] mb-3.5">
-          <Link href="/" className="hover:text-[#C99700]">首页</Link>
+          <Link href="/" className="hover:text-[#FF8C00]">首页</Link>
           <span> / </span>
           <span className="text-[#6B7280]">{scenarioName}</span>
         </nav>
@@ -230,7 +230,7 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
                     {group.skills.length} 个
                   </span>
                   {platformRank(pslug) <= 2 && (
-                    <span className="rounded-full bg-[rgba(201,151,0,0.10)] px-2.5 py-0.5 text-[11px] font-medium text-[#C99700]">
+                    <span className="rounded-full bg-[rgba(255,140,0,0.10)] px-2.5 py-0.5 text-[11px] font-medium text-[#FF8C00]">
                       主流平台
                     </span>
                   )}
@@ -257,7 +257,7 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
                 <Link
                   key={s.slug}
                   href={`/scenario/${s.slug}`}
-                  className="inline-flex items-center gap-2 rounded-full bg-[#FFFFFF] border border-[#F0F0F0] px-4 py-2 text-sm text-[#6B7280] transition hover:border-[#C99700] hover:text-[#C99700]"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#FFFFFF] border border-[#F0F0F0] px-4 py-2 text-sm text-[#6B7280] transition hover:border-[#FF8C00] hover:text-[#FF8C00]"
                 >
                   <span>{SCENARIO_ICONS[s.slug] || '🎯'}</span>
                   {s.name}

@@ -4,8 +4,8 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 /**
- * AI360 首页 v6 — 大平台站布局
- * 左侧导航栏 + 顶部Tab + 中间深度内容区
+ * AI360 首页 — 灵光色 #FF8C00 极简线条风格
+ * 侧栏：透明无边框，平台多选，LEARN引导式入口
  */
 
 const PLATFORMS = [
@@ -23,226 +23,197 @@ const PLATFORMS = [
   { slug: 'qwen', name: '千问', count: 2 },
 ]
 
-const SCENARIOS = [
-  { slug: 'memory', title: '记忆增强', count: 8 },
-  { slug: 'search', title: '联网搜索', count: 6 },
-  { slug: 'file', title: '文件操作', count: 1 },
-  { slug: 'connect', title: '工具连接', count: 1 },
-  { slug: 'ecommerce-copy', title: '电商营销', count: 3 },
-  { slug: 'content-creation', title: '内容创作', count: 49 },
-  { slug: 'design', title: '设计创意', count: 9 },
-  { slug: 'video', title: '视频制作', count: 12 },
-  { slug: 'data-analysis', title: '数据分析', count: 3 },
-  { slug: 'code', title: '编程开发', count: 66 },
-]
-
-const TABS = [
-  { id: 'all', label: '全部' },
-  { id: 'essential', label: '装机必备' },
-  { id: 'latest', label: '最新上架' },
-  { id: 'picks', label: '精选' },
-  { id: 'reviews', label: '评测' },
-] as const
-
-type TabId = typeof TABS[number]['id']
-
-// 精选工具数据（静态，有深度信息）
 const FEATURED = [
-  { name: 'Tavily', score: 4.9, platform: 'MCP', tag: 'AI360实测', desc: '让 AI 联网搜索最新信息', free: '免费1000次/月', difficulty: 4, stability: 5, href: '/skill/tavily-search' },
-  { name: 'claude-mem', score: 4.8, platform: 'Claude', tag: 'AI360实测', desc: '让 AI 跨会话记住项目上下文', free: '完全免费', difficulty: 2, stability: 3, href: '/skill/claude-mem' },
-  { name: 'Composio', score: 4.7, platform: 'MCP', tag: 'AI360实测', desc: '让 AI 一次连接 1000+ 外部应用', free: '免费2万次/月', difficulty: 3, stability: 4, href: '/skill/composio' },
-  { name: 'Hermes 能力增强', score: 4.6, platform: 'Hermes', tag: 'AI360实测', desc: 'Hook引擎+向量知识库+记忆系统', free: '完全免费', difficulty: 4, stability: 5, href: '/skill/hermes-power-hub' },
-  { name: 'Brave Search MCP', score: 4.8, platform: 'MCP', tag: 'AI360实测', desc: '免费 AI 搜索引擎，无需 API Key', free: '免费2000次/月', difficulty: 4, stability: 4, href: '/skill/brave-search-mcp' },
-  { name: 'Frontend Design', score: 4.7, platform: 'Claude', tag: 'AI360实测', desc: 'AI 生成专业级前端 UI 设计', free: '免费', difficulty: 3, stability: 4, href: '/skill/frontend-design' },
+  { name: 'Tavily', score: 4.9, platform: 'MCP', desc: '让 AI 联网搜索最新信息', free: '免费1000次/月', difficulty: 4, stability: 5, href: '/skill/tavily-search' },
+  { name: 'claude-mem', score: 4.8, platform: 'Claude', desc: '让 AI 跨会话记住项目上下文', free: '完全免费', difficulty: 2, stability: 3, href: '/skill/claude-mem' },
+  { name: 'Composio', score: 4.7, platform: 'MCP', desc: '让 AI 一次连接 1000+ 外部应用', free: '免费2万次/月', difficulty: 3, stability: 4, href: '/skill/composio' },
+  { name: 'Brave Search', score: 4.8, platform: 'MCP', desc: '免费 AI 搜索引擎，无需 API Key', free: '免费2000次/月', difficulty: 4, stability: 4, href: '/skill/brave-search-mcp' },
+  { name: 'Frontend Design', score: 4.7, platform: 'Claude', desc: 'AI 生成专业级前端 UI 设计', free: '免费', difficulty: 3, stability: 4, href: '/skill/frontend-design' },
+  { name: 'Systematic Debugging', score: 4.5, platform: 'Hermes', desc: '4 阶段根因调试方法论', free: '完全免费', difficulty: 4, stability: 5, href: '/skill/systematic-debugging' },
 ]
 
 const GUIDES = [
-  { slug: 'install-guide', title: '装机必备完整指南', desc: '记忆/搜索/文件/代码/连接，30分钟配齐' },
-  { slug: 'memory-comparison', title: 'AI 怎么记住你？4款记忆方案横评', desc: 'claude-mem / Mem0 / Supermemory 实测' },
-  { slug: 'search-comparison', title: '怎么让 AI 能上网？3款搜索方案对比', desc: 'Tavily / Firecrawl / Brave Search MCP' },
-  { slug: 'ecommerce-copy', title: '电商文案 Skill 实测对比', desc: '3款文案工具谁写出来的能直接发' },
+  { slug: 'install-guide', title: '装机必备完整指南', desc: '30分钟配齐所有基础工具' },
+  { slug: 'memory-comparison', title: 'AI 怎么记住你？4款横评', desc: 'claude-mem / Mem0 / Supermemory 实测' },
+  { slug: 'search-comparison', title: '怎么让 AI 能上网？3款对比', desc: 'Tavily / Firecrawl / Brave Search' },
+  { slug: 'ecommerce-copy', title: '电商文案 Skill 实测', desc: '3款文案工具谁写的好' },
 ]
 
 export default function HomePortal() {
-  const [tab, setTab] = useState<TabId>('all')
-  const [activePlatform, setActivePlatform] = useState<string | null>(null)
-  const [activeScenario, setActiveScenario] = useState<string | null>(null)
-  const [filterTested, setFilterTested] = useState(false)
-  const [filterFree, setFilterFree] = useState(false)
+  const [platforms, setPlatforms] = useState<string[]>(['hermes'])
+  const [sceneTab, setSceneTab] = useState('all')
+  const [typeTab, setTypeTab] = useState('all')
+
+  const togglePlatform = (slug: string) => {
+    setPlatforms(prev => {
+      if (prev.includes(slug)) return prev.filter(p => p !== slug)
+      if (prev.length >= 3) return [slug, ...prev.slice(0, 2)] // 最多3个，新的置顶
+      return [...prev, slug]
+    })
+  }
+
+  // 排序：选中的置顶
+  const sortedPlatforms = [...PLATFORMS].sort((a, b) => {
+    const ai = platforms.indexOf(a.slug)
+    const bi = platforms.indexOf(b.slug)
+    if (ai !== -1 && bi === -1) return -1
+    if (ai === -1 && bi !== -1) return 1
+    return 0
+  })
 
   return (
-    <div className="flex min-h-screen bg-white">
-      {/* === 左侧导航栏 === */}
-      <aside className="hidden md:block w-56 shrink-0 border-r border-gray-100 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto">
-        <div className="p-4 space-y-6">
-          
-          {/* 平台导航 */}
-          <div>
-            <h3 className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-2 px-2">平台</h3>
-            <nav className="space-y-0.5">
-              {PLATFORMS.map(p => (
-                <button
-                  key={p.slug}
-                  onClick={() => { setActivePlatform(activePlatform === p.slug ? null : p.slug); setActiveScenario(null) }}
-                  className={`w-full flex items-center justify-between px-2 py-1.5 rounded-md text-sm transition ${
-                    activePlatform === p.slug ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-600 hover:bg-gray-50'
-                  }`}
-                >
-                  <span>{p.name}</span>
-                  <span className="text-[10px] text-gray-300">{p.count}</span>
+    <div className="page-wrapper flex">
+      {/* === 左侧栏 — 透明无边框 === */}
+      <aside className="hidden md:block w-[260px] shrink-0 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto px-4 py-6">
+        
+        {/* 搜索框 */}
+        <form action="/search" className="search-input flex items-center gap-2 px-3 py-2 mb-5">
+          <span className="text-[#D1D5DB] text-sm">⌕</span>
+          <input type="text" name="q" placeholder="搜索平台" className="flex-1 bg-transparent border-none outline-none text-sm text-[#1F2937] placeholder:text-[#D1D5DB]" />
+        </form>
+
+        {/* PLATFORMS */}
+        <div className="mb-5">
+          <h3 className="text-[11px] font-medium text-[#9CA3AF] uppercase tracking-[0.05em] px-3 mb-2">PLATFORMS</h3>
+          <nav>
+            {sortedPlatforms.map(p => {
+              const active = platforms.includes(p.slug)
+              return (
+                <button key={p.slug} onClick={() => togglePlatform(p.slug)}
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition relative mb-0.5 ${
+                    active ? 'bg-[rgba(255,140,0,0.12)]' : 'hover:bg-[rgba(255,140,0,0.06)]'
+                  }`}>
+                  {active && <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-[#FF8C00] rounded-[2px]" />}
+                  <span className={`pl-2 ${active ? 'font-semibold text-[#FF8C00]' : 'text-[#1F2937] font-medium'}`}>{p.name}</span>
+                  <span className={`text-xs ${active ? 'text-[#FF8C00]' : 'text-[#9CA3AF]'}`}>{p.count}</span>
                 </button>
-              ))}
-            </nav>
-          </div>
+              )
+            })}
+          </nav>
+          <Link href="/search" className="flex items-center justify-center px-3 py-1.5 mt-2 border border-dashed border-[#E5E7EB] rounded-lg text-xs text-[#6B7280] hover:border-[#FF8C00] hover:text-[#FF8C00] transition">
+            全部平台(19个) →
+          </Link>
+        </div>
 
-          {/* 场景导航 */}
-          <div>
-            <h3 className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-2 px-2">场景</h3>
-            <nav className="space-y-0.5">
-              {SCENARIOS.map(s => (
-                <Link
-                  key={s.slug}
-                  href={`/scenario/${s.slug}`}
-                  className="w-full flex items-center justify-between px-2 py-1.5 rounded-md text-sm text-gray-600 hover:bg-gray-50 transition"
-                >
-                  <span>{s.title}</span>
-                  <span className="text-[10px] text-gray-300">{s.count}</span>
-                </Link>
-              ))}
-            </nav>
+        {/* 新手引导横幅 */}
+        <Link href="/essential" className="flex items-center gap-2.5 px-3 py-2.5 mb-3 border border-[#F0F0F0] rounded-[10px] hover:border-[#FF8C00] hover:bg-[rgba(255,140,0,0.04)] transition group">
+          <span className="text-base shrink-0">👋</span>
+          <div className="flex-1 min-w-0">
+            <div className="text-[13px] font-semibold text-[#1F2937]">第一次来？</div>
+            <div className="text-[11px] text-[#9CA3AF] leading-tight">3 分钟找到你需要的 Skill</div>
           </div>
+          <span className="text-sm text-[#9CA3AF] group-hover:text-[#FF8C00] transition shrink-0">→</span>
+        </Link>
 
-          {/* 筛选 */}
-          <div>
-            <h3 className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-2 px-2">筛选</h3>
-            <div className="space-y-1 px-2">
-              <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                <input type="checkbox" checked={filterTested} onChange={() => setFilterTested(!filterTested)} className="rounded border-gray-300" />
-                AI360 实测
-              </label>
-              <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                <input type="checkbox" checked={filterFree} onChange={() => setFilterFree(!filterFree)} className="rounded border-gray-300" />
-                免费工具
-              </label>
+        {/* LEARN — 引导式卡片 */}
+        <div>
+          <h3 className="text-[11px] font-medium text-[#9CA3AF] uppercase tracking-[0.05em] px-3 mb-2">LEARN</h3>
+          
+          <Link href="/scenario/content-creation" className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg hover:bg-[rgba(255,140,0,0.06)] transition mb-1">
+            <span className="w-7 h-7 flex items-center justify-center bg-[rgba(255,140,0,0.08)] rounded-md text-sm shrink-0">🎯</span>
+            <div className="flex-1 min-w-0">
+              <div className="text-[13px] font-semibold text-[#1F2937]">按场景找 Skill</div>
+              <div className="text-[11px] text-[#9CA3AF] leading-tight">不知道用什么？从需求出发</div>
             </div>
-          </div>
+            <span className="text-[10px] px-1.5 py-0.5 rounded bg-[rgba(255,140,0,0.12)] text-[#E67300] font-semibold shrink-0">新手推荐</span>
+          </Link>
 
-          {/* 快捷入口 */}
-          <div className="border-t border-gray-100 pt-4">
-            <Link href="/essential" className="block px-2 py-1.5 text-sm text-gray-600 hover:text-blue-600">
-              新手入门
-            </Link>
-            <Link href="/compare" className="block px-2 py-1.5 text-sm text-gray-600 hover:text-blue-600">
-              工具对比
-            </Link>
-            <Link href="/guide" className="block px-2 py-1.5 text-sm text-gray-600 hover:text-blue-600">
-              深度评测
-            </Link>
-            <Link href="/subscribe" className="block px-2 py-1.5 text-sm text-gray-600 hover:text-blue-600">
-              订阅周报
-            </Link>
-          </div>
+          <Link href="/platform/hermes" className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg hover:bg-[rgba(255,140,0,0.06)] transition mb-1">
+            <span className="w-7 h-7 flex items-center justify-center bg-[rgba(255,140,0,0.08)] rounded-md text-sm shrink-0">🔧</span>
+            <div className="flex-1 min-w-0">
+              <div className="text-[13px] font-semibold text-[#1F2937]">按工具学</div>
+              <div className="text-[11px] text-[#9CA3AF] leading-tight">深入了解每个平台的玩法</div>
+            </div>
+            <span className="text-[10px] px-1.5 py-0.5 rounded bg-[rgba(0,0,0,0.04)] text-[#9CA3AF] shrink-0">进阶</span>
+          </Link>
+
+          <Link href="/compare" className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg hover:bg-[rgba(255,140,0,0.06)] transition">
+            <span className="w-7 h-7 flex items-center justify-center bg-[rgba(255,140,0,0.08)] rounded-md text-sm shrink-0">📊</span>
+            <div className="flex-1 min-w-0">
+              <div className="text-[13px] font-semibold text-[#1F2937]">工具对比</div>
+              <div className="text-[11px] text-[#9CA3AF] leading-tight">同功能不同平台怎么选</div>
+            </div>
+            <span className="text-[10px] px-1.5 py-0.5 rounded bg-[rgba(0,0,0,0.04)] text-[#9CA3AF] shrink-0">实用</span>
+          </Link>
         </div>
       </aside>
 
       {/* === 主内容区 === */}
-      <main className="flex-1 min-w-0">
-        {/* 顶部 Tab */}
-        <div className="border-b border-gray-100 sticky top-14 z-30 bg-white">
-          <div className="px-6 flex gap-1">
-            {TABS.map(t => (
-              <button
-                key={t.id}
-                onClick={() => setTab(t.id)}
-                className={`px-4 py-3 text-sm border-b-2 transition ${
-                  tab === t.id ? 'border-blue-600 text-blue-600 font-medium' : 'border-transparent text-gray-500 hover:text-gray-700'
-                }`}
-              >
-                {t.label}
-              </button>
-            ))}
+      <main className="flex-1 min-w-0 px-6 md:px-10 py-6">
+        
+        {/* 场景 Tab 第一行 */}
+        <div className="flex gap-1 border-b border-[#F0F0F0] mb-3 overflow-x-auto scrollbar-hide">
+          {['all', '写作创作', '数据办公', '研究分析', '开发编程', '设计媒体', '自动化', 'AI增强'].map((s, i) => (
+            <button key={s} onClick={() => setSceneTab(s)}
+              className={`px-4 py-2.5 text-sm border-b-2 transition whitespace-nowrap ${
+                sceneTab === s ? 'border-[#FF8C00] text-[#FF8C00] font-medium' : 'border-transparent text-[#6B7280] hover:text-[#1F2937]'
+              }`}>
+              {s === 'all' ? '全部' : s}
+              {s !== 'all' && <span className="ml-1 text-[10px] text-[#9CA3AF]">{[68,65,35,106,37,52,20][i-1]}</span>}
+            </button>
+          ))}
+        </div>
+
+        {/* 类型 Tab 第二行 */}
+        <div className="flex gap-1 mb-5">
+          {['all', 'Skill', '工具', 'MCP', '插件'].map(t => (
+            <button key={t} onClick={() => setTypeTab(t)}
+              className={`px-3 py-1 text-[13px] rounded-md transition ${
+                typeTab === t ? 'bg-[rgba(255,140,0,0.12)] text-[#FF8C00] font-medium' : 'text-[#9CA3AF] hover:text-[#4B5563]'
+              }`}>
+              {t === 'all' ? '全部' : t}
+            </button>
+          ))}
+          <div className="ml-auto flex items-center gap-3">
+            <span className="text-[13px] text-[#9CA3AF]">共 528 个工具</span>
+            <select className="text-[13px] text-[#4B5563] border border-[#E5E7EB] rounded-md px-2 py-1 bg-white">
+              <option>综合评分</option>
+              <option>最新上架</option>
+              <option>评分最高</option>
+            </select>
           </div>
         </div>
 
-        {/* Tab 内容 */}
-        <div className="p-6">
-          {/* === 全部/精选 === */}
-          {(tab === 'all' || tab === 'picks') && (
-            <div>
-              {/* 平台筛选提示 */}
-              {activePlatform && (
-                <div className="mb-4 text-sm text-gray-500">
-                  筛选中：<span className="text-blue-600 font-medium">{PLATFORMS.find(p => p.slug === activePlatform)?.name}</span>
-                  <button onClick={() => setActivePlatform(null)} className="ml-2 text-gray-400 hover:text-gray-600">清除</button>
+        {/* 工具卡片网格 */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {FEATURED.map(skill => (
+            <Link key={skill.href} href={skill.href}
+              className="content-card block p-5 group">
+              <div className="flex items-start justify-between mb-2">
+                <div>
+                  <span className="text-sm font-semibold text-[#1F2937] group-hover:text-[#FF8C00]">{skill.name}</span>
+                  <span className="ml-2 text-[11px] text-[#9CA3AF]">{skill.platform}</span>
                 </div>
-              )}
-
-              {/* 工具卡片列表（有深度） */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                {FEATURED.map(skill => (
-                  <Link key={skill.href} href={skill.href} className="block p-4 rounded-lg border border-gray-100 hover:border-gray-200 hover:shadow-sm transition group">
-                    {/* 第一行：名称 + 评分 + 标签 */}
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <span className="text-sm font-semibold text-gray-900 group-hover:text-blue-600">{skill.name}</span>
-                        <span className="ml-2 text-[10px] text-gray-400">{skill.platform}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] bg-green-50 text-green-600 px-1.5 py-0.5 rounded font-medium">{skill.tag}</span>
-                        <span className="text-base font-bold text-amber-600">{skill.score}</span>
-                      </div>
-                    </div>
-                    {/* 第二行：一句话描述 */}
-                    <p className="text-xs text-gray-500 mb-3">{skill.desc}</p>
-                    {/* 第三行：三维评分 */}
-                    <div className="flex items-center gap-4 text-[11px] text-gray-400">
-                      <span>上手 {skill.difficulty}/5</span>
-                      <span>稳定 {skill.stability}/5</span>
-                      <span className="text-gray-500">{skill.free}</span>
-                    </div>
-                  </Link>
-                ))}
+                <div className="flex items-center gap-2">
+                  <span className="tag tag-free">免费</span>
+                  <span className="text-base font-bold text-[#FF8C00]">{skill.score}</span>
+                </div>
               </div>
-
-              <div className="mt-6 text-center">
-                <Link href="/search" className="text-sm text-blue-600 hover:underline">查看全部 528 个工具 →</Link>
+              <p className="text-xs text-[#4B5563] mb-3 leading-relaxed">{skill.desc}</p>
+              <div className="flex items-center gap-4 pt-2 border-t border-[#F8F8F8] text-[11px] text-[#9CA3AF]">
+                <span>上手 {skill.difficulty}/5</span>
+                <span>稳定 {skill.stability}/5</span>
+                <span className="text-[#4B5563]">{skill.free}</span>
               </div>
-            </div>
-          )}
+            </Link>
+          ))}
+        </div>
 
-          {/* === 装机必备 === */}
-          {tab === 'essential' && (
-            <div>
-              <p className="text-sm text-gray-500 mb-4">刚接触 AI？先装这些核心工具。</p>
-              <Link href="/essential"
-                className="inline-block bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700">
-                查看装机必备完整指南 →
+        {/* 评测文章 */}
+        <div className="mt-8 pt-6 border-t border-[#F0F0F0]">
+          <div className="flex items-baseline justify-between mb-3">
+            <h2 className="text-sm font-semibold text-[#1F2937]">深度评测</h2>
+            <Link href="/guide" className="text-xs text-[#FF8C00] hover:underline">全部 →</Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {GUIDES.map(g => (
+              <Link key={g.slug} href={`/guide/${g.slug}`}
+                className="block p-3 border border-[#F0F0F0] rounded-lg hover:border-[#E5E7EB] transition group">
+                <h3 className="text-xs font-medium text-[#1F2937] group-hover:text-[#FF8C00] mb-1 leading-snug">{g.title}</h3>
+                <p className="text-[11px] text-[#9CA3AF]">{g.desc}</p>
               </Link>
-            </div>
-          )}
-
-          {/* === 最新上架 === */}
-          {tab === 'latest' && (
-            <div>
-              <p className="text-sm text-gray-500 mb-4">最近新增的工具</p>
-              <div className="text-sm text-gray-400">持续更新中...</div>
-            </div>
-          )}
-
-          {/* === 评测 === */}
-          {tab === 'reviews' && (
-            <div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {GUIDES.map(g => (
-                  <Link key={g.slug} href={`/guide/${g.slug}`}
-                    className="block p-4 rounded-lg border border-gray-100 hover:border-gray-200 transition group">
-                    <h3 className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 mb-1">{g.title}</h3>
-                    <p className="text-xs text-gray-400">{g.desc}</p>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
+            ))}
+          </div>
         </div>
       </main>
     </div>

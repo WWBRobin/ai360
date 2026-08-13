@@ -128,7 +128,7 @@ export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
 // 评分环 SVG 组件
 function ScoreRing({ score }: { score: number }) {
   const pct = (score / 5) * 100
-  const color = score >= 4 ? '#16a34a' : score >= 3 ? '#f59e0b' : '#6b7280'
+  const color = score >= 4 ? '#16a34a' : score >= 3 ? '#ff8c00' : '#6b7280'
   const r = 18
   const c = 2 * Math.PI * r
   const dash = (pct / 100) * c

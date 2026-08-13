@@ -83,7 +83,7 @@ export default function EssentialBoard({ categories }: { categories: EssentialCa
         <section key={cat.id} className="mb-10">
           <div className="flex items-center gap-2.5 mb-4">
             <h2 className="text-[17px] font-bold text-[#1A1A1A]">{cat.label}</h2>
-            <span className="text-[11px] font-semibold text-[#C99700] bg-[rgba(201,151,0,0.10)] px-2.5 py-1 rounded-[10px]">
+            <span className="text-[11px] font-semibold text-[#FF8C00] bg-[rgba(255,140,0,0.10)] px-2.5 py-1 rounded-[10px]">
               {cat.skills.length} 个工具
             </span>
           </div>

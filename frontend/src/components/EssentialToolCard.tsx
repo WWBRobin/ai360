@@ -12,8 +12,8 @@ import type { SkillCard } from '@/types'
 function StarRating({ score }: { score: number | null }) {
   if (!score) return null
   return (
-    <span className="inline-flex items-center gap-1 text-[12px] text-[#6B7280] font-semibold whitespace-nowrap bg-[rgba(201,151,0,0.5)] px-2 py-[3px] rounded-lg">
-      <span className="text-[#C99700]">★</span>
+    <span className="inline-flex items-center gap-1 text-[12px] text-[#6B7280] font-semibold whitespace-nowrap bg-[rgba(255,140,0,0.5)] px-2 py-[3px] rounded-lg">
+      <span className="text-[#FF8C00]">★</span>
       {score.toFixed(1)}
     </span>
   )

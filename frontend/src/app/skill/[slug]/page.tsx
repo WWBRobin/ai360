@@ -172,10 +172,10 @@ export default async function SkillDetailPage({
     <div className="max-w-5xl mx-auto px-4 md:px-8 py-6 relative z-10">
       {/* 1. 面包屑 */}
       <nav className="flex items-center gap-1.5 text-xs text-[#9CA3AF] mb-5 flex-wrap">
-        <Link href="/" className="hover:text-[#C99700] transition">首页</Link>
+        <Link href="/" className="hover:text-[#FF8C00] transition">首页</Link>
         <span>/</span>
         {skill.platform_slug ? (
-          <Link href={`/platform/${skill.platform_slug}`} className="hover:text-[#C99700] transition">
+          <Link href={`/platform/${skill.platform_slug}`} className="hover:text-[#FF8C00] transition">
             {CATEGORY_LABELS[skill.category] || skill.platform_name || '场景'}
           </Link>
         ) : (
@@ -218,7 +218,7 @@ export default async function SkillDetailPage({
             {/* 评分行 */}
             {skill.overall_score != null && (
               <div className="flex items-center gap-2 mb-3 text-sm">
-                <span className="text-[#C99700] tracking-wide">
+                <span className="text-[#FF8C00] tracking-wide">
                   {scoreToStars(skill.overall_score)}
                 </span>
                 <span className="font-bold text-[#6B7280]">{skill.overall_score.toFixed(1)}</span>

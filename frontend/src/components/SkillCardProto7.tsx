@@ -13,7 +13,7 @@ function ScoreBar({ label, value }: { label: string; value: number | null | unde
       <div className="h-[5px] bg-[#F0F0F0] rounded-[3px] overflow-hidden">
         <div className="score-bar h-full transition-all duration-500" style={{ width: `${pct}%` }} />
       </div>
-      <div className="text-[11px] text-[#C99700] font-semibold mt-[3px]">
+      <div className="text-[11px] text-[#FF8C00] font-semibold mt-[3px]">
         {value ? value.toFixed(1) : '—'}
       </div>
     </div>
@@ -27,11 +27,11 @@ export default function SkillCardProto7({ skill }: { skill: SkillCard }) {
       {/* 头部：图标 + 标题 + 评分 */}
       <div className="flex items-start justify-between mb-2.5">
         <div className="flex items-center gap-2.5 min-w-0">
-          <span className="w-9 h-9 rounded-[10px] bg-[#C99700] flex items-center justify-center text-[13px] font-bold text-white shrink-0">
+          <span className="w-9 h-9 rounded-[10px] bg-[#FF8C00] flex items-center justify-center text-[13px] font-bold text-white shrink-0">
             {skill.name.charAt(0).toUpperCase()}
           </span>
           <div className="min-w-0">
-            <div className="text-[15px] font-semibold text-[#1A1A1A] group-hover:text-[#C99700] transition truncate">
+            <div className="text-[15px] font-semibold text-[#1A1A1A] group-hover:text-[#FF8C00] transition truncate">
               {skill.name}
             </div>
             <div className="text-[11px] text-[#9CA3AF] truncate">{skill.platform_name}</div>

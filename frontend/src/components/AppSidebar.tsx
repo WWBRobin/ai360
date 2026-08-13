@@ -62,18 +62,18 @@ export default function AppSidebar() {
                 key={p.slug}
                 onClick={() => togglePlatform(p.slug)}
                 className="w-full flex items-center gap-2.5 px-3 py-2 rounded-[8px] transition-all duration-150 relative"
-                style={{ background: isSelected ? 'rgba(201,151,0,0.06)' : 'transparent' }}
-                onMouseEnter={(e) => { if (!isSelected) e.currentTarget.style.background = 'rgba(201,151,0,0.04)' }}
+                style={{ background: isSelected ? 'rgba(255,140,0,0.06)' : 'transparent' }}
+                onMouseEnter={(e) => { if (!isSelected) e.currentTarget.style.background = 'rgba(255,140,0,0.04)' }}
                 onMouseLeave={(e) => { if (!isSelected) e.currentTarget.style.background = 'transparent' }}
               >
                 {/* Logo 占位 — 无背景色 */}
                 <span className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold text-[#9CA3AF]" style={{ background: 'transparent', border: '1px solid #F0F0F0' }}>
                   {p.name[0]}
                 </span>
-                <span className="flex-1 text-left text-[14px]" style={{ fontWeight: isSelected ? 600 : 500, color: isSelected ? '#C99700' : '#1F2937' }}>
+                <span className="flex-1 text-left text-[14px]" style={{ fontWeight: isSelected ? 600 : 500, color: isSelected ? '#FF8C00' : '#1F2937' }}>
                   {p.name}
                 </span>
-                <span className="text-[13px]" style={{ color: isSelected ? '#C99700' : '#9CA3AF' }}>
+                <span className="text-[13px]" style={{ color: isSelected ? '#FF8C00' : '#9CA3AF' }}>
                   {p.count}
                 </span>
               </button>
@@ -87,7 +87,7 @@ export default function AppSidebar() {
             onClick={() => setShowAll(!showAll)}
             className="w-full text-center py-1.5 rounded-[8px] text-[12px] transition"
             style={{ border: '1px dashed #E5E7EB', color: '#6B7280', background: 'transparent' }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#C99700'; e.currentTarget.style.color = '#C99700' }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#FF8C00'; e.currentTarget.style.color = '#FF8C00' }}
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#E5E7EB'; e.currentTarget.style.color = '#6B7280' }}
           >
             {showAll ? '收起' : `全部平台 (${PLATFORMS.length}个) →`}
@@ -103,7 +103,7 @@ export default function AppSidebar() {
             <Link href="/learn/scene"
               className="flex items-center px-3 py-2 rounded-[6px] text-[13px] transition"
               style={{ color: '#4B5563' }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(201,151,0,0.04)'; e.currentTarget.style.color = '#C99700' }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,140,0,0.04)'; e.currentTarget.style.color = '#FF8C00' }}
               onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#4B5563' }}
             >
               <span className="flex-1">按场景学</span>
@@ -112,7 +112,7 @@ export default function AppSidebar() {
             <Link href="/learn/tool"
               className="flex items-center px-3 py-2 rounded-[6px] text-[13px] transition"
               style={{ color: '#4B5563' }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(201,151,0,0.04)'; e.currentTarget.style.color = '#C99700' }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,140,0,0.04)'; e.currentTarget.style.color = '#FF8C00' }}
               onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#4B5563' }}
             >
               <span className="flex-1">按工具学</span>
@@ -126,7 +126,7 @@ export default function AppSidebar() {
           <Link href="/compare"
             className="flex items-center px-3 py-2 rounded-[8px] text-[14px] font-medium transition"
             style={{ color: '#4B5563' }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(201,151,0,0.04)'; e.currentTarget.style.color = '#C99700' }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,140,0,0.04)'; e.currentTarget.style.color = '#FF8C00' }}
             onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#4B5563' }}
           >
             <span className="flex-1">工具对比</span>

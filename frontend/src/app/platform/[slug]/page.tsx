@@ -138,7 +138,7 @@ export default async function PlatformPage({
       <main className="flex-1 min-w-0 relative z-10 px-8 py-7 max-w-[1080px]">
         {/* 面包屑 */}
         <nav className="text-[12px] text-[#9CA3AF] mb-4">
-          <Link href="/" className="hover:text-[#C99700]">首页</Link>
+          <Link href="/" className="hover:text-[#FF8C00]">首页</Link>
           <span> / </span>
           <span className="text-[#6B7280]">{platform.name}</span>
         </nav>
@@ -203,7 +203,7 @@ function PlatformHero({
       <div
         className="w-[72px] h-[72px] rounded-[18px] flex items-center justify-center text-[34px] font-extrabold text-white shrink-0"
         style={{
-          background: '#C99700',
+          background: '#FF8C00',
         }}
       >
         {platform.name.charAt(0).toUpperCase()}
@@ -214,7 +214,7 @@ function PlatformHero({
           {platform.name}
         </h1>
         {platform.description && (
-          <p className="text-[15px] font-semibold text-[#C99700] mb-2">{platform.description}</p>
+          <p className="text-[15px] font-semibold text-[#FF8C00] mb-2">{platform.description}</p>
         )}
         <p className="text-[14px] text-[#6B7280] max-w-[680px] mb-3 leading-[1.7]">
           {platform.name}平台共 {totalCount} 个工具与技能，覆盖编程、写作、研究、运维全场景。
@@ -252,8 +252,8 @@ function PlatformHero({
       {/* 整体评分徽章 */}
       {avgScore != null && (
         <div className="flex flex-col items-end gap-3 shrink-0">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[rgba(201,151,0,0.06)] border border-[#F0F0F0]">
-            <span className="text-[22px] font-extrabold text-[#C99700]">{avgScore.toFixed(1)}</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[rgba(255,140,0,0.06)] border border-[#F0F0F0]">
+            <span className="text-[22px] font-extrabold text-[#FF8C00]">{avgScore.toFixed(1)}</span>
             <span className="text-[11px] text-[#9CA3AF] leading-[1.3]">
               整体
               <br />
@@ -270,7 +270,7 @@ function Stat({ label, value, highlight }: { label: string; value: string; highl
   return (
     <div className="text-[12px] text-[#9CA3AF]">
       <strong
-        className={`text-[18px] font-bold block mb-0.5 ${highlight ? 'text-[#C99700]' : 'text-[#1A1A1A]'}`}
+        className={`text-[18px] font-bold block mb-0.5 ${highlight ? 'text-[#FF8C00]' : 'text-[#1A1A1A]'}`}
       >
         {value}
       </strong>

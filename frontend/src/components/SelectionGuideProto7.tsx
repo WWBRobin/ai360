@@ -12,10 +12,10 @@ interface Badge {
 }
 
 const BADGES: Record<string, Badge> = {
-  best: { text: '综合最佳', cls: 'bg-[rgba(201,151,0,0.10)] text-[#C99700]' },
+  best: { text: '综合最佳', cls: 'bg-[rgba(255,140,0,0.10)] text-[#FF8C00]' },
   newbie: { text: '新手友好', cls: 'bg-[#f0fdf4] text-[#059669]' },
-  free: { text: '免费额度', cls: 'bg-[rgba(201,151,0,0.10)] text-[#C99700]' },
-  stable: { text: '最稳定', cls: 'bg-[rgba(201,151,0,0.10)] text-[#C99700]' },
+  free: { text: '免费额度', cls: 'bg-[rgba(255,140,0,0.10)] text-[#FF8C00]' },
+  stable: { text: '最稳定', cls: 'bg-[rgba(255,140,0,0.10)] text-[#FF8C00]' },
 }
 
 export default function SelectionGuideProto7({
@@ -91,7 +91,7 @@ export default function SelectionGuideProto7({
             </span>
             {rec.skill ? (
               <Link href={`/skill/${rec.skill.slug}`} className="block group">
-                <div className="text-[14px] font-semibold text-[#1A1A1A] group-hover:text-[#C99700] transition mb-1.5">
+                <div className="text-[14px] font-semibold text-[#1A1A1A] group-hover:text-[#FF8C00] transition mb-1.5">
                   {rec.skill.name}
                 </div>
                 <p className="text-[12px] text-[#6B7280] leading-[1.6]">{rec.why}</p>

@@ -102,13 +102,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <nav className="top-bar sticky top-0 z-50">
           <div className="max-w-[1280px] mx-auto px-10 h-14 flex items-center">
             <div className="flex items-center gap-8">
-              <Link href="/" className="font-bold text-[15px] text-[#1F2937] hover:text-[#C99700] transition">
+              <Link href="/" className="font-bold text-[15px] text-[#1F2937] hover:text-[#FF8C00] transition">
                 AI360
               </Link>
               <div className="hidden md:flex items-center gap-6 text-sm">
-                <Link href="/" className="text-[#4B5563] hover:text-[#C99700] transition font-medium">Skill 聚合</Link>
-                <Link href="/essential" className="text-[#4B5563] hover:text-[#C99700] transition font-medium">装机必备</Link>
-                <Link href="/guide" className="text-[#4B5563] hover:text-[#C99700] transition font-medium">深度横评</Link>
+                <Link href="/" className="text-[#4B5563] hover:text-[#FF8C00] transition font-medium">Skill 聚合</Link>
+                <Link href="/essential" className="text-[#4B5563] hover:text-[#FF8C00] transition font-medium">装机必备</Link>
+                <Link href="/guide" className="text-[#4B5563] hover:text-[#FF8C00] transition font-medium">深度横评</Link>
               </div>
             </div>
             <form action="/search" className="ml-auto search-input flex items-center gap-2 px-3 py-1.5 w-[200px] md:w-[280px]">
@@ -143,7 +143,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </p>
                 <Link
                   href="/subscribe"
-                  className="inline-flex items-center gap-1.5 mt-4 text-xs font-medium text-[#C99700] hover:text-[#B8860B] transition"
+                  className="inline-flex items-center gap-1.5 mt-4 text-xs font-medium text-[#FF8C00] hover:text-[#E67300] transition"
                 >
                   订阅每周更新
                   <span aria-hidden>→</span>

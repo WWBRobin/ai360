@@ -237,7 +237,7 @@ function EvalCard({
   return (
     <div className="content-card p-5">
       <div className="flex items-center gap-2.5 mb-2">
-        <span className="w-6 h-6 rounded-full bg-[#C99700] text-white text-xs font-bold flex items-center justify-center shrink-0">
+        <span className="w-6 h-6 rounded-full bg-[#FF8C00] text-white text-xs font-bold flex items-center justify-center shrink-0">
           {num}
         </span>
         <span className="text-[15px] font-semibold text-[#1A1A1A]">{question}</span>
@@ -404,21 +404,21 @@ function InstallTab({
                 href={github.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-semibold text-[#374151] hover:text-[#C99700] transition truncate"
+                className="text-xs font-semibold text-[#374151] hover:text-[#FF8C00] transition truncate"
               >
                 {github.full_name}
               </a>
             </div>
             <div className="grid grid-cols-3 gap-2 text-center">
               <div className="bg-[#fef3c7] rounded-lg py-2">
-                <div className="text-xs text-[#d97706]">★ Star</div>
+                <div className="text-xs text-[#e67300]">★ Star</div>
                 <div className="text-sm font-bold text-[#1A1A1A]">{formatStars(github.stars)}</div>
               </div>
-              <div className="bg-[rgba(201,151,0,0.06)] rounded-lg py-2">
+              <div className="bg-[rgba(255,140,0,0.06)] rounded-lg py-2">
                 <div className="text-xs text-[#9CA3AF]">⑂ Fork</div>
                 <div className="text-sm font-bold text-[#1A1A1A]">{formatStars(github.forks)}</div>
               </div>
-              <div className="bg-[rgba(201,151,0,0.06)] rounded-lg py-2">
+              <div className="bg-[rgba(255,140,0,0.06)] rounded-lg py-2">
                 <div className="text-xs text-[#9CA3AF]">License</div>
                 <div className="text-xs font-bold text-[#1A1A1A] truncate px-1">{github.license || '—'}</div>
               </div>
@@ -449,7 +449,7 @@ function StepCard({
 
   return (
     <div className="content-card p-5">
-      <div className="w-9 h-9 rounded-full bg-[#C99700] text-white text-base font-bold flex items-center justify-center mb-3.5 shadow-[0_4px_10px_rgba(201,151,0,0.28)]">
+      <div className="w-9 h-9 rounded-full bg-[#FF8C00] text-white text-base font-bold flex items-center justify-center mb-3.5 shadow-[0_4px_10px_rgba(255,140,0,0.28)]">
         {num}
       </div>
       <h3 className="text-[15px] font-bold text-[#1A1A1A] mb-2">{title}</h3>
@@ -467,7 +467,7 @@ function TutorialTab({ skill }: { skill: SkillDetail }) {
       {/* 使用技巧 */}
       <div className="content-card p-5">
         <div className="flex items-center gap-2.5 mb-2">
-          <span className="w-6 h-6 rounded-full bg-[#C99700] text-white text-xs font-bold flex items-center justify-center shrink-0">
+          <span className="w-6 h-6 rounded-full bg-[#FF8C00] text-white text-xs font-bold flex items-center justify-center shrink-0">
             ★
           </span>
           <span className="text-[15px] font-semibold text-[#1A1A1A]">使用技巧</span>
@@ -485,7 +485,7 @@ function TutorialTab({ skill }: { skill: SkillDetail }) {
       {skill.guide_content && (
         <div className="content-card p-6">
           <div className="flex items-center gap-2.5 mb-3">
-            <span className="w-6 h-6 rounded-full bg-[#C99700] text-white text-xs font-bold flex items-center justify-center shrink-0">
+            <span className="w-6 h-6 rounded-full bg-[#FF8C00] text-white text-xs font-bold flex items-center justify-center shrink-0">
               📖
             </span>
             <span className="text-[15px] font-semibold text-[#1A1A1A]">详细指南</span>
@@ -538,7 +538,7 @@ function ReviewsTab({ skill }: { skill: SkillDetail }) {
             <div className="flex items-center gap-3">
               <span className="score-text text-3xl">{skill.overall_score.toFixed(1)}</span>
               <div>
-                <div className="text-[#C99700] text-sm">{scoreToStars(skill.overall_score)}</div>
+                <div className="text-[#FF8C00] text-sm">{scoreToStars(skill.overall_score)}</div>
                 <div className="text-xs text-[#9CA3AF]">综合评分</div>
               </div>
             </div>
@@ -589,7 +589,7 @@ function RelatedTab({
           <div className="content-card overflow-hidden">
             <table className="w-full border-collapse">
               <thead>
-                <tr className="bg-[rgba(201,151,0,0.6)]">
+                <tr className="bg-[rgba(255,140,0,0.6)]">
                   <th className="px-4 py-3 text-left text-xs font-semibold text-[#1A1A1A] uppercase tracking-wide">工具</th>
                   <th className="px-4 py-3 text-center text-xs font-semibold text-[#1A1A1A] uppercase tracking-wide">综合</th>
                   <th className="px-4 py-3 text-center text-xs font-semibold text-[#1A1A1A] uppercase tracking-wide">上手</th>
@@ -603,8 +603,8 @@ function RelatedTab({
                   return (
                     <tr
                       key={row.slug}
-                      className={`border-b border-[#F0F0F0] last:border-b-0 transition hover:bg-[rgba(201,151,0,0.04)] ${
-                        isCurrent ? 'bg-[rgba(201,151,0,0.5)]' : ''
+                      className={`border-b border-[#F0F0F0] last:border-b-0 transition hover:bg-[rgba(255,140,0,0.04)] ${
+                        isCurrent ? 'bg-[rgba(255,140,0,0.5)]' : ''
                       }`}
                     >
                       <td className="px-4 py-3">
@@ -616,12 +616,12 @@ function RelatedTab({
                             <span className="text-base shrink-0" aria-hidden>{CATEGORY_ICONS[row.category] || '🧩'}</span>
                           )}
                           {isCurrent ? (
-                            <span className="font-semibold text-[#C99700]">
+                            <span className="font-semibold text-[#FF8C00]">
                               {row.name}
-                              <span className="ml-1 text-[10px] align-middle bg-[rgba(201,151,0,0.06)] text-[#C99700] px-1 py-px rounded">当前</span>
+                              <span className="ml-1 text-[10px] align-middle bg-[rgba(255,140,0,0.06)] text-[#FF8C00] px-1 py-px rounded">当前</span>
                             </span>
                           ) : (
-                            <Link href={`/skill/${row.slug}`} className="font-semibold text-[#1A1A1A] hover:text-[#C99700] transition">
+                            <Link href={`/skill/${row.slug}`} className="font-semibold text-[#1A1A1A] hover:text-[#FF8C00] transition">
                               {row.name}
                             </Link>
                           )}
@@ -701,7 +701,7 @@ function RelatedTab({
 
 function CompareScoreCell({ score }: { score: number | null }) {
   if (score == null) return <span className="text-[#D1D5DB]">—</span>
-  const color = score >= 4 ? 'text-[#059669]' : score >= 3 ? 'text-[#d97706]' : 'text-[#6B7280]'
+  const color = score >= 4 ? 'text-[#059669]' : score >= 3 ? 'text-[#e67300]' : 'text-[#6B7280]'
   return <span className={`font-medium ${color}`}>{score}/5</span>
 }
 
@@ -717,7 +717,7 @@ function AlternativeCard({ row }: { row: CompareRow }) {
             <span className="text-xl shrink-0" aria-hidden>{CATEGORY_ICONS[row.category] || '🧩'}</span>
           )}
           <div className="min-w-0">
-            <h3 className="font-bold text-[#1A1A1A] group-hover:text-[#C99700] transition truncate">
+            <h3 className="font-bold text-[#1A1A1A] group-hover:text-[#FF8C00] transition truncate">
               {row.name}
             </h3>
             <span className="text-xs text-[#9CA3AF]">{row.platform_name}</span>
@@ -729,13 +729,13 @@ function AlternativeCard({ row }: { row: CompareRow }) {
         <div className="flex items-center justify-between text-xs">
           {row.overall_score != null ? (
             <span className="flex items-center gap-1">
-              <span className="text-[#C99700]">★</span>
+              <span className="text-[#FF8C00]">★</span>
               <span className="font-bold text-[#059669]">{row.overall_score.toFixed(1)}</span>
             </span>
           ) : (
             <span className="text-[#9CA3AF]">暂无评分</span>
           )}
-          <span className="text-[#C99700] font-medium group-hover:underline">查看评测 →</span>
+          <span className="text-[#FF8C00] font-medium group-hover:underline">查看评测 →</span>
         </div>
       </div>
     </Link>
@@ -750,15 +750,15 @@ function RelatedArticleCard({ article }: { article: ArticleMeta }) {
           <div className="text-2xl shrink-0">{article.icon}</div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1.5">
-              <span className="bg-[rgba(201,151,0,0.06)] text-[#C99700] text-[10px] px-1.5 py-0.5 rounded font-medium">
+              <span className="bg-[rgba(255,140,0,0.06)] text-[#FF8C00] text-[10px] px-1.5 py-0.5 rounded font-medium">
                 {article.tag}
               </span>
             </div>
-            <h3 className="font-semibold text-[#1A1A1A] group-hover:text-[#C99700] transition line-clamp-2 text-sm">
+            <h3 className="font-semibold text-[#1A1A1A] group-hover:text-[#FF8C00] transition line-clamp-2 text-sm">
               {article.title}
             </h3>
             <p className="text-xs text-[#6B7280] mt-1.5 line-clamp-2">{article.summary}</p>
-            <div className="mt-2 text-xs text-[#C99700] font-medium">阅读 →</div>
+            <div className="mt-2 text-xs text-[#FF8C00] font-medium">阅读 →</div>
           </div>
         </div>
       </div>

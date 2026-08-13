@@ -56,7 +56,7 @@ export default function ScenarioTabs({
             type="button"
             onClick={() => setActiveType(i)}
             className={`text-[13px] transition ${
-              activeType === i ? 'text-[#C99700] font-semibold' : 'text-[#9CA3AF] hover:text-[#6B7280]'
+              activeType === i ? 'text-[#FF8C00] font-semibold' : 'text-[#9CA3AF] hover:text-[#6B7280]'
             }`}
           >
             {t}
