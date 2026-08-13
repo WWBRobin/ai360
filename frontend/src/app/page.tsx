@@ -16,7 +16,7 @@ export default async function HomePage() {
       .from('skill_cards_view')
       .select('*')
       .order('overall_score', { ascending: false, nullsFirst: false })
-      .limit(60)
+      .limit(120)
 
     if (skillData) skills = skillData as unknown as SkillCard[]
 

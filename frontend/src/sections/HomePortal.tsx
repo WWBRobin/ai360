@@ -9,7 +9,7 @@ import type { SkillCard } from '@/types'
  * AI360 首页 — 功能页（筛选全在当前页，不跳转）
  */
 
-const TYPES = ['全部', 'Skill', '工具', 'MCP', '插件']
+const TYPES = ['全部', 'Skill', '工具', 'MCP']
 
 const GUIDES = [
   { slug: 'install-guide', title: '装机必备完整指南', desc: '30分钟配齐所有基础工具' },
@@ -32,6 +32,7 @@ export default function HomePortal({
   const [activeScene, setActiveScene] = useState('all')
   const [activeType, setActiveType] = useState('all')
   const [sortBy, setSortBy] = useState('score')
+  const [showCount, setShowCount] = useState(20)
 
   const SCENES = [
     { slug: 'all', name: '全部', count: totalCount },
@@ -73,6 +74,8 @@ export default function HomePortal({
 
     return result
   }, [skills, activeScene, activeType, sortBy])
+
+  const displayedSkills = filteredSkills.slice(0, showCount)
 
   return (
     <div className="page-wrapper flex">
@@ -138,7 +141,7 @@ export default function HomePortal({
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-8">
-            {filteredSkills.map(skill => (
+            {displayedSkills.map(skill => (
               <Link key={skill.slug} href={`/skill/${skill.slug}`} className="content-card block p-5 group">
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex items-center gap-2.5">
@@ -176,6 +179,15 @@ export default function HomePortal({
                 )}
               </Link>
             ))}
+          </div>
+        )}
+
+        {/* 加载更多 */}
+        {filteredSkills.length > displayedSkills.length && (
+          <div className="text-center pb-8">
+            <button onClick={() => setShowCount(prev => prev + 20)} className="btn-outline px-6 py-2 text-[14px]">
+              加载更多（还有 {filteredSkills.length - displayedSkills.length} 个）
+            </button>
           </div>
         )}
 
