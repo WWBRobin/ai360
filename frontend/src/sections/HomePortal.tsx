@@ -67,11 +67,11 @@ export default function HomePortal() {
       </div>
 
       {/* 类型 Tab + 排序 */}
-      <div className="flex items-center gap-1 py-3">
+      <div className="flex items-center gap-2 py-3">
         {TYPES.map(t => (
           <button key={t} onClick={() => setActiveType(t)}
-            className={`text-[14px] px-3 py-1 rounded-md transition ${
-              activeType === t ? 'bg-[rgba(255,140,0,0.12)] text-[#FF8C00] font-medium' : 'text-[#9CA3AF] hover:text-[#4B5563]'
+            className={`text-[14px] px-4 py-1.5 rounded-full border font-medium transition ${
+              activeType === t ? 'bg-[#FF8C00] text-white border-[#FF8C00]' : 'text-[#6B7280] border-[#E5E7EB] hover:border-[#FF8C00] hover:text-[#1F2937]'
             }`}>
             {t}
           </button>

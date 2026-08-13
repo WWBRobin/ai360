@@ -90,17 +90,18 @@ body {
   color: #FF8C00;
 }
 
-/* ===== Tab ===== */
+/* ===== Tab — 加粗加深，更明显 ===== */
 .tab-active {
   color: #FF8C00;
-  border-bottom: 2px solid #FF8C00;
-  font-weight: 500;
+  border-bottom: 3px solid #FF8C00;
+  font-weight: 700;
 }
 .tab-inactive {
   color: #6B7280;
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent;
+  font-weight: 500;
 }
-.tab-inactive:hover { color: #1F2937; }
+.tab-inactive:hover { color: #1F2937; font-weight: 600; }
 
 /* ===== 标签 ===== */
 .tag {
