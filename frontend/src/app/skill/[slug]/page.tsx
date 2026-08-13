@@ -392,7 +392,7 @@ export default async function SkillDetailPage({
             >
               去安装 →
             </a>
-            <Link href={`/compare?focus=${skill.slug}`} className="btn-outline px-5 py-2.5 text-center text-sm">
+            <Link href={`/compare?slugs=${skill.slug}`} className="btn-outline px-5 py-2.5 text-center text-sm">
               对比
             </Link>
             {skill.trial_enabled && (

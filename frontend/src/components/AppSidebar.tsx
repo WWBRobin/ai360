@@ -278,8 +278,8 @@ function HomeSidebar() {
       <div className="mt-5">
         <SectionLabel>学习成长</SectionLabel>
         <div className="px-3">
-          <NavLink href="/scenario/content-creation" label="按场景学" />
-          <NavLink href="/platform/coze" label="按工具学" />
+          <NavLink href="/scenario/code" label="按场景学" />
+          <NavLink href="/platform/hermes" label="按工具学" />
         </div>
       </div>
 
@@ -743,11 +743,11 @@ function SearchSidebarContent() {
 // ============================================================
 
 const POPULAR_COMPARES = [
-  { slug: 'claude-vs-gpt', title: 'Claude vs ChatGPT', count: 42 },
-  { slug: 'cursor-vs-copilot', title: 'Cursor vs Copilot', count: 38 },
-  { slug: 'hermes-vs-zai', title: 'Hermes vs ZAI', count: 25 },
-  { slug: 'dify-vs-coze', title: 'Dify vs 扣子', count: 20 },
-  { slug: 'mem0-vs-supermemory', title: 'Mem0 vs Supermemory', count: 15 },
+  { slug: 'brave-search-mcp,tavily-search', title: 'Brave vs Tavily 搜索', count: 42 },
+  { slug: 'hermes-hooks,claude-mem', title: 'Hermes vs Claude 记忆', count: 38 },
+  { slug: 'systematic-debugging,ai-tool-evaluation', title: '调试 vs 评测框架', count: 25 },
+  { slug: 'github-pr-workflow,popular-web-designs', title: 'GitHub vs Web设计', count: 20 },
+  { slug: 'composio,brave-search-mcp', title: 'Composio vs Brave 连接', count: 15 },
 ]
 
 function CompareSidebar() {
@@ -830,7 +830,7 @@ const RELATED_SKILLS = [
   { slug: 'hermes', name: 'Hermes', icon: '⚡' },
 ]
 
-function SkillDetailSidebar() {
+function SkillDetailSidebar({ pathname }: { pathname: string }) {
   const [activeSection, setActiveSection] = useState<string>('overview')
 
   return (
@@ -893,7 +893,7 @@ function SkillDetailSidebar() {
 
       <div className="mt-5 px-3">
         <Link
-          href="/compare"
+          href={`/compare?slugs=${pathname.split('/').pop()}`}
           className="flex items-center justify-center gap-1.5 py-2.5 rounded-[8px] text-[13px] font-semibold transition"
           style={{ border: '1px solid #FF8C00', color: '#FF8C00', background: 'transparent' }}
           onMouseEnter={(e) => {
@@ -933,7 +933,7 @@ export default function AppSidebar() {
         {variant === 'platform' && <PlatformSidebar pathname={pathname} />}
         {variant === 'search' && <SearchSidebarContent />}
         {variant === 'compare' && <CompareSidebar />}
-        {variant === 'skill' && <SkillDetailSidebar />}
+        {variant === 'skill' && <SkillDetailSidebar pathname={pathname} />}
         {(variant === 'default') && <HomeSidebar />}
       </div>
     </aside>
