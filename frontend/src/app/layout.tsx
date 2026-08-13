@@ -98,28 +98,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
 
-        {/* 顶部导航 — 玻璃态 */}
-        <nav className="glass-topbar sticky top-0 z-50 h-14 flex items-center px-6">
-          <div className="flex items-center gap-8">
-            <Link href="/" className="font-bold text-[15px] text-[#1A1A1A] hover:text-[#7C3AED] transition">
-              AI360
-            </Link>
-            <div className="hidden md:flex items-center gap-6 text-sm">
-              <Link href="/" className="text-[#374151] hover:text-[#7C3AED] transition font-medium">Skill 聚合</Link>
-              <Link href="/essential" className="text-[#374151] hover:text-[#7C3AED] transition font-medium">装机必备</Link>
-              <Link href="/guide" className="text-[#374151] hover:text-[#7C3AED] transition font-medium">深度横评</Link>
+        {/* 顶栏 — 极简白底 */}
+        <nav className="top-bar sticky top-0 z-50">
+          <div className="max-w-[1280px] mx-auto px-10 h-14 flex items-center">
+            <div className="flex items-center gap-8">
+              <Link href="/" className="font-bold text-[15px] text-[#1F2937] hover:text-[#C99700] transition">
+                AI360
+              </Link>
+              <div className="hidden md:flex items-center gap-6 text-sm">
+                <Link href="/" className="text-[#4B5563] hover:text-[#C99700] transition font-medium">Skill 聚合</Link>
+                <Link href="/essential" className="text-[#4B5563] hover:text-[#C99700] transition font-medium">装机必备</Link>
+                <Link href="/guide" className="text-[#4B5563] hover:text-[#C99700] transition font-medium">深度横评</Link>
+              </div>
             </div>
+            <form action="/search" className="ml-auto search-input flex items-center gap-2 px-3 py-1.5 w-[200px] md:w-[280px]">
+              <span className="text-[#D1D5DB] text-sm">⌕</span>
+              <input
+                type="text"
+                name="q"
+                placeholder="搜索 AI 工具、Skill、MCP…"
+                className="flex-1 bg-transparent border-none outline-none text-sm text-[#1F2937] placeholder:text-[#D1D5DB]"
+              />
+            </form>
+            <MobileNav />
           </div>
-          <form action="/search" className="ml-auto search-input flex items-center gap-2 px-3 py-1.5 w-[200px] md:w-[280px]">
-            <span className="text-[#9CA3AF] text-sm">⌕</span>
-            <input
-              type="text"
-              name="q"
-              placeholder="搜索 AI 工具、Skill、MCP…"
-              className="flex-1 bg-transparent border-none outline-none text-sm text-[#1A1A1A] placeholder:text-[#9CA3AF]"
-            />
-          </form>
-          <MobileNav />
         </nav>
 
         {/* 主内容 */}
