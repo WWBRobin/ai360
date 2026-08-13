@@ -14,15 +14,15 @@ export const revalidate = 300
 
 // ===== 分类卡片配置 =====
 const CATEGORY_CARDS = [
-  { scenarioSlug: 'memory', icon: '🧠', title: '记忆增强', desc: '让 AI 跨会话记住你的偏好和历史', color: 'from-blue-50 to-indigo-50' },
-  { scenarioSlug: 'search', icon: '🔍', title: '联网搜索', desc: '让 AI 能实时获取最新信息', color: 'from-green-50 to-emerald-50' },
-  { scenarioSlug: 'file', icon: '📁', title: '文件操作', desc: '让 AI 直接操作你的文件', color: 'from-amber-50 to-orange-50' },
-  { scenarioSlug: 'connect', icon: '🔗', title: '工具连接', desc: '让 AI 接通 GitHub/Slack/邮件', color: 'from-purple-50 to-fuchsia-50' },
-  { scenarioSlug: 'ecommerce-copy', icon: '🛍️', title: '电商营销', desc: '帮你做电商文案和主图', color: 'from-pink-50 to-rose-50' },
-  { scenarioSlug: 'content-creation', icon: '📝', title: '内容创作', desc: '帮你写文章和社交媒体内容', color: 'from-cyan-50 to-sky-50' },
-  { scenarioSlug: 'data-analysis', icon: '📊', title: '数据分析', desc: '帮你分析数据和生成报告', color: 'from-teal-50 to-green-50' },
-  { scenarioSlug: 'design', icon: '🎨', title: '设计创意', desc: 'AI 帮你做海报和 UI 设计', color: 'from-violet-50 to-purple-50' },
-  { scenarioSlug: 'video', icon: '🎬', title: '视频制作', desc: 'AI 帮你做视频和剪辑', color: 'from-red-50 to-orange-50' },
+  { scenarioSlug: 'memory', icon: '🧠', title: '记忆增强', desc: '让 AI 跨会话记住你的偏好和历史', bg: '#eff6ff' },
+  { scenarioSlug: 'search', icon: '🔍', title: '联网搜索', desc: '让 AI 能实时获取最新信息', bg: '#ecfdf5' },
+  { scenarioSlug: 'file', icon: '📁', title: '文件操作', desc: '让 AI 直接操作你的文件', bg: '#fffbeb' },
+  { scenarioSlug: 'connect', icon: '🔗', title: '工具连接', desc: '让 AI 接通 GitHub/Slack/邮件', bg: '#faf5ff' },
+  { scenarioSlug: 'ecommerce-copy', icon: '🛍️', title: '电商营销', desc: '帮你做电商文案和主图', bg: '#fdf2f8' },
+  { scenarioSlug: 'content-creation', icon: '📝', title: '内容创作', desc: '帮你写文章和社交媒体内容', bg: '#ecfeff' },
+  { scenarioSlug: 'data-analysis', icon: '📊', title: '数据分析', desc: '帮你分析数据和生成报告', bg: '#f0fdfa' },
+  { scenarioSlug: 'design', icon: '🎨', title: '设计创意', desc: 'AI 帮你做海报和 UI 设计', bg: '#f5f3ff' },
+  { scenarioSlug: 'video', icon: '🎬', title: '视频制作', desc: 'AI 帮你做视频和剪辑', bg: '#fef2f2' },
 ]
 
 export default async function HomePage() {
@@ -34,14 +34,12 @@ export default async function HomePage() {
     getSkillsByCategory('scene').catch(() => []),
   ])
 
-  // 编辑精选：过滤掉英文 slug，优先显示中文名的
-  const topPicks = [...featuredSkills]
-    .filter(s => {
-      // 过滤掉纯英文/下划线名字的（Hermes 批量导入的）
-      return !/^[a-z_]+$/.test(s.name)
-    })
-    .sort((a, b) => (b.overall_score || 0) - (a.overall_score || 0))
-    .slice(0, 3)
+  // 编辑精选：用硬编码的高质量推荐（评分高 + 有中文名）
+  const MANUAL_PICKS = [
+    { name: 'Tavily 搜索', score: 4.9, desc: '让 AI 能联网搜索，免费 1000 次/月', quota: '免费1000次/月', href: '/skill/tavily-search' },
+    { name: 'claude-mem', score: 4.8, desc: '让 AI 记住你，Claude Code 用户必装', quota: '完全免费', href: '/skill/claude-mem' },
+    { name: 'Composio', score: 4.7, desc: '让 AI 连接 1000+ 外部应用', quota: '免费2万次/月', href: '/skill/composio' },
+  ]
 
   const articles = getAllArticleMetas()
   const latestArticles = articles.slice(0, 4)
@@ -128,7 +126,8 @@ export default async function HomePage() {
               <Link
                 key={cat.scenarioSlug}
                 href={`/scenario/${cat.scenarioSlug}`}
-                className={`cat-card rounded-2xl p-5 bg-gradient-to-br ${cat.color} group`}
+                className={`cat-card rounded-2xl p-5 group`}
+                style={{ backgroundColor: cat.bg }}
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="text-4xl drop-shadow-sm">{cat.icon}</div>
@@ -167,7 +166,7 @@ export default async function HomePage() {
       </section>
 
       {/* ===== 编辑精选 ===== */}
-      {topPicks.length > 0 && (
+      {MANUAL_PICKS.length > 0 && (
         <section className="bg-white py-16 border-y border-gray-100">
           <div className="max-w-5xl mx-auto px-4">
             <div className="mb-8">
@@ -176,10 +175,10 @@ export default async function HomePage() {
             </div>
 
             <div className="space-y-3">
-              {topPicks.map((skill, i) => (
+              {MANUAL_PICKS.map((pick, i) => (
                 <Link
-                  key={skill.id}
-                  href={`/skill/${skill.slug}`}
+                  key={pick.href}
+                  href={pick.href}
                   className="pick-card block rounded-xl p-5 group"
                 >
                   <div className="flex items-center gap-4">
@@ -188,18 +187,16 @@ export default async function HomePage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-bold text-gray-900 group-hover:text-indigo-600 transition text-base">
-                        {skill.name}
+                        {pick.name}
                       </h3>
-                      <p className="text-sm text-gray-400 truncate">{skill.tagline}</p>
+                      <p className="text-sm text-gray-400 truncate">{pick.desc}</p>
                     </div>
                     <div className="text-right shrink-0">
-                      {skill.overall_score && (
-                        <div className="text-2xl font-bold gradient-text">
-                          {Number(skill.overall_score).toFixed(1)}
-                        </div>
-                      )}
+                      <div className="text-2xl font-bold gradient-text">
+                        {pick.score.toFixed(1)}
+                      </div>
                       <div className="text-xs text-gray-300">
-                        {skill.free_quota || skill.platform_name || ''}
+                        {pick.quota}
                       </div>
                     </div>
                   </div>
