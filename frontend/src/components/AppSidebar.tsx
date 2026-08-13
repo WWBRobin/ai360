@@ -922,10 +922,10 @@ export default function AppSidebar() {
 
   return (
     <aside
-      className="hidden md:block w-[260px] shrink-0 sticky top-14 h-[calc(100vh-56px)] overflow-y-auto"
+      className="hidden md:block w-[220px] shrink-0 sticky top-[60px] h-[calc(100vh-60px)] overflow-y-auto"
       style={{ background: 'transparent', border: 'none' }}
     >
-      <div className="px-4 py-6">
+      <div className="px-3 pt-8 pb-6">
         {variant === 'home' && <HomeSidebar />}
         {variant === 'essential' && <EssentialSidebar />}
         {variant === 'guide' && <GuideSidebar />}
