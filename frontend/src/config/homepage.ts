@@ -1,22 +1,19 @@
 /**
- * 首页布局配置
+ * 首页布局配置 v2
  * 
- * 改首页布局 = 改这个数组。不碰组件代码。
- * 
- * 示例：
- * - 调换顺序：把 EditorPicks 移到 CategoryGrid 前面
- * - 隐藏区块：加 enabled: false
- * - 加新区块：在 sections/ 下创建组件 + 加到这里
+ * 用户心智：平台选择 → 场景需求 → 精选评测 → 新手入门
+ * 搜索在导航栏，不占首屏
  */
 
 import type { SectionConfig } from './PageBuilder'
 
 export const homepageSections: SectionConfig[] = [
-  { component: 'HeroSection', props: {} },
-  { component: 'CategoryGrid', props: { columns: 3 } },
-  { component: 'EditorPicks', props: { totalSkills: 528 } },
-  { component: 'ArticleList', props: { count: 4 } },
-  { component: 'CTABanner', props: {} },
-  { component: 'PlatformNav', props: {} },
-  { component: 'SubscribeSection', props: {} },
+  { component: 'HeroSection', props: {} },        // 精简Hero（一句话）
+  { component: 'PlatformEntry', props: {} },       // 首屏核心：选平台
+  { component: 'ScenarioEntry', props: {} },       // 第二屏：选场景
+  { component: 'EditorPicks', props: { totalSkills: 528 } },  // 编辑精选
+  { component: 'ArticleList', props: { count: 4 } },          // 深度评测
+  { component: 'CTABanner', props: {} },           // 新手CTA
+  { component: 'PlatformNav', props: {} },          // 平台标签（精简版）
+  { component: 'SubscribeSection', props: {} },     // 订阅
 ]
