@@ -4,6 +4,7 @@ import { getSkillsByScenario, getScenarios } from '@/lib/supabase'
 import { SCENARIO_ICONS } from '@/lib/supabase'
 import SkillCardComponent from '@/components/SkillCard'
 import ScenarioFilter from '@/components/ScenarioFilter'
+import SelectionGuide from '@/components/SelectionGuide'
 import type { SkillCard } from '@/types'
 
 // 平台分组优先级：扣子 > GPTs > 智谱 > 通义 > 其他按字母序
@@ -282,7 +283,10 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
         )}
       </div>
 
-      {/* 5. 相关场景推荐 */}
+      {/* 5. 底部选型建议 */}
+      <SelectionGuide skills={filtered} />
+
+      {/* 6. 相关场景推荐 */}
       {siblingScenarios.length > 0 && (
         <section className="mt-16 border-t border-gray-100 pt-8">
           <h2 className="mb-4 text-lg font-semibold text-gray-900">

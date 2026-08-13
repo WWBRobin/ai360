@@ -98,19 +98,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
 
-        {/* 顶部导航 */}
-        <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-md bg-white/90">
+        {/* 顶部导航 — sticky 毛玻璃 */}
+        <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-black/5 shadow-sm">
           <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
             <div className="flex items-center gap-6">
-              <Link href="/" className="flex items-center gap-2">
+              <Link href="/" className="flex items-center gap-2 group">
                 <span className="text-xl">🔧</span>
-                  <span className="font-bold text-gray-900">AI360</span>
+                <span className="font-bold text-gray-900 group-hover:text-indigo-600 transition">AI360</span>
               </Link>
-              <div className="hidden md:flex items-center gap-5 text-sm text-gray-600">
-                <Link href="/essential" className="hover:text-indigo-600 transition">装机必备</Link>
-                <Link href="/scenario/content-creation" className="hover:text-indigo-600 transition">场景推荐</Link>
-                <Link href="/platform/coze" className="hover:text-indigo-600 transition">按平台</Link>
-                <Link href="/compare" className="hover:text-indigo-600 transition">对比</Link>
+              <div className="hidden md:flex items-center gap-6 text-sm text-gray-600">
+                <Link href="/essential" className="hover:text-indigo-600 transition font-medium">装机必备</Link>
+                <Link href="/scenario/content-creation" className="hover:text-indigo-600 transition font-medium">场景库</Link>
+                <Link href="/platform/coze" className="hover:text-indigo-600 transition font-medium">平台库</Link>
+                <Link href="/compare" className="hover:text-indigo-600 transition font-medium">横评</Link>
               </div>
             </div>
             {/* 搜索框 */}
@@ -119,7 +119,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 type="text"
                 name="q"
                 placeholder="搜索工具 / 场景..."
-                className="w-24 md:w-48 px-3 py-1.5 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-indigo-400 focus:bg-white transition"
+                className="w-24 md:w-48 px-3 py-1.5 text-sm bg-gray-50/80 border border-gray-200/80 rounded-lg focus:outline-none focus:border-indigo-400 focus:bg-white transition"
               />
             </form>
             {/* 移动端汉堡菜单（md 以下显示，补充被隐藏的导航链接） */}
@@ -133,39 +133,70 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </main>
 
         {/* 底部 */}
-        <footer className="bg-gray-900 text-gray-400 py-10 mt-16">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-              <div>
-                <h4 className="text-white font-bold mb-3 flex items-center gap-1">
-                  <span>🔧</span> AI360
-                </h4>
-                <p className="text-sm leading-relaxed">
+        <footer className="bg-gray-900 text-gray-400 mt-16">
+          <div className="max-w-7xl mx-auto px-4 py-12">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-10">
+              {/* 品牌 + slogan — 跨两列 */}
+              <div className="col-span-2">
+                <Link href="/" className="inline-flex items-center gap-2 mb-3">
+                  <span className="text-2xl">🔧</span>
+                  <span className="text-white font-bold text-lg">AI360</span>
+                </Link>
+                <p className="text-sm leading-relaxed max-w-xs">
                   AI Agent 时代的 360。发现好工具，判断哪个好，基础工具一次配齐。
                 </p>
+                <Link
+                  href="/subscribe"
+                  className="inline-flex items-center gap-1.5 mt-4 text-xs font-medium text-indigo-400 hover:text-indigo-300 transition"
+                >
+                  📬 订阅每周更新
+                  <span aria-hidden>→</span>
+                </Link>
               </div>
+
+              {/* 快速导航 */}
               <div>
-                <h4 className="text-white font-bold mb-3">评测标准</h4>
-                <p className="text-sm leading-relaxed">
-                  独立第三方，不收上架费，不卖排名。5 维度评测：场景/上手/稳定/免费额度/Token成本。
-                </p>
+                <h4 className="text-white font-semibold text-sm mb-3">导航</h4>
+                <ul className="space-y-2 text-sm">
+                  <li><Link href="/essential" className="hover:text-white transition">装机必备</Link></li>
+                  <li><Link href="/scenario/content-creation" className="hover:text-white transition">场景库</Link></li>
+                  <li><Link href="/platform/coze" className="hover:text-white transition">平台库</Link></li>
+                  <li><Link href="/compare" className="hover:text-white transition">横评</Link></li>
+                  <li><Link href="/search" className="hover:text-white transition">搜索</Link></li>
+                </ul>
               </div>
+
+              {/* 热门平台 */}
               <div>
-                <h4 className="text-white font-bold mb-3">覆盖平台</h4>
-                <p className="text-sm leading-relaxed">
-                  扣子 / GPTs / Claude / Dify / Hermes / 千问 / 文心 / Codex / WorkBuddy / LobeChat
-                </p>
+                <h4 className="text-white font-semibold text-sm mb-3">热门平台</h4>
+                <ul className="space-y-2 text-sm">
+                  <li><Link href="/platform/coze" className="hover:text-white transition">扣子 Coze</Link></li>
+                  <li><Link href="/platform/gpts" className="hover:text-white transition">GPTs</Link></li>
+                  <li><Link href="/platform/claude" className="hover:text-white transition">Claude Skills</Link></li>
+                  <li><Link href="/platform/dify" className="hover:text-white transition">Dify</Link></li>
+                </ul>
               </div>
+
+              {/* 评测标准 */}
               <div>
-                <h4 className="text-white font-bold mb-3">关于</h4>
-                <p className="text-sm leading-relaxed">
-                  评测方法完全公开，测试用例可查。每个推荐都基于实际测试和数据。
+                <h4 className="text-white font-semibold text-sm mb-3">评测</h4>
+                <ul className="space-y-2 text-sm">
+                  <li><Link href="/guide" className="hover:text-white transition">深度指南</Link></li>
+                  <li><Link href="/guide/install-guide" className="hover:text-white transition">装机教程</Link></li>
+                  <li><Link href="/guide/ai-beginner-guide" className="hover:text-white transition">入门指南</Link></li>
+                </ul>
+                <p className="text-xs text-gray-500 mt-3 leading-relaxed">
+                  独立第三方 · 不收上架费
                 </p>
               </div>
             </div>
-            <div className="border-t border-gray-800 pt-6 text-xs text-gray-500 flex flex-wrap justify-between gap-2">
+
+            <div className="border-t border-gray-800 pt-6 flex flex-wrap items-center justify-between gap-3 text-xs text-gray-500">
               <span>© 2026 AI360 · vokki.cn · 独立评测 · 不收上架费</span>
-              <span>更新于 2026-08-13</span>
+              <span className="flex items-center gap-2">
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                数据每日更新 · 更新于 2026-08-13
+              </span>
             </div>
           </div>
         </footer>

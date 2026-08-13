@@ -65,7 +65,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql STABLE;
 
--- 6. 获取同类替代
+-- 6. 获取同类替代（含上手/稳定/免费额度，供详情页对比表 + 替代品推荐）
 CREATE OR REPLACE FUNCTION get_skill_alternatives(p_skill_slug TEXT)
 RETURNS TABLE (
   skill_id INT,
@@ -73,14 +73,24 @@ RETURNS TABLE (
   slug VARCHAR,
   tagline VARCHAR,
   overall_score DECIMAL,
-  platform_name VARCHAR
+  platform_name VARCHAR,
+  difficulty_score DECIMAL,
+  stability_score DECIMAL,
+  free_quota VARCHAR,
+  icon_url TEXT,
+  category VARCHAR
 ) AS $$
 BEGIN
   RETURN QUERY
   SELECT
     s.id, s.name, s.slug, s.tagline,
     (SELECT e.overall_score FROM evaluations e WHERE e.skill_id = s.id ORDER BY e.evaluated_at DESC LIMIT 1),
-    p.name
+    p.name,
+    (SELECT e.difficulty_score FROM evaluations e WHERE e.skill_id = s.id ORDER BY e.evaluated_at DESC LIMIT 1),
+    (SELECT e.stability_score FROM evaluations e WHERE e.skill_id = s.id ORDER BY e.evaluated_at DESC LIMIT 1),
+    (SELECT e.free_quota FROM evaluations e WHERE e.skill_id = s.id ORDER BY e.evaluated_at DESC LIMIT 1),
+    s.icon_url,
+    s.category
   FROM skill_alternatives sa
   INNER JOIN skills s ON s.id = sa.alternative_skill_id
   INNER JOIN platforms p ON p.id = s.platform_id

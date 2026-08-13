@@ -1,9 +1,38 @@
 import { getSkillsByPlatform, getPlatforms } from '@/lib/supabase'
 import SkillCardComponent from '@/components/SkillCard'
+import ScenarioFilter from '@/components/ScenarioFilter'
+import SelectionGuide from '@/components/SelectionGuide'
 import type { Metadata } from 'next'
+import type { SkillCard } from '@/types'
 
 // ISR：平台页每 10 分钟增量静态重新生成
 export const revalidate = 600
+
+type SortKey = 'recommended' | 'latest' | 'rating'
+
+function sortSkills(skills: SkillCard[], sort: SortKey): SkillCard[] {
+  const sorted = [...skills]
+  switch (sort) {
+    case 'latest':
+      return sorted.sort((a, b) => {
+        if (!a.evaluated_at) return 1
+        if (!b.evaluated_at) return -1
+        return b.evaluated_at.localeCompare(a.evaluated_at)
+      })
+    case 'rating':
+      return sorted.sort((a, b) => (b.overall_score ?? 0) - (a.overall_score ?? 0))
+    case 'recommended':
+    default:
+      return sorted.sort((a, b) => {
+        const sa = a.overall_score ?? 0
+        const sb = b.overall_score ?? 0
+        if (sb !== sa) return sb - sa
+        if (!a.evaluated_at) return 1
+        if (!b.evaluated_at) return -1
+        return b.evaluated_at.localeCompare(a.evaluated_at)
+      })
+  }
+}
 
 export async function generateStaticParams() {
   const platforms = await getPlatforms()
@@ -44,15 +73,22 @@ export async function generateMetadata({
 
 export default async function PlatformPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
   const { slug } = await params
-  const skills = await getSkillsByPlatform(slug)
+  const sp = await searchParams
+  const sort = (typeof sp.sort === 'string' ? sp.sort : 'recommended') as SortKey
+
+  const allSkills = await getSkillsByPlatform(slug)
   const platforms = await getPlatforms()
   const platform = platforms.find((p) => p.slug === slug)
 
   if (!platform) return <div className="max-w-7xl mx-auto px-4 py-20 text-center text-gray-400">平台不存在</div>
+
+  const skills = sortSkills(allSkills, sort)
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
@@ -64,10 +100,10 @@ export default async function PlatformPage({
       {/* 标题 */}
       <h1 className="text-2xl font-bold mb-1">{platform.name}</h1>
       <p className="text-gray-500 text-sm mb-2">{platform.description}</p>
-      <p className="text-sm text-gray-400 mb-6">{skills.length} 个已评测 Skill</p>
+      <p className="text-sm text-gray-400 mb-6">{allSkills.length} 个已评测 Skill</p>
 
       {/* 平台切换 */}
-      <div className="flex flex-wrap gap-2 mb-8">
+      <div className="flex flex-wrap gap-2 mb-6">
         {platforms.map((p) => (
           <a
             key={p.slug}
@@ -83,9 +119,16 @@ export default async function PlatformPage({
         ))}
       </div>
 
+      {/* 排序栏（平台页不需要平台筛选） */}
+      {allSkills.length > 0 && (
+        <div className="border-y border-gray-100">
+          <ScenarioFilter total={allSkills.length} showPlatformFilter={false} />
+        </div>
+      )}
+
       {/* Skill 列表 */}
       {skills.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {skills.map((skill) => (
             <SkillCardComponent key={skill.id} skill={skill} />
           ))}
@@ -97,6 +140,9 @@ export default async function PlatformPage({
           <p className="text-gray-400 text-sm mt-2">我们正在持续收录中</p>
         </div>
       )}
+
+      {/* 底部选型建议 */}
+      {skills.length > 0 && <SelectionGuide skills={allSkills} />}
     </div>
   )
 }

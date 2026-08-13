@@ -69,6 +69,21 @@ export async function searchSkills(query: string): Promise<SkillCard[]> {
   return data || []
 }
 
+// 按 slug 批量获取 Skill 卡片（对比表 / 替代品需要 difficulty/stability/free_quota 等全字段）
+export async function getSkillCardsBySlugs(slugs: string[]): Promise<SkillCard[]> {
+  if (!slugs.length) return []
+  const unique = Array.from(new Set(slugs.filter(Boolean)))
+  const { data, error } = await supabase
+    .from('skill_cards_view')
+    .select('*')
+    .in('slug', unique)
+  if (error) {
+    console.error('getSkillCardsBySlugs error:', error)
+    return []
+  }
+  return (data || []) as unknown as SkillCard[]
+}
+
 // 获取 Skill 详情
 export async function getSkillDetail(slug: string): Promise<SkillDetail | null> {
   const { data: skill, error } = await supabase

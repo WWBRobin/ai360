@@ -1,10 +1,11 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import type { SkillDetail, AlternativeSkill, SkillCard } from '@/types'
+import type { SkillDetail, AlternativeSkill, SkillCard, CompareRow } from '@/types'
 import {
   getSkillDetail,
   getSkillsByScenario,
+  getSkillCardsBySlugs,
   scoreToStars,
   CATEGORY_LABELS,
   CATEGORY_ICONS,
@@ -98,6 +99,54 @@ export default async function SkillDetailPage({
   const alternatives: AlternativeSkill[] = skill.alternatives || []
   const related = await getRelatedSkills(skill).catch(() => [])
 
+  // 构建同类对比表：当前 skill + 替代品，统一从 skill_cards_view 取全字段
+  const altSlugs = alternatives.map((a) => a.slug).filter(Boolean)
+  const altCards = altSlugs.length
+    ? await getSkillCardsBySlugs(altSlugs).catch(() => [])
+    : []
+  const altBySlug = new Map(altCards.map((c) => [c.slug, c]))
+
+  // 当前 skill 行
+  const currentRow: CompareRow = {
+    slug: skill.slug,
+    name: skill.name,
+    platform_name: skill.platform_name,
+    overall_score: skill.overall_score,
+    difficulty_score: skill.difficulty_score,
+    stability_score: skill.stability_score,
+    free_quota: skill.free_quota,
+    icon_url: skill.icon_url,
+    category: skill.category,
+    tagline: skill.tagline,
+    is_current: true,
+  }
+  // 替代品行（用全字段卡片数据补齐 difficulty/stability/free_quota）
+  const altRows: CompareRow[] = alternatives
+    .map((a) => {
+      const card = altBySlug.get(a.slug)
+      return {
+        slug: a.slug,
+        name: a.name,
+        platform_name: a.platform_name || card?.platform_name || '',
+        overall_score: a.overall_score ?? card?.overall_score ?? null,
+        difficulty_score: card?.difficulty_score ?? null,
+        stability_score: card?.stability_score ?? null,
+        free_quota: card?.free_quota ?? null,
+        icon_url: card?.icon_url ?? null,
+        category: card?.category ?? skill.category,
+        tagline: a.tagline ?? card?.tagline ?? null,
+      } as CompareRow
+    })
+    // 把自身排除（避免重复）并按综合分降序
+    .filter((r) => r.slug !== skill.slug)
+    .sort(
+      (x, y) =>
+        (y.overall_score ?? -1) - (x.overall_score ?? -1)
+    )
+
+  const compareRows: CompareRow[] = [currentRow, ...altRows]
+  const hasEvaluated = skill.evaluated_at != null || skill.overall_score != null
+
   const evaluatedDate = skill.evaluated_at
     ? new Date(skill.evaluated_at).toLocaleDateString('zh-CN', {
         year: 'numeric',
@@ -148,6 +197,15 @@ export default async function SkillDetailPage({
             </h1>
             <p className="text-gray-500 text-sm md:text-base">{skill.tagline}</p>
             <div className="flex items-center gap-3 mt-3 flex-wrap">
+              {/* AI360 实测标签 */}
+              {hasEvaluated && (
+                <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-sm">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden className="inline-block">
+                    <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  AI360 实测
+                </span>
+              )}
               {/* 评分 */}
               {skill.overall_score != null && (
                 <span className="flex items-center gap-1 text-sm">
@@ -264,86 +322,36 @@ export default async function SkillDetailPage({
           </section>
 
           {/* 4. 同类对比 */}
-          {alternatives.length > 0 && (
+          {compareRows.length > 1 && (
             <section>
               <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
                 <span>⚖️</span> 同类对比
+                <span className="text-xs font-normal text-gray-400 bg-gray-100 px-2 py-0.5 rounded">
+                  {compareRows.length} 款
+                </span>
               </h2>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
+              <div className="overflow-x-auto -mx-1">
+                <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden min-w-[480px]">
                   <thead className="bg-gray-50 text-gray-500 text-xs">
                     <tr>
                       <th className="text-left px-3 py-2 font-medium">工具</th>
                       <th className="text-left px-3 py-2 font-medium">平台</th>
-                      <th className="text-center px-3 py-2 font-medium">评分</th>
+                      <th className="text-center px-3 py-2 font-medium">综合</th>
                       <th className="text-center px-3 py-2 font-medium">上手</th>
                       <th className="text-center px-3 py-2 font-medium">稳定</th>
                       <th className="text-left px-3 py-2 font-medium">免费额度</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
-                    {/* 当前 Skill 高亮 */}
-                    <tr className="bg-indigo-50/50">
-                      <td className="px-3 py-2 font-medium text-indigo-700">
-                        {skill.name}
-                        <span className="ml-1 text-[10px] text-indigo-400">
-                          当前
-                        </span>
-                      </td>
-                      <td className="px-3 py-2 text-gray-500">
-                        {skill.platform_name}
-                      </td>
-                      <td className="px-3 py-2 text-center text-gray-700">
-                        {skill.overall_score != null
-                          ? skill.overall_score.toFixed(1)
-                          : '—'}
-                      </td>
-                      <td className="px-3 py-2 text-center text-gray-700">
-                        {skill.difficulty_score != null
-                          ? `${skill.difficulty_score}/5`
-                          : '—'}
-                      </td>
-                      <td className="px-3 py-2 text-center text-gray-700">
-                        {skill.stability_score != null
-                          ? `${skill.stability_score}/5`
-                          : '—'}
-                      </td>
-                      <td className="px-3 py-2 text-gray-500">
-                        {skill.free_quota || '—'}
-                      </td>
-                    </tr>
-                    {alternatives.map((alt) => (
-                      <tr key={(alt as any).slug} className="hover:bg-gray-50 transition">
-                        <td className="px-3 py-2">
-                          <Link
-                            href={`/skill/${(alt as any).slug}`}
-                            className="text-gray-800 hover:text-indigo-600 hover:underline"
-                          >
-                            {(alt as any).name}
-                          </Link>
-                        </td>
-                        <td className="px-3 py-2 text-gray-500">
-                          {(alt as any).platform_name}
-                        </td>
-                        <td className="px-3 py-2 text-center text-gray-700">
-                          {(alt as any).overall_score != null
-                            ? (alt as any).overall_score.toFixed(1)
-                            : '—'}
-                        </td>
-                        <td className="px-3 py-2 text-center text-gray-400">
-                          —
-                        </td>
-                        <td className="px-3 py-2 text-center text-gray-400">
-                          —
-                        </td>
-                        <td className="px-3 py-2 text-gray-400">
-                          —
-                        </td>
-                      </tr>
+                    {compareRows.map((row) => (
+                      <CompareRowView key={row.slug} row={row} />
                     ))}
                   </tbody>
                 </table>
               </div>
+              <p className="text-xs text-gray-400 mt-2">
+                综合分满分 5 分；上手 / 稳定满分 5 分，越高越易用 / 越稳定。
+              </p>
             </section>
           )}
 
@@ -438,7 +446,24 @@ export default async function SkillDetailPage({
         </aside>
       </div>
 
-      {/* 9. 相关 Skill 推荐 */}
+      {/* 9. 替代品推荐（明确可替换当前 skill 的同类工具） */}
+      {altRows.length > 0 && (
+        <section className="mt-12">
+          <h2 className="text-lg font-bold text-gray-900 mb-1 flex items-center gap-2">
+            <span>🔁</span> 替代品推荐
+          </h2>
+          <p className="text-sm text-gray-500 mb-4">
+            如果「{skill.name}」不完全合适，以下同类工具可能更适合你。
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {altRows.slice(0, 6).map((row) => (
+              <AlternativeCard key={row.slug} row={row} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* 10. 相关 Skill 推荐 */}
       {related.length > 0 && (
         <section className="mt-12">
           <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -520,6 +545,118 @@ function ScoreQuestionRow({
         </div>
       }
     />
+  )
+}
+
+// ===== 同类对比表行 =====
+
+function ScoreCell({ score, suffix = '/5' }: { score: number | null; suffix?: string }) {
+  if (score == null) return <span className="text-gray-300">—</span>
+  const color =
+    score >= 4 ? 'text-green-600' : score >= 3 ? 'text-amber-600' : 'text-gray-500'
+  return <span className={`font-medium ${color}`}>{score}{suffix}</span>
+}
+
+function CompareRowView({ row }: { row: CompareRow }) {
+  const isCurrent = row.is_current
+  return (
+    <tr className={isCurrent ? 'bg-indigo-50/60' : 'hover:bg-gray-50 transition'}>
+      <td className="px-3 py-2">
+        <div className="flex items-center gap-2 min-w-0">
+          {row.icon_url ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={row.icon_url}
+              alt=""
+              loading="lazy"
+              className="w-5 h-5 rounded object-cover flex-shrink-0"
+            />
+          ) : (
+            <span className="text-base flex-shrink-0" aria-hidden>
+              {CATEGORY_ICONS[row.category] || '🧩'}
+            </span>
+          )}
+          {isCurrent ? (
+            <span className="font-semibold text-indigo-700 truncate">
+              {row.name}
+              <span className="ml-1 text-[10px] align-middle bg-indigo-100 text-indigo-500 px-1 py-px rounded">
+                当前
+              </span>
+            </span>
+          ) : (
+            <Link
+              href={`/skill/${row.slug}`}
+              className="text-gray-800 hover:text-indigo-600 hover:underline truncate"
+            >
+              {row.name}
+            </Link>
+          )}
+        </div>
+      </td>
+      <td className="px-3 py-2 text-gray-500 whitespace-nowrap">{row.platform_name || '—'}</td>
+      <td className="px-3 py-2 text-center">
+        {row.overall_score != null ? (
+          <span className="font-semibold text-gray-800">{row.overall_score.toFixed(1)}</span>
+        ) : (
+          <span className="text-gray-300">—</span>
+        )}
+      </td>
+      <td className="px-3 py-2 text-center"><ScoreCell score={row.difficulty_score} /></td>
+      <td className="px-3 py-2 text-center"><ScoreCell score={row.stability_score} /></td>
+      <td className="px-3 py-2 text-gray-500">
+        {row.free_quota ? (
+          <span className="text-green-600 text-xs font-medium">{row.free_quota}</span>
+        ) : (
+          <span className="text-gray-300">—</span>
+        )}
+      </td>
+    </tr>
+  )
+}
+
+// ===== 替代品卡片 =====
+
+function AlternativeCard({ row }: { row: CompareRow }) {
+  return (
+    <Link href={`/skill/${row.slug}`} className="block group">
+      <div className="bg-white rounded-2xl border border-gray-200 p-4 hover:shadow-lg hover:border-indigo-300 transition-all duration-200 h-full flex flex-col">
+        <div className="flex items-center gap-2 mb-2">
+          {row.icon_url ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={row.icon_url}
+              alt=""
+              loading="lazy"
+              className="w-8 h-8 rounded-lg object-cover flex-shrink-0"
+            />
+          ) : (
+            <span className="text-xl flex-shrink-0" aria-hidden>
+              {CATEGORY_ICONS[row.category] || '🧩'}
+            </span>
+          )}
+          <div className="min-w-0">
+            <h3 className="font-bold text-gray-900 group-hover:text-indigo-600 transition truncate">
+              {row.name}
+            </h3>
+            <span className="text-xs text-gray-400">{row.platform_name}</span>
+          </div>
+        </div>
+        {row.tagline && (
+          <p className="text-sm text-gray-500 mb-3 line-clamp-2 flex-1">{row.tagline}</p>
+        )}
+        <div className="flex items-center justify-between text-xs">
+          {row.overall_score != null ? (
+            <span className="flex items-center gap-1">
+              <span className="text-amber-400">⭐</span>
+              <span className="font-semibold text-gray-800">{row.overall_score.toFixed(1)}</span>
+            </span>
+          ) : (
+            <span className="text-gray-400">暂无评分</span>
+          )}
+          <span className="text-indigo-600 font-medium group-hover:underline">查看评测 →</span>
+        </div>
+      </div>
+    </Link>
   )
 }
 

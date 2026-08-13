@@ -10,8 +10,9 @@ interface PlatformOption {
 }
 
 interface ScenarioFilterProps {
-  platforms: PlatformOption[]
+  platforms?: PlatformOption[]
   total: number
+  showPlatformFilter?: boolean
 }
 
 type SortKey = 'recommended' | 'latest' | 'rating'
@@ -22,7 +23,11 @@ const SORT_OPTIONS: { value: SortKey; label: string }[] = [
   { value: 'rating', label: '评分最高' },
 ]
 
-export default function ScenarioFilter({ platforms, total }: ScenarioFilterProps) {
+export default function ScenarioFilter({
+  platforms = [],
+  total,
+  showPlatformFilter = true,
+}: ScenarioFilterProps) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -53,22 +58,24 @@ export default function ScenarioFilter({ platforms, total }: ScenarioFilterProps
 
       <div className="flex-1" />
 
-      {/* 平台筛选 */}
-      <label className="flex items-center gap-2 text-sm text-gray-600">
-        <span className="hidden sm:inline">平台</span>
-        <select
-          value={currentPlatform}
-          onChange={(e) => updateParam('platform', e.target.value)}
-          className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-400"
-        >
-          <option value="all">全部平台</option>
-          {platforms.map((p) => (
-            <option key={p.slug} value={p.slug}>
-              {p.name}（{p.count}）
-            </option>
-          ))}
-        </select>
-      </label>
+      {/* 平台筛选（可关闭，平台页不需要） */}
+      {showPlatformFilter && platforms.length > 0 && (
+        <label className="flex items-center gap-2 text-sm text-gray-600">
+          <span className="hidden sm:inline">平台</span>
+          <select
+            value={currentPlatform}
+            onChange={(e) => updateParam('platform', e.target.value)}
+            className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-400"
+          >
+            <option value="all">全部平台</option>
+            {platforms.map((p) => (
+              <option key={p.slug} value={p.slug}>
+                {p.name}（{p.count}）
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
 
       {/* 排序方式 */}
       <label className="flex items-center gap-2 text-sm text-gray-600">

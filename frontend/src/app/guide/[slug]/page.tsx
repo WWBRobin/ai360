@@ -40,7 +40,11 @@ export default async function GuideArticlePage({
   const article = getArticle(slug)
   if (!article) notFound()
 
-  const related = getAllArticleMetas().filter((a) => a.slug !== slug)
+  // 最多展示 3 篇相关文章（同分类优先，其次按顺序）
+  const all = getAllArticleMetas()
+  const others = all.filter((a) => a.slug !== slug)
+  const sameTag = others.filter((a) => a.tag === article.tag)
+  const related = [...sameTag, ...others.filter((a) => a.tag !== article.tag)].slice(0, 3)
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">

@@ -68,6 +68,21 @@ export interface AlternativeSkill {
   platform_name: string
 }
 
+// 同类对比表行（当前 skill + 替代品，统一字段，从 skill_cards_view 取全字段）
+export interface CompareRow {
+  slug: string
+  name: string
+  platform_name: string
+  overall_score: number | null
+  difficulty_score: number | null
+  stability_score: number | null
+  free_quota: string | null
+  icon_url: string | null
+  category: string
+  tagline: string | null
+  is_current?: boolean
+}
+
 // 平台
 export interface Platform {
   id: number
