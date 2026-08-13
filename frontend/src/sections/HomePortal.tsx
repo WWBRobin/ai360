@@ -24,12 +24,12 @@ const PLATFORMS = [
 ]
 
 const FEATURED = [
-  { name: 'Tavily', score: 4.9, platform: 'MCP', desc: '让 AI 联网搜索最新信息', free: '免费1000次/月', difficulty: 4, stability: 5, href: '/skill/tavily-search', icon: 'https://avatars.githubusercontent.com/u/167026044?v=4', color: '#6366f1' },
-  { name: 'claude-mem', score: 4.8, platform: 'Claude', desc: '让 AI 跨会话记住项目上下文', free: '完全免费', difficulty: 2, stability: 3, href: '/skill/claude-mem', icon: 'https://avatars.githubusercontent.com/u/1693663?v=4', color: '#d97706' },
-  { name: 'Composio', score: 4.7, platform: 'MCP', desc: '让 AI 一次连接 1000+ 外部应用', free: '免费2万次/月', difficulty: 3, stability: 4, href: '/skill/composio', icon: 'https://avatars.githubusercontent.com/u/161758604?v=4', color: '#2563eb' },
-  { name: 'Brave Search', score: 4.8, platform: 'MCP', desc: '免费 AI 搜索引擎，无需 API Key', free: '免费2000次/月', difficulty: 4, stability: 4, href: '/skill/brave-search-mcp', icon: '', color: '#ef4444' },
-  { name: 'Frontend Design', score: 4.7, platform: 'Claude', desc: 'AI 生成专业级前端 UI 设计', free: '免费', difficulty: 3, stability: 4, href: '/skill/frontend-design', icon: 'https://avatars.githubusercontent.com/u/1693663?v=4', color: '#d97706' },
-  { name: 'Systematic Debugging', score: 4.5, platform: 'Hermes', desc: '4 阶段根因调试方法论', free: '完全免费', difficulty: 4, stability: 5, href: '/skill/systematic-debugging', icon: 'https://avatars.githubusercontent.com/u/193596547?v=4', color: '#6366f1' },
+  { name: 'Brave Search MCP', score: 4.8, platform: 'MCP', desc: '免费 AI 搜索引擎，无需 API Key', free: '免费2000次/月', difficulty: 4, stability: 4, href: '/skill/brave-search-mcp', icon: '', color: '#ef4444' },
+  { name: 'Hermes Hook 引擎', score: 4.8, platform: 'Hermes', desc: '21个Hook+40条规则，防幻觉+质量门控', free: '完全免费', difficulty: 4, stability: 5, href: '/skill/hermes-hooks', icon: 'https://avatars.githubusercontent.com/u/193596547?v=4', color: '#6366f1' },
+  { name: '系统化根因调试', score: 5.0, platform: 'Hermes', desc: '4阶段调试：先理解bug再修复', free: '完全免费', difficulty: 4, stability: 5, href: '/skill/systematic-debugging', icon: 'https://avatars.githubusercontent.com/u/193596547?v=4', color: '#6366f1' },
+  { name: '流行Web设计系统库', score: 5.0, platform: 'Hermes', desc: '54套真实设计系统(Stripe/Linear/Vercel)', free: '完全免费', difficulty: 3, stability: 5, href: '/skill/popular-web-designs', icon: 'https://avatars.githubusercontent.com/u/193596547?v=4', color: '#6366f1' },
+  { name: 'GitHub PR 工作流', score: 5.0, platform: 'Hermes', desc: 'PR全生命周期：分支/提交/CI/合并', free: '完全免费', difficulty: 3, stability: 5, href: '/skill/github-pr-workflow', icon: 'https://avatars.githubusercontent.com/u/193596547?v=4', color: '#6366f1' },
+  { name: 'AI工具评测框架', score: 5.0, platform: 'Hermes', desc: '5问框架评测任何AI工具/Skill', free: '完全免费', difficulty: 3, stability: 5, href: '/skill/ai-tool-evaluation', icon: 'https://avatars.githubusercontent.com/u/193596547?v=4', color: '#6366f1' },
 ]
 
 const GUIDES = [
