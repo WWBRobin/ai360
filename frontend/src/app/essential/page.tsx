@@ -83,7 +83,7 @@ export default async function EssentialPage() {
   })).filter((c) => c.skills.length > 0)
 
   return (
-    <div className="flex min-h-screen relative">
+    <div className="page-wrapper flex min-h-screen">
       <AppSidebar />
 
       <main className="flex-1 min-w-0 relative z-10 px-8 py-7 max-w-[1080px]">
