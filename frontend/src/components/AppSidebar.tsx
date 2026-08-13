@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
 // ============================================================
@@ -417,7 +417,15 @@ const LATEST_ARTICLES = [
 
 function GuideSidebar() {
   const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
   const active = searchParams.get('cat') || ''
+
+  const selectCat = (slug: string) => {
+    const next = active === slug ? '' : slug
+    const qs = next ? `?cat=${next}` : ''
+    router.replace(qs ? `${pathname}${qs}` : pathname, { scroll: false })
+  }
 
   return (
     <>
@@ -427,9 +435,9 @@ function GuideSidebar() {
         <SectionLabel>评测分类</SectionLabel>
         <div className="px-3">
           {GUIDE_CATEGORIES.map((c) => (
-            <Link
+            <button
               key={c.slug}
-              href={`/guide?cat=${c.slug}`}
+              onClick={() => selectCat(c.slug)}
               className="w-full flex items-center gap-2.5 px-3 py-2 rounded-[8px] transition-all duration-150"
               style={{ background: active === c.slug ? 'rgba(255,140,0,0.12)' : 'transparent' }}
               onMouseEnter={(e) => {
@@ -449,7 +457,7 @@ function GuideSidebar() {
               >
                 {c.name}
               </span>
-            </Link>
+            </button>
           ))}
         </div>
       </div>
