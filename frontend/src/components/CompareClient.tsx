@@ -140,7 +140,7 @@ export default function CompareClient({
                     <span className="text-lg flex-shrink-0">
                       {c.icon_url ? (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={c.icon_url} alt="" className="w-6 h-6 rounded-md object-cover" />
+                        <img src={c.icon_url} alt={c.name} loading="lazy" className="w-6 h-6 rounded-md object-cover" />
                       ) : (
                         CATEGORY_ICONS[c.category] || '🧩'
                       )}

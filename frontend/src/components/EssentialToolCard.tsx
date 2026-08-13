@@ -12,8 +12,8 @@ import type { SkillCard } from '@/types'
 function StarRating({ score }: { score: number | null }) {
   if (!score) return null
   return (
-    <span className="inline-flex items-center gap-1 text-[12px] text-[#6B7280] font-semibold whitespace-nowrap bg-[rgba(255,140,0,0.5)] px-2 py-[3px] rounded-lg">
-      <span className="text-[#FF8C00]">★</span>
+    <span className="inline-flex items-center gap-1 text-[12px] text-[#FF8C00] font-semibold whitespace-nowrap bg-[rgba(255,140,0,0.12)] px-2 py-[3px] rounded-lg">
+      <span aria-hidden>★</span>
       {score.toFixed(1)}
     </span>
   )
@@ -71,7 +71,7 @@ export default function EssentialToolCard({
           onClick={toggle}
           disabled={installed}
           className={installed ? 'btn-outline px-4 py-1.5 text-[12px] font-semibold' : 'btn-primary px-4 py-1.5 text-[12px] font-semibold'}
-          style={installed ? { background: '#f0fdf4', color: '#059669', borderColor: '#bbf7d0' } : {}}
+          style={installed ? { background: 'rgba(255,140,0,0.12)', color: '#FF8C00', borderColor: 'rgba(255,140,0,0.4)' } : {}}
         >
           {installed ? '已安装' : '安装'}
         </button>

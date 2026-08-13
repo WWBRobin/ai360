@@ -38,14 +38,21 @@ export const metadata: Metadata = {
     siteName: 'AI360',
     locale: 'zh_CN',
     type: 'website',
-    // og:image 由根级 opengraph-image.tsx 文件约定自动注入，无需在此重复声明
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'AI360 — AI Skill 独立第三方评测聚合平台',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'AI360 — AI Agent 时代的 360',
     description:
       '发现好工具 · 判断哪个好 · 基础工具一次配齐。AI Skill 独立第三方评测聚合平台。',
-    // twitter:image 同样由根级 opengraph-image.tsx 自动注入
+    images: ['/og-image.png'],
   },
   robots: {
     index: true,

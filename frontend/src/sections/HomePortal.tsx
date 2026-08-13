@@ -43,6 +43,14 @@ export default function HomePortal() {
 
   return (
     <div className="page-wrapper">
+      {/* 定位 + h1 */}
+      <div className="pt-6 pb-2">
+        <h1 className="text-[18px] font-bold text-[#1F2937] mb-1">
+          发现最适合你的 AI 工具
+        </h1>
+        <p className="text-[13px] text-[#9CA3AF]">593 个工具 · 19 个平台 · 独立评测 · 每日更新</p>
+      </div>
+
       {/* filter-bar 平台筛选条 */}
       <div className="flex items-center gap-2 py-3 border-b border-[#F0F0F0] overflow-x-auto scrollbar-hide">
         {SCENES.map(s => (
@@ -86,7 +94,7 @@ export default function HomePortal() {
             <div className="flex items-start justify-between mb-2">
               <div className="flex items-center gap-2.5">
                 {skill.icon ? (
-                  <img src={skill.icon} alt="" className="w-9 h-9 rounded-[10px] object-cover shrink-0" />
+                  <img src={skill.icon} alt={skill.name} loading="lazy" className="w-9 h-9 rounded-[10px] object-cover shrink-0" />
                 ) : (
                   <span className="w-9 h-9 rounded-[10px] flex items-center justify-center text-[14px] font-bold text-white shrink-0" style={{ backgroundColor: skill.color }}>
                     {skill.name[0]}

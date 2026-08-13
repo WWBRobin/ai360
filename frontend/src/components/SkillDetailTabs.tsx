@@ -611,7 +611,7 @@ function RelatedTab({
                         <div className="flex items-center gap-2">
                           {row.icon_url ? (
                             // eslint-disable-next-line @next/next/no-img-element
-                            <img src={row.icon_url} alt="" loading="lazy" className="w-5 h-5 rounded object-cover shrink-0" />
+                            <img src={row.icon_url} alt={row.name} loading="lazy" className="w-5 h-5 rounded object-cover shrink-0" />
                           ) : (
                             <span className="text-base shrink-0" aria-hidden>{CATEGORY_ICONS[row.category] || '🧩'}</span>
                           )}
@@ -712,7 +712,7 @@ function AlternativeCard({ row }: { row: CompareRow }) {
         <div className="flex items-center gap-2 mb-2">
           {row.icon_url ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={row.icon_url} alt="" loading="lazy" className="w-8 h-8 rounded-lg object-cover shrink-0" />
+            <img src={row.icon_url} alt={row.name} loading="lazy" className="w-8 h-8 rounded-lg object-cover shrink-0" />
           ) : (
             <span className="text-xl shrink-0" aria-hidden>{CATEGORY_ICONS[row.category] || '🧩'}</span>
           )}
