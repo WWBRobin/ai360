@@ -666,6 +666,7 @@ const PRICE_OPTIONS = [
 
 function SearchSidebarContent() {
   const pathname = usePathname()
+  const router = useRouter()
   const searchParams = useSearchParams()
   const selPlatforms = searchParams.get('platform')?.split(',').filter(Boolean) || []
   const selTypes = searchParams.get('type')?.split(',').filter(Boolean) || []
@@ -676,7 +677,7 @@ function SearchSidebarContent() {
     if (values.length > 0) params.set(key, values.join(','))
     else params.delete(key)
     const qs = params.toString()
-    window.location.href = qs ? `${pathname}?${qs}` : pathname
+    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
   }
 
   const toggle = (slug: string, key: string, current: string[]) => {
@@ -700,7 +701,7 @@ function SearchSidebarContent() {
               params.delete('type')
               params.delete('price')
               const qs = params.toString()
-              window.location.href = qs ? `${pathname}?${qs}` : pathname
+              router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
             }}
             className="text-[11px] text-[#FF8C00] hover:underline"
           >
