@@ -98,32 +98,28 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
 
-        {/* 顶部导航 — sticky 毛玻璃 */}
-        <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-black/5 shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
-            <div className="flex items-center gap-6">
-              <Link href="/" className="flex items-center gap-2 group">
-                <span className="font-bold text-gray-900 group-hover:text-blue-600 transition">AI360</span>
-              </Link>
-              <div className="hidden md:flex items-center gap-6 text-sm text-gray-600">
-                <Link href="/essential" className="hover:text-blue-600 transition font-medium">装机必备</Link>
-                <Link href="/scenario/content-creation" className="hover:text-blue-600 transition font-medium">场景库</Link>
-                <Link href="/platform/coze" className="hover:text-blue-600 transition font-medium">平台库</Link>
-                <Link href="/compare" className="hover:text-blue-600 transition font-medium">横评</Link>
-              </div>
+        {/* 顶部导航 — 玻璃态 */}
+        <nav className="glass-topbar sticky top-0 z-50 h-14 flex items-center px-6">
+          <div className="flex items-center gap-8">
+            <Link href="/" className="font-bold text-[15px] text-[#1A1A1A] hover:text-[#7C3AED] transition">
+              AI360
+            </Link>
+            <div className="hidden md:flex items-center gap-6 text-sm">
+              <Link href="/" className="text-[#374151] hover:text-[#7C3AED] transition font-medium">Skill 聚合</Link>
+              <Link href="/essential" className="text-[#374151] hover:text-[#7C3AED] transition font-medium">装机必备</Link>
+              <Link href="/guide" className="text-[#374151] hover:text-[#7C3AED] transition font-medium">深度横评</Link>
             </div>
-            {/* 搜索框 */}
-            <form action="/search" className="flex items-center gap-2">
-              <input
-                type="text"
-                name="q"
-                placeholder="搜索..."
-                className="w-24 md:w-48 px-3 py-1.5 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 focus:bg-white transition"
-              />
-            </form>
-            {/* 移动端汉堡菜单（md 以下显示，补充被隐藏的导航链接） */}
-            <MobileNav />
           </div>
+          <form action="/search" className="ml-auto search-input flex items-center gap-2 px-3 py-1.5 w-[200px] md:w-[280px]">
+            <span className="text-[#9CA3AF] text-sm">⌕</span>
+            <input
+              type="text"
+              name="q"
+              placeholder="搜索 AI 工具、Skill、MCP…"
+              className="flex-1 bg-transparent border-none outline-none text-sm text-[#1A1A1A] placeholder:text-[#9CA3AF]"
+            />
+          </form>
+          <MobileNav />
         </nav>
 
         {/* 主内容 */}
@@ -145,7 +141,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </p>
                 <Link
                   href="/subscribe"
-                  className="inline-flex items-center gap-1.5 mt-4 text-xs font-medium text-blue-400 hover:text-blue-300 transition"
+                  className="inline-flex items-center gap-1.5 mt-4 text-xs font-medium text-[#A78BFA] hover:text-[#7C3AED] transition"
                 >
                   订阅每周更新
                   <span aria-hidden>→</span>

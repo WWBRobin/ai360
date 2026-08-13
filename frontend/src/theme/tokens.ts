@@ -1,110 +1,190 @@
 /**
- * AI360 全局设计令牌
- * 
- * 所有视觉参数集中在这里管理。
- * 改全站配色/间距/圆角 = 只改这一个文件。
+ * AI360 全局设计令牌 — proto7 紫色玻璃态
+ * 所有视觉参数集中管理，改全站只改这一个文件
  */
 
-export const tokens = {
-  // ===== 品牌色 =====
+export const designTokens = {
+  // ===== 主色系 =====
   colors: {
-    primary: '#6366f1',       // indigo-500
-    primaryDark: '#4f46e5',   // indigo-600
-    secondary: '#8b5cf6',     // violet-500
-    accent: '#ec4899',        // pink-500
-    success: '#10b981',       // emerald-500
-    
-    // 渐变
-    brandGradient: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%)',
-    heroGradient: 'linear-gradient(135deg, #f0f4ff 0%, #faf5ff 40%, #fdf2f8 100%)',
-    ctaGradient: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%)',
-    
-    // 分类卡片背景色（9个分类各一个）
-    categories: {
-      memory: '#eff6ff',       // 蓝
-      search: '#ecfdf5',       // 绿
-      file: '#fffbeb',         // 橙
-      connect: '#faf5ff',      // 紫
-      ecommerce: '#fdf2f8',    // 粉
-      content: '#ecfeff',      // 青
-      data: '#f0fdfa',         // 薄荷
-      design: '#f5f3ff',       // 淡紫
-      video: '#fef2f2',        // 红
-    },
-    
-    // 文字
-    text: {
-      primary: '#1a1a2e',      // 主标题
-      secondary: '#6b7280',    // 描述
-      tertiary: '#9ca3af',     // 辅助
-      disabled: '#d1d5db',     // 禁用
-    },
-    
+    // 紫色主系
+    primary: '#7C3AED',        // 主紫
+    primaryDark: '#6D28D9',    // 深紫
+    primaryLight: '#A78BFA',   // 浅紫
+    indigo: '#6366F1',         // 蓝紫（渐变第二色）
+    indigoDark: '#4F46E5',
+
     // 背景
-    bg: {
-      page: '#fafafa',
-      card: '#ffffff',
-      hover: '#f5f3ff',
+    bg: '#FAFAFE',             // 极浅冷紫灰
+    bgPure: '#FFFFFF',
+    bgFaint: '#F5F3FF',        // 极浅紫
+    bgTable: '#F8F7FC',        // 表头极浅紫灰
+
+    // 文字
+    textPrimary: '#1A1A1A',
+    textBody: '#374151',
+    textSecondary: '#6B7280',
+    textTertiary: '#9CA3AF',
+
+    // 边框/分隔
+    border: '#E5E7EB',
+    borderLight: '#F0F0F0',
+    borderPurple: 'rgba(124,58,237,0.1)',
+
+    // 标签
+    tagOfficialBg: 'rgba(99,102,241,0.1)',
+    tagOfficialText: '#6366F1',
+    tagTestedBg: 'rgba(16,185,129,0.1)',
+    tagTestedText: '#059669',
+    tagFreeBg: 'rgba(124,58,237,0.1)',
+    tagFreeText: '#7C3AED',
+    tagMcpBg: 'rgba(99,102,241,0.1)',
+    tagMcpText: '#6366F1',
+  },
+
+  // ===== 玻璃态 =====
+  glass: {
+    card: {
+      background: 'rgba(255,255,255,0.65)',
+      backdropFilter: 'blur(16px)',
+      WebkitBackdropFilter: 'blur(16px)',
+      border: '1px solid rgba(255,255,255,0.4)',
+      borderRadius: '16px',
+      boxShadow: '0 4px 24px rgba(99,102,241,0.06), 0 1px 4px rgba(0,0,0,0.04)',
     },
-    
-    // 边框
-    border: {
-      light: '#f0f0f0',
-      medium: '#e5e7eb',
-      focus: '#c7d2fe',
+    hero: {
+      background: 'rgba(255,255,255,0.5)',
+      backdropFilter: 'blur(20px)',
+      WebkitBackdropFilter: 'blur(20px)',
+    },
+    topbar: {
+      background: 'rgba(255,255,255,0.8)',
+      backdropFilter: 'blur(16px)',
+      WebkitBackdropFilter: 'blur(16px)',
+      borderBottom: '1px solid rgba(124,58,237,0.1)',
+    },
+    sidebar: {
+      background: 'transparent',
+      borderRight: '1px solid #F0F0F0',
     },
   },
 
-  // ===== 圆角 =====
-  radius: {
-    none: 0,
-    sm: 8,
-    md: 12,
-    lg: 16,
-    xl: 24,
-    '2xl': 32,
-    full: 9999,
+  // ===== 按钮 =====
+  button: {
+    // 金属质感紫色渐变
+    primary: {
+      background: 'linear-gradient(135deg, #7C3AED 0%, #6366F1 50%, #5B21B6 100%)',
+      color: '#FFFFFF',
+      borderRadius: '12px',
+      border: '1px solid rgba(124,58,237,0.5)',
+      // 金属质感：顶部高光 + 底部暗线 + 外发光
+      boxShadow: [
+        'inset 0 1px 0 rgba(255,255,255,0.25)',   // 顶部高光
+        'inset 0 -1px 0 rgba(0,0,0,0.15)',         // 底部暗线
+        '0 4px 12px rgba(124,58,237,0.3)',         // 外发光
+      ].join(', '),
+      transition: 'all 0.3s cubic-bezier(0.25,0.46,0.45,0.94)',
+    },
+    primaryHover: {
+      background: 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 50%, #6D28D9 100%)',
+      boxShadow: [
+        'inset 0 1px 0 rgba(255,255,255,0.3)',
+        'inset 0 -1px 0 rgba(0,0,0,0.2)',
+        '0 6px 20px rgba(124,58,237,0.4)',
+      ].join(', '),
+    },
+    secondary: {
+      background: 'transparent',
+      color: '#374151',
+      border: '1px solid #E5E7EB',
+      borderRadius: '12px',
+    },
+    secondaryHover: {
+      background: '#F5F3FF',
+      borderColor: '#7C3AED',
+      color: '#7C3AED',
+    },
+  },
+
+  // ===== Tab =====
+  tab: {
+    activeColor: '#7C3AED',
+    activeBorderBottom: '2px solid #7C3AED',
+    inactiveColor: '#6B7280',
+  },
+
+  // ===== 背景光斑 =====
+  bgGlow: `
+    body::before {
+      content: "";
+      position: fixed;
+      top: 10%; left: 5%;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      bottom: 20%; right: 10%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+  `,
+
+  // ===== 字体 =====
+  font: {
+    family: '-apple-system, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif',
+    sizes: {
+      h1: '26px',
+      h2: '20px',
+      cardTitle: '16px',
+      nav: '14px',
+      sidebar: '14px',
+      body: '15px',
+      desc: '13px',
+      aux: '13px',
+      tag: '11px',
+    },
+    weights: {
+      h1: '700',
+      h2: '600',
+      cardTitle: '600',
+      tag: '500',
+    },
+    letterSpacing: '0.02em',
+    lineHeight: '1.7',
+    numericVariant: 'tabular-nums',
   },
 
   // ===== 间距 =====
   spacing: {
-    xs: 4,
-    sm: 8,
-    md: 16,
-    lg: 24,
-    xl: 32,
-    '2xl': 48,
-    section: 64,     // 区块间距
-    card: 20,        // 卡片内边距
+    pageX: '32px',
+    cardPadding: '20px',
+    cardGap: '16px',
+    blockGap: '32px',
+    sidebarWidth: '240px',
+    topbarHeight: '56px',
+    tabBarHeight: '44px',
   },
 
-  // ===== 字体 =====
-  fontSize: {
-    xs: '0.75rem',     // 12px
-    sm: '0.875rem',    // 14px
-    base: '1rem',      // 16px
-    lg: '1.125rem',    // 18px
-    xl: '1.25rem',     // 20px
-    '2xl': '1.5rem',   // 24px
-    '3xl': '1.875rem', // 30px
-    '4xl': '2.25rem',  // 36px
-    '5xl': '3rem',     // 48px
+  // ===== 圆角 =====
+  radius: {
+    card: '16px',
+    button: '12px',
+    tag: '6px',
+    sidebarActive: '10px',
+    modal: '20px',
   },
 
-  // ===== 阴影 =====
-  shadow: {
-    sm: '0 1px 2px rgba(0,0,0,0.05)',
-    md: '0 4px 6px -1px rgba(0,0,0,0.05)',
-    lg: '0 8px 25px -5px rgba(0,0,0,0.1)',
-    card: '0 2px 8px -2px rgba(0,0,0,0.04)',
-    hover: '0 12px 24px -8px rgba(99,102,241,0.15)',
-    focus: '0 0 0 4px rgba(99,102,241,0.1)',
-  },
-
-  // ===== 过渡 =====
-  transition: {
-    fast: '0.15s ease',
-    normal: '0.2s ease',
-    slow: '0.25s cubic-bezier(0.4,0,0.2,1)',
+  // ===== 动画 =====
+  animation: {
+    transition: 'all 0.3s cubic-bezier(0.25,0.46,0.45,0.94)',
+    cardHover: {
+      transform: 'translateY(-4px)',
+      boxShadow: '0 12px 32px rgba(0,0,0,0.08)',
+    },
   },
 } as const
