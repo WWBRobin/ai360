@@ -50,7 +50,7 @@ export default function FilterBar({
         params.delete(key)
       }
       const qs = params.toString()
-      router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
+      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
     },
     [router, pathname, searchParams]
   )

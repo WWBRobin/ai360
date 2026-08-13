@@ -355,7 +355,7 @@ export default async function SkillDetailPage({
             {/* 标签行 */}
             <div className="flex gap-1.5 flex-wrap mb-3">
               <span className="tag tag-mcp">{skill.platform_name}</span>
-              {hasEvaluated && <span className="tag tag-tested">AI360实测</span>}
+              {hasEvaluated && <span className="tag tag-tested">AI360 实测</span>}
               {skill.free_quota && <span className="tag tag-free">免费</span>}
               {skill.developer_name && skill.developer_name.toLowerCase() === skill.platform_name.toLowerCase() && (
                 <span className="tag tag-official">Official</span>

@@ -127,7 +127,7 @@ export default function InstallWizard({ categories }: { categories: { label: str
         const name = s.name.toLowerCase()
         const tagline = (s.tagline || '').toLowerCase()
         if (need === 'memory') return name.includes('mem') || name.includes('记忆') || tagline.includes('记忆') || tagline.includes('memory')
-        if (need === 'search') return name.includes('search') || name.includes('tavily') || name.includes('brave') || tagline.includes('搜索') || tagline.includes('search')
+        if (need === 'search') return name.includes('search') || name.includes('tavily') || name.includes('brave') || name.includes('firecrawl') || (tagline.includes('搜索') && !tagline.includes('知识库') && !tagline.includes('向量'))
         if (need === 'github') return name.includes('github') || name.includes('git') || tagline.includes('git')
         if (need === 'filesystem' || need === 'files') return name.includes('file') || name.includes('文件') || tagline.includes('文件')
         if (need === 'browser') return name.includes('browser') || name.includes('playwright') || tagline.includes('浏览器')

@@ -325,7 +325,7 @@ function EssentialSidebar() {
           {ESSENTIAL_CATEGORIES.map((c) => (
             <button
               key={c.slug}
-              onClick={() => setActive(c.slug)}
+              
               className="w-full flex items-center gap-2.5 px-3 py-2 rounded-[8px] transition-all duration-150"
               style={{ background: active === c.slug ? 'rgba(255,140,0,0.12)' : 'transparent' }}
               onMouseEnter={(e) => {

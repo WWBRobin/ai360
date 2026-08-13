@@ -65,7 +65,7 @@ export function SearchControls({ tabs, facets, filters, query }: Props) {
       if (value === null || value === 'all' || value === '') params.delete(key)
       else params.set(key, value)
       const qs = params.toString()
-      router.push(`${pathname}${qs ? `?${qs}` : ''}`, { scroll: false })
+      router.replace(`${pathname}${qs ? `?${qs}` : ''}`, { scroll: false })
     },
     [router, pathname, searchParams]
   )
