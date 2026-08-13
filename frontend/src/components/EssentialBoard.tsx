@@ -12,12 +12,12 @@ export interface EssentialCategory {
   skills: SkillCard[]
 }
 
-// 平台 Tab（与原型对齐：Claude / 扣子 / Hermes / GPTs / MCP）
-const PLATFORM_TABS = ['Claude', '扣子', 'Hermes', 'GPTs', 'MCP']
+// 平台 Tab（与原型对齐 + 首位「全部」）
+const PLATFORM_TABS = ['全部', 'Claude', '扣子', 'Hermes', 'GPTs', 'MCP']
 
 /**
  * proto7 装机必备页主体（客户端交互）
- * - 平台 Tab 切换
+ * - 平台 Tab 切换（按 platform_name 过滤分类内工具）
  * - 按功能分类展示工具卡片（content-card）
  * - 每个工具卡片 [安装] btn-primary 按钮
  * - 底部进度条（score-bar 样式）
@@ -26,7 +26,7 @@ export default function EssentialBoard({ categories }: { categories: EssentialCa
   const [activeTab, setActiveTab] = useState(0)
   const [installedIds, setInstalledIds] = useState<Set<number>>(new Set())
 
-  // 全部工具总数（跨分类去重）
+  // 全部工具总数（跨分类去重）— 装机进度基准，不随 Tab 变
   const allSkills = useMemo(() => {
     const seen = new Map<number, SkillCard>()
     for (const cat of categories) {
@@ -34,6 +34,22 @@ export default function EssentialBoard({ categories }: { categories: EssentialCa
     }
     return [...seen.values()]
   }, [categories])
+
+  // 按平台 Tab 过滤分类（「全部」显示所有）
+  const filteredCategories = useMemo(() => {
+    const tab = PLATFORM_TABS[activeTab]
+    if (tab === '全部') return categories
+    const tabLower = tab.toLowerCase()
+    return categories
+      .map((cat) => ({
+        ...cat,
+        skills: cat.skills.filter((s) => {
+          const pn = (s.platform_name || '').toLowerCase()
+          return pn === tabLower || pn.includes(tabLower) || tabLower.includes(pn)
+        }),
+      }))
+      .filter((c) => c.skills.length > 0)
+  }, [categories, activeTab])
 
   const totalTools = allSkills.length
 
@@ -61,7 +77,7 @@ export default function EssentialBoard({ categories }: { categories: EssentialCa
         </p>
       </div>
 
-      {/* 平台 Tab（5 个） */}
+      {/* 平台 Tab（6 个，首位「全部」） */}
       <div className="flex gap-0 border-b border-[#EEF0F3] mb-7 overflow-x-auto scrollbar-hide">
         {PLATFORM_TABS.map((t, i) => (
           <button
@@ -78,34 +94,40 @@ export default function EssentialBoard({ categories }: { categories: EssentialCa
         ))}
       </div>
 
-      {/* 按功能分类展示 */}
-      {categories.map((cat) => (
-        <section key={cat.id} className="mb-10">
-          <div className="flex items-center gap-2.5 mb-4">
-            <h2 className="text-[17px] font-bold text-[#1A1A1A]">{cat.label}</h2>
-            <span className="text-[11px] font-semibold text-[#FF8C00] bg-[rgba(255,140,0,0.10)] px-2.5 py-1 rounded-[10px]">
-              {cat.skills.length} 个工具
-            </span>
-          </div>
+      {/* 按功能分类展示（已按平台 Tab 过滤） */}
+      {filteredCategories.length === 0 ? (
+        <div className="content-card p-10 text-center text-[13px] text-[#9CA3AF] mb-10">
+          「{PLATFORM_TABS[activeTab]}」平台下的必备工具正在评测中，敬请期待。
+        </div>
+      ) : (
+        filteredCategories.map((cat) => (
+          <section key={cat.id} className="mb-10">
+            <div className="flex items-center gap-2.5 mb-4">
+              <h2 className="text-[17px] font-bold text-[#1A1A1A]">{cat.label}</h2>
+              <span className="text-[11px] font-semibold text-[#FF8C00] bg-[rgba(255,140,0,0.12)] px-2.5 py-1 rounded-[10px]">
+                {cat.skills.length} 个工具
+              </span>
+            </div>
 
-          {cat.skills.length === 0 ? (
-            <div className="content-card p-10 text-center text-[13px] text-[#9CA3AF]">
-              「{cat.label}」分类下的工具正在评测中，敬请期待。
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {cat.skills.map((skill) => (
-                <EssentialToolCard
-                  key={skill.id}
-                  skill={skill}
-                  categoryLabel={cat.label}
-                  onInstallToggle={handleInstallToggle}
-                />
-              ))}
-            </div>
-          )}
-        </section>
-      ))}
+            {cat.skills.length === 0 ? (
+              <div className="content-card p-10 text-center text-[13px] text-[#9CA3AF]">
+                「{cat.label}」分类下的工具正在评测中，敬请期待。
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {cat.skills.map((skill) => (
+                  <EssentialToolCard
+                    key={skill.id}
+                    skill={skill}
+                    categoryLabel={cat.label}
+                    onInstallToggle={handleInstallToggle}
+                  />
+                ))}
+              </div>
+            )}
+          </section>
+        ))
+      )}
 
       {/* 底部进度条（score-bar 样式） */}
       <div className="content-card p-6 mt-4">

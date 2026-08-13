@@ -100,20 +100,20 @@ export default function AppSidebar() {
             <span className="text-[11px] font-medium text-[#9CA3AF] uppercase" style={{ letterSpacing: '0.05em' }}>学习成长</span>
           </div>
           <div className="px-3">
-            <Link href="/learn/scene"
-              className="flex items-center px-3 py-2 rounded-[6px] text-[13px] transition"
-              style={{ color: '#4B5563' }}
+            <Link href="/scenario/content-creation"
+              className="flex items-center px-3 py-2 rounded-[6px] text-[14px] transition"
+              style={{ fontWeight: 500, color: '#1F2937' }}
               onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,140,0,0.04)'; e.currentTarget.style.color = '#FF8C00' }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#4B5563' }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#1F2937' }}
             >
               <span className="flex-1">按场景学</span>
               <span className="text-[12px] text-[#D1D5DB]">→</span>
             </Link>
-            <Link href="/learn/tool"
-              className="flex items-center px-3 py-2 rounded-[6px] text-[13px] transition"
-              style={{ color: '#4B5563' }}
+            <Link href="/platform/coze"
+              className="flex items-center px-3 py-2 rounded-[6px] text-[14px] transition"
+              style={{ fontWeight: 500, color: '#1F2937' }}
               onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,140,0,0.04)'; e.currentTarget.style.color = '#FF8C00' }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#4B5563' }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#1F2937' }}
             >
               <span className="flex-1">按工具学</span>
               <span className="text-[12px] text-[#D1D5DB]">→</span>
@@ -125,9 +125,9 @@ export default function AppSidebar() {
         <div className="mt-5 px-3">
           <Link href="/compare"
             className="flex items-center px-3 py-2 rounded-[8px] text-[14px] font-medium transition"
-            style={{ color: '#4B5563' }}
+            style={{ color: '#1F2937' }}
             onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,140,0,0.04)'; e.currentTarget.style.color = '#FF8C00' }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#4B5563' }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#1F2937' }}
           >
             <span className="flex-1">工具对比</span>
             <span className="text-[12px] text-[#D1D5DB]">→</span>
