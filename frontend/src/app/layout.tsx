@@ -4,7 +4,7 @@ import './globals.css'
 import MobileNav from '@/components/MobileNav'
 
 // 站点根域名。生产部署到 vokki.cn；可用 NEXT_PUBLIC_SITE_URL 覆盖（如预览部署）。
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://vokki.cn'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://tools.vokki.cn'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

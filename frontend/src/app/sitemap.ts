@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 import { getFeaturedSkills, getPlatforms, getScenarios } from '@/lib/supabase'
 
 // 站点根域名。生产部署到 vokki.cn；可用 NEXT_PUBLIC_SITE_URL 覆盖。
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://vokki.cn'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://tools.vokki.cn'
 
 /**
  * sitemap.xml 生成器（Next.js 16 Metadata Route）
