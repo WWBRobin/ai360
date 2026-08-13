@@ -150,7 +150,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const platforms = await getPlatforms().catch(() => [])
 
   return (
-    <div className="flex min-h-screen relative">
+    <div className="page-wrapper flex min-h-screen relative">
       <AppSidebar />
 
       <main className="flex-1 min-w-0 relative z-10">
@@ -391,7 +391,7 @@ function SearchLanding({
                 href={`/platform/${p.slug}`}
                 className="content-card px-4 py-2.5 flex items-center gap-2"
               >
-                <span className="w-6 h-6 rounded-full bg-[#FFF8E1] flex items-center justify-center text-[10px] font-bold text-[#FF8C00]">
+                <span className="w-6 h-6 rounded-full bg-[rgba(255,140,0,0.08)] flex items-center justify-center text-[10px] font-bold text-[#FF8C00]">
                   {p.name[0]}
                 </span>
                 <span className="text-sm text-[#666] font-medium">{p.name}</span>

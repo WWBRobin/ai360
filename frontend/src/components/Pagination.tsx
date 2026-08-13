@@ -48,9 +48,9 @@ export default function Pagination({
 
   const btnBase =
     'inline-flex items-center justify-center min-w-[2.25rem] h-9 px-3 rounded-lg text-sm font-medium transition'
-  const btnActive = 'bg-indigo-500 text-white'
-  const btnIdle = 'bg-white text-gray-600 border border-gray-200 hover:border-indigo-300 hover:text-indigo-600'
-  const btnDisabled = 'bg-gray-50 text-gray-300 border border-gray-100 cursor-not-allowed'
+  const btnActive = 'bg-[#FF8C00] text-white'
+  const btnIdle = 'bg-white text-[#6B7280] border border-[#F0F0F0] hover:border-[#FF8C00] hover:text-[#FF8C00]'
+  const btnDisabled = 'bg-[#FAFAFA] text-[#D1D5DB] border border-[#F0F0F0] cursor-not-allowed'
 
   return (
     <nav className="flex items-center justify-center gap-1.5 mt-10 mb-4" aria-label="分页">

@@ -99,7 +99,7 @@ export default function SearchSidebar({
           <h2 className="text-sm font-bold text-gray-900 flex items-center gap-2">
             <span>🎛️ 筛选</span>
             {activeFilterCount > 0 && (
-              <span className="bg-indigo-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-medium">
+              <span className="bg-[#FF8C00] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-medium">
                 {activeFilterCount}
               </span>
             )}
@@ -107,7 +107,7 @@ export default function SearchSidebar({
           {activeFilterCount > 0 && (
             <button
               onClick={clearAllFilters}
-              className="text-xs text-gray-400 hover:text-indigo-600 transition"
+              className="text-xs text-[#9CA3AF] hover:text-[#FF8C00] transition"
             >
               清除全部
             </button>
@@ -124,7 +124,7 @@ export default function SearchSidebar({
                 onClick={() => updateParam('sort', opt.value)}
                 className={`w-full text-left px-3 py-1.5 rounded-lg text-sm transition flex items-center gap-2 ${
                   currentSort === opt.value
-                    ? 'bg-indigo-50 text-indigo-700 font-medium'
+                    ? 'bg-[rgba(255,140,0,0.08)] text-[#FF8C00] font-medium'
                     : 'text-gray-600 hover:bg-gray-50'
                 }`}
               >
@@ -274,7 +274,7 @@ function FilterButton({
       onClick={onClick}
       className={`w-full text-left px-3 py-1.5 rounded-lg text-sm transition flex items-center justify-between gap-2 ${
         active
-          ? 'bg-indigo-50 text-indigo-700 font-medium'
+          ? 'bg-[rgba(255,140,0,0.08)] text-[#FF8C00] font-medium'
           : 'text-gray-600 hover:bg-gray-50'
       }`}
     >
@@ -282,7 +282,7 @@ function FilterButton({
       {count !== undefined && (
         <span
           className={`text-xs flex-shrink-0 ${
-            active ? 'text-indigo-400' : 'text-gray-300'
+            active ? 'text-[#FF8C00]' : 'text-gray-300'
           }`}
         >
           {count}

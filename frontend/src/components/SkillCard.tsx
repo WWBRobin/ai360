@@ -2,154 +2,116 @@ import Link from 'next/link'
 import type { SkillCard } from '@/types'
 import { CATEGORY_LABELS, CATEGORY_ICONS } from '@/lib/supabase'
 
-// 维度评分 → 颜色 + 标签
-function dimMeta(score: number | null | undefined): { label: string; color: string } | null {
-  if (!score) return null
-  if (score >= 4.5) return { label: '优秀', color: 'text-green-600 bg-green-50' }
-  if (score >= 3.5) return { label: '良好', color: 'text-indigo-600 bg-indigo-50' }
-  if (score >= 2.5) return { label: '一般', color: 'text-amber-600 bg-amber-50' }
-  return { label: '较弱', color: 'text-gray-500 bg-gray-100' }
-}
-
+/**
+ * 统一极简线条 #FF8C00 风格卡片
+ * 与 SkillCardProto7 风格一致：content-card + #FF8C00 + tag 样式
+ */
 export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
   const hasEval = !!skill.overall_score
   const isRecommended = hasEval && (skill.overall_score ?? 0) >= 4
-  const freeBadge = dimMeta(skill.free_quota ? 5 : null)
-  const difficultyBadge = dimMeta(skill.difficulty_score)
-  const stabilityBadge = dimMeta(skill.stability_score)
 
   return (
-    <Link href={`/skill/${skill.slug}`} className="block">
-      <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-lg hover:border-indigo-300 transition-all duration-200 group relative">
-        {/* 实测推荐角标 */}
-        {isRecommended && (
-          <div className="absolute top-0 right-0 z-10">
-            <div className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-bl-lg flex items-center gap-1 shadow-sm">
-              ⭐ 实测推荐
-            </div>
-          </div>
-        )}
-
-        <div className="p-5">
-          {/* 标签行 */}
-          <div className="flex items-center gap-2 mb-3">
-            <span className={`text-xs px-2 py-0.5 rounded ${
-              skill.category === 'infrastructure' ? 'bg-blue-50 text-blue-600' :
-              skill.category === 'scene' ? 'bg-indigo-50 text-indigo-600' :
-              'bg-amber-50 text-amber-600'
-            }`}>
-              {CATEGORY_ICONS[skill.category]} {CATEGORY_LABELS[skill.category]}
+    <Link href={`/skill/${skill.slug}`} className="content-card p-5 block group">
+      {/* 头部：图标 + 标题 + 评分 */}
+      <div className="flex items-start justify-between mb-2.5">
+        <div className="flex items-center gap-2.5 min-w-0">
+          {skill.icon_url ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={skill.icon_url}
+              alt={skill.name}
+              loading="lazy"
+              className="w-9 h-9 rounded-[10px] object-cover flex-shrink-0"
+            />
+          ) : (
+            <span className="w-9 h-9 rounded-[10px] bg-[#FF8C00] flex items-center justify-center text-[13px] font-bold text-white shrink-0">
+              {skill.name.charAt(0).toUpperCase()}
             </span>
-            <span className="text-xs text-gray-400">{skill.platform_name}</span>
-          </div>
-
-          {/* 图标 + 标题 */}
-          <div className="flex items-center gap-3 mb-1">
-            {skill.icon_url ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={skill.icon_url}
-                alt=""
-                loading="lazy"
-                className="w-8 h-8 rounded-lg object-cover flex-shrink-0"
-              />
-            ) : (
-              <span className="text-xl flex-shrink-0" aria-hidden>
-                {CATEGORY_ICONS[skill.category]}
-              </span>
-            )}
-            <h3 className="font-bold text-gray-900 group-hover:text-indigo-600 transition">
+          )}
+          <div className="min-w-0">
+            <div className="text-[15px] font-semibold text-[#1A1A1A] group-hover:text-[#FF8C00] transition truncate">
               {skill.name}
-            </h3>
-          </div>
-          <p className="text-sm text-gray-500 mb-3 line-clamp-2">{skill.tagline}</p>
-
-          {/* 评分环 + 综合分（醒目） */}
-          {hasEval ? (
-            <div className="flex items-center gap-3 mb-3">
-              <ScoreRing score={skill.overall_score!} />
-              <div className="flex-1">
-                <div className="text-xs text-gray-400 mb-1">综合评分</div>
-                <div className="flex items-center gap-1">
-                  <span className={`text-lg font-bold ${
-                    (skill.overall_score ?? 0) >= 4 ? 'text-green-600' :
-                    (skill.overall_score ?? 0) >= 3 ? 'text-amber-500' : 'text-gray-500'
-                  }`}>
-                    {skill.overall_score!.toFixed(1)}
-                  </span>
-                  <span className="text-xs text-gray-400">/ 5.0</span>
-                </div>
-              </div>
             </div>
-          ) : (
-            <div className="mb-3 text-xs text-gray-300">暂无评测</div>
-          )}
-
-          {/* 维度徽章 */}
-          <div className="flex flex-wrap gap-1.5">
-            {difficultyBadge && (
-              <span className={`text-[11px] px-2 py-0.5 rounded-full font-medium ${difficultyBadge.color}`}>
-                上手 {difficultyBadge.label}
-              </span>
-            )}
-            {stabilityBadge && (
-              <span className={`text-[11px] px-2 py-0.5 rounded-full font-medium ${stabilityBadge.color}`}>
-                稳定 {stabilityBadge.label}
-              </span>
-            )}
-            {skill.free_quota && (
-              <span className="text-[11px] px-2 py-0.5 rounded-full font-medium text-emerald-700 bg-emerald-50">
-                🎁 {skill.free_quota}
-              </span>
-            )}
+            <div className="text-[11px] text-[#9CA3AF] truncate">
+              {CATEGORY_ICONS[skill.category]} {skill.platform_name}
+            </div>
           </div>
         </div>
-
-        {/* 底部操作 */}
-        <div className="border-t border-gray-100 px-5 py-3 flex items-center justify-between bg-gray-50/50">
-          <span className="text-xs text-indigo-600 font-medium group-hover:underline">
-            查看评测 →
+        {hasEval && (
+          <span className="score-text text-base shrink-0 ml-2">
+            {skill.overall_score!.toFixed(1)}
           </span>
-          {skill.trial_enabled ? (
-            <span className="text-xs bg-indigo-50 text-indigo-600 px-3 py-1 rounded-lg font-medium">
-              免费试用
-            </span>
-          ) : (
-            <span className="text-xs bg-gray-100 text-gray-500 px-3 py-1 rounded-lg font-medium">
-              去安装
+        )}
+      </div>
+
+      {/* 描述 */}
+      {skill.tagline && (
+        <p className="text-[13px] text-[#6B7280] leading-[1.6] mb-3 line-clamp-2">
+          {skill.tagline}
+        </p>
+      )}
+
+      {/* 标签 */}
+      <div className="flex flex-wrap gap-1.5 mb-3">
+        {isRecommended && <span className="tag tag-tested">⭐ 实测推荐</span>}
+        {skill.category === 'infrastructure' && <span className="tag tag-mcp">装机必备</span>}
+        {skill.api_supported && <span className="tag tag-official">官方 API</span>}
+        {hasEval && <span className="tag tag-tested">AI360 实测</span>}
+        {skill.free_quota && <span className="tag tag-free">免费</span>}
+      </div>
+
+      {/* 评分 + 维度徽章 */}
+      {hasEval && (
+        <div className="flex flex-wrap items-center gap-1.5 pt-3 border-t border-[#EEF0F3]">
+          <DimBadge label={`上手 ${dimLabel(skill.difficulty_score)}`} score={skill.difficulty_score} />
+          <DimBadge label={`稳定 ${dimLabel(skill.stability_score)}`} score={skill.stability_score} />
+          {skill.free_quota && (
+            <span className="text-[11px] px-2 py-0.5 rounded-full font-medium text-[#16a34a] bg-[#f0fdf4]">
+              🎁 {skill.free_quota}
             </span>
           )}
         </div>
+      )}
+
+      {/* 底部操作 */}
+      <div className="mt-3 pt-3 border-t border-[#EEF0F3] flex items-center justify-between">
+        <span className="text-[12px] text-[#FF8C00] font-medium group-hover:underline">
+          查看评测 →
+        </span>
+        {skill.trial_enabled ? (
+          <span className="text-[11px] bg-[rgba(255,140,0,0.06)] text-[#FF8C00] px-2.5 py-1 rounded-lg font-medium">
+            免费试用
+          </span>
+        ) : (
+          <span className="text-[11px] bg-[#FAFAFA] text-[#6B7280] px-2.5 py-1 rounded-lg font-medium border border-[#F0F0F0]">
+            去安装
+          </span>
+        )}
       </div>
     </Link>
   )
 }
 
-// 评分环 SVG 组件
-function ScoreRing({ score }: { score: number }) {
-  const pct = (score / 5) * 100
-  const color = score >= 4 ? '#16a34a' : score >= 3 ? '#ff8c00' : '#6b7280'
-  const r = 18
-  const c = 2 * Math.PI * r
-  const dash = (pct / 100) * c
+function dimLabel(score: number | null | undefined): string {
+  if (!score) return '—'
+  if (score >= 4.5) return '优秀'
+  if (score >= 3.5) return '良好'
+  if (score >= 2.5) return '一般'
+  return '较弱'
+}
+
+function DimBadge({ label, score }: { label: string; score: number | null | undefined }) {
+  if (!score) return null
+  const isHigh = score >= 4
   return (
-    <div className="relative w-12 h-12 flex-shrink-0">
-      <svg className="w-12 h-12 -rotate-90" viewBox="0 0 44 44">
-        <circle cx="22" cy="22" r={r} fill="none" stroke="#f3f4f6" strokeWidth="3.5" />
-        <circle
-          cx="22"
-          cy="22"
-          r={r}
-          fill="none"
-          stroke={color}
-          strokeWidth="3.5"
-          strokeLinecap="round"
-          strokeDasharray={`${dash} ${c}`}
-        />
-      </svg>
-      <span className="absolute inset-0 flex items-center justify-center text-sm font-bold" style={{ color }}>
-        {score.toFixed(1)}
-      </span>
-    </div>
+    <span
+      className={`text-[11px] px-2 py-0.5 rounded-full font-medium ${
+        isHigh
+          ? 'text-[#FF8C00] bg-[rgba(255,140,0,0.08)]'
+          : 'text-[#6B7280] bg-[#F3F4F6]'
+      }`}
+    >
+      {label}
+    </span>
   )
 }

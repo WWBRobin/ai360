@@ -55,12 +55,12 @@ export default function TrialBox({
   }
 
   return (
-    <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl border border-indigo-200 p-6">
+    <div className="content-card p-6">
       <div className="flex items-center gap-2 mb-4">
         <span className="text-lg">🧪</span>
-        <h3 className="font-bold text-gray-900">在线试用 {skillName}</h3>
+        <h3 className="font-bold text-[#1A1A1A]">在线试用 {skillName}</h3>
         {remaining !== null && (
-          <span className="ml-auto text-xs text-indigo-600 bg-white px-2 py-0.5 rounded-full border border-indigo-100">
+          <span className="ml-auto text-xs text-[#FF8C00] bg-[rgba(255,140,0,0.06)] px-2 py-0.5 rounded-full border border-[rgba(255,140,0,0.20)]">
             剩余 {remaining} 次
           </span>
         )}
@@ -73,17 +73,17 @@ export default function TrialBox({
         placeholder={placeholder}
         rows={4}
         disabled={status === 'loading'}
-        className="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-xl resize-none focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition disabled:opacity-60"
+        className="w-full px-4 py-3 text-sm bg-white border border-[#E5E7EB] rounded-xl resize-none focus:outline-none focus:border-[#FF8C00] focus:ring-2 focus:ring-[rgba(255,140,0,0.12)] transition disabled:opacity-60"
       />
 
       <div className="flex items-center justify-between mt-3">
-        <span className="text-xs text-gray-400">
+        <span className="text-xs text-[#9CA3AF]">
           ⌘/Ctrl + Enter 快捷发送
         </span>
         <button
           onClick={handleTry}
           disabled={status === 'loading' || !input.trim()}
-          className="px-5 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 active:scale-[0.98] transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+          className="btn-primary px-5 py-2 text-sm font-medium flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {status === 'loading' ? (
             <>

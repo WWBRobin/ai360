@@ -14,6 +14,7 @@ import { getGitHubRepoData, type GitHubRepoData } from '@/lib/github'
 import { getRelatedArticles } from '@/lib/related-articles'
 import type { ArticleMeta } from '@/lib/articles'
 import SkillDetailTabs from '@/components/SkillDetailTabs'
+import AppSidebar from '@/components/AppSidebar'
 
 // ISR：详情页每 1 小时增量静态重新生成
 export const revalidate = 3600
@@ -169,7 +170,10 @@ export default async function SkillDetailPage({
     : null
 
   return (
-    <div className="max-w-5xl mx-auto px-4 md:px-8 py-6 relative z-10">
+    <div className="page-wrapper flex min-h-screen relative">
+      <AppSidebar />
+
+      <main className="flex-1 min-w-0 relative z-10 px-4 md:px-8 py-6 max-w-[1080px]">
       {/* 1. 面包屑 */}
       <nav className="flex items-center gap-1.5 text-xs text-[#9CA3AF] mb-5 flex-wrap">
         <Link href="/" className="hover:text-[#FF8C00] transition">首页</Link>

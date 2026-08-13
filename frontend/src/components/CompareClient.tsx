@@ -547,7 +547,7 @@ function ConclusionBar({
 function EmptyHint() {
   return (
     <div className="content-card text-center py-16">
-      <div className="w-[72px] h-[72px] rounded-full mx-auto mb-4 flex items-center justify-center text-[#FF8C00] bg-[#FFF8E1]">
+      <div className="w-[72px] h-[72px] rounded-full mx-auto mb-4 flex items-center justify-center text-[#FF8C00] bg-[rgba(255,140,0,0.06)]">
         <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path d="M12 3v18M3 12h18" />
         </svg>

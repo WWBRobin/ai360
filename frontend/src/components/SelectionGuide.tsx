@@ -78,12 +78,12 @@ export default function SelectionGuide({ skills }: SelectionGuideProps) {
 
   return (
     <section className="mt-16">
-      <div className="rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50/40 via-white to-purple-50/30 p-6 md:p-8">
+      <div className="content-card p-6 md:p-8">
         <div className="mb-6">
-          <h2 className="flex items-center gap-2 text-xl font-bold text-gray-900">
+          <h2 className="flex items-center gap-2 text-xl font-bold text-[#1A1A1A]">
             💡 不知道选哪个？看这里
           </h2>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-[#6B7280]">
             基于实测数据，按不同需求帮你快速选出最适合的
           </p>
         </div>
@@ -92,26 +92,26 @@ export default function SelectionGuide({ skills }: SelectionGuideProps) {
           {recommendations.map((rec) => (
             <div
               key={rec.title}
-              className="bg-white rounded-xl border border-gray-100 p-4 hover:border-indigo-200 hover:shadow-md transition-all"
+              className="bg-white rounded-xl border border-[#F0F0F0] p-4 hover:border-[#FF8C00] transition-all"
             >
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-xl">{rec.icon}</span>
-                <span className="text-sm font-semibold text-gray-700">{rec.title}</span>
+                <span className="text-sm font-semibold text-[#1A1A1A]">{rec.title}</span>
               </div>
               {rec.skill ? (
                 <Link href={`/skill/${rec.skill.slug}`} className="block group">
-                  <div className="font-bold text-gray-900 group-hover:text-indigo-600 transition text-sm mb-1 line-clamp-1">
+                  <div className="font-bold text-[#1A1A1A] group-hover:text-[#FF8C00] transition text-sm mb-1 line-clamp-1">
                     {rec.skill.name}
                   </div>
-                  <p className="text-xs text-gray-400 line-clamp-2 leading-relaxed">{rec.reason}</p>
-                  <div className="mt-2 text-xs text-indigo-500 font-medium group-hover:underline">
+                  <p className="text-xs text-[#6B7280] line-clamp-2 leading-relaxed">{rec.reason}</p>
+                  <div className="mt-2 text-xs text-[#FF8C00] font-medium group-hover:underline">
                     查看详情 →
                   </div>
                 </Link>
               ) : (
                 <div>
-                  <div className="text-sm text-gray-300 mb-1">暂无推荐</div>
-                  <p className="text-xs text-gray-400 line-clamp-2 leading-relaxed">{rec.reason}</p>
+                  <div className="text-sm text-[#9CA3AF] mb-1">暂无推荐</div>
+                  <p className="text-xs text-[#6B7280] line-clamp-2 leading-relaxed">{rec.reason}</p>
                 </div>
               )}
             </div>
@@ -120,8 +120,8 @@ export default function SelectionGuide({ skills }: SelectionGuideProps) {
 
         {/* 对比入口 */}
         {evaluated.length >= 2 && (
-          <div className="mt-6 flex items-center justify-between rounded-xl bg-white/60 px-4 py-3 border border-gray-100">
-            <span className="text-sm text-gray-600">📋 还在纠结？把它们放在一起对比</span>
+          <div className="mt-6 flex items-center justify-between rounded-xl bg-[#FAFAFA] px-4 py-3 border border-[#F0F0F0]">
+            <span className="text-sm text-[#6B7280]">📋 还在纠结？把它们放在一起对比</span>
             <Link
               href={`/compare?slugs=${encodeURIComponent(
                 evaluated
@@ -129,7 +129,7 @@ export default function SelectionGuide({ skills }: SelectionGuideProps) {
                   .map((s) => s.slug)
                   .join(',')
               )}`}
-              className="text-sm font-medium text-indigo-600 hover:text-indigo-700 hover:underline whitespace-nowrap"
+              className="text-sm font-medium text-[#FF8C00] hover:underline whitespace-nowrap"
             >
               开始对比 →
             </Link>
