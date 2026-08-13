@@ -23,8 +23,29 @@ export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
               loading="lazy"
               className="w-9 h-9 rounded-[10px] object-cover flex-shrink-0"
             />
-          ) : (
+          ) : skill.platform_slug ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={`/platform-logos/${skill.platform_slug}.png`}
+              alt={skill.name}
+              loading="lazy"
+              className="w-9 h-9 rounded-[10px] object-cover flex-shrink-0"
+              onError={(e) => {
+                const t = e.currentTarget;
+                t.style.display = 'none';
+                const fallback = t.nextElementSibling as HTMLElement;
+                if (fallback) fallback.style.display = 'flex';
+              }}
+            />
+          ) : null}
+          {(!skill.icon_url && !skill.platform_slug) && (
             <span className="w-9 h-9 rounded-[10px] bg-[#FF8C00] flex items-center justify-center text-[13px] font-bold text-white shrink-0">
+              {skill.name.charAt(0).toUpperCase()}
+            </span>
+          )}
+          {/* fallback for platform logo error */}
+          {!skill.icon_url && skill.platform_slug && (
+            <span className="w-9 h-9 rounded-[10px] bg-[#FF8C00] flex items-center justify-center text-[13px] font-bold text-white shrink-0" style={{ display: 'none' }}>
               {skill.name.charAt(0).toUpperCase()}
             </span>
           )}
