@@ -1,5 +1,5 @@
 // 搜索结果页不缓存
-export const revalidate = 0
+export const dynamic = 'force-dynamic'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import {
@@ -131,6 +131,7 @@ interface SearchPageProps {
 }
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
+  try {
   const sp = await searchParams
   const query = typeof sp.q === 'string' ? sp.q : ''
   const filters = {
@@ -225,6 +226,20 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
       </main>
     </div>
   )
+  } catch (err) {
+    console.error('SearchPage render error:', err)
+    // 返回最小可用页面
+    return (
+      <div className="page-wrapper flex min-h-screen">
+        <AppSidebar />
+        <main className="flex-1 px-8 py-8">
+          <h1 className="text-[20px] font-bold mb-2">搜索出错了</h1>
+          <p className="text-[14px] text-[#9CA3AF]">错误信息: {String(err).substring(0, 200)}</p>
+          <p className="text-[14px] text-[#9CA3AF] mt-2">请稍后重试，或<a href="/" className="text-[#FF8C00]">返回首页</a></p>
+        </main>
+      </div>
+    )
+  }
 }
 
 // ===== 筛选后无结果 =====
