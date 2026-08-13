@@ -88,7 +88,7 @@ function NavLink({
       href={href}
       onMouseEnter={(e) => {
         if (!active) {
-          e.currentTarget.style.background = 'rgba(255,140,0,0.04)'
+          e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
           e.currentTarget.style.color = '#FF8C00'
         }
         onHover?.()
@@ -129,12 +129,12 @@ function CheckRow({
       onClick={onToggle}
       className="w-full flex items-center gap-2.5 px-3 py-2 rounded-[6px] transition-all duration-150"
       style={{
-        background: checked ? 'rgba(255,140,0,0.06)' : 'transparent',
+        background: checked ? 'rgba(255,140,0,0.12)' : 'transparent',
         color: checked ? '#FF8C00' : '#1F2937',
         fontWeight: checked ? 600 : 500,
       }}
       onMouseEnter={(e) => {
-        if (!checked) e.currentTarget.style.background = 'rgba(255,140,0,0.04)'
+        if (!checked) e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
       }}
       onMouseLeave={(e) => {
         if (!checked) e.currentTarget.style.background = 'transparent'
@@ -220,9 +220,9 @@ function HomeSidebar() {
               key={p.slug}
               onClick={() => togglePlatform(p.slug)}
               className="w-full flex items-center gap-2.5 px-3 py-2 rounded-[8px] transition-all duration-150 relative"
-              style={{ background: isSelected ? 'rgba(255,140,0,0.06)' : 'transparent' }}
+              style={{ background: isSelected ? 'rgba(255,140,0,0.12)' : 'transparent' }}
               onMouseEnter={(e) => {
-                if (!isSelected) e.currentTarget.style.background = 'rgba(255,140,0,0.04)'
+                if (!isSelected) e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
               }}
               onMouseLeave={(e) => {
                 if (!isSelected) e.currentTarget.style.background = 'transparent'
@@ -326,9 +326,9 @@ function EssentialSidebar() {
               key={c.slug}
               onClick={() => setActive(c.slug)}
               className="w-full flex items-center gap-2.5 px-3 py-2 rounded-[8px] transition-all duration-150"
-              style={{ background: active === c.slug ? 'rgba(255,140,0,0.06)' : 'transparent' }}
+              style={{ background: active === c.slug ? 'rgba(255,140,0,0.12)' : 'transparent' }}
               onMouseEnter={(e) => {
-                if (active !== c.slug) e.currentTarget.style.background = 'rgba(255,140,0,0.04)'
+                if (active !== c.slug) e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
               }}
               onMouseLeave={(e) => {
                 if (active !== c.slug) e.currentTarget.style.background = 'transparent'
@@ -357,7 +357,7 @@ function EssentialSidebar() {
               key={d.slug}
               className="w-full flex items-center gap-2.5 px-3 py-2 rounded-[6px] transition"
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255,140,0,0.04)'
+                e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = 'transparent'
@@ -430,9 +430,9 @@ function GuideSidebar() {
               key={c.slug}
               href={`/guide?cat=${c.slug}`}
               className="w-full flex items-center gap-2.5 px-3 py-2 rounded-[8px] transition-all duration-150"
-              style={{ background: active === c.slug ? 'rgba(255,140,0,0.06)' : 'transparent' }}
+              style={{ background: active === c.slug ? 'rgba(255,140,0,0.12)' : 'transparent' }}
               onMouseEnter={(e) => {
-                if (active !== c.slug) e.currentTarget.style.background = 'rgba(255,140,0,0.04)'
+                if (active !== c.slug) e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
               }}
               onMouseLeave={(e) => {
                 if (active !== c.slug) e.currentTarget.style.background = 'transparent'
@@ -462,7 +462,7 @@ function GuideSidebar() {
               href={`/guide/${a.slug}`}
               className="flex items-center gap-2.5 px-3 py-2 rounded-[6px] transition"
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255,140,0,0.04)'
+                e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
                 e.currentTarget.style.color = '#FF8C00'
               }}
               onMouseLeave={(e) => {
@@ -530,9 +530,9 @@ function ScenarioSidebar({ pathname }: { pathname: string }) {
                 key={s.slug}
                 href={`/scenario/${s.slug}`}
                 className="flex items-center gap-2.5 px-3 py-2 rounded-[8px] transition-all duration-150"
-                style={{ background: active ? 'rgba(255,140,0,0.06)' : 'transparent' }}
+                style={{ background: active ? 'rgba(255,140,0,0.12)' : 'transparent' }}
                 onMouseEnter={(e) => {
-                  if (!active) e.currentTarget.style.background = 'rgba(255,140,0,0.04)'
+                  if (!active) e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
                 }}
                 onMouseLeave={(e) => {
                   if (!active) e.currentTarget.style.background = 'transparent'
@@ -585,9 +585,9 @@ function PlatformSidebar({ pathname }: { pathname: string }) {
                 key={p.slug}
                 href={`/platform/${p.slug}`}
                 className="flex items-center gap-2.5 px-3 py-2 rounded-[8px] transition-all duration-150"
-                style={{ background: active ? 'rgba(255,140,0,0.06)' : 'transparent' }}
+                style={{ background: active ? 'rgba(255,140,0,0.12)' : 'transparent' }}
                 onMouseEnter={(e) => {
-                  if (!active) e.currentTarget.style.background = 'rgba(255,140,0,0.04)'
+                  if (!active) e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
                 }}
                 onMouseLeave={(e) => {
                   if (!active) e.currentTarget.style.background = 'transparent'
@@ -774,7 +774,7 @@ function CompareSidebar() {
               href={`/compare?slugs=${c.slug}`}
               className="flex items-center gap-2.5 px-3 py-2 rounded-[6px] transition"
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255,140,0,0.04)'
+                e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
                 e.currentTarget.style.color = '#FF8C00'
               }}
               onMouseLeave={(e) => {
@@ -857,12 +857,12 @@ function SkillDetailSidebar({ pathname }: { pathname: string }) {
                 onClick={() => setActiveSection(t.id)}
                 className="flex items-center gap-2.5 px-3 py-2 rounded-[6px] transition"
                 style={{
-                  background: active ? 'rgba(255,140,0,0.06)' : 'transparent',
+                  background: active ? 'rgba(255,140,0,0.12)' : 'transparent',
                   color: active ? '#FF8C00' : '#1F2937',
                   fontWeight: active ? 600 : 500,
                 }}
                 onMouseEnter={(e) => {
-                  if (!active) e.currentTarget.style.background = 'rgba(255,140,0,0.04)'
+                  if (!active) e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
                 }}
                 onMouseLeave={(e) => {
                   if (!active) e.currentTarget.style.background = 'transparent'
@@ -885,7 +885,7 @@ function SkillDetailSidebar({ pathname }: { pathname: string }) {
               href={`/skill/${s.slug}`}
               className="flex items-center gap-2.5 px-3 py-2 rounded-[6px] transition"
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255,140,0,0.04)'
+                e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
                 e.currentTarget.style.color = '#FF8C00'
               }}
               onMouseLeave={(e) => {
@@ -933,7 +933,7 @@ export default function AppSidebar() {
   return (
     <aside
       className="hidden md:block w-[220px] shrink-0 sticky top-[60px] h-[calc(100vh-60px)] overflow-y-auto"
-      style={{ background: 'transparent', border: 'none' }}
+      style={{ background: '#FAFAFA', borderRight: '1px solid #F0F0F0' }}
     >
       <div className="px-3 pt-8 pb-6">
         {variant === 'home' && <HomeSidebar />}

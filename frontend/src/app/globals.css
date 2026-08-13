@@ -168,3 +168,21 @@ body {
 .prose-guide tbody tr:nth-child(even) { background: #fafafa; }
 .prose-guide hr { margin: 2em 0; border: 0; border-top: 1px solid #e5e7eb; }
 .prose-guide img { max-width: 100%; border-radius: 0.5rem; margin: 1.2em 0; }
+
+
+/* ===== 侧栏视觉层级加强 ===== */
+aside [style*="rgba(255,140,0,0.12)"] {
+  border-left: 3px solid #FF8C00 !important;
+  padding-left: 9px !important;
+}
+
+/* 侧栏背景 */
+aside {
+  background: #FAFAFA !important;
+  border-right: 1px solid #F0F0F0 !important;
+}
+
+/* 侧栏分类标题加强 */
+aside span[style*="letter-spacing"] {
+  font-weight: 700 !important;
+}
