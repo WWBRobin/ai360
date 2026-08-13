@@ -9,18 +9,18 @@ import Link from 'next/link'
  */
 
 const PLATFORMS = [
-  { slug: 'hermes', name: 'Hermes', count: 271 },
-  { slug: 'gpts', name: 'GPTs', count: 86 },
-  { slug: 'coze', name: '扣子', count: 25 },
-  { slug: 'saas', name: 'SaaS', count: 24 },
-  { slug: 'mcp', name: 'MCP', count: 22 },
-  { slug: 'claude', name: 'Claude', count: 20 },
-  { slug: 'openclaw', name: 'OpenClaw', count: 14 },
-  { slug: 'codex', name: 'Codex', count: 8 },
-  { slug: 'dify', name: 'Dify', count: 7 },
-  { slug: 'n8n', name: 'n8n', count: 4 },
-  { slug: 'claude-code', name: 'Claude Code', count: 4 },
-  { slug: 'qwen', name: '千问', count: 2 },
+  { slug: 'hermes', name: 'Hermes', count: 271, logo: 'https://avatars.githubusercontent.com/u/193596547?v=4' },
+  { slug: 'gpts', name: 'GPTs', count: 86, logo: 'https://chat.openai.com/favicon.ico' },
+  { slug: 'coze', name: '扣子', count: 25, logo: 'https://lf-coze-web-cdn.coze.cn/obj/coze-web-cn/favicon.ico' },
+  { slug: 'saas', name: 'SaaS', count: 24, logo: 'https://saasicon.com/favicon.ico' },
+  { slug: 'mcp', name: 'MCP', count: 22, logo: 'https://modelcontextprotocol.io/favicon.ico' },
+  { slug: 'claude', name: 'Claude', count: 20, logo: 'https://claude.ai/favicon.ico' },
+  { slug: 'openclaw', name: 'OpenClaw', count: 14, logo: 'https://avatars.githubusercontent.com/u/183860714?v=4' },
+  { slug: 'codex', name: 'Codex', count: 8, logo: 'https://openai.com/favicon.ico' },
+  { slug: 'dify', name: 'Dify', count: 7, logo: 'https://dify.ai/favicon.ico' },
+  { slug: 'n8n', name: 'n8n', count: 4, logo: 'https://n8n.io/favicon.ico' },
+  { slug: 'claude-code', name: 'Claude Code', count: 4, logo: 'https://claude.ai/favicon.ico' },
+  { slug: 'qwen', name: '千问', count: 2, logo: 'https://qianwen.aliyun.com/favicon.ico' },
 ]
 
 const FEATURED = [
@@ -84,7 +84,10 @@ export default function HomePortal() {
                     active ? 'bg-[rgba(255,140,0,0.12)]' : 'hover:bg-[rgba(255,140,0,0.06)]'
                   }`}>
                   {active && <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-[#FF8C00] rounded-[2px]" />}
-                  <span className={`pl-2 ${active ? 'font-semibold text-[#FF8C00]' : 'text-[#1F2937] font-medium'}`}>{p.name}</span>
+                  <div className="flex items-center gap-2 pl-2">
+                    {p.logo && <img src={p.logo} alt="" className="w-5 h-5 rounded object-cover shrink-0" />}
+                    <span className={`${active ? 'font-semibold text-[#FF8C00]' : 'text-[#1F2937] font-medium'}`}>{p.name}</span>
+                  </div>
                   <span className={`text-xs ${active ? 'text-[#FF8C00]' : 'text-[#9CA3AF]'}`}>{p.count}</span>
                 </button>
               )
