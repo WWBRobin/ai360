@@ -9,27 +9,27 @@ import Link from 'next/link'
  */
 
 const PLATFORMS = [
-  { slug: 'hermes', name: 'Hermes', count: 271, logo: 'https://avatars.githubusercontent.com/u/193596547?v=4' },
-  { slug: 'gpts', name: 'GPTs', count: 86, logo: 'https://chat.openai.com/favicon.ico' },
-  { slug: 'coze', name: '扣子', count: 25, logo: 'https://lf-coze-web-cdn.coze.cn/obj/coze-web-cn/favicon.ico' },
-  { slug: 'saas', name: 'SaaS', count: 24, logo: 'https://saasicon.com/favicon.ico' },
-  { slug: 'mcp', name: 'MCP', count: 22, logo: 'https://modelcontextprotocol.io/favicon.ico' },
-  { slug: 'claude', name: 'Claude', count: 20, logo: 'https://claude.ai/favicon.ico' },
-  { slug: 'openclaw', name: 'OpenClaw', count: 14, logo: 'https://avatars.githubusercontent.com/u/183860714?v=4' },
-  { slug: 'codex', name: 'Codex', count: 8, logo: 'https://openai.com/favicon.ico' },
-  { slug: 'dify', name: 'Dify', count: 7, logo: 'https://dify.ai/favicon.ico' },
-  { slug: 'n8n', name: 'n8n', count: 4, logo: 'https://n8n.io/favicon.ico' },
-  { slug: 'claude-code', name: 'Claude Code', count: 4, logo: 'https://claude.ai/favicon.ico' },
-  { slug: 'qwen', name: '千问', count: 2, logo: 'https://qianwen.aliyun.com/favicon.ico' },
+  { slug: 'hermes', name: 'Hermes', count: 271, logo: 'https://avatars.githubusercontent.com/u/193596547?v=4', color: '#6366f1' },
+  { slug: 'gpts', name: 'GPTs', count: 86, logo: '', color: '#10a37f' },
+  { slug: 'coze', name: '扣子', count: 25, logo: '', color: '#3b82f6' },
+  { slug: 'saas', name: 'SaaS', count: 24, logo: '', color: '#8b5cf6' },
+  { slug: 'mcp', name: 'MCP', count: 22, logo: '', color: '#f59e0b' },
+  { slug: 'claude', name: 'Claude', count: 20, logo: '', color: '#d97706' },
+  { slug: 'openclaw', name: 'OpenClaw', count: 14, logo: 'https://avatars.githubusercontent.com/u/183860714?v=4', color: '#ef4444' },
+  { slug: 'codex', name: 'Codex', count: 8, logo: '', color: '#06b6d4' },
+  { slug: 'dify', name: 'Dify', count: 7, logo: '', color: '#2563eb' },
+  { slug: 'n8n', name: 'n8n', count: 4, logo: '', color: '#ea580c' },
+  { slug: 'claude-code', name: 'Claude Code', count: 4, logo: '', color: '#d97706' },
+  { slug: 'qwen', name: '千问', count: 2, logo: '', color: '#7c3aed' },
 ]
 
 const FEATURED = [
-  { name: 'Tavily', score: 4.9, platform: 'MCP', desc: '让 AI 联网搜索最新信息', free: '免费1000次/月', difficulty: 4, stability: 5, href: '/skill/tavily-search', icon: 'https://avatars.githubusercontent.com/u/167026044?v=4' },
-  { name: 'claude-mem', score: 4.8, platform: 'Claude', desc: '让 AI 跨会话记住项目上下文', free: '完全免费', difficulty: 2, stability: 3, href: '/skill/claude-mem', icon: 'https://avatars.githubusercontent.com/u/1693663?v=4' },
-  { name: 'Composio', score: 4.7, platform: 'MCP', desc: '让 AI 一次连接 1000+ 外部应用', free: '免费2万次/月', difficulty: 3, stability: 4, href: '/skill/composio', icon: 'https://avatars.githubusercontent.com/u/161758604?v=4' },
-  { name: 'Brave Search', score: 4.8, platform: 'MCP', desc: '免费 AI 搜索引擎，无需 API Key', free: '免费2000次/月', difficulty: 4, stability: 4, href: '/skill/brave-search-mcp', icon: 'https://search.brave.com/favicon.ico' },
-  { name: 'Frontend Design', score: 4.7, platform: 'Claude', desc: 'AI 生成专业级前端 UI 设计', free: '免费', difficulty: 3, stability: 4, href: '/skill/frontend-design', icon: 'https://avatars.githubusercontent.com/u/1693663?v=4' },
-  { name: 'Systematic Debugging', score: 4.5, platform: 'Hermes', desc: '4 阶段根因调试方法论', free: '完全免费', difficulty: 4, stability: 5, href: '/skill/systematic-debugging', icon: 'https://avatars.githubusercontent.com/u/193596547?v=4' },
+  { name: 'Tavily', score: 4.9, platform: 'MCP', desc: '让 AI 联网搜索最新信息', free: '免费1000次/月', difficulty: 4, stability: 5, href: '/skill/tavily-search', icon: 'https://avatars.githubusercontent.com/u/167026044?v=4', color: '#6366f1' },
+  { name: 'claude-mem', score: 4.8, platform: 'Claude', desc: '让 AI 跨会话记住项目上下文', free: '完全免费', difficulty: 2, stability: 3, href: '/skill/claude-mem', icon: 'https://avatars.githubusercontent.com/u/1693663?v=4', color: '#d97706' },
+  { name: 'Composio', score: 4.7, platform: 'MCP', desc: '让 AI 一次连接 1000+ 外部应用', free: '免费2万次/月', difficulty: 3, stability: 4, href: '/skill/composio', icon: 'https://avatars.githubusercontent.com/u/161758604?v=4', color: '#2563eb' },
+  { name: 'Brave Search', score: 4.8, platform: 'MCP', desc: '免费 AI 搜索引擎，无需 API Key', free: '免费2000次/月', difficulty: 4, stability: 4, href: '/skill/brave-search-mcp', icon: '', color: '#ef4444' },
+  { name: 'Frontend Design', score: 4.7, platform: 'Claude', desc: 'AI 生成专业级前端 UI 设计', free: '免费', difficulty: 3, stability: 4, href: '/skill/frontend-design', icon: 'https://avatars.githubusercontent.com/u/1693663?v=4', color: '#d97706' },
+  { name: 'Systematic Debugging', score: 4.5, platform: 'Hermes', desc: '4 阶段根因调试方法论', free: '完全免费', difficulty: 4, stability: 5, href: '/skill/systematic-debugging', icon: 'https://avatars.githubusercontent.com/u/193596547?v=4', color: '#6366f1' },
 ]
 
 const GUIDES = [
@@ -78,17 +78,23 @@ export default function HomePortal() {
             {sortedPlatforms.map(p => {
               const active = platforms.includes(p.slug)
               return (
-                <button key={p.slug} onClick={() => togglePlatform(p.slug)}
+                <Link key={p.slug} href={`/platform/${p.slug}`}
                   className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-[14px] transition relative mb-0.5 ${
                     active ? 'bg-[rgba(255,140,0,0.12)]' : 'hover:bg-[rgba(255,140,0,0.06)]'
                   }`}>
                   {active && <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-[#FF8C00] rounded-[2px]" />}
                   <div className="flex items-center gap-2 pl-2">
-                    {p.logo && <img src={p.logo} alt="" className="w-5 h-5 rounded object-cover shrink-0" />}
+                    {p.logo ? (
+                      <img src={p.logo} alt="" className="w-5 h-5 rounded object-cover shrink-0" />
+                    ) : (
+                      <span className="w-5 h-5 rounded flex items-center justify-center text-[11px] font-bold text-white shrink-0" style={{ backgroundColor: p.color }}>
+                        {p.name[0]}
+                      </span>
+                    )}
                     <span className={`${active ? 'font-semibold text-[#FF8C00]' : 'text-[#1F2937] font-medium'}`}>{p.name}</span>
                   </div>
                   <span className={`text-[11px] ${active ? 'text-[#FF8C00]' : 'text-[#9CA3AF]'}`}>{p.count}</span>
-                </button>
+                </Link>
               )
             })}
           </nav>
@@ -183,7 +189,13 @@ export default function HomePortal() {
               className="content-card block p-5 group">
               <div className="flex items-start justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  {skill.icon && <img src={skill.icon} alt="" className="w-8 h-8 rounded-lg object-cover shrink-0" />}
+                  {skill.icon ? (
+                    <img src={skill.icon} alt="" className="w-8 h-8 rounded-lg object-cover shrink-0" />
+                  ) : (
+                    <span className="w-8 h-8 rounded-lg flex items-center justify-center text-[14px] font-bold text-white shrink-0" style={{ backgroundColor: skill.color }}>
+                      {skill.name[0]}
+                    </span>
+                  )}
                   <div>
                     <span className="text-[15px] font-semibold text-[#1F2937] group-hover:text-[#FF8C00]">{skill.name}</span>
                     <span className="ml-2 text-[11px] text-[#9CA3AF]">{skill.platform}</span>
