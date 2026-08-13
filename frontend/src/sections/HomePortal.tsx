@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 /**
  * AI360 首页 — 灵光色 #FF8C00 极简线条风格
- * 侧栏：透明无边框，平台多选，LEARN引导式入口
+ * 字体层级5级：18px(区块标题)/15px(卡片标题)/14px(正文导航)/13px(描述)/11px(标签)
  */
 
 const PLATFORMS = [
@@ -47,12 +47,11 @@ export default function HomePortal() {
   const togglePlatform = (slug: string) => {
     setPlatforms(prev => {
       if (prev.includes(slug)) return prev.filter(p => p !== slug)
-      if (prev.length >= 3) return [slug, ...prev.slice(0, 2)] // 最多3个，新的置顶
+      if (prev.length >= 3) return [slug, ...prev.slice(0, 2)]
       return [...prev, slug]
     })
   }
 
-  // 排序：选中的置顶
   const sortedPlatforms = [...PLATFORMS].sort((a, b) => {
     const ai = platforms.indexOf(a.slug)
     const bi = platforms.indexOf(b.slug)
@@ -68,8 +67,8 @@ export default function HomePortal() {
         
         {/* 搜索框 */}
         <form action="/search" className="search-input flex items-center gap-2 px-3 py-2 mb-5">
-          <span className="text-[#D1D5DB] text-sm">⌕</span>
-          <input type="text" name="q" placeholder="搜索平台" className="flex-1 bg-transparent border-none outline-none text-sm text-[#1F2937] placeholder:text-[#D1D5DB]" />
+          <span className="text-[#D1D5DB] text-[14px]">⌕</span>
+          <input type="text" name="q" placeholder="搜索平台" className="flex-1 bg-transparent border-none outline-none text-[13px] text-[#1F2937] placeholder:text-[#D1D5DB]" />
         </form>
 
         {/* PLATFORMS */}
@@ -80,7 +79,7 @@ export default function HomePortal() {
               const active = platforms.includes(p.slug)
               return (
                 <button key={p.slug} onClick={() => togglePlatform(p.slug)}
-                  className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition relative mb-0.5 ${
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-[14px] transition relative mb-0.5 ${
                     active ? 'bg-[rgba(255,140,0,0.12)]' : 'hover:bg-[rgba(255,140,0,0.06)]'
                   }`}>
                   {active && <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-[#FF8C00] rounded-[2px]" />}
@@ -88,24 +87,24 @@ export default function HomePortal() {
                     {p.logo && <img src={p.logo} alt="" className="w-5 h-5 rounded object-cover shrink-0" />}
                     <span className={`${active ? 'font-semibold text-[#FF8C00]' : 'text-[#1F2937] font-medium'}`}>{p.name}</span>
                   </div>
-                  <span className={`text-xs ${active ? 'text-[#FF8C00]' : 'text-[#9CA3AF]'}`}>{p.count}</span>
+                  <span className={`text-[11px] ${active ? 'text-[#FF8C00]' : 'text-[#9CA3AF]'}`}>{p.count}</span>
                 </button>
               )
             })}
           </nav>
-          <Link href="/search" className="flex items-center justify-center px-3 py-1.5 mt-2 border border-dashed border-[#E5E7EB] rounded-lg text-xs text-[#6B7280] hover:border-[#FF8C00] hover:text-[#FF8C00] transition">
+          <Link href="/search" className="flex items-center justify-center px-3 py-1.5 mt-2 border border-dashed border-[#E5E7EB] rounded-lg text-[14px] text-[#6B7280] hover:border-[#FF8C00] hover:text-[#FF8C00] transition">
             全部平台(19个) →
           </Link>
         </div>
 
         {/* 新手引导横幅 */}
         <Link href="/essential" className="flex items-center gap-2.5 px-3 py-2.5 mb-3 border border-[#F0F0F0] rounded-[10px] hover:border-[#FF8C00] hover:bg-[rgba(255,140,0,0.04)] transition group">
-          <span className="text-base shrink-0">👋</span>
+          <span className="text-[16px] shrink-0">👋</span>
           <div className="flex-1 min-w-0">
-            <div className="text-[13px] font-semibold text-[#1F2937]">第一次来？</div>
-            <div className="text-[11px] text-[#9CA3AF] leading-tight">3 分钟找到你需要的 Skill</div>
+            <div className="text-[14px] font-semibold text-[#1F2937]">第一次来？</div>
+            <div className="text-[13px] text-[#9CA3AF] leading-tight">3 分钟找到你需要的 Skill</div>
           </div>
-          <span className="text-sm text-[#9CA3AF] group-hover:text-[#FF8C00] transition shrink-0">→</span>
+          <span className="text-[14px] text-[#9CA3AF] group-hover:text-[#FF8C00] transition shrink-0">→</span>
         </Link>
 
         {/* LEARN — 引导式卡片 */}
@@ -113,30 +112,30 @@ export default function HomePortal() {
           <h3 className="text-[11px] font-medium text-[#9CA3AF] uppercase tracking-[0.05em] px-3 mb-2">LEARN</h3>
           
           <Link href="/scenario/content-creation" className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg hover:bg-[rgba(255,140,0,0.06)] transition mb-1">
-            <span className="w-7 h-7 flex items-center justify-center bg-[rgba(255,140,0,0.08)] rounded-md text-sm shrink-0">🎯</span>
+            <span className="w-7 h-7 flex items-center justify-center bg-[rgba(255,140,0,0.08)] rounded-md text-[14px] shrink-0">🎯</span>
             <div className="flex-1 min-w-0">
-              <div className="text-[13px] font-semibold text-[#1F2937]">按场景找 Skill</div>
-              <div className="text-[11px] text-[#9CA3AF] leading-tight">不知道用什么？从需求出发</div>
+              <div className="text-[14px] font-semibold text-[#1F2937]">按场景找 Skill</div>
+              <div className="text-[13px] text-[#9CA3AF] leading-tight">不知道用什么？从需求出发</div>
             </div>
-            <span className="text-[10px] px-1.5 py-0.5 rounded bg-[rgba(255,140,0,0.12)] text-[#E67300] font-semibold shrink-0">新手推荐</span>
+            <span className="text-[11px] px-1.5 py-0.5 rounded bg-[rgba(255,140,0,0.12)] text-[#E67300] font-semibold shrink-0">新手推荐</span>
           </Link>
 
           <Link href="/platform/hermes" className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg hover:bg-[rgba(255,140,0,0.06)] transition mb-1">
-            <span className="w-7 h-7 flex items-center justify-center bg-[rgba(255,140,0,0.08)] rounded-md text-sm shrink-0">🔧</span>
+            <span className="w-7 h-7 flex items-center justify-center bg-[rgba(255,140,0,0.08)] rounded-md text-[14px] shrink-0">🔧</span>
             <div className="flex-1 min-w-0">
-              <div className="text-[13px] font-semibold text-[#1F2937]">按工具学</div>
-              <div className="text-[11px] text-[#9CA3AF] leading-tight">深入了解每个平台的玩法</div>
+              <div className="text-[14px] font-semibold text-[#1F2937]">按工具学</div>
+              <div className="text-[13px] text-[#9CA3AF] leading-tight">深入了解每个平台的玩法</div>
             </div>
-            <span className="text-[10px] px-1.5 py-0.5 rounded bg-[rgba(0,0,0,0.04)] text-[#9CA3AF] shrink-0">进阶</span>
+            <span className="text-[11px] px-1.5 py-0.5 rounded bg-[rgba(0,0,0,0.04)] text-[#9CA3AF] shrink-0">进阶</span>
           </Link>
 
           <Link href="/compare" className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg hover:bg-[rgba(255,140,0,0.06)] transition">
-            <span className="w-7 h-7 flex items-center justify-center bg-[rgba(255,140,0,0.08)] rounded-md text-sm shrink-0">📊</span>
+            <span className="w-7 h-7 flex items-center justify-center bg-[rgba(255,140,0,0.08)] rounded-md text-[14px] shrink-0">📊</span>
             <div className="flex-1 min-w-0">
-              <div className="text-[13px] font-semibold text-[#1F2937]">工具对比</div>
-              <div className="text-[11px] text-[#9CA3AF] leading-tight">同功能不同平台怎么选</div>
+              <div className="text-[14px] font-semibold text-[#1F2937]">工具对比</div>
+              <div className="text-[13px] text-[#9CA3AF] leading-tight">同功能不同平台怎么选</div>
             </div>
-            <span className="text-[10px] px-1.5 py-0.5 rounded bg-[rgba(0,0,0,0.04)] text-[#9CA3AF] shrink-0">实用</span>
+            <span className="text-[11px] px-1.5 py-0.5 rounded bg-[rgba(0,0,0,0.04)] text-[#9CA3AF] shrink-0">实用</span>
           </Link>
         </div>
       </aside>
@@ -148,16 +147,16 @@ export default function HomePortal() {
         <div className="flex gap-1 border-b border-[#F0F0F0] mb-3 overflow-x-auto scrollbar-hide">
           {['all', '写作创作', '数据办公', '研究分析', '开发编程', '设计媒体', '自动化', 'AI增强'].map((s, i) => (
             <button key={s} onClick={() => setSceneTab(s)}
-              className={`px-4 py-2.5 text-sm border-b-2 transition whitespace-nowrap ${
+              className={`px-4 py-2.5 text-[14px] border-b-2 transition whitespace-nowrap ${
                 sceneTab === s ? 'border-[#FF8C00] text-[#FF8C00] font-medium' : 'border-transparent text-[#6B7280] hover:text-[#1F2937]'
               }`}>
               {s === 'all' ? '全部' : s}
-              {s !== 'all' && <span className="ml-1 text-[10px] text-[#9CA3AF]">{[68,65,35,106,37,52,20][i-1]}</span>}
+              {s !== 'all' && <span className="ml-1 text-[11px] text-[#9CA3AF]">{[68,65,35,106,37,52,20][i-1]}</span>}
             </button>
           ))}
         </div>
 
-        {/* 类型 Tab 第二行 */}
+        {/* 类型 Tab 第二行 + 排序 */}
         <div className="flex gap-1 mb-5">
           {['all', 'Skill', '工具', 'MCP', '插件'].map(t => (
             <button key={t} onClick={() => setTypeTab(t)}
@@ -168,8 +167,8 @@ export default function HomePortal() {
             </button>
           ))}
           <div className="ml-auto flex items-center gap-3">
-            <span className="text-[13px] text-[#9CA3AF]">共 528 个工具</span>
-            <select className="text-[13px] text-[#4B5563] border border-[#E5E7EB] rounded-md px-2 py-1 bg-white">
+            <span className="text-[14px] text-[#9CA3AF]">共 528 个工具</span>
+            <select className="text-[14px] text-[#4B5563] border border-[#E5E7EB] rounded-md px-2 py-1 bg-white">
               <option>综合评分</option>
               <option>最新上架</option>
               <option>评分最高</option>
@@ -186,16 +185,16 @@ export default function HomePortal() {
                 <div className="flex items-center gap-2">
                   {skill.icon && <img src={skill.icon} alt="" className="w-8 h-8 rounded-lg object-cover shrink-0" />}
                   <div>
-                    <span className="text-sm font-semibold text-[#1F2937] group-hover:text-[#FF8C00]">{skill.name}</span>
+                    <span className="text-[15px] font-semibold text-[#1F2937] group-hover:text-[#FF8C00]">{skill.name}</span>
                     <span className="ml-2 text-[11px] text-[#9CA3AF]">{skill.platform}</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="tag tag-free">免费</span>
-                  <span className="text-base font-bold text-[#FF8C00]">{skill.score}</span>
+                  <span className="text-[15px] font-bold text-[#FF8C00]">{skill.score}</span>
                 </div>
               </div>
-              <p className="text-xs text-[#4B5563] mb-3 leading-relaxed">{skill.desc}</p>
+              <p className="text-[13px] text-[#4B5563] mb-3 leading-relaxed">{skill.desc}</p>
               <div className="flex items-center gap-4 pt-2 border-t border-[#F8F8F8] text-[11px] text-[#9CA3AF]">
                 <span>上手 {skill.difficulty}/5</span>
                 <span>稳定 {skill.stability}/5</span>
@@ -208,15 +207,15 @@ export default function HomePortal() {
         {/* 评测文章 */}
         <div className="mt-8 pt-6 border-t border-[#F0F0F0]">
           <div className="flex items-baseline justify-between mb-3">
-            <h2 className="text-sm font-semibold text-[#1F2937]">深度评测</h2>
-            <Link href="/guide" className="text-xs text-[#FF8C00] hover:underline">全部 →</Link>
+            <h2 className="text-[18px] font-bold text-[#1F2937]">深度评测</h2>
+            <Link href="/guide" className="text-[13px] text-[#FF8C00] hover:underline">全部 →</Link>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {GUIDES.map(g => (
               <Link key={g.slug} href={`/guide/${g.slug}`}
                 className="block p-3 border border-[#F0F0F0] rounded-lg hover:border-[#E5E7EB] transition group">
-                <h3 className="text-xs font-medium text-[#1F2937] group-hover:text-[#FF8C00] mb-1 leading-snug">{g.title}</h3>
-                <p className="text-[11px] text-[#9CA3AF]">{g.desc}</p>
+                <h3 className="text-[14px] font-medium text-[#1F2937] group-hover:text-[#FF8C00] mb-1 leading-snug">{g.title}</h3>
+                <p className="text-[13px] text-[#9CA3AF]">{g.desc}</p>
               </Link>
             ))}
           </div>
