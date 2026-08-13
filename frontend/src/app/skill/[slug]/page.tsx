@@ -302,7 +302,7 @@ export default async function SkillDetailPage({
 
       <AppSidebar />
 
-      <main className="flex-1 min-w-0 relative z-10 px-4 md:px-8 py-6 max-w-[1080px]">
+      <main className="flex-1 min-w-0 relative px-4 md:px-8 py-6 max-w-[1080px]">
       {/* 1. 面包屑 */}
       <nav className="flex items-center gap-1.5 text-xs text-[#9CA3AF] mb-5 flex-wrap">
         <Link href="/" className="hover:text-[#FF8C00] transition">首页</Link>
