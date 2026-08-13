@@ -100,7 +100,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* 顶栏 — 极简白底 */}
         <nav className="top-bar sticky top-0 z-50">
-          <div className="max-w-[1280px] mx-auto px-10 h-14 flex items-center">
+          <div className="page-wrapper px-6 h-14 flex items-center">
             <div className="flex items-center gap-8">
               <Link href="/" className="font-bold text-[15px] text-[#1F2937] hover:text-[#FF8C00] transition">
                 AI360
