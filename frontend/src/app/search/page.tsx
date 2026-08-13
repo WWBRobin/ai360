@@ -12,6 +12,7 @@ import {
 import AppSidebar from '@/components/AppSidebar'
 import SkillCardComponent from '@/components/SkillCard'
 import { SearchControls } from './SearchControls'
+import { Suspense } from 'react'
 import type { SkillCard } from '@/types'
 
 // 搜索结果页不索引（低价值、易产生重复内容）
@@ -171,6 +172,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
         {/* Tab 行：全部 / 免费 / 评分最高 / 装机必备 */}
         <div className="px-8">
+          <Suspense fallback={<div className="py-4 text-[14px] text-[#9CA3AF]">加载中...</div>}>
           <SearchControls
             tabs={[
               { key: 'all', label: '全部', num: allResults.length },
@@ -182,6 +184,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             filters={filters}
             query={query}
           />
+          </Suspense>
         </div>
 
         {/* 排序栏 */}

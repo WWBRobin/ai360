@@ -1045,6 +1045,7 @@ export default function AppSidebar() {
 
   return (
     <aside
+      suppressHydrationWarning
       className="hidden md:block w-[220px] shrink-0 sticky top-[60px] h-[calc(100vh-60px)] overflow-y-auto"
       style={{ background: '#FAFAFA', borderRight: '1px solid #F0F0F0' }}
     >
