@@ -1,6 +1,6 @@
-'use client' // 错误边界必须是客户端组件（Next.js 16: 使用 retry prop）
+'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Error({
   error,
@@ -9,8 +9,9 @@ export default function Error({
   error: Error & { digest?: string }
   retry: () => void
 }) {
+  const [showDetails, setShowDetails] = useState(false)
+
   useEffect(() => {
-    // 上报错误到监控服务
     console.error('页面渲染错误:', error)
   }, [error])
 
@@ -23,9 +24,28 @@ export default function Error({
         <h1 className="text-2xl font-bold text-gray-900 mb-3">
           页面出错了
         </h1>
-        <p className="text-gray-500 mb-8">
-          抱歉，页面加载时遇到了问题。请稍后重试，或返回首页继续浏览。
+        <p className="text-gray-500 mb-4">
+          抱歉，页面加载时遇到了问题。
         </p>
+        
+        <button
+          onClick={() => setShowDetails(!showDetails)}
+          className="text-sm text-gray-400 underline mb-4"
+        >
+          {showDetails ? '隐藏详情' : '查看错误详情'}
+        </button>
+        
+        {showDetails && (
+          <div className="text-left bg-gray-50 rounded-lg p-4 mb-4 overflow-auto">
+            <p className="text-xs text-red-600 font-mono break-all mb-2">
+              {error.message}
+            </p>
+            <p className="text-xs text-gray-500 font-mono break-all">
+              {error.stack?.substring(0, 500)}
+            </p>
+          </div>
+        )}
+        
         {error.digest && (
           <p className="text-xs text-gray-400 mb-6 break-all">
             错误编号：{error.digest}
@@ -34,13 +54,28 @@ export default function Error({
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <button
             onClick={() => retry()}
-            className="px-6 py-2.5 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 transition"
+            className="
+              px-6 py-2.5
+              bg-[#FF8C00] text-white
+              font-medium text-sm
+              rounded-lg
+              hover:bg-[#E67300]
+              transition-colors
+            "
           >
             重试
           </button>
           <a
             href="/"
-            className="px-6 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition"
+            className="
+              px-6 py-2.5
+              bg-white text-gray-700
+              font-medium text-sm
+              rounded-lg
+              border border-gray-300
+              hover:bg-gray-50
+              transition-colors
+            "
           >
             返回首页
           </a>
