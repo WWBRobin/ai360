@@ -24,7 +24,14 @@ const PLATFORM_TABS = ['全部', 'Claude', '扣子', 'Hermes', 'GPTs', 'MCP']
  */
 export default function EssentialBoard({ categories }: { categories: EssentialCategory[] }) {
   const [activeTab, setActiveTab] = useState(0)
-  const [installedIds, setInstalledIds] = useState<Set<number>>(new Set())
+  const [installedIds, setInstalledIds] = useState<Set<number>>(() => {
+    // 从 localStorage 恢复安装状态
+    try {
+      const saved = localStorage.getItem('ai360-installed')
+      if (saved) return new Set(JSON.parse(saved))
+    } catch {}
+    return new Set()
+  })
 
   // 全部工具总数（跨分类去重）— 装机进度基准，不随 Tab 变
   const allSkills = useMemo(() => {
@@ -58,6 +65,10 @@ export default function EssentialBoard({ categories }: { categories: EssentialCa
       const next = new Set(prev)
       if (installed) next.add(id)
       else next.delete(id)
+      // 持久化到 localStorage
+      try {
+        localStorage.setItem('ai360-installed', JSON.stringify([...next]))
+      } catch {}
       return next
     })
   }
