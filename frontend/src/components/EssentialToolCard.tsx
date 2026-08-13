@@ -66,15 +66,18 @@ export default function EssentialToolCard({
         <span className="text-[11px] text-[#9CA3AF] bg-[#F3F4F6] px-2.5 py-1 rounded-md">
           {categoryLabel}
         </span>
-        <button
-          type="button"
-          onClick={toggle}
-          disabled={installed}
-          className={installed ? 'btn-outline px-4 py-1.5 text-[12px] font-semibold' : 'btn-primary px-4 py-1.5 text-[12px] font-semibold'}
-          style={installed ? { background: 'rgba(255,140,0,0.12)', color: '#FF8C00', borderColor: 'rgba(255,140,0,0.4)' } : {}}
-        >
-          {installed ? '已安装' : '安装'}
-        </button>
+        {installed ? (
+          <span className="text-[12px] font-semibold text-[#FF8C00] px-4 py-1.5" style={{ background: 'rgba(255,140,0,0.12)', borderRadius: '8px' }}>
+            ✓ 已安装
+          </span>
+        ) : (
+          <Link
+            href={`/skill/${skill.slug}`}
+            className="btn-primary px-4 py-1.5 text-[12px] font-semibold inline-block"
+          >
+            去安装
+          </Link>
+        )}
       </div>
     </div>
   )
