@@ -213,6 +213,13 @@ export async function getScenarios(parentSlug?: string): Promise<Scenario[]> {
   return data || []
 }
 
+// 查全部场景（含子场景），用于场景详情页的中文名映射
+export async function getAllScenarios(): Promise<Scenario[]> {
+  const { data, error } = await supabase.from('scenarios').select('*').order('sort_order')
+  if (error) return []
+  return data || []
+}
+
 // 试用 API
 export async function trialSkill(skillId: number, inputText: string): Promise<TrialResponse> {
   try {

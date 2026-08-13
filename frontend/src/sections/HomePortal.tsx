@@ -8,17 +8,6 @@ import AppSidebar from '@/components/AppSidebar'
  * AI360 首页 v8 — 恢复左侧栏 + filter-bar
  */
 
-const SCENES = [
-  { name: '全部', count: 593 },
-  { name: '写作创作', count: 68 },
-  { name: '数据办公', count: 65 },
-  { name: '研究分析', count: 35 },
-  { name: '开发编程', count: 106 },
-  { name: '设计媒体', count: 37 },
-  { name: '自动化', count: 52 },
-  { name: 'AI增强', count: 20 },
-]
-
 const TYPES = ['全部', 'Skill', '工具', 'MCP', '插件']
 
 const FEATURED = [
@@ -37,9 +26,20 @@ const GUIDES = [
   { slug: 'ecommerce-copy', title: '电商文案 Skill 实测', desc: '3款文案工具谁写的好' },
 ]
 
-export default function HomePortal() {
+export default function HomePortal({ totalCount = 593, platformCount = 19, sceneCounts = {} }: { totalCount?: number; platformCount?: number; sceneCounts?: Record<string, number> }) {
   const [activeScene, setActiveScene] = useState('全部')
   const [activeType, setActiveType] = useState('全部')
+
+  const SCENES = [
+    { name: '全部', count: totalCount },
+    { name: '写作创作', slug: 'content-creation', count: sceneCounts['content-creation'] || 68 },
+    { name: '数据办公', slug: 'office', count: sceneCounts['office'] || 65 },
+    { name: '研究分析', slug: 'research', count: sceneCounts['research'] || 35 },
+    { name: '开发编程', slug: 'code', count: sceneCounts['code'] || 106 },
+    { name: '设计媒体', slug: 'design', count: sceneCounts['design'] || 37 },
+    { name: '自动化', slug: 'automation', count: sceneCounts['automation'] || 52 },
+    { name: 'AI增强', slug: 'model-router', count: sceneCounts['model-router'] || 20 },
+  ]
 
   return (
     <div className="page-wrapper flex">
@@ -51,7 +51,7 @@ export default function HomePortal() {
           <h1 className="text-[18px] font-bold text-[#1F2937] mb-1">
             发现最适合你的 AI 工具
           </h1>
-          <p className="text-[13px] text-[#9CA3AF]">593 个工具 · 19 个平台 · 独立评测 · 每日更新</p>
+          <p className="text-[13px] text-[#9CA3AF]">{totalCount} 个工具 · {platformCount} 个平台 · 独立评测 · 每日更新</p>
         </div>
 
         {/* filter-bar 场景筛选 */}
@@ -80,7 +80,7 @@ export default function HomePortal() {
             </button>
           ))}
           <div className="ml-auto flex items-center gap-3">
-            <span className="text-[14px] text-[#9CA3AF]">共 593 个工具</span>
+            <span className="text-[14px] text-[#9CA3AF]">共 {totalCount} 个工具</span>
             <select className="text-[14px] text-[#4B5563] border border-[#E5E7EB] rounded-md px-2 py-1 bg-white outline-none">
               <option>综合评分</option>
               <option>最新上架</option>

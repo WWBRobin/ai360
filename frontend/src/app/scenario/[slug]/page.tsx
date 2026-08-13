@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { getSkillsByScenario, getScenarios } from '@/lib/supabase'
+import { getSkillsByScenario, getScenarios, getAllScenarios } from '@/lib/supabase'
 import { SCENARIO_ICONS } from '@/lib/supabase'
 import SkillCardProto7 from '@/components/SkillCardProto7'
 import AppSidebar from '@/components/AppSidebar'
@@ -92,7 +92,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>
 }): Promise<Metadata> {
   const { slug } = await params
-  const scenarios = await getScenarios().catch(() => [])
+  const scenarios = await getAllScenarios().catch(() => [])
   const scenario = scenarios.find((s) => s.slug === slug)
   const name = scenario?.name || slug
   const icon = SCENARIO_ICONS[slug] || '🎯'
@@ -122,7 +122,7 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
   const sort = (typeof searchParams.sort === 'string' ? searchParams.sort : 'recommended') as SortKey
 
   const allSkills = await getSkillsByScenario(slug)
-  const scenarios = await getScenarios().catch(() => [])
+  const scenarios = await getAllScenarios().catch(() => [])
   const scenario = scenarios.find((s) => s.slug === slug)
   const scenarioName = scenario?.name || slug
   const scenarioIcon = SCENARIO_ICONS[slug] || '🎯'
