@@ -1,9 +1,13 @@
-import { getSkillsByPlatform, getPlatforms } from '@/lib/supabase'
+import { getSkillsByPlatform, getSkillsCountByPlatform, getPlatforms } from '@/lib/supabase'
 import SkillCardComponent from '@/components/SkillCard'
 import ScenarioFilter from '@/components/ScenarioFilter'
 import SelectionGuide from '@/components/SelectionGuide'
+import Pagination from '@/components/Pagination'
 import type { Metadata } from 'next'
 import type { SkillCard } from '@/types'
+
+// Bug2: 平台页分页，每页 24 条（3列×8行）
+const PAGE_SIZE = 24
 
 // ISR：平台页每 10 分钟增量静态重新生成
 export const revalidate = 600
@@ -82,13 +86,26 @@ export default async function PlatformPage({
   const sp = await searchParams
   const sort = (typeof sp.sort === 'string' ? sp.sort : 'recommended') as SortKey
 
-  const allSkills = await getSkillsByPlatform(slug)
-  const platforms = await getPlatforms()
+  // Bug2: 分页参数
+  const page = Math.max(1, parseInt(typeof sp.page === 'string' ? sp.page : '1', 10) || 1)
+
+  // 获取总数 + 当前页数据（并行）
+  const [totalCount, currentPageSkills, platforms] = await Promise.all([
+    getSkillsCountByPlatform(slug),
+    getSkillsByPlatform(slug, PAGE_SIZE, (page - 1) * PAGE_SIZE),
+    getPlatforms(),
+  ])
   const platform = platforms.find((p) => p.slug === slug)
 
   if (!platform) return <div className="max-w-7xl mx-auto px-4 py-20 text-center text-gray-400">平台不存在</div>
 
-  const skills = sortSkills(allSkills, sort)
+  const totalPages = Math.ceil(totalCount / PAGE_SIZE)
+  const skills = sortSkills(currentPageSkills, sort)
+
+  // 保留的查询参数（sort），给分页组件用
+  const paginationParams: Record<string, string | undefined> = {
+    sort: typeof sp.sort === 'string' ? sp.sort : undefined,
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
@@ -100,7 +117,7 @@ export default async function PlatformPage({
       {/* 标题 */}
       <h1 className="text-2xl font-bold mb-1">{platform.name}</h1>
       <p className="text-gray-500 text-sm mb-2">{platform.description}</p>
-      <p className="text-sm text-gray-400 mb-6">{allSkills.length} 个已评测 Skill</p>
+      <p className="text-sm text-gray-400 mb-6">{totalCount} 个已评测 Skill{totalPages > 1 && ` · 第 ${page}/${totalPages} 页`}</p>
 
       {/* 平台切换 */}
       <div className="flex flex-wrap gap-2 mb-6">
@@ -120,19 +137,29 @@ export default async function PlatformPage({
       </div>
 
       {/* 排序栏（平台页不需要平台筛选） */}
-      {allSkills.length > 0 && (
+      {totalCount > 0 && (
         <div className="border-y border-gray-100">
-          <ScenarioFilter total={allSkills.length} showPlatformFilter={false} />
+          <ScenarioFilter total={currentPageSkills.length} showPlatformFilter={false} />
         </div>
       )}
 
       {/* Skill 列表 */}
       {skills.length > 0 ? (
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {skills.map((skill) => (
-            <SkillCardComponent key={skill.id} skill={skill} />
-          ))}
-        </div>
+        <>
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {skills.map((skill) => (
+              <SkillCardComponent key={skill.id} skill={skill} />
+            ))}
+          </div>
+
+          {/* Bug2: 分页 */}
+          <Pagination
+            currentPage={page}
+            totalPages={totalPages}
+            basePath={`/platform/${slug}`}
+            searchParams={paginationParams}
+          />
+        </>
       ) : (
         <div className="text-center py-20">
           <div className="text-5xl mb-4">📦</div>
@@ -141,8 +168,8 @@ export default async function PlatformPage({
         </div>
       )}
 
-      {/* 底部选型建议 */}
-      {skills.length > 0 && <SelectionGuide skills={allSkills} />}
+      {/* 底部选型建议：仅第一页展示（基于当前页数据，避免全量加载） */}
+      {skills.length > 0 && page === 1 && <SelectionGuide skills={currentPageSkills} />}
     </div>
   )
 }

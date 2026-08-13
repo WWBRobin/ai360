@@ -202,7 +202,7 @@ CREATE INDEX IF NOT EXISTS idx_scenarios_parent ON scenarios(parent_id);
 CREATE OR REPLACE VIEW skill_cards_view
 WITH (security_invoker = true) AS
 SELECT
-  s.id, s.name, s.slug, s.tagline, s.icon_url, s.category,
+  s.id, s.name, s.slug, s.tagline, s.description, s.icon_url, s.category,
   p.name AS platform_name, p.slug AS platform_slug, p.api_supported,
   e.overall_score, e.difficulty_score, e.stability_score,
   e.evaluated_at, e.free_quota,
@@ -220,7 +220,8 @@ LEFT JOIN LATERAL (
 LEFT JOIN skill_scenarios ss ON ss.skill_id = s.id
 LEFT JOIN scenarios sc ON sc.id = ss.scenario_id
 WHERE s.status = 'published'
-GROUP BY s.id, p.name, p.slug, p.api_supported,
+GROUP BY s.id, s.name, s.slug, s.tagline, s.description, s.icon_url, s.category,
+         p.name, p.slug, p.api_supported,
          e.overall_score, e.difficulty_score, e.stability_score,
          e.evaluated_at, e.free_quota;
 

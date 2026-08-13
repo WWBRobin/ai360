@@ -36,15 +36,33 @@ export async function getSkillsByScenario(scenarioSlug: string): Promise<SkillCa
   return data || []
 }
 
-// 按平台获取 Skill 列表
-export async function getSkillsByPlatform(platformSlug: string): Promise<SkillCard[]> {
+// 按平台获取 Skill 列表（Bug2: 支持分页，limit=0 返回全部）
+export async function getSkillsByPlatform(platformSlug: string, limit: number = 0, offset: number = 0): Promise<SkillCard[]> {
+  const params: Record<string, unknown> = { p_platform_slug: platformSlug }
+  if (limit > 0) {
+    params.p_limit = limit
+    params.p_offset = offset
+  }
   const { data, error } = await supabase
-    .rpc('get_skill_cards_by_platform', { p_platform_slug: platformSlug })
+    .rpc('get_skill_cards_by_platform', params)
   if (error) {
     console.error('getSkillsByPlatform error:', error)
     return []
   }
   return data || []
+}
+
+// 按平台获取 Skill 总数（分页用，通过视图计数）
+export async function getSkillsCountByPlatform(platformSlug: string): Promise<number> {
+  const { count, error } = await supabase
+    .from('skill_cards_view')
+    .select('id', { count: 'exact', head: true })
+    .eq('platform_slug', platformSlug)
+  if (error) {
+    console.error('getSkillsCountByPlatform error:', error)
+    return 0
+  }
+  return count ?? 0
 }
 
 // 按分类获取（装机必备/场景应用/效率工具）

@@ -28,14 +28,22 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql STABLE;
 
--- 3. 按平台获取 Skill 卡片
-CREATE OR REPLACE FUNCTION get_skill_cards_by_platform(p_platform_slug TEXT)
+-- 3. 按平台获取 Skill 卡片（Bug2: 支持 p_limit/p_offset 分页，默认0=返回全部兼容旧调用）
+CREATE OR REPLACE FUNCTION get_skill_cards_by_platform(p_platform_slug TEXT, p_limit INT DEFAULT 0, p_offset INT DEFAULT 0)
 RETURNS SETOF skill_cards_view AS $$
 BEGIN
-  RETURN QUERY
-  SELECT * FROM skill_cards_view
-  WHERE platform_slug = p_platform_slug
-  ORDER BY overall_score DESC NULLS LAST;
+  IF p_limit > 0 THEN
+    RETURN QUERY
+    SELECT * FROM skill_cards_view
+    WHERE platform_slug = p_platform_slug
+    ORDER BY overall_score DESC NULLS LAST
+    LIMIT p_limit OFFSET p_offset;
+  ELSE
+    RETURN QUERY
+    SELECT * FROM skill_cards_view
+    WHERE platform_slug = p_platform_slug
+    ORDER BY overall_score DESC NULLS LAST;
+  END IF;
 END;
 $$ LANGUAGE plpgsql STABLE;
 
@@ -50,7 +58,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql STABLE;
 
--- 5. 搜索 Skill（名称 + 描述 + tagline）
+-- 5. 搜索 Skill（Bug1 修复：增加场景 slug 搜索 + 按匹配权重排序）
+--    名称精确/前缀匹配 > tagline > description > 平台名 > 场景 slug
 CREATE OR REPLACE FUNCTION search_skill_cards(p_query TEXT)
 RETURNS SETOF skill_cards_view AS $$
 BEGIN
@@ -59,9 +68,18 @@ BEGIN
   WHERE
     name ILIKE '%' || p_query || '%'
     OR tagline ILIKE '%' || p_query || '%'
-    OR description ILIKE '%' || p_query || '%'
+    OR COALESCE(description, '') ILIKE '%' || p_query || '%'
     OR platform_name ILIKE '%' || p_query || '%'
-  ORDER BY overall_score DESC NULLS LAST;
+    OR EXISTS (
+      SELECT 1 FROM unnest(scenario_slugs) AS ss_slug
+      WHERE ss_slug ILIKE '%' || p_query || '%'
+    )
+  ORDER BY
+    (CASE WHEN name ILIKE p_query THEN 0
+          WHEN name ILIKE '%' || p_query || '%' THEN 1
+          WHEN tagline ILIKE '%' || p_query || '%' THEN 2
+          ELSE 3 END),
+    overall_score DESC NULLS LAST;
 END;
 $$ LANGUAGE plpgsql STABLE;
 
