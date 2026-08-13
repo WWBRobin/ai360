@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
 // ============================================================
@@ -652,17 +652,23 @@ const PRICE_OPTIONS = [
 ]
 
 function SearchSidebarContent() {
-  const [selPlatforms, setSelPlatforms] = useState<string[]>([])
-  const [selTypes, setSelTypes] = useState<string[]>([])
-  const [selPrices, setSelPrices] = useState<string[]>([])
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const selPlatforms = searchParams.get('platform')?.split(',').filter(Boolean) || []
+  const selTypes = searchParams.get('type')?.split(',').filter(Boolean) || []
+  const selPrices = searchParams.get('price')?.split(',').filter(Boolean) || []
 
-  const toggle = (
-    slug: string,
-    setter: React.Dispatch<React.SetStateAction<string[]>>
-  ) => {
-    setter((prev) =>
-      prev.includes(slug) ? prev.filter((s) => s !== slug) : [...prev, slug]
-    )
+  const updateParam = (key: string, values: string[]) => {
+    const params = new URLSearchParams(searchParams.toString())
+    if (values.length > 0) params.set(key, values.join(','))
+    else params.delete(key)
+    const qs = params.toString()
+    window.location.href = qs ? `${pathname}?${qs}` : pathname
+  }
+
+  const toggle = (slug: string, key: string, current: string[]) => {
+    const next = current.includes(slug) ? current.filter(s => s !== slug) : [...current, slug]
+    updateParam(key, next)
   }
 
   return (
@@ -676,9 +682,12 @@ function SearchSidebarContent() {
         {(selPlatforms.length + selTypes.length + selPrices.length) > 0 && (
           <button
             onClick={() => {
-              setSelPlatforms([])
-              setSelTypes([])
-              setSelPrices([])
+              const params = new URLSearchParams(searchParams.toString())
+              params.delete('platform')
+              params.delete('type')
+              params.delete('price')
+              const qs = params.toString()
+              window.location.href = qs ? `${pathname}?${qs}` : pathname
             }}
             className="text-[11px] text-[#FF8C00] hover:underline"
           >
@@ -697,7 +706,7 @@ function SearchSidebarContent() {
               label={p.name}
               count={p.count}
               checked={selPlatforms.includes(p.slug)}
-              onToggle={() => toggle(p.slug, setSelPlatforms)}
+              onToggle={() => toggle(p.slug, 'platform', selPlatforms)}
             />
           ))}
         </div>
@@ -713,7 +722,7 @@ function SearchSidebarContent() {
               label={t.name}
               count={t.count}
               checked={selTypes.includes(t.slug)}
-              onToggle={() => toggle(t.slug, setSelTypes)}
+              onToggle={() => toggle(t.slug, 'type', selTypes)}
             />
           ))}
         </div>
@@ -729,7 +738,7 @@ function SearchSidebarContent() {
               label={p.name}
               count={p.count}
               checked={selPrices.includes(p.slug)}
-              onToggle={() => toggle(p.slug, setSelPrices)}
+              onToggle={() => toggle(p.slug, 'price', selPrices)}
             />
           ))}
         </div>
