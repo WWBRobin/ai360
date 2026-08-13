@@ -193,6 +193,11 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
           <span className="text-[#6B7280]">{scenarioName}</span>
         </nav>
 
+        {/* 最后更新时间 */}
+        <p className="text-xs text-[#9CA3AF] mb-3">
+          最后更新：<time className="text-[#6B7280] font-medium">{new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+        </p>
+
         {/* 标题区 */}
         <div className="mb-6 pb-5 border-b border-[#EEF0F3]">
           <h1 className="text-[26px] font-bold text-[#1A1A1A] mb-2.5" style={{ letterSpacing: '-0.5px' }}>

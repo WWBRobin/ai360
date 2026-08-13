@@ -143,6 +143,11 @@ export default async function PlatformPage({
           <span className="text-[#6B7280]">{platform.name}</span>
         </nav>
 
+        {/* 最后更新时间 */}
+        <p className="text-xs text-[#9CA3AF] mb-3">
+          最后更新：<time className="text-[#6B7280] font-medium">{new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+        </p>
+
         {/* 平台 Hero 区（content-card） */}
         <PlatformHero platform={platform} totalCount={totalCount} avgScore={avgScore} testedCount={testedCount} />
 
