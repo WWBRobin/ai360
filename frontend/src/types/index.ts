@@ -17,6 +17,7 @@ export interface SkillCard {
   trial_enabled: boolean
   install_url: string
   scenario_slugs: string[]
+  evaluation_method: string | null
 }
 
 // Skill 详情（比卡片多字段，从 skills + evaluations + guides join 获取）

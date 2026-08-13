@@ -448,6 +448,7 @@ async function getRelatedSkills(skill: SkillDetail): Promise<SkillCard[]> {
       trial_enabled: false,
       install_url: '',
       scenario_slugs: [],
+      evaluation_method: null,
     }))
   }
 

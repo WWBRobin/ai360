@@ -77,7 +77,8 @@ export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
         {isRecommended && <span className="tag tag-tested">⭐ 实测推荐</span>}
         {skill.category === 'infrastructure' && <span className="tag tag-mcp">装机必备</span>}
         {skill.api_supported && <span className="tag tag-official">官方 API</span>}
-        {hasEval && <span className="tag tag-tested">AI360 实测</span>}
+        {hasEval && skill.evaluation_method === 'ai_first' || (!skill.evaluation_method && hasEval && skill.overall_score && skill.overall_score > 3) && <span className="tag tag-tested">AI360 实测</span>}
+        {hasEval && skill.evaluation_method === 'ai_generated' && <span className="tag" style={{ background: 'rgba(156,163,175,0.1)', color: '#9CA3AF' }}>[AI推断]</span>}
         {skill.free_quota && <span className="tag tag-free">免费</span>}
       </div>
 

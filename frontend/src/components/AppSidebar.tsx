@@ -38,6 +38,7 @@ type SidebarVariant =
   | 'search'
   | 'compare'
   | 'skill'
+  | 'learn'
   | 'default'
 
 function getVariant(pathname: string): SidebarVariant {
@@ -49,6 +50,7 @@ function getVariant(pathname: string): SidebarVariant {
   if (pathname.startsWith('/search')) return 'search'
   if (pathname.startsWith('/compare')) return 'compare'
   if (pathname.startsWith('/skill')) return 'skill'
+  if (pathname.startsWith('/learn')) return 'learn'
   return 'default'
 }
 
@@ -278,8 +280,7 @@ function HomeSidebar() {
       <div className="mt-5">
         <SectionLabel>学习成长</SectionLabel>
         <div className="px-3">
-          <NavLink href="/scenario/code" label="按场景学" />
-          <NavLink href="/platform/hermes" label="按工具学" />
+          <NavLink href="/learn" label="🎓 学习中心" />
         </div>
       </div>
 
@@ -923,6 +924,118 @@ function SkillDetailSidebar({ pathname }: { pathname: string }) {
 }
 
 // ============================================================
+// Variant 9: 学习中心 — 学习路径导航
+// ============================================================
+
+const LEARN_TOOL_PATHS = [
+  { slug: 'hermes', name: 'Hermes', icon: '⚡' },
+  { slug: 'coze', name: '扣子', icon: '🟢' },
+  { slug: 'claude', name: 'Claude', icon: '🤖' },
+  { slug: 'gpts', name: 'GPTs', icon: '🧠' },
+]
+
+const LEARN_SCENE_PATHS = [
+  { slug: 'write-article', name: '用AI写文章', icon: '✍️' },
+  { slug: 'build-agent', name: '搭建AI Agent', icon: '🤖' },
+  { slug: 'automate-work', name: '自动化工作', icon: '⚙️' },
+  { slug: 'analyze-data', name: '分析数据', icon: '📊' },
+]
+
+function LearnSidebar({ pathname }: { pathname: string }) {
+  // 当前正在查看的路径 slug
+  const segments = pathname.split('/')
+  const currentKind = segments[2] // 'tool' | 'scene' | undefined
+  const currentSlug = segments[3] || ''
+
+  return (
+    <>
+      <div className="mb-1">
+        <SectionLabel>学习入口</SectionLabel>
+        <div className="px-3">
+          <NavLink
+            href="/learn"
+            label="学习中心首页"
+            active={pathname === '/learn'}
+          />
+        </div>
+      </div>
+
+      <div className="mt-5">
+        <SectionLabel>🔧 按工具学</SectionLabel>
+        <div className="px-3">
+          {LEARN_TOOL_PATHS.map((p) => {
+            const active = currentKind === 'tool' && currentSlug === p.slug
+            return (
+              <Link
+                key={p.slug}
+                href={`/learn/tool/${p.slug}`}
+                className="flex items-center gap-2.5 px-3 py-2 rounded-[6px] transition"
+                style={{
+                  background: active ? 'rgba(255,140,0,0.12)' : 'transparent',
+                  color: active ? '#FF8C00' : '#1F2937',
+                  fontWeight: active ? 600 : 500,
+                }}
+                onMouseEnter={(e) => {
+                  if (!active) {
+                    e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
+                    e.currentTarget.style.color = '#FF8C00'
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!active) {
+                    e.currentTarget.style.background = 'transparent'
+                    e.currentTarget.style.color = '#1F2937'
+                  }
+                }}
+              >
+                <span className="text-[15px]">{p.icon}</span>
+                <span className="flex-1 text-[14px]">{p.name}</span>
+              </Link>
+            )
+          })}
+        </div>
+      </div>
+
+      <div className="mt-5">
+        <SectionLabel>🎯 按场景学</SectionLabel>
+        <div className="px-3">
+          {LEARN_SCENE_PATHS.map((s) => {
+            const active = currentKind === 'scene' && currentSlug === s.slug
+            return (
+              <Link
+                key={s.slug}
+                href={`/learn/scene/${s.slug}`}
+                className="flex items-center gap-2.5 px-3 py-2 rounded-[6px] transition"
+                style={{
+                  background: active ? 'rgba(255,140,0,0.12)' : 'transparent',
+                  color: active ? '#FF8C00' : '#1F2937',
+                  fontWeight: active ? 600 : 500,
+                }}
+                onMouseEnter={(e) => {
+                  if (!active) {
+                    e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
+                    e.currentTarget.style.color = '#FF8C00'
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!active) {
+                    e.currentTarget.style.background = 'transparent'
+                    e.currentTarget.style.color = '#1F2937'
+                  }
+                }}
+              >
+                <span className="text-[15px]">{s.icon}</span>
+                <span className="flex-1 text-[14px]">{s.name}</span>
+              </Link>
+            )
+          })}
+        </div>
+      </div>
+    </>
+  )
+}
+
+// ============================================================
 // 主组件
 // ============================================================
 
@@ -944,6 +1057,7 @@ export default function AppSidebar() {
         {variant === 'search' && <SearchSidebarContent />}
         {variant === 'compare' && <CompareSidebar />}
         {variant === 'skill' && <SkillDetailSidebar pathname={pathname} />}
+        {variant === 'learn' && <LearnSidebar pathname={pathname} />}
         {(variant === 'default') && <HomeSidebar />}
       </div>
     </aside>
