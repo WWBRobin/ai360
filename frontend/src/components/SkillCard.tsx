@@ -74,15 +74,14 @@ export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
 
       {/* 标签 */}
       <div className="flex flex-wrap gap-1.5 mb-3">
-        {isRecommended && <span className="tag tag-tested">⭐ 实测推荐</span>}
+        {hasEval && <span className="tag tag-tested">AI360 实测</span>}
+        {!hasEval && <span className="tag" style={{ background: '#F3F4F6', color: '#9CA3AF' }}>收录未评测</span>}
         {skill.category === 'infrastructure' && <span className="tag tag-mcp">装机必备</span>}
         {skill.api_supported && <span className="tag tag-official">官方 API</span>}
-        {hasEval && skill.evaluation_method === 'ai_first' || (!skill.evaluation_method && hasEval && skill.overall_score && skill.overall_score > 3) && <span className="tag tag-tested">AI360 实测</span>}
-        {hasEval && skill.evaluation_method === 'ai_generated' && <span className="tag" style={{ background: 'rgba(156,163,175,0.1)', color: '#9CA3AF' }}>[AI推断]</span>}
         {skill.free_quota && <span className="tag tag-free">免费</span>}
       </div>
 
-      {/* 评分 + 维度徽章 */}
+      {/* 评分 + 维度徽章（只有真实评测才显示） */}
       {hasEval && (
         <div className="flex flex-wrap items-center gap-1.5 pt-3 border-t border-[#EEF0F3]">
           <DimBadge label={`上手 ${dimLabel(skill.difficulty_score)}`} score={skill.difficulty_score} />
@@ -98,7 +97,7 @@ export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
       {/* 底部操作 */}
       <div className="mt-3 pt-3 border-t border-[#EEF0F3] flex items-center justify-between">
         <span className="text-[12px] text-[#FF8C00] font-medium group-hover:underline">
-          查看评测 →
+          {hasEval ? '查看评测 →' : '查看详情 →'}
         </span>
         {skill.trial_enabled ? (
           <span className="text-[11px] bg-[rgba(255,140,0,0.06)] text-[#FF8C00] px-2.5 py-1 rounded-lg font-medium">

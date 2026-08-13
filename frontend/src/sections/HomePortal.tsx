@@ -11,12 +11,12 @@ import AppSidebar from '@/components/AppSidebar'
 const TYPES = ['全部', 'Skill', '工具', 'MCP', '插件']
 
 const FEATURED = [
-  { name: 'Brave Search MCP', score: 4.8, platform: 'MCP', desc: '免费 AI 搜索引擎，无需 API Key', free: '免费2000次/月', difficulty: 5, stability: 5, href: '/skill/brave-search-mcp', icon: '', color: '#ef4444' },
-  { name: 'Hermes Hook 引擎', score: 4.8, platform: 'Hermes', desc: '21个Hook+40条规则，防幻觉+质量门控', free: '完全免费', difficulty: 4, stability: 5, href: '/skill/hermes-hooks', icon: 'https://avatars.githubusercontent.com/u/193596547?v=4', color: '#6366f1' },
-  { name: '系统化根因调试', score: 5.0, platform: 'Hermes', desc: '4阶段调试：先理解bug再修复', free: '完全免费', difficulty: 4, stability: 5, href: '/skill/systematic-debugging', icon: 'https://avatars.githubusercontent.com/u/193596547?v=4', color: '#6366f1' },
-  { name: '流行Web设计系统库', score: 5.0, platform: 'Hermes', desc: '54套真实设计系统(Stripe/Linear/Vercel)', free: '完全免费', difficulty: 3, stability: 5, href: '/skill/popular-web-designs', icon: 'https://avatars.githubusercontent.com/u/193596547?v=4', color: '#6366f1' },
-  { name: 'GitHub PR 工作流', score: 5.0, platform: 'Hermes', desc: 'PR全生命周期：分支/提交/CI/合并', free: '完全免费', difficulty: 3, stability: 5, href: '/skill/github-pr-workflow', icon: 'https://avatars.githubusercontent.com/u/193596547?v=4', color: '#6366f1' },
-  { name: 'AI工具评测框架', score: 5.0, platform: 'Hermes', desc: '5问框架评测任何AI工具/Skill', free: '完全免费', difficulty: 3, stability: 5, href: '/skill/ai-tool-evaluation', icon: 'https://avatars.githubusercontent.com/u/193596547?v=4', color: '#6366f1' },
+  { name: 'Brave Search MCP', score: 4.8, platform: 'Claude', desc: '中立搜索引擎官方 MCP，Agent Score 第一', free: '$5免费额度≈1000次', difficulty: 5, stability: 5, href: '/skill/brave-search-mcp', icon: '', color: '#ef4444' },
+  { name: 'Hermes Hook 引擎', score: 4.8, platform: 'Hermes', desc: '21种Hook+40条规则，防幻觉+质量门控', free: '完全免费', difficulty: 4, stability: 5, href: '/skill/hermes-hooks', icon: '/platform-logos/hermes.png', color: '#6366f1' },
+  { name: '系统化根因调试', score: 5.0, platform: 'Hermes', desc: '4阶段调试：先理解bug再修复', free: '完全免费', difficulty: 5, stability: 5, href: '/skill/systematic-debugging', icon: '/platform-logos/hermes.png', color: '#6366f1' },
+  { name: '流行Web设计系统库', score: 5.0, platform: 'Hermes', desc: '54套真实设计系统(Stripe/Linear/Vercel)', free: '完全免费', difficulty: 5, stability: 5, href: '/skill/popular-web-designs', icon: '/platform-logos/hermes.png', color: '#6366f1' },
+  { name: 'GitHub PR 工作流', score: 5.0, platform: 'Hermes', desc: 'PR全生命周期：分支/提交/CI/合并', free: 'GitHub API免费50次/小时', difficulty: 5, stability: 5, href: '/skill/github-pr-workflow', icon: '/platform-logos/hermes.png', color: '#6366f1' },
+  { name: 'AI工具评测框架', score: 5.0, platform: 'Hermes', desc: '5问框架评测任何AI工具/Skill', free: '完全免费', difficulty: 5, stability: 5, href: '/skill/ai-tool-evaluation', icon: '/platform-logos/hermes.png', color: '#6366f1' },
 ]
 
 const GUIDES = [
