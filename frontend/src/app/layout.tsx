@@ -98,29 +98,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
 
-        {/* 顶栏 — 极简白底 */}
-        <nav className="top-bar sticky top-0 z-50">
-          <div className="page-wrapper px-6 h-14 flex items-center">
-            <div className="flex items-center gap-8">
-              <Link href="/" className="font-bold text-[15px] text-[#1F2937] hover:text-[#FF8C00] transition">
-                AI360
-              </Link>
-              <div className="hidden md:flex items-center gap-6 text-sm">
-                <Link href="/" className="text-[#4B5563] hover:text-[#FF8C00] transition font-medium">Skill 聚合</Link>
-                <Link href="/essential" className="text-[#4B5563] hover:text-[#FF8C00] transition font-medium">装机必备</Link>
-                <Link href="/guide" className="text-[#4B5563] hover:text-[#FF8C00] transition font-medium">深度横评</Link>
-              </div>
+        {/* 顶栏 — 统一极简白底 */}
+        <nav className="sticky top-0 z-50 bg-white border-b border-[#F0F0F0]">
+          <div className="page-wrapper flex items-center gap-6 h-14 px-6">
+            <Link href="/" className="flex items-center gap-2 shrink-0">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#FF8C00]"></span>
+              <span className="font-bold text-[16px] text-[#1F2937]">AI360</span>
+            </Link>
+            <div className="hidden md:flex items-center gap-6">
+              <Link href="/" className="text-[14px] text-[#4B5563] hover:text-[#1F2937] transition">Skill聚合</Link>
+              <Link href="/essential" className="text-[14px] text-[#4B5563] hover:text-[#1F2937] transition">装机必备</Link>
+              <Link href="/guide" className="text-[14px] text-[#4B5563] hover:text-[#1F2937] transition">深度横评</Link>
             </div>
-            <form action="/search" className="ml-auto search-input flex items-center gap-2 px-3 py-1.5 w-[200px] md:w-[280px]">
-              <span className="text-[#D1D5DB] text-sm">⌕</span>
+            <form action="/search" className="ml-auto flex items-center w-[200px] md:w-[300px]">
               <input
                 type="text"
                 name="q"
-                placeholder="搜索 AI 工具、Skill、MCP…"
-                className="flex-1 bg-transparent border-none outline-none text-sm text-[#1F2937] placeholder:text-[#D1D5DB]"
+                placeholder="搜索 Skill / MCP / 工具..."
+                className="w-full h-[34px] px-3 border border-[#E5E7EB] rounded-lg text-[13px] text-[#1F2937] bg-white outline-none focus:border-[#FF8C00] focus:shadow-[0_0_0_3px_rgba(255,140,0,0.12)] transition"
               />
             </form>
-            <MobileNav />
+            <div className="w-8 h-8 rounded-full bg-[#FF8C00] flex items-center justify-center text-white text-[14px] font-bold shrink-0">W</div>
           </div>
         </nav>
 
