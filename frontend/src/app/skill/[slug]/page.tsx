@@ -166,7 +166,7 @@ export default async function SkillDetailPage({
               {/* 分类标签 */}
               <span
                 className={`text-xs px-2 py-0.5 rounded ${
-                  skill.category === 'infra'
+                  skill.category === 'infrastructure'
                     ? 'bg-blue-100 text-blue-600'
                     : skill.category === 'scene'
                     ? 'bg-indigo-100 text-indigo-600'

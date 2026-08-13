@@ -41,7 +41,7 @@ export default async function HomePage() {
     .slice(0, 3)
 
   // 文章
-  const articles = (await getAllArticleMetas?.().catch(() => [])) ?? []
+  const articles = getAllArticleMetas()
   const latestArticles = articles.slice(0, 4)
 
   // 统计

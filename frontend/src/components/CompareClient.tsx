@@ -414,7 +414,7 @@ function CompareTable({ selected }: { selected: SkillDetail[] }) {
               cell={(s) => (
                 <span
                   className={`text-xs px-2 py-0.5 rounded ${
-                    s.category === 'infra'
+                    s.category === 'infrastructure'
                       ? 'bg-blue-100 text-blue-600'
                       : s.category === 'scene'
                       ? 'bg-indigo-100 text-indigo-600'
