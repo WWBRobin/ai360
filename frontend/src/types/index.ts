@@ -55,6 +55,8 @@ export interface SkillDetail {
   // 指南
   guide_content: string | null
   guide_difficulty: string | null
+  // 场景关联（用于相关文章匹配等；可能为空数组）
+  scenario_slugs?: string[]
   // 替代
   alternatives?: AlternativeSkill[]
 }

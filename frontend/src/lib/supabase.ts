@@ -114,8 +114,23 @@ export async function getSkillDetail(slug: string): Promise<SkillDetail | null> 
   const { data: alternatives } = await supabase
     .rpc('get_skill_alternatives', { p_skill_slug: slug })
 
+  // 获取该 Skill 关联的场景 slug（用于相关文章匹配等）
+  let scenarioSlugs: string[] = []
+  try {
+    const { data: sc } = await supabase
+      .from('skill_scenarios')
+      .select('scenarios(slug)')
+      .eq('skill_id', skill.id)
+    scenarioSlugs = (sc || [])
+      .map((r: any) => r.scenarios?.slug)
+      .filter(Boolean)
+  } catch {
+    /* 静默降级：没有场景也能渲染 */
+  }
+
   return {
     ...flattenSkill(skill),
+    scenario_slugs: scenarioSlugs,
     alternatives: alternatives || [],
   } as SkillDetail
 }
