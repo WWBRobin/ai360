@@ -209,7 +209,7 @@ export default function CompareClient({
       {selected.length >= 2 ? (
         <CompareTable selected={selected} />
       ) : (
-        <EmptyHint />
+        <EmptyHint selected={selected} candidates={candidates} />
       )}
     </div>
   )
@@ -544,22 +544,48 @@ function ConclusionBar({
 
 // ===== 空状态提示 =====
 
-function EmptyHint() {
+function EmptyHint({ selected, candidates }: { selected: SkillDetail[]; candidates: SkillCard[] }) {
+  // 有1个工具时，推荐同类工具对比
+  const current = selected[0]
+  const suggestions = candidates
+    .filter(c => c.slug !== current?.slug)
+    .sort((a, b) => (b.overall_score || 0) - (a.overall_score || 0))
+    .slice(0, 4)
+
   return (
-    <div className="content-card text-center py-16">
-      <div className="w-[72px] h-[72px] rounded-full mx-auto mb-4 flex items-center justify-center text-[#FF8C00] bg-[rgba(255,140,0,0.06)]">
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M12 3v18M3 12h18" />
-        </svg>
-      </div>
-      <p className="text-[15px] text-[#666] mb-1.5">至少选择 2 个 Skill 才能对比</p>
-      <p className="text-[13px] text-[#999]">
-        在上方搜索框添加，或从
-        <Link href="/" className="text-[#FF8C00] mx-1 hover:underline">
-          首页精选
-        </Link>
-        里挑两个感兴趣的试试。
-      </p>
+    <div className="content-card py-12">
+      {current ? (
+        <div className="text-center">
+          <p className="text-[15px] text-[#1F2937] mb-1">已添加「{current.name}」，再加一个就能对比了</p>
+          <p className="text-[13px] text-[#9CA3AF] mb-6">推荐和它对比的工具：</p>
+          <div className="flex flex-wrap justify-center gap-3">
+            {suggestions.map(s => (
+              <Link
+                key={s.slug}
+                href={`/compare?slugs=${selected.map(x => x.slug).join(',')},${s.slug}`}
+                className="flex items-center gap-2 px-4 py-2.5 border border-[#F0F0F0] rounded-lg hover:border-[#FF8C00] hover:bg-[rgba(255,140,0,0.04)] transition group"
+              >
+                <span className="text-[14px] font-medium text-[#1F2937] group-hover:text-[#FF8C00]">{s.name}</span>
+                {s.overall_score && <span className="text-[12px] text-[#9CA3AF]">{s.overall_score.toFixed(1)}分</span>}
+              </Link>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="text-center">
+          <div className="w-[72px] h-[72px] rounded-full mx-auto mb-4 flex items-center justify-center text-[#FF8C00] bg-[rgba(255,140,0,0.06)]">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M12 3v18M3 12h18" />
+            </svg>
+          </div>
+          <p className="text-[15px] text-[#666] mb-1.5">至少选择 2 个 Skill 才能对比</p>
+          <p className="text-[13px] text-[#999]">
+            在上方搜索框添加，或从
+            <Link href="/" className="text-[#FF8C00] mx-1 hover:underline">首页精选</Link>
+            里挑两个感兴趣的试试。
+          </p>
+        </div>
+      )}
     </div>
   )
 }

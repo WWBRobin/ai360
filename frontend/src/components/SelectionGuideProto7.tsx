@@ -46,29 +46,54 @@ export default function SelectionGuideProto7({
           .reduce((best, s) => ((s.stability_score ?? 0) > (best.stability_score ?? 0) ? s : best), evaluated[0])
       : null
 
+  // 去重：每个维度选不同的工具
+  const usedSlugs = new Set<string>()
+
+  function pickUnique(skill: SkillCard | null): SkillCard | null {
+    if (!skill) return null
+    // 如果已被选过，找下一个
+    if (usedSlugs.has(skill.slug)) {
+      const alt = evaluated
+        .filter(s => !usedSlugs.has(s.slug))
+        .sort((a, b) => (b.overall_score ?? 0) - (a.overall_score ?? 0))[0]
+      if (alt) {
+        usedSlugs.add(alt.slug)
+        return alt
+      }
+      return null
+    }
+    usedSlugs.add(skill.slug)
+    return skill
+  }
+
+  const bestOverallP = pickUnique(bestOverall)
+  const beginnerFriendlyP = pickUnique(beginnerFriendly)
+  const freeQuotaSkillP = pickUnique(freeQuotaSkill)
+  const mostStableP = pickUnique(mostStable)
+
   const recs = [
     {
       badge: BADGES.best,
-      skill: bestOverall,
-      why: bestOverall ? `综合评分 ${bestOverall.overall_score!.toFixed(1)}，整体表现最优` : '暂无评测数据',
+      skill: bestOverallP,
+      why: bestOverallP ? `综合评分 ${bestOverallP.overall_score!.toFixed(1)}，整体表现最优` : '暂无评测数据',
     },
     {
       badge: BADGES.newbie,
-      skill: beginnerFriendly,
-      why: beginnerFriendly?.difficulty_score
-        ? `上手难度 ${beginnerFriendly.difficulty_score.toFixed(1)}/5，最容易入门`
+      skill: beginnerFriendlyP,
+      why: beginnerFriendlyP?.difficulty_score
+        ? `上手难度 ${beginnerFriendlyP.difficulty_score.toFixed(1)}/5，最容易入门`
         : '优先选择有试用功能的',
     },
     {
       badge: BADGES.free,
-      skill: freeQuotaSkill,
-      why: freeQuotaSkill?.free_quota ? `${freeQuotaSkill.free_quota}，零成本体验` : '关注有试用功能的工具',
+      skill: freeQuotaSkillP,
+      why: freeQuotaSkillP?.free_quota ? `${freeQuotaSkillP.free_quota}，零成本体验` : '关注有试用功能的工具',
     },
     {
       badge: BADGES.stable,
-      skill: mostStable,
-      why: mostStable?.stability_score
-        ? `稳定性 ${mostStable.stability_score.toFixed(1)}/5，长期使用最可靠`
+      skill: mostStableP,
+      why: mostStableP?.stability_score
+        ? `稳定性 ${mostStableP.stability_score.toFixed(1)}/5，长期使用最可靠`
         : '选择评分较高的更稳妥',
     },
   ]

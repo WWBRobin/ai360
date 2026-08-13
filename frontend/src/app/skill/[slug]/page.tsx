@@ -309,11 +309,9 @@ export default async function SkillDetailPage({
         <span>/</span>
         {skill.platform_slug ? (
           <Link href={`/platform/${skill.platform_slug}`} className="hover:text-[#FF8C00] transition">
-            {CATEGORY_LABELS[skill.category] || skill.platform_name || '场景'}
+            {skill.platform_name || '平台'}
           </Link>
-        ) : (
-          <span>{CATEGORY_LABELS[skill.category] || '场景'}</span>
-        )}
+        ) : null}
         <span>/</span>
         <span className="text-[#374151]">{skill.name}</span>
       </nav>

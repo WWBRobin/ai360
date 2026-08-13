@@ -525,27 +525,11 @@ function ReviewsTab({ skill }: { skill: SkillDetail }) {
   return (
     <div>
       <section>
-        <h2 className="text-[17px] font-bold text-[#1A1A1A] mb-4 flex items-center gap-2">
-          💬 用户评价
-          <span className="text-xs font-normal text-[#9CA3AF]">
-            {skill.overall_score != null ? `${skill.overall_score.toFixed(1)} 分` : '暂无'}
-          </span>
+        <h2 className="text-[17px] font-bold text-[#1A1A1A] mb-4">
+          💬 评价讨论
         </h2>
 
-        {/* 评分摘要 */}
-        {skill.overall_score != null && (
-          <div className="content-card p-5 mb-4">
-            <div className="flex items-center gap-3">
-              <span className="score-text text-3xl">{skill.overall_score.toFixed(1)}</span>
-              <div>
-                <div className="text-[#FF8C00] text-sm">{scoreToStars(skill.overall_score)}</div>
-                <div className="text-xs text-[#9CA3AF]">综合评分</div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* 评价列表（占位） */}
+        {/* 评价列表（即将上线） */}
         <div className="content-card p-8 text-center">
           <span className="text-3xl">📝</span>
           <p className="text-sm text-[#6B7280] mt-3">

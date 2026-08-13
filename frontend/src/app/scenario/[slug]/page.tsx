@@ -178,7 +178,7 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
 
   // 场景 Tab 数据（7 大场景，基于数据库 scenarios）
   const sceneTabs = scenarios.length > 0
-    ? scenarios.map((s) => ({ slug: s.slug, name: s.name, count: s.skill_count ?? 0 }))
+    ? scenarios.filter((s) => (s.skill_count ?? 0) > 0).map((s) => ({ slug: s.slug, name: s.name, count: s.skill_count ?? 0 }))
     : []
 
   return (
