@@ -7,6 +7,16 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       // 显式允许 AI 搜索引擎爬虫
       {
+        userAgent: 'OAI-SearchBot',
+        allow: '/',
+        disallow: ['/search', '/admin'],
+      },
+      {
+        userAgent: 'ChatGPT-User',
+        allow: '/',
+        disallow: ['/search', '/admin'],
+      },
+      {
         userAgent: 'GPTBot',
         allow: '/',
         disallow: ['/search', '/admin'],
