@@ -170,7 +170,23 @@ export default function InstallWizard({ categories }: { categories: { label: str
     return (
       <div className="px-6 md:px-10 py-8">
         <h1 className="text-[18px] font-bold text-[#1F2937] mb-1">AI Agent 装机向导</h1>
-        <p className="text-[13px] text-[#9CA3AF] mb-6">选择你在用的 AI Agent，3 分钟配齐核心能力，附手把手验证</p>
+        <p className="text-[13px] text-[#9CA3AF] mb-4">选择你在用的 AI Agent，3 分钟配齐核心能力，附手把手验证</p>
+
+        {/* Agent 体检入口 */}
+        <div className="mb-6 p-4 rounded-xl border-2 border-[#FF8C00] bg-[rgba(255,140,0,0.04)]">
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="text-[15px] font-bold text-[#1F2937] mb-1">🏥 Agent 体检</div>
+              <p className="text-[13px] text-[#4B5563]">扫描你的 Agent 配置，检测缺失能力 + 安全风险，一键生成健康报告</p>
+            </div>
+            <Link
+              href="/skill/agent-health-check"
+              className="btn-primary px-5 py-2.5 text-[14px] font-bold whitespace-nowrap shrink-0"
+            >
+              开始体检 →
+            </Link>
+          </div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
           {AGENTS.map(agent => (
