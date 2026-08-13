@@ -1,110 +1,193 @@
 @import 'tailwindcss';
 
-/* ===== 全局样式 ===== */
+/* ===== AI360 全局样式 v2 — 专业风格（去emoji/去彩虹渐变）===== */
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-  background: #fafafa;
-  color: #1a1a2e;
+  background: #ffffff;
+  color: #18181b;
 }
 
-/* 隐藏滚动条但保留功能 */
+/* 隐藏滚动条 */
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* ===== 品牌渐变文字 ===== */
-.gradient-text {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* ===== 品牌色（单一克制主色，不再彩虹渐变）===== */
+.brand-text {
+  color: #2563eb;
+}
+.brand-bg {
+  background: #2563eb;
+}
+.brand-border {
+  border-color: #2563eb;
 }
 
-/* ===== Hero 渐变背景 ===== */
-.hero-gradient {
-  background: linear-gradient(135deg, #f0f4ff 0%, #faf5ff 40%, #fdf2f8 100%);
-  position: relative;
-  overflow: hidden;
-}
-.hero-gradient::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -10%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-.hero-gradient::after {
-  content: '';
-  position: absolute;
-  bottom: -30%;
-  left: -10%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
+/* 评分色（金色）*/
+.score-text {
+  color: #d97706;
 }
 
-/* ===== 卡片样式 ===== */
+/* ===== Hero 背景（干净，无渐变光晕）===== */
+.hero-bg {
+  background: #fafafa;
+  border-bottom: 1px solid #e4e4e7;
+}
 
-/* 分类卡片 - 带 hover 光效 */
-.cat-card {
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+/* ===== 卡片样式（学 mcp.so：白底灰边，无花哨效果）===== */
+.ai-card {
   background: white;
-  border: 1px solid #f0f0f0;
+  border: 1px solid #e4e4e7;
+  border-radius: 10px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
-.cat-card:hover {
-  transform: translateY(-3px);
-  border-color: #c7d2fe;
-  box-shadow: 0 12px 24px -8px rgba(99, 102, 241, 0.15), 0 4px 8px -4px rgba(0,0,0,0.04);
-}
-
-/* 编辑精选卡片 - 渐变左边框 */
-.pick-card {
-  transition: all 0.2s ease;
-  background: white;
-  border: 1px solid #f0f0f0;
-  border-left: 4px solid transparent;
-}
-.pick-card:hover {
-  border-left-color: #8b5cf6;
-  box-shadow: 0 4px 16px -4px rgba(139, 92, 246, 0.12);
-  transform: translateX(2px);
+.ai-card:hover {
+  border-color: #d4d4d8;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* 平台标签 - 圆角药丸 */
+/* 状态标签 */
+.tag-official {
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.tag-tested {
+  background: #f0fdf4;
+  color: #16a34a;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.tag-free {
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.tag-hot {
+  background: #fef2f2;
+  color: #dc2626;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* 分类数量标记 */
+.count-badge {
+  font-size: 10px;
+  color: #a1a1aa;
+  font-weight: 400;
+}
+
+/* 平台标签 */
 .platform-tag {
   transition: all 0.15s ease;
+  background: white;
+  border: 1px solid #e4e4e7;
+  border-radius: 8px;
 }
 .platform-tag:hover {
-  background: #f5f3ff;
-  border-color: #c4b5fd;
+  background: #f4f4f5;
+  border-color: #d4d4d8;
 }
 
-/* 搜索框聚焦光晕 */
-.search-glow:focus-within {
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+/* 筛选侧边栏 */
+.filter-sidebar {
+  background: #fafafa;
+  border-right: 1px solid #e4e4e7;
+}
+.filter-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #52525b;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+.filter-item:hover {
+  background: #f4f4f5;
+  color: #18181b;
+}
+.filter-item.active {
+  background: #eff6ff;
+  color: #2563eb;
+  font-weight: 500;
 }
 
-/* CTA 按钮 */
+/* 搜索框 */
+.search-input {
+  background: #f4f4f5;
+  border: 1px solid #e4e4e7;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+}
+.search-input:focus-within {
+  background: white;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+/* 主按钮（纯色，不用渐变）*/
 .btn-primary {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: #2563eb;
   color: white;
-  transition: all 0.2s ease;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.15s ease;
 }
 .btn-primary:hover {
-  box-shadow: 0 4px 14px -2px rgba(99, 102, 241, 0.4);
-  transform: translateY(-1px);
+  background: #1d4ed8;
+}
+
+/* 次按钮 */
+.btn-secondary {
+  background: white;
+  color: #52525b;
+  border: 1px solid #e4e4e7;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.15s ease;
+}
+.btn-secondary:hover {
+  background: #f4f4f5;
+  border-color: #d4d4d8;
+}
+
+/* 新手 CTA 区 */
+.cta-section {
+  background: #18181b;
+  color: white;
+  border-radius: 16px;
+}
+.cta-section .btn-white {
+  background: white;
+  color: #18181b;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.15s ease;
+}
+.cta-section .btn-white:hover {
+  background: #f4f4f5;
 }
 
 /* ===== line-clamp ===== */
 .line-clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
 .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
-/* ===== 深度指南 markdown 排版 ===== */
+/* ===== Markdown 排版（保持不变）===== */
 .prose-guide { color: #374151; font-size: 16px; line-height: 1.8; }
 .prose-guide > *:first-child { margin-top: 0; }
 .prose-guide h1, .prose-guide h2, .prose-guide h3, .prose-guide h4 { color: #111827; font-weight: 700; line-height: 1.3; margin-top: 2em; margin-bottom: 0.6em; }
@@ -113,13 +196,13 @@ body {
 .prose-guide h3 { font-size: 1.2em; }
 .prose-guide h4 { font-size: 1.05em; }
 .prose-guide p { margin: 1em 0; }
-.prose-guide a { color: #4f46e5; text-decoration: underline; text-underline-offset: 2px; }
+.prose-guide a { color: #2563eb; text-decoration: underline; text-underline-offset: 2px; }
 .prose-guide strong { color: #111827; font-weight: 700; }
 .prose-guide ul, .prose-guide ol { margin: 1em 0; padding-left: 1.6em; }
 .prose-guide ul { list-style: disc; }
 .prose-guide ol { list-style: decimal; }
 .prose-guide li { margin: 0.4em 0; }
-.prose-guide blockquote { margin: 1.2em 0; padding: 0.6em 1em; border-left: 4px solid #c7d2fe; background: #f5f3ff; color: #4b5563; border-radius: 0 0.5rem 0.5rem 0; }
+.prose-guide blockquote { margin: 1.2em 0; padding: 0.6em 1em; border-left: 4px solid #dbeafe; background: #f0f6ff; color: #4b5563; border-radius: 0 0.5rem 0.5rem 0; }
 .prose-guide blockquote > p { margin: 0.3em 0; }
 .prose-guide code { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; font-size: 0.88em; background: #f3f4f6; padding: 0.15em 0.4em; border-radius: 0.3rem; }
 .prose-guide pre { margin: 1.2em 0; padding: 1em 1.2em; background: #1f2937; color: #e5e7eb; border-radius: 0.75rem; overflow-x: auto; line-height: 1.6; }

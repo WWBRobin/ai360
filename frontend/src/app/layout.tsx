@@ -103,14 +103,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
             <div className="flex items-center gap-6">
               <Link href="/" className="flex items-center gap-2 group">
-                <span className="text-xl">🔧</span>
-                <span className="font-bold text-gray-900 group-hover:text-indigo-600 transition">AI360</span>
+                <span className="font-bold text-gray-900 group-hover:text-blue-600 transition">AI360</span>
               </Link>
               <div className="hidden md:flex items-center gap-6 text-sm text-gray-600">
-                <Link href="/essential" className="hover:text-indigo-600 transition font-medium">装机必备</Link>
-                <Link href="/scenario/content-creation" className="hover:text-indigo-600 transition font-medium">场景库</Link>
-                <Link href="/platform/coze" className="hover:text-indigo-600 transition font-medium">平台库</Link>
-                <Link href="/compare" className="hover:text-indigo-600 transition font-medium">横评</Link>
+                <Link href="/essential" className="hover:text-blue-600 transition font-medium">装机必备</Link>
+                <Link href="/scenario/content-creation" className="hover:text-blue-600 transition font-medium">场景库</Link>
+                <Link href="/platform/coze" className="hover:text-blue-600 transition font-medium">平台库</Link>
+                <Link href="/compare" className="hover:text-blue-600 transition font-medium">横评</Link>
               </div>
             </div>
             {/* 搜索框 */}
@@ -118,8 +117,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <input
                 type="text"
                 name="q"
-                placeholder="搜索工具 / 场景..."
-                className="w-24 md:w-48 px-3 py-1.5 text-sm bg-gray-50/80 border border-gray-200/80 rounded-lg focus:outline-none focus:border-indigo-400 focus:bg-white transition"
+                placeholder="搜索..."
+                className="w-24 md:w-48 px-3 py-1.5 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 focus:bg-white transition"
               />
             </form>
             {/* 移动端汉堡菜单（md 以下显示，补充被隐藏的导航链接） */}
@@ -139,17 +138,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {/* 品牌 + slogan — 跨两列 */}
               <div className="col-span-2">
                 <Link href="/" className="inline-flex items-center gap-2 mb-3">
-                  <span className="text-2xl">🔧</span>
                   <span className="text-white font-bold text-lg">AI360</span>
                 </Link>
                 <p className="text-sm leading-relaxed max-w-xs">
-                  AI Agent 时代的 360。发现好工具，判断哪个好，基础工具一次配齐。
+                  AI 工具独立评测平台。发现好工具，判断哪个好，基础工具一次配齐。
                 </p>
                 <Link
                   href="/subscribe"
-                  className="inline-flex items-center gap-1.5 mt-4 text-xs font-medium text-indigo-400 hover:text-indigo-300 transition"
+                  className="inline-flex items-center gap-1.5 mt-4 text-xs font-medium text-blue-400 hover:text-blue-300 transition"
                 >
-                  📬 订阅每周更新
+                  订阅每周更新
                   <span aria-hidden>→</span>
                 </Link>
               </div>
