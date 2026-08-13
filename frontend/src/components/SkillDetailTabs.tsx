@@ -119,7 +119,7 @@ function OverviewTab({
   return (
     <div className="space-y-8">
       {/* AI360 五问评测 */}
-      <section>
+      <section id="overview">
         <h2 className="text-[17px] font-bold text-[#1A1A1A] mb-4 flex items-center gap-2">
           📋 AI360 五问评测
           <span className="text-xs font-normal text-[#9CA3AF]">
@@ -185,7 +185,7 @@ function OverviewTab({
 
       {/* 功能亮点 + 基本信息 */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <section>
+        <section id="features">
           <h2 className="text-[17px] font-bold text-[#1A1A1A] mb-4">功能亮点</h2>
           <div className="content-card p-5">
             <ul className="space-y-0">
@@ -202,7 +202,7 @@ function OverviewTab({
           </div>
         </section>
 
-        <section>
+        <section id="basic">
           <h2 className="text-[17px] font-bold text-[#1A1A1A] mb-4">基本信息</h2>
           <div className="content-card p-5">
             <dl className="divide-y divide-[#F5F5F5]">

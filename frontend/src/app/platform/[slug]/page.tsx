@@ -117,18 +117,18 @@ export default async function PlatformPage({
     sort: typeof sp.sort === 'string' ? sp.sort : undefined,
   }
 
-  // 场景 Tab + 二级标签数据
+  // 场景 Tab + 二级标签数据（P1-1: 过滤掉 skill_count<=0 的空分类，避免渲染空壳）
   const sceneTabs = scenarios.length > 0
-    ? scenarios.map((s) => ({ slug: s.slug, name: s.name, count: s.skill_count ?? 0 }))
+    ? scenarios
+        .map((s) => ({ slug: s.slug, name: s.name, count: s.skill_count ?? 0 }))
+        .filter((s) => s.count > 0)
     : []
   const subTags = [
     { id: 'all', icon: '★', label: '全部', count: totalCount },
-    ...scenarios.slice(0, 8).map((s) => ({
-      id: s.slug,
-      icon: '◆',
-      label: s.name,
-      count: s.skill_count ?? 0,
-    })),
+    ...scenarios
+      .slice(0, 8)
+      .map((s) => ({ id: s.slug, icon: '◆', label: s.name, count: s.skill_count ?? 0 }))
+      .filter((t) => t.count > 0),
   ]
 
   return (
@@ -157,8 +157,8 @@ export default async function PlatformPage({
         {/* 二级横排标签（场景维度筛选） */}
         <SubTags tags={subTags} />
 
-        {/* 排序栏 */}
-        <FilterBar total={currentPageSkills.length} showPlatformFilter={false} />
+        {/* 排序栏（P1-2: total 用收录总数 totalCount，testedCount 为实测数，统一口径避免矛盾） */}
+        <FilterBar total={totalCount} testedCount={testedCount} showPlatformFilter={false} />
 
         {/* Skill 卡片网格（双列） */}
         {skills.length > 0 ? (

@@ -22,7 +22,7 @@ const SCENES = [
 const TYPES = ['全部', 'Skill', '工具', 'MCP', '插件']
 
 const FEATURED = [
-  { name: 'Brave Search MCP', score: 4.8, platform: 'MCP', desc: '免费 AI 搜索引擎，无需 API Key', free: '免费2000次/月', difficulty: 4, stability: 4, href: '/skill/brave-search-mcp', icon: '', color: '#ef4444' },
+  { name: 'Brave Search MCP', score: 4.8, platform: 'MCP', desc: '免费 AI 搜索引擎，无需 API Key', free: '免费2000次/月', difficulty: 5, stability: 5, href: '/skill/brave-search-mcp', icon: '', color: '#ef4444' },
   { name: 'Hermes Hook 引擎', score: 4.8, platform: 'Hermes', desc: '21个Hook+40条规则，防幻觉+质量门控', free: '完全免费', difficulty: 4, stability: 5, href: '/skill/hermes-hooks', icon: 'https://avatars.githubusercontent.com/u/193596547?v=4', color: '#6366f1' },
   { name: '系统化根因调试', score: 5.0, platform: 'Hermes', desc: '4阶段调试：先理解bug再修复', free: '完全免费', difficulty: 4, stability: 5, href: '/skill/systematic-debugging', icon: 'https://avatars.githubusercontent.com/u/193596547?v=4', color: '#6366f1' },
   { name: '流行Web设计系统库', score: 5.0, platform: 'Hermes', desc: '54套真实设计系统(Stripe/Linear/Vercel)', free: '完全免费', difficulty: 3, stability: 5, href: '/skill/popular-web-designs', icon: 'https://avatars.githubusercontent.com/u/193596547?v=4', color: '#6366f1' },

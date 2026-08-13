@@ -13,6 +13,7 @@ interface FilterBarProps {
   platforms?: PlatformOption[]
   total: number
   showPlatformFilter?: boolean
+  testedCount?: number
 }
 
 type SortKey = 'recommended' | 'latest' | 'rating'
@@ -31,6 +32,7 @@ export default function FilterBar({
   platforms = [],
   total,
   showPlatformFilter = true,
+  testedCount,
 }: FilterBarProps) {
   const router = useRouter()
   const pathname = usePathname()
@@ -61,7 +63,10 @@ export default function FilterBar({
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 py-4">
       <div className="text-[13px] text-[#6B7280]">
-        共 <b className="text-[#1A1A1A]">{total}</b> 个工具
+        共 <b className="text-[#1A1A1A]">{total}</b> 个
+        {testedCount != null && (
+          <span className="text-[#9CA3AF]"> · 实测 <b className="text-[#1A1A1A]">{testedCount}</b></span>
+        )}
       </div>
       <div className="flex items-center gap-2">
         {showPlatformFilter && platforms.length > 0 && (

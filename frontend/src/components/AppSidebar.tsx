@@ -825,13 +825,12 @@ function CompareSidebar() {
 // Variant 8: 详情页 — 目录 + 相关工具
 // ============================================================
 
+// P1-3: 目录锚点对齐 SkillDetailTabs OverviewTab 实际渲染的 section（五问评测/功能亮点/基本信息）。
+// 删除了无对应内容的 pricing/tutorial/reviews/alternatives 死链。
 const SKILL_TOC = [
-  { id: 'overview', label: '概述', icon: '📄' },
-  { id: 'features', label: '功能特点', icon: '✨' },
-  { id: 'pricing', label: '价格', icon: '💰' },
-  { id: 'tutorial', label: '教程', icon: '📖' },
-  { id: 'reviews', label: '评价', icon: '⭐' },
-  { id: 'alternatives', label: '替代方案', icon: '🔄' },
+  { id: 'overview', label: '五问评测', icon: '📋' },
+  { id: 'features', label: '功能亮点', icon: '✨' },
+  { id: 'basic', label: '基本信息', icon: '🗂️' },
 ]
 
 const RELATED_SKILLS = [
