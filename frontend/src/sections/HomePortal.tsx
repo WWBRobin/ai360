@@ -57,7 +57,7 @@ export default function HomePortal({ totalCount = 593, platformCount = 19, scene
         {/* filter-bar 场景筛选 */}
         <div className="flex items-center gap-2 py-3 border-b border-[#F0F0F0] overflow-x-auto scrollbar-hide">
           {SCENES.map(s => (
-            <button key={s.name} onClick={() => setActiveScene(s.name)}
+            <Link key={s.name} href={s.slug ? `/scenario/${s.slug}` : '/'}
               className={`text-[13px] px-3.5 py-1.5 rounded-full border whitespace-nowrap transition ${
                 activeScene === s.name
                   ? 'bg-[#FF8C00] text-white border-[#FF8C00] font-semibold'
@@ -65,7 +65,7 @@ export default function HomePortal({ totalCount = 593, platformCount = 19, scene
               }`}>
               {s.name}
               <span className={`ml-1 text-[11px] ${activeScene === s.name ? 'text-white/70' : 'text-[#9CA3AF]'}`}>{s.count}</span>
-            </button>
+            </Link>
           ))}
         </div>
 

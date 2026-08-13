@@ -504,13 +504,16 @@ function GuideSidebar() {
 // ============================================================
 
 const SCENES = [
-  { slug: 'student', name: '学生', icon: '🎓' },
-  { slug: 'designer', name: '设计师', icon: '🎨' },
-  { slug: 'developer', name: '程序员', icon: '💻' },
-  { slug: 'marketer', name: '营销人员', icon: '📣' },
-  { slug: 'creator', name: '内容创作者', icon: '✍️' },
-  { slug: 'pm', name: '产品经理', icon: '📋' },
-  { slug: 'analyst', name: '数据分析师', icon: '📊' },
+  { slug: 'content-creation', name: '内容创作', icon: '✍️' },
+  { slug: 'office', name: '办公效率', icon: '📊' },
+  { slug: 'code', name: '代码执行', icon: '💻' },
+  { slug: 'design', name: '设计海报', icon: '🎨' },
+  { slug: 'data-analysis', name: '数据分析', icon: '📈' },
+  { slug: 'research', name: '行业调研', icon: '🔬' },
+  { slug: 'automation', name: '自动化', icon: '🤖' },
+  { slug: 'ecommerce-copy', name: '电商文案', icon: '📝' },
+  { slug: 'video', name: '视频创作', icon: '📹' },
+  { slug: 'memory', name: '记忆增强', icon: '🧠' },
 ]
 
 function ScenarioSidebar({ pathname }: { pathname: string }) {
