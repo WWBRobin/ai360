@@ -9,18 +9,20 @@ import { useState } from 'react'
 // ============================================================
 
 const PLATFORMS = [
-  { slug: 'hermes', name: 'Hermes', count: 271 },
-  { slug: 'gpts', name: 'GPTs', count: 86 },
-  { slug: 'coze', name: '扣子', count: 25 },
-  { slug: 'saas', name: 'SaaS', count: 24 },
-  { slug: 'mcp', name: 'MCP', count: 22 },
-  { slug: 'claude', name: 'Claude', count: 20 },
-  { slug: 'openclaw', name: 'OpenClaw', count: 14 },
-  { slug: 'codex', name: 'Codex', count: 8 },
-  { slug: 'dify', name: 'Dify', count: 7 },
-  { slug: 'n8n', name: 'n8n', count: 4 },
-  { slug: 'claude-code', name: 'Claude Code', count: 4 },
-  { slug: 'qwen', name: '千问', count: 2 },
+  { slug: 'hermes', name: 'Hermes', count: 271, logo: '/platform-logos/hermes.png' },
+  { slug: 'gpts', name: 'GPTs', count: 86, logo: '/platform-logos/gpts.png' },
+  { slug: 'coze', name: '扣子', count: 45, logo: '/platform-logos/coze.png' },
+  { slug: 'saas', name: 'SaaS', count: 24, logo: '/platform-logos/saas.png' },
+  { slug: 'mcp', name: 'MCP', count: 22, logo: '/platform-logos/mcp.png' },
+  { slug: 'claude', name: 'Claude', count: 20, logo: '/platform-logos/claude.png' },
+  { slug: 'openclaw', name: 'OpenClaw', count: 14, logo: '/platform-logos/openclaw.png' },
+  { slug: 'codex', name: 'Codex', count: 8, logo: '/platform-logos/codex.png' },
+  { slug: 'dify', name: 'Dify', count: 7, logo: '/platform-logos/dify.png' },
+  { slug: 'n8n', name: 'n8n', count: 4, logo: '/platform-logos/n8n.png' },
+  { slug: 'claude-code', name: 'Claude Code', count: 4, logo: '/platform-logos/claude-code.png' },
+  { slug: 'qwen', name: '千问', count: 20, logo: '/platform-logos/qwen.png' },
+  { slug: 'ernie', name: '文心', count: 13, logo: '/platform-logos/ernie.png' },
+  { slug: 'workbuddy', name: 'WorkBuddy', count: 15, logo: '/platform-logos/workbuddy.png' },
 ]
 
 // ============================================================
@@ -227,10 +229,16 @@ function HomeSidebar() {
               }}
             >
               <span
-                className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold text-[#9CA3AF]"
-                style={{ background: 'transparent', border: '1px solid #F0F0F0' }}
+                className="w-7 h-7 rounded-full flex items-center justify-center overflow-hidden shrink-0"
               >
-                {p.name[0]}
+                {p.logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={p.logo} alt={p.name} className="w-full h-full object-cover" />
+                ) : (
+                  <span className="text-[10px] font-bold text-[#9CA3AF]" style={{ border: '1px solid #F0F0F0', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%' }}>
+                    {p.name[0]}
+                  </span>
+                )}
               </span>
               <span
                 className="flex-1 text-left text-[14px]"
