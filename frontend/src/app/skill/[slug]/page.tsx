@@ -15,6 +15,7 @@ import { getRelatedArticles } from '@/lib/related-articles'
 import type { ArticleMeta } from '@/lib/articles'
 import SkillCardComponent from '@/components/SkillCard'
 import TrialBox from '@/components/TrialBox'
+import CodeBlock from '@/components/CodeBlock'
 
 // ISR：详情页每 1 小时增量静态重新生成
 export const revalidate = 3600
@@ -441,7 +442,7 @@ export default async function SkillDetailPage({
 
               {/* GitHub Star 数据 */}
               {github && (
-                <!-- GitHub stats placeholder -->
+                <GitHubStats github={github} />
               )}
             </div>
 
@@ -947,39 +948,6 @@ function InstallStepItem({
           <CodeBlock code={realCode} />
         )}
       </div>
-    </div>
-  )
-}
-
-// 代码块（带复制按钮，客户端组件）
-import { useState } from 'react'
-
-function CodeBlock({ code }: { code: string }) {
-  const [copied, setCopied] = useState(false)
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(code)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 1500)
-    } catch {
-      // 降级：选中文本，让用户手动复制
-    }
-  }
-
-  return (
-    <div className="mt-2 relative group">
-      <pre className="bg-gray-900 text-gray-100 text-xs rounded-lg px-3 py-2 overflow-x-auto">
-        <code>{code}</code>
-      </pre>
-      <button
-        type="button"
-        onClick={handleCopy}
-        className="absolute top-1.5 right-1.5 opacity-0 group-hover:opacity-100 transition px-2 py-1 text-[10px] bg-gray-700 hover:bg-gray-600 text-white rounded"
-        aria-label="复制代码"
-      >
-        {copied ? '✓ 已复制' : '复制'}
-      </button>
     </div>
   )
 }
