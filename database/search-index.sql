@@ -66,3 +66,12 @@ GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO anon, authenticated;
 
 -- ---------- 4. 核对 ----------
 SELECT 'search_keywords' AS tbl, COUNT(*) FROM search_keywords;
+
+-- ============================================================
+-- 5. 补丁（2026-08-15 E2E 第二轮发现）：user_id 默认值
+--    症状：不传 user_id 的 INSERT 报 RLS 违规（NULL != auth.uid()）
+--    修复：所有用户表 user_id 列加 DEFAULT auth.uid()，前端可不传
+-- ============================================================
+ALTER TABLE favorites ALTER COLUMN user_id SET DEFAULT auth.uid();
+ALTER TABLE assessment_results ALTER COLUMN user_id SET DEFAULT auth.uid();
+ALTER TABLE learning_progress ALTER COLUMN user_id SET DEFAULT auth.uid();
