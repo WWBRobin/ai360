@@ -51,7 +51,7 @@ function EssentialCard({ skill, accent }: { skill: SkillCard; accent: string }) 
             <span aria-hidden>{skill.name.charAt(0)}</span>
           </div>
           <div>
-            <h3 className="text-lg font-bold text-[#1A1A1A] group-hover:text-[#1c1a18]">
+            <h3 className="text-lg font-bold text-[#2a2724] group-hover:text-[#1c1a18]">
               <Link href={`/skill/${skill.slug}`} className="hover:underline">
                 {skill.name}
               </Link>
@@ -153,10 +153,10 @@ export default function EssentialTabs({ tabs }: { tabs: EssentialTab[] }) {
               type="button"
               onClick={() => setActiveId(tab.id)}
               aria-pressed={isActive}
-              className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all ${
+              className={`relative flex items-center gap-2 px-1 py-2.5 text-sm font-medium transition ${
                 isActive
-                  ? 'bg-[#1c1a18] text-white shadow-sm'
-                  : 'text-[#656360] hover:bg-[#f4f1ed] hover:text-[#2a2724]'
+                  ? 'text-[#2a2724]'
+                  : 'text-[#a1a1a1] hover:text-[#2a2724]'
               }`}
             >
               <span className="text-base" aria-hidden>
@@ -165,11 +165,14 @@ export default function EssentialTabs({ tabs }: { tabs: EssentialTab[] }) {
               {tab.label}
               <span
                 className={`rounded-full px-1.5 py-0.5 text-[11px] font-bold ${
-                  isActive ? 'bg-white/25 text-white' : 'bg-[#f0ede9] text-[#a1a1a1]'
+                  isActive ? 'bg-[#f0ede9] text-[#2a2724]' : 'bg-[#f0ede9] text-[#a1a1a1]'
                 }`}
               >
                 {tab.skills.length}
               </span>
+              {isActive && (
+                <span className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-[#1c1a18]" aria-hidden="true" />
+              )}
             </button>
           )
         })}

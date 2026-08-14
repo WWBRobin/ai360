@@ -76,7 +76,7 @@ export default async function GuideArticlePage({
               </span>
               <span className="text-[12px] text-[#aaa]">深度评测</span>
             </div>
-            <h1 className="text-[28px] font-bold text-[#1A1A1A] leading-tight mb-3">
+            <h1 className="text-[28px] font-bold text-[#2a2724] leading-tight mb-3">
               <span className="mr-2">{article.icon}</span>
               {article.title}
             </h1>

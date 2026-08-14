@@ -17,7 +17,7 @@ export default function SubTags({ tags }: { tags: SubTag[] }) {
   const [active, setActive] = useState(tags[0]?.id ?? '')
   if (tags.length === 0) return null
   return (
-    <div className="flex gap-2.5 flex-wrap py-4 border-b border-[#EEF0F3]">
+    <div className="flex gap-2.5 flex-wrap py-4 border-b border-[#e3e0dd]">
       {tags.map((t) => {
         const isActive = t.id === active
         return (

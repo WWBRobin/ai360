@@ -58,7 +58,7 @@ export default function TrialBox({
     <div className="content-card p-6">
       <div className="flex items-center gap-2 mb-4">
         <span className="text-lg">🧪</span>
-        <h3 className="font-bold text-[#1A1A1A]">在线试用 {skillName}</h3>
+        <h3 className="font-bold text-[#2a2724]">在线试用 {skillName}</h3>
         {remaining !== null && (
           <span className="ml-auto text-xs text-[#1c1a18] bg-[rgba(28, 26, 24,0.06)] px-2 py-0.5 rounded-full border border-[rgba(28, 26, 24,0.20)]">
             剩余 {remaining} 次

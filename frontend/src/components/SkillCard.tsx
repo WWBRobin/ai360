@@ -52,7 +52,7 @@ export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
             </span>
           )}
           <div className="min-w-0">
-            <div className="text-[15px] font-semibold text-[#1A1A1A] group-hover:text-[#1c1a18] transition truncate">
+            <div className="text-[15px] font-semibold text-[#2a2724] group-hover:text-[#1c1a18] transition truncate">
               {skill.name}
             </div>
             <div className="text-[11px] text-[#a1a1a1] truncate">
@@ -85,7 +85,7 @@ export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
 
       {/* 评分 + 维度徽章（只有真实评测才显示） */}
       {hasEval && (
-        <div className="flex flex-wrap items-center gap-1.5 pt-3 border-t border-[#EEF0F3]">
+        <div className="flex flex-wrap items-center gap-1.5 pt-3 border-t border-[#e3e0dd]">
           <DimBadge label={`上手 ${dimLabel(skill.difficulty_score)}`} score={skill.difficulty_score} />
           <DimBadge label={`稳定 ${dimLabel(skill.stability_score)}`} score={skill.stability_score} />
           {skill.free_quota && (
@@ -97,7 +97,7 @@ export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
       )}
 
       {/* 底部操作 */}
-      <div className="mt-3 pt-3 border-t border-[#EEF0F3] flex items-center justify-between">
+      <div className="mt-3 pt-3 border-t border-[#e3e0dd] flex items-center justify-between">
         <span className="text-[12px] text-[#1c1a18] font-medium group-hover:underline">
           {hasEval ? '查看评测 →' : '查看详情 →'}
         </span>

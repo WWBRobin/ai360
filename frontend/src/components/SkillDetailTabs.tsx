@@ -120,7 +120,7 @@ function OverviewTab({
     <div className="space-y-8">
       {/* AI360 五问评测 */}
       <section id="overview">
-        <h2 className="text-[17px] font-bold text-[#1A1A1A] mb-4 flex items-center gap-2">
+        <h2 className="text-[17px] font-bold text-[#2a2724] mb-4 flex items-center gap-2">
           📋 AI360 五问评测
           <span className="text-xs font-normal text-[#a1a1a1]">
             {evaluatedDate ? `实测结论 · ${evaluatedDate} 更新` : '实测结论'}
@@ -186,7 +186,7 @@ function OverviewTab({
       {/* 功能亮点 + 基本信息 */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <section id="features">
-          <h2 className="text-[17px] font-bold text-[#1A1A1A] mb-4">功能亮点</h2>
+          <h2 className="text-[17px] font-bold text-[#2a2724] mb-4">功能亮点</h2>
           <div className="content-card p-5">
             <ul className="space-y-0">
               {skill.tagline && (
@@ -203,9 +203,9 @@ function OverviewTab({
         </section>
 
         <section id="basic">
-          <h2 className="text-[17px] font-bold text-[#1A1A1A] mb-4">基本信息</h2>
+          <h2 className="text-[17px] font-bold text-[#2a2724] mb-4">基本信息</h2>
           <div className="content-card p-5">
-            <dl className="divide-y divide-[#F5F5F5]">
+            <dl className="divide-y divide-[#f0ede9]">
               <MetaRow label="开发者" value={skill.developer_name || '—'} />
               <MetaRow
                 label="版本"
@@ -240,7 +240,7 @@ function EvalCard({
         <span className="w-6 h-6 rounded-full bg-[#1c1a18] text-white text-xs font-bold flex items-center justify-center shrink-0">
           {num}
         </span>
-        <span className="text-[15px] font-semibold text-[#1A1A1A]">{question}</span>
+        <span className="text-[15px] font-semibold text-[#2a2724]">{question}</span>
       </div>
       <p className="text-sm text-[#656360] leading-[1.7] pl-8">{answer}</p>
       {scoreLabel && (
@@ -254,7 +254,7 @@ function EvalCard({
 
 function FeatureItem({ text }: { text: string }) {
   return (
-    <li className="text-sm text-[#374151] py-2.5 border-b border-[#F5F5F5] last:border-b-0 flex items-start gap-2">
+    <li className="text-sm text-[#656360] py-2.5 border-b border-[#f0ede9] last:border-b-0 flex items-start gap-2">
       <span className="text-[#059669] font-bold shrink-0">✓</span>
       <span>{text}</span>
     </li>
@@ -265,7 +265,7 @@ function MetaRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex justify-between py-2.5 text-sm">
       <dt className="text-[#a1a1a1]">{label}</dt>
-      <dd className="text-[#1A1A1A] font-medium">{value}</dd>
+      <dd className="text-[#2a2724] font-medium">{value}</dd>
     </div>
   )
 }
@@ -338,7 +338,7 @@ function InstallTab({
     <div className="space-y-8">
       {/* 步骤式卡片 */}
       <section>
-        <h2 className="text-[17px] font-bold text-[#1A1A1A] mb-4 flex items-center gap-2">
+        <h2 className="text-[17px] font-bold text-[#2a2724] mb-4 flex items-center gap-2">
           ⚙️ 安装教程
           <span className="text-xs font-normal text-[#a1a1a1]">
             {steps ? `${steps.length} 步搞定` : '1 步搞定'}
@@ -368,7 +368,7 @@ function InstallTab({
 
       {/* 安装命令 / CTA */}
       <section>
-        <h2 className="text-[17px] font-bold text-[#1A1A1A] mb-4 flex items-center gap-2">
+        <h2 className="text-[17px] font-bold text-[#2a2724] mb-4 flex items-center gap-2">
           📦 安装入口
         </h2>
         <div className="content-card p-6">
@@ -394,33 +394,33 @@ function InstallTab({
       {/* GitHub 数据 */}
       {github && (
         <section>
-          <h2 className="text-[17px] font-bold text-[#1A1A1A] mb-4">🔧 开发者信息</h2>
+          <h2 className="text-[17px] font-bold text-[#2a2724] mb-4">🔧 开发者信息</h2>
           <div className="content-card p-5">
             <div className="flex items-center gap-2 mb-3">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden className="text-[#374151]">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden className="text-[#656360]">
                 <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
               </svg>
               <a
                 href={github.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-semibold text-[#374151] hover:text-[#1c1a18] transition truncate"
+                className="text-xs font-semibold text-[#656360] hover:text-[#1c1a18] transition truncate"
               >
                 {github.full_name}
               </a>
             </div>
             <div className="grid grid-cols-3 gap-2 text-center">
               <div className="bg-[#fef3c7] rounded-lg py-2">
-                <div className="text-xs text-[#e67300]">★ Star</div>
-                <div className="text-sm font-bold text-[#1A1A1A]">{formatStars(github.stars)}</div>
+                <div className="text-xs text-[#656360]">★ Star</div>
+                <div className="text-sm font-bold text-[#2a2724]">{formatStars(github.stars)}</div>
               </div>
               <div className="bg-[rgba(28, 26, 24,0.06)] rounded-lg py-2">
                 <div className="text-xs text-[#a1a1a1]">⑂ Fork</div>
-                <div className="text-sm font-bold text-[#1A1A1A]">{formatStars(github.forks)}</div>
+                <div className="text-sm font-bold text-[#2a2724]">{formatStars(github.forks)}</div>
               </div>
               <div className="bg-[rgba(28, 26, 24,0.06)] rounded-lg py-2">
                 <div className="text-xs text-[#a1a1a1]">License</div>
-                <div className="text-xs font-bold text-[#1A1A1A] truncate px-1">{github.license || '—'}</div>
+                <div className="text-xs font-bold text-[#2a2724] truncate px-1">{github.license || '—'}</div>
               </div>
             </div>
           </div>
@@ -452,7 +452,7 @@ function StepCard({
       <div className="w-9 h-9 rounded-full bg-[#1c1a18] text-white text-base font-bold flex items-center justify-center mb-3.5 shadow-[0_4px_10px_rgba(28, 26, 24,0.28)]">
         {num}
       </div>
-      <h3 className="text-[15px] font-bold text-[#1A1A1A] mb-2">{title}</h3>
+      <h3 className="text-[15px] font-bold text-[#2a2724] mb-2">{title}</h3>
       {desc && <p className="text-[13px] text-[#656360] leading-[1.7] mb-2">{desc}</p>}
       {realCode && <CodeBlock code={realCode} />}
     </div>
@@ -470,7 +470,7 @@ function TutorialTab({ skill }: { skill: SkillDetail }) {
           <span className="w-6 h-6 rounded-full bg-[#1c1a18] text-white text-xs font-bold flex items-center justify-center shrink-0">
             ★
           </span>
-          <span className="text-[15px] font-semibold text-[#1A1A1A]">使用技巧</span>
+          <span className="text-[15px] font-semibold text-[#2a2724]">使用技巧</span>
         </div>
         <p className="text-sm text-[#656360] leading-[1.7] pl-8">
           {skill.tagline || `${skill.name} 是一款${CATEGORY_LABELS[skill.category] || ''}类工具。`}
@@ -488,13 +488,13 @@ function TutorialTab({ skill }: { skill: SkillDetail }) {
             <span className="w-6 h-6 rounded-full bg-[#1c1a18] text-white text-xs font-bold flex items-center justify-center shrink-0">
               📖
             </span>
-            <span className="text-[15px] font-semibold text-[#1A1A1A]">详细指南</span>
+            <span className="text-[15px] font-semibold text-[#2a2724]">详细指南</span>
             {skill.guide_difficulty && (
               <span className="text-xs text-[#a1a1a1]">难度：{skill.guide_difficulty}</span>
             )}
           </div>
           <div className="prose-guide pl-8">
-            <div className="whitespace-pre-wrap text-sm text-[#374151] leading-[1.7]">
+            <div className="whitespace-pre-wrap text-sm text-[#656360] leading-[1.7]">
               {skill.guide_content}
             </div>
           </div>
@@ -504,7 +504,7 @@ function TutorialTab({ skill }: { skill: SkillDetail }) {
       {/* 在线试用 */}
       {skill.trial_enabled ? (
         <div className="content-card p-6">
-          <h3 className="text-[15px] font-semibold text-[#1A1A1A] mb-3">🧪 在线试用 {skill.name}</h3>
+          <h3 className="text-[15px] font-semibold text-[#2a2724] mb-3">🧪 在线试用 {skill.name}</h3>
           <TrialBox skillId={skill.id} skillName={skill.name} />
         </div>
       ) : (
@@ -525,7 +525,7 @@ function ReviewsTab({ skill }: { skill: SkillDetail }) {
   return (
     <div>
       <section>
-        <h2 className="text-[17px] font-bold text-[#1A1A1A] mb-4">
+        <h2 className="text-[17px] font-bold text-[#2a2724] mb-4">
           💬 评价讨论
         </h2>
 
@@ -566,7 +566,7 @@ function RelatedTab({
       {/* 同类对比表 */}
       {compareRows.length > 1 && (
         <section>
-          <h2 className="text-[17px] font-bold text-[#1A1A1A] mb-4 flex items-center gap-2">
+          <h2 className="text-[17px] font-bold text-[#2a2724] mb-4 flex items-center gap-2">
             ⚖️ 同类对比
             <span className="text-xs font-normal text-[#a1a1a1]">向上箭头为最优值</span>
           </h2>
@@ -574,11 +574,11 @@ function RelatedTab({
             <table className="w-full border-collapse">
               <thead>
                 <tr className="bg-[rgba(28, 26, 24,0.6)]">
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-[#1A1A1A] uppercase tracking-wide">工具</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-[#1A1A1A] uppercase tracking-wide">综合</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-[#1A1A1A] uppercase tracking-wide">上手</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-[#1A1A1A] uppercase tracking-wide">稳定</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-[#1A1A1A] uppercase tracking-wide">免费额度</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-[#2a2724] uppercase tracking-wide">工具</th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold text-[#2a2724] uppercase tracking-wide">综合</th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold text-[#2a2724] uppercase tracking-wide">上手</th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold text-[#2a2724] uppercase tracking-wide">稳定</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-[#2a2724] uppercase tracking-wide">免费额度</th>
                 </tr>
               </thead>
               <tbody>
@@ -605,7 +605,7 @@ function RelatedTab({
                               <span className="ml-1 text-[10px] align-middle bg-[rgba(28, 26, 24,0.06)] text-[#1c1a18] px-1 py-px rounded">当前</span>
                             </span>
                           ) : (
-                            <Link href={`/skill/${row.slug}`} className="font-semibold text-[#1A1A1A] hover:text-[#1c1a18] transition">
+                            <Link href={`/skill/${row.slug}`} className="font-semibold text-[#2a2724] hover:text-[#1c1a18] transition">
                               {row.name}
                             </Link>
                           )}
@@ -614,7 +614,7 @@ function RelatedTab({
                       </td>
                       <td className="px-4 py-3 text-center">
                         {row.overall_score != null ? (
-                          <span className="font-bold text-[#1A1A1A]">{row.overall_score.toFixed(1)}</span>
+                          <span className="font-bold text-[#2a2724]">{row.overall_score.toFixed(1)}</span>
                         ) : (
                           <span className="text-[#c4c1bd]">—</span>
                         )}
@@ -644,7 +644,7 @@ function RelatedTab({
       {/* 替代品推荐 */}
       {altRows.length > 0 && (
         <section>
-          <h2 className="text-[17px] font-bold text-[#1A1A1A] mb-1">🔁 替代品推荐</h2>
+          <h2 className="text-[17px] font-bold text-[#2a2724] mb-1">🔁 替代品推荐</h2>
           <p className="text-sm text-[#656360] mb-4">
             如果「{skill.name}」不完全合适，以下同类工具可能更适合你。
           </p>
@@ -659,7 +659,7 @@ function RelatedTab({
       {/* 相关 Skill */}
       {related.length > 0 && (
         <section>
-          <h2 className="text-[17px] font-bold text-[#1A1A1A] mb-4">🔗 相关推荐</h2>
+          <h2 className="text-[17px] font-bold text-[#2a2724] mb-4">🔗 相关推荐</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {related.map((s) => (
               <SkillCardComponent key={s.slug} skill={s} />
@@ -671,7 +671,7 @@ function RelatedTab({
       {/* 相关文章 */}
       {relatedArticles.length > 0 && (
         <section>
-          <h2 className="text-[17px] font-bold text-[#1A1A1A] mb-4">📰 相关文章</h2>
+          <h2 className="text-[17px] font-bold text-[#2a2724] mb-4">📰 相关文章</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {relatedArticles.map((a) => (
               <RelatedArticleCard key={a.slug} article={a} />
@@ -685,7 +685,7 @@ function RelatedTab({
 
 function CompareScoreCell({ score }: { score: number | null }) {
   if (score == null) return <span className="text-[#c4c1bd]">—</span>
-  const color = score >= 4 ? 'text-[#059669]' : score >= 3 ? 'text-[#e67300]' : 'text-[#656360]'
+  const color = score >= 4 ? 'text-[#059669]' : score >= 3 ? 'text-[#656360]' : 'text-[#656360]'
   return <span className={`font-medium ${color}`}>{score}/5</span>
 }
 
@@ -701,7 +701,7 @@ function AlternativeCard({ row }: { row: CompareRow }) {
             <span className="text-xl shrink-0" aria-hidden>{CATEGORY_ICONS[row.category] || '🧩'}</span>
           )}
           <div className="min-w-0">
-            <h3 className="font-bold text-[#1A1A1A] group-hover:text-[#1c1a18] transition truncate">
+            <h3 className="font-bold text-[#2a2724] group-hover:text-[#1c1a18] transition truncate">
               {row.name}
             </h3>
             <span className="text-xs text-[#a1a1a1]">{row.platform_name}</span>
@@ -738,7 +738,7 @@ function RelatedArticleCard({ article }: { article: ArticleMeta }) {
                 {article.tag}
               </span>
             </div>
-            <h3 className="font-semibold text-[#1A1A1A] group-hover:text-[#1c1a18] transition line-clamp-2 text-sm">
+            <h3 className="font-semibold text-[#2a2724] group-hover:text-[#1c1a18] transition line-clamp-2 text-sm">
               {article.title}
             </h3>
             <p className="text-xs text-[#656360] mt-1.5 line-clamp-2">{article.summary}</p>

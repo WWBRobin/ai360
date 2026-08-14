@@ -158,7 +158,7 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
           </nav>
           <div className="flex flex-col items-center justify-center py-24 text-center">
             <div className="text-6xl mb-4">{scenarioIcon}</div>
-            <h1 className="text-2xl font-bold text-[#1A1A1A] mb-2">「{scenarioName}」场景暂无评测</h1>
+            <h1 className="text-2xl font-bold text-[#2a2724] mb-2">「{scenarioName}」场景暂无评测</h1>
             <p className="text-[#656360] mb-8 max-w-md">
               我们正在加紧评测该场景下的 AI Skill，请稍后再来看看。
             </p>
@@ -199,8 +199,8 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
         </p>
 
         {/* 标题区 */}
-        <div className="mb-6 pb-5 border-b border-[#EEF0F3]">
-          <h1 className="text-[26px] font-bold text-[#1A1A1A] mb-2.5" style={{ letterSpacing: '-0.5px' }}>
+        <div className="mb-6 pb-5 border-b border-[#e3e0dd]">
+          <h1 className="text-[26px] font-bold text-[#2a2724] mb-2.5" style={{ letterSpacing: '-0.5px' }}>
             <span className="mr-2">{scenarioIcon}</span>
             {scenarioName}
             <span className="text-[14px] font-normal text-[#a1a1a1] ml-2">
@@ -230,7 +230,7 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
             [...groups.entries()].map(([pslug, group]) => (
               <section key={pslug}>
                 <div className="mb-3.5 flex items-center gap-2.5">
-                  <h2 className="text-[16px] font-semibold text-[#1A1A1A]">{group.name}</h2>
+                  <h2 className="text-[16px] font-semibold text-[#2a2724]">{group.name}</h2>
                   <span className="rounded-full bg-[#f0ede9] px-2.5 py-0.5 text-[11px] font-medium text-[#656360]">
                     {group.skills.length} 个
                   </span>
@@ -255,8 +255,8 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
 
         {/* 相关场景推荐 */}
         {siblingScenarios.length > 0 && (
-          <section className="mt-12 pt-6 border-t border-[#EEF0F3]">
-            <h2 className="mb-4 text-[16px] font-semibold text-[#1A1A1A]">浏览其他场景</h2>
+          <section className="mt-12 pt-6 border-t border-[#e3e0dd]">
+            <h2 className="mb-4 text-[16px] font-semibold text-[#2a2724]">浏览其他场景</h2>
             <div className="flex flex-wrap gap-2.5">
               {siblingScenarios.map((s) => (
                 <Link

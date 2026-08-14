@@ -41,7 +41,7 @@ export default function EssentialToolCard({
       {/* 顶部：名称 + 评分 */}
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1 min-w-0">
-          <div className="text-[15px] font-semibold text-[#1A1A1A] mb-[3px] truncate">
+          <div className="text-[15px] font-semibold text-[#2a2724] mb-[3px] truncate">
             {skill.name}
           </div>
           <div className="text-[11px] text-[#a1a1a1]">by {skill.platform_name}</div>

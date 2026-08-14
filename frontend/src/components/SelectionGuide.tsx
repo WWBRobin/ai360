@@ -80,7 +80,7 @@ export default function SelectionGuide({ skills }: SelectionGuideProps) {
     <section className="mt-16">
       <div className="content-card p-6 md:p-8">
         <div className="mb-6">
-          <h2 className="flex items-center gap-2 text-xl font-bold text-[#1A1A1A]">
+          <h2 className="flex items-center gap-2 text-xl font-bold text-[#2a2724]">
             💡 不知道选哪个？看这里
           </h2>
           <p className="mt-1 text-sm text-[#656360]">
@@ -96,11 +96,11 @@ export default function SelectionGuide({ skills }: SelectionGuideProps) {
             >
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-xl">{rec.icon}</span>
-                <span className="text-sm font-semibold text-[#1A1A1A]">{rec.title}</span>
+                <span className="text-sm font-semibold text-[#2a2724]">{rec.title}</span>
               </div>
               {rec.skill ? (
                 <Link href={`/skill/${rec.skill.slug}`} className="block group">
-                  <div className="font-bold text-[#1A1A1A] group-hover:text-[#1c1a18] transition text-sm mb-1 line-clamp-1">
+                  <div className="font-bold text-[#2a2724] group-hover:text-[#1c1a18] transition text-sm mb-1 line-clamp-1">
                     {rec.skill.name}
                   </div>
                   <p className="text-xs text-[#656360] line-clamp-2 leading-relaxed">{rec.reason}</p>

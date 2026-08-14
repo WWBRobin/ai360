@@ -156,7 +156,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
       <main className="flex-1 min-w-0 relative z-10">
         {/* 页头：搜索结果标题 */}
         <div className="px-8 pt-8 pb-2">
-          <h1 className="text-[26px] font-bold text-[#1A1A1A] leading-tight mb-1" style={{ letterSpacing: '-0.4px' }}>
+          <h1 className="text-[26px] font-bold text-[#2a2724] leading-tight mb-1" style={{ letterSpacing: '-0.4px' }}>
             搜索结果:{' '}
             {query ? (
               <span className="text-[#1c1a18]">{query}</span>

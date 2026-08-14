@@ -30,7 +30,7 @@ export default function ScenarioTabs({
   return (
     <>
       {/* 第一行：场景 */}
-      <div className="flex gap-0 border-b border-[#EEF0F3] overflow-x-auto scrollbar-hide">
+      <div className="flex gap-0 border-b border-[#e3e0dd] overflow-x-auto scrollbar-hide">
         {scenes.map((s) => {
           const isActive = s.slug === activeScene
           return (
@@ -49,7 +49,7 @@ export default function ScenarioTabs({
       </div>
 
       {/* 第二行：类型 */}
-      <div className="flex gap-4 py-3 border-b border-[#EEF0F3]">
+      <div className="flex gap-4 py-3 border-b border-[#e3e0dd]">
         {TYPES.map((t, i) => (
           <button
             key={t}

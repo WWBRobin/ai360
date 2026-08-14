@@ -215,7 +215,7 @@ function PlatformHero({
       </div>
 
       <div className="flex-1 min-w-0">
-        <h1 className="text-[26px] font-bold text-[#1A1A1A] mb-1.5" style={{ letterSpacing: '-0.5px' }}>
+        <h1 className="text-[26px] font-bold text-[#2a2724] mb-1.5" style={{ letterSpacing: '-0.5px' }}>
           {platform.name}
         </h1>
         {platform.description && (
@@ -232,7 +232,7 @@ function PlatformHero({
               href={platform.base_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#f4f1ed] text-[12px] text-[#656360] transition hover:bg-[#e3e0dd] hover:text-[#1A1A1A]"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#f4f1ed] text-[12px] text-[#656360] transition hover:bg-[#e3e0dd] hover:text-[#2a2724]"
             >
               官网 ↗
             </a>
@@ -245,7 +245,7 @@ function PlatformHero({
         </div>
 
         {/* stats */}
-        <div className="flex gap-7 pt-3 border-t border-[#EEF0F3]">
+        <div className="flex gap-7 pt-3 border-t border-[#e3e0dd]">
           <Stat label="工具总数" value={String(totalCount)} />
           <Stat label="AI360 实测" value={String(testedCount)} />
           {avgScore != null && (
@@ -275,7 +275,7 @@ function Stat({ label, value, highlight }: { label: string; value: string; highl
   return (
     <div className="text-[12px] text-[#a1a1a1]">
       <strong
-        className={`text-[18px] font-bold block mb-0.5 ${highlight ? 'text-[#1c1a18]' : 'text-[#1A1A1A]'}`}
+        className={`text-[18px] font-bold block mb-0.5 ${highlight ? 'text-[#1c1a18]' : 'text-[#2a2724]'}`}
       >
         {value}
       </strong>

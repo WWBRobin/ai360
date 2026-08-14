@@ -80,7 +80,7 @@ export default function EssentialBoard({ categories }: { categories: EssentialCa
     <div>
       {/* H1 */}
       <div className="mb-6">
-        <h1 className="text-[26px] font-bold text-[#1A1A1A] mb-2.5" style={{ letterSpacing: '-0.5px' }}>
+        <h1 className="text-[26px] font-bold text-[#2a2724] mb-2.5" style={{ letterSpacing: '-0.5px' }}>
           装机必备
         </h1>
         <p className="text-[15px] text-[#656360] leading-[1.7] max-w-[620px]">
@@ -89,7 +89,7 @@ export default function EssentialBoard({ categories }: { categories: EssentialCa
       </div>
 
       {/* 平台 Tab（6 个，首位「全部」） */}
-      <div className="flex gap-0 border-b border-[#EEF0F3] mb-7 overflow-x-auto scrollbar-hide">
+      <div className="flex gap-0 border-b border-[#e3e0dd] mb-7 overflow-x-auto scrollbar-hide">
         {PLATFORM_TABS.map((t, i) => (
           <button
             key={t}
@@ -114,7 +114,7 @@ export default function EssentialBoard({ categories }: { categories: EssentialCa
         filteredCategories.map((cat) => (
           <section key={cat.id} className="mb-10">
             <div className="flex items-center gap-2.5 mb-4">
-              <h2 className="text-[17px] font-bold text-[#1A1A1A]">{cat.label}</h2>
+              <h2 className="text-[17px] font-bold text-[#2a2724]">{cat.label}</h2>
               <span className="text-[11px] font-semibold text-[#1c1a18] bg-[rgba(28, 26, 24,0.12)] px-2.5 py-1 rounded-[10px]">
                 {cat.skills.length} 个工具
               </span>
@@ -143,7 +143,7 @@ export default function EssentialBoard({ categories }: { categories: EssentialCa
       {/* 底部进度条（score-bar 样式） */}
       <div className="content-card p-6 mt-4">
         <div className="flex items-center justify-between mb-3">
-          <span className="text-[14px] font-bold text-[#1A1A1A]">装机进度</span>
+          <span className="text-[14px] font-bold text-[#2a2724]">装机进度</span>
           <span className="text-[13px] text-[#656360]">
             已安装 {installedCount} / {totalTools} 个必备工具
           </span>

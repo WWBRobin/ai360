@@ -100,7 +100,7 @@ export default function SelectionGuideProto7({
 
   return (
     <section className="content-card mt-10 p-7">
-      <h2 className="text-[18px] font-bold text-[#1A1A1A] mb-1.5">{scenarioName}场景 · 选型建议</h2>
+      <h2 className="text-[18px] font-bold text-[#2a2724] mb-1.5">{scenarioName}场景 · 选型建议</h2>
       <p className="text-[13px] text-[#a1a1a1] mb-5">基于 AI360 三维实测评分，按典型需求给出推荐</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
@@ -116,7 +116,7 @@ export default function SelectionGuideProto7({
             </span>
             {rec.skill ? (
               <Link href={`/skill/${rec.skill.slug}`} className="block group">
-                <div className="text-[14px] font-semibold text-[#1A1A1A] group-hover:text-[#1c1a18] transition mb-1.5">
+                <div className="text-[14px] font-semibold text-[#2a2724] group-hover:text-[#1c1a18] transition mb-1.5">
                   {rec.skill.name}
                 </div>
                 <p className="text-[12px] text-[#656360] leading-[1.6]">{rec.why}</p>

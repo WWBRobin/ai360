@@ -240,13 +240,13 @@ function CompareTable({ selected }: { selected: SkillDetail[] }) {
             <tbody>
               {/* 表头：Skill 名 */}
               <tr>
-                <th className="sticky left-0 z-10 bg-[#f4f1ed] w-[170px] min-w-[170px] align-bottom text-left p-3.5 text-[12px] font-semibold text-[#000] uppercase tracking-wide border-b border-[#f0f0f0]">
+                <th className="sticky left-0 z-10 bg-[#f4f1ed] w-[170px] min-w-[170px] align-bottom text-left p-3.5 text-[12px] font-semibold text-[#000] uppercase tracking-wide border-b border-[#e3e0dd]">
                   维度
                 </th>
                 {selected.map((s) => (
                   <th
                     key={s.slug}
-                    className="align-bottom text-left p-3.5 border-b border-[#f0f0f0] min-w-[200px]"
+                    className="align-bottom text-left p-3.5 border-b border-[#e3e0dd] min-w-[200px]"
                   >
                     <div className="text-[15px] font-bold text-[#000] mb-1.5">{s.name}</div>
                     <div className="flex gap-1 flex-wrap mb-1.5">
@@ -443,7 +443,7 @@ function Row({
   return (
     <tr className="transition">
       <th
-        className="sticky left-0 z-10 text-left p-3.5 border-b border-[#f0f0f0] text-[12px] font-semibold text-[#000] uppercase tracking-wide align-top whitespace-nowrap"
+        className="sticky left-0 z-10 text-left p-3.5 border-b border-[#e3e0dd] text-[12px] font-semibold text-[#000] uppercase tracking-wide align-top whitespace-nowrap"
         style={{ background: baseBg }}
       >
         {label}
@@ -453,7 +453,7 @@ function Row({
         return (
           <td
             key={s.slug}
-            className="p-3.5 border-b border-[#f0f0f0] align-top"
+            className="p-3.5 border-b border-[#e3e0dd] align-top"
             style={{
               background: isBest ? 'rgba(28, 26, 24,0.06)' : baseBg,
               color: isBest ? '#16a34a' : undefined,
@@ -528,7 +528,7 @@ function ConclusionBar({
         <p className="text-[13px] text-[#aaa] mb-5">基于多维度实测对比，按场景给出选型建议</p>
 
         {items.map((it, i) => (
-          <div key={i} className="py-4 border-b border-[#f0f0f0] last:border-b-0">
+          <div key={i} className="py-4 border-b border-[#e3e0dd] last:border-b-0">
             <div
               className="inline-flex items-center text-[12px] font-bold text-white uppercase tracking-wide mb-2 px-3 py-1 rounded-md bg-[#1c1a18]"
             >

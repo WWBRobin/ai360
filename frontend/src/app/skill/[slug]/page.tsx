@@ -313,7 +313,7 @@ export default async function SkillDetailPage({
           </Link>
         ) : null}
         <span>/</span>
-        <span className="text-[#374151]">{skill.name}</span>
+        <span className="text-[#656360]">{skill.name}</span>
       </nav>
 
       {/* 最后更新日期（SEO+GEO，显示在页面头部） */}
@@ -325,7 +325,7 @@ export default async function SkillDetailPage({
 
       {/* 60字结论段（SEO 摘要，tagline 作为结论） */}
       {skill.tagline && (
-        <p className="text-[15px] text-[#374151] leading-[1.7] mb-5 font-medium">
+        <p className="text-[15px] text-[#656360] leading-[1.7] mb-5 font-medium">
           {skill.tagline}
         </p>
       )}
@@ -345,7 +345,7 @@ export default async function SkillDetailPage({
                   <span>{skill.name.charAt(0).toUpperCase()}</span>
                 )}
               </div>
-              <h1 className="text-[22px] md:text-[26px] font-bold text-[#1A1A1A] leading-tight">
+              <h1 className="text-[22px] md:text-[26px] font-bold text-[#2a2724] leading-tight">
                 {skill.name}
               </h1>
             </div>
