@@ -4,10 +4,10 @@ import SubscribeForm from '@/components/SubscribeForm'
 
 export const metadata: Metadata = {
   title: '订阅周报',
-  description: '订阅 AI360 周报，每周收到最新的 Skill 评测 + 行业动态。',
+  description: '订阅 ArcDock 周报，每周收到最新的 Skill 评测 + 行业动态。',
   alternates: { canonical: '/subscribe' },
   openGraph: {
-    title: '订阅 AI360 周报',
+    title: '订阅 ArcDock 周报',
     description: '每周收到最新的 Skill 评测 + 行业动态。',
   },
 }
@@ -20,7 +20,7 @@ export default function SubscribePage() {
         <div className="text-center mb-8">
           <div className="text-5xl mb-4">📬</div>
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-            订阅 AI360 周报
+            订阅 ArcDock 周报
           </h1>
           <p className="text-gray-500 text-lg">
             每周收到最新的 Skill 评测 + 行业动态

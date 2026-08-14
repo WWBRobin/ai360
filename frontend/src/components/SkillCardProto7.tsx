@@ -51,7 +51,7 @@ export default function SkillCardProto7({ skill }: { skill: SkillCard }) {
       <div className="flex flex-wrap gap-1.5 mb-3">
         {skill.category === 'infrastructure' && <span className="tag tag-free">装机必备</span>}
         {skill.api_supported && <span className="tag tag-official">官方 API</span>}
-        {hasEval && <span className="tag tag-tested">AI360 实测</span>}
+        {hasEval && <span className="tag tag-tested">ArcDock 实测</span>}
         {skill.free_quota && <span className="tag tag-free">免费</span>}
       </div>
 

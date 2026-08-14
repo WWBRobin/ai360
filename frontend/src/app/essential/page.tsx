@@ -11,10 +11,10 @@ export const metadata: Metadata = {
   title: 'AI Agent 装机必备',
   description:
     '选择你的 AI Agent，3 分钟配齐核心能力。交互式装机向导，个性化推荐，一键安装命令。',
-  keywords: ['AI Agent', '装机必备', 'MCP', '记忆增强', '联网搜索', '装机向导', 'AI360'],
+  keywords: ['AI Agent', '装机必备', 'MCP', '记忆增强', '联网搜索', '装机向导', 'ArcDock'],
   alternates: { canonical: '/essential' },
   openGraph: {
-    title: 'AI Agent 装机向导 · AI360',
+    title: 'AI Agent 装机向导 · ArcDock',
     description: '选择你的 AI Agent，3 分钟配齐核心能力。',
     type: 'website',
   },

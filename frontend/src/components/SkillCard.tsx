@@ -76,7 +76,7 @@ export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
 
       {/* 标签 */}
       <div className="flex flex-wrap gap-1.5 mb-3">
-        {hasEval && <span className="tag tag-tested">AI360 实测</span>}
+        {hasEval && <span className="tag tag-tested">ArcDock 实测</span>}
         {!hasEval && <span className="tag" style={{ background: 'var(--bg2)', color: 'var(--fg3)' }}>收录未评测</span>}
         {skill.category === 'infrastructure' && <span className="tag tag-mcp">装机必备</span>}
         {skill.api_supported && <span className="tag tag-official">官方 API</span>}

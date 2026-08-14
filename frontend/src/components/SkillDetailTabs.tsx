@@ -118,10 +118,10 @@ function OverviewTab({
 }) {
   return (
     <div className="space-y-8">
-      {/* AI360 五问评测 */}
+      {/* ArcDock 五问评测 */}
       <section id="overview">
         <h2 className="text-[17px] font-bold text-[var(--fg)] mb-4 flex items-center gap-2">
-          📋 AI360 五问评测
+          📋 ArcDock 五问评测
           <span className="text-xs font-normal text-[var(--fg3)]">
             {evaluatedDate ? `实测结论 · ${evaluatedDate} 更新` : '实测结论'}
           </span>
@@ -477,7 +477,7 @@ function TutorialTab({ skill }: { skill: SkillDetail }) {
           {skill.description && ` ${skill.description}`}
         </p>
         <span className="inline-flex items-center mt-2 ml-8 text-xs font-semibold text-[var(--green)] bg-[var(--green-bg)] px-2.5 py-1 rounded-md">
-          AI360 实测推荐
+          ArcDock 实测推荐
         </span>
       </div>
 
@@ -533,7 +533,7 @@ function ReviewsTab({ skill }: { skill: SkillDetail }) {
         <div className="content-card p-8 text-center">
           <span className="text-3xl">📝</span>
           <p className="text-sm text-[var(--fg2)] mt-3">
-            评价系统即将上线。目前可通过 AI360 五问评测了解本工具的实测表现。
+            评价系统即将上线。目前可通过 ArcDock 五问评测了解本工具的实测表现。
           </p>
           {skill.evaluation_method && (
             <p className="text-xs text-[var(--fg3)] mt-2">

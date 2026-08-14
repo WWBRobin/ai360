@@ -5,7 +5,7 @@ import Link from 'next/link'
 import type { SkillCard } from '@/types'
 
 /**
- * AI360 装机向导 — "导师"定位
+ * ArcDock 装机向导 — "导师"定位
  * 核心：选Agent → 个性化清单 → 装完第一件事（验证引导）→ 踩坑预警
  */
 

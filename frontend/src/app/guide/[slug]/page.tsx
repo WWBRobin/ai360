@@ -19,10 +19,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params
   const article = getArticle(slug)
-  if (!article) return { title: '未找到文章 | AI360' }
+  if (!article) return { title: '未找到文章 | ArcDock' }
 
   return {
-    title: `${article.title} | AI360`,
+    title: `${article.title} | ArcDock`,
     description: article.summary,
     openGraph: {
       title: article.title,

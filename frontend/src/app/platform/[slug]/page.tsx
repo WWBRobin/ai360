@@ -66,8 +66,8 @@ export async function generateMetadata({
     title,
     description,
     alternates: { canonical: `/platform/${slug}` },
-    openGraph: { title: `${title} · AI360`, description, type: 'website' },
-    twitter: { card: 'summary_large_image', title: `${title} · AI360`, description },
+    openGraph: { title: `${title} · ArcDock`, description, type: 'website' },
+    twitter: { card: 'summary_large_image', title: `${title} · ArcDock`, description },
   }
 }
 
@@ -241,7 +241,7 @@ function PlatformHero({
         {/* stats */}
         <div className="flex gap-7 pt-3 border-t border-[var(--border)]">
           <Stat label="工具总数" value={String(totalCount)} />
-          <Stat label="AI360 实测" value={String(testedCount)} />
+          <Stat label="ArcDock 实测" value={String(testedCount)} />
           {avgScore != null && (
             <Stat label="平均得分" value={avgScore.toFixed(1)} highlight />
           )}

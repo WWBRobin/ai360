@@ -410,7 +410,7 @@ function CompareTable({ selected }: { selected: SkillDetail[] }) {
           </table>
         </div>
       </div>
-      <p className="text-[12px] text-[var(--fg3)] mt-3">数据基于 AI360 实测。胜出项以金色高亮 + ⬆ 标注。</p>
+      <p className="text-[12px] text-[var(--fg3)] mt-3">数据基于 ArcDock 实测。胜出项以金色高亮 + ⬆ 标注。</p>
 
       {/* 结论区（content-card + 金顶条） */}
       <ConclusionBar
@@ -517,7 +517,7 @@ function ConclusionBar({
   return (
     <section className="mt-8">
       <h2 className="text-[17px] font-bold text-[var(--fg)] mb-4 flex items-center gap-2">
-        AI360 评测结论 <span className="text-[12px] text-[var(--fg3)] font-normal">实测推荐</span>
+        ArcDock 评测结论 <span className="text-[12px] text-[var(--fg3)] font-normal">实测推荐</span>
       </h2>
       <div className="content-card p-7 relative overflow-hidden">
         {/* 金色顶条 */}

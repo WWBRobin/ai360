@@ -6,7 +6,7 @@ import AppSidebar from '@/components/AppSidebar'
 import type { SkillCard } from '@/types'
 
 /**
- * AI360 首页 — 功能页（筛选全在当前页，不跳转）
+ * ArcDock 首页 — 功能页（筛选全在当前页，不跳转）
  */
 
 const TYPES = ['全部', 'Skill', '工具', 'MCP']
@@ -175,7 +175,7 @@ export default function HomePortal({
                 </div>
                 <p className="text-[13px] text-[var(--fg2)] mb-2 leading-relaxed line-clamp-2">{skill.tagline}</p>
                 <div className="flex items-center gap-2 flex-wrap mb-2">
-                  {skill.overall_score && <span className="tag tag-tested">AI360 实测</span>}
+                  {skill.overall_score && <span className="tag tag-tested">ArcDock 实测</span>}
                   {!skill.overall_score && <span className="tag" style={{ background: 'var(--bg2)', color: 'var(--fg3)' }}>收录未评测</span>}
                   {skill.free_quota && <span className="tag tag-free">免费</span>}
                 </div>

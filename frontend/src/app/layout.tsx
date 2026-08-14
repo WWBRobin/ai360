@@ -4,6 +4,7 @@ import './globals.css'
 import MobileNav from '@/components/MobileNav'
 import TopNavTabs from '@/components/TopNavTabs'
 import ThemeToggle from '@/components/ThemeToggle'
+import AuthButton from '@/components/AuthButton'
 
 // 站点根域名。生产部署到 vokki.cn；可用 NEXT_PUBLIC_SITE_URL 覆盖（如预览部署）。
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://tools.vokki.cn'
@@ -11,8 +12,8 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://tools.vokki.cn'
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'AI360 — AI Agent 时代的 360',
-    template: '%s · AI360',
+    default: 'ArcDock — AI Agent 时代的 360',
+    template: '%s · ArcDock',
   },
   description:
     '发现好工具 · 判断哪个好 · 基础工具一次配齐。AI Skill 独立第三方评测聚合平台。',
@@ -25,19 +26,19 @@ export const metadata: Metadata = {
     'Claude Skills',
     'GPTs',
   ],
-  applicationName: 'AI360',
-  authors: [{ name: 'AI360' }],
-  creator: 'AI360',
-  publisher: 'AI360',
+  applicationName: 'ArcDock',
+  authors: [{ name: 'ArcDock' }],
+  creator: 'ArcDock',
+  publisher: 'ArcDock',
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'AI360 — AI Agent 时代的 360',
+    title: 'ArcDock — AI Agent 时代的 360',
     description:
       '发现好工具 · 判断哪个好 · 基础工具一次配齐。AI Skill 独立第三方评测聚合平台。',
     url: SITE_URL,
-    siteName: 'AI360',
+    siteName: 'ArcDock',
     locale: 'zh_CN',
     type: 'website',
     images: [
@@ -45,13 +46,13 @@ export const metadata: Metadata = {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'AI360 — AI Skill 独立第三方评测聚合平台',
+        alt: 'ArcDock — AI Skill 独立第三方评测聚合平台',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI360 — AI Agent 时代的 360',
+    title: 'ArcDock — AI Agent 时代的 360',
     description:
       '发现好工具 · 判断哪个好 · 基础工具一次配齐。AI Skill 独立第三方评测聚合平台。',
     images: ['/og-image.png'],
@@ -78,7 +79,7 @@ const jsonLd = {
       '@type': 'WebSite',
       '@id': `${SITE_URL}/#website`,
       url: SITE_URL,
-      name: 'AI360',
+      name: 'ArcDock',
       description: 'AI Agent 时代的 360 — AI Skill 独立第三方评测聚合平台',
       inLanguage: 'zh-CN',
       publisher: { '@id': `${SITE_URL}/#organization` },
@@ -86,7 +87,7 @@ const jsonLd = {
     {
       '@type': 'Organization',
       '@id': `${SITE_URL}/#organization`,
-      name: 'AI360',
+      name: 'ArcDock',
       url: SITE_URL,
       slogan: 'AI Agent 时代的 360',
       description:
@@ -117,9 +118,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <nav className="sticky top-0 z-50 bg-[var(--bg)] border-b border-[var(--border)]">
           {/* 第一行 */}
           <div className="page-wrapper flex items-center h-16 px-4 sm:px-6 lg:px-8 gap-4">
-            <Link href="/" className="flex items-center gap-2 shrink-0">
-              <span className="w-3 h-3 rounded-full bg-[var(--primary)]"></span>
-              <span className="font-semibold text-[18px] text-[var(--fg)] tracking-tight">AI360</span>
+            <Link href="/" className="flex items-center gap-2.5 shrink-0">
+              <img src="/logo-light.png" alt="ArcDock" className="h-10 w-auto dark:hidden" />
+              <img src="/logo-dark.png" alt="ArcDock" className="h-10 w-auto hidden dark:block" />
+              <span className="flex flex-col leading-none">
+                <span className="font-semibold text-[18px] text-[var(--fg)] tracking-tight">ArcDock</span>
+                <span className="text-[12px] text-[var(--fg3)] mt-1 ml-1">弧光万象</span>
+              </span>
             </Link>
             <form action="/search" className="ml-auto max-w-md w-full">
               <input
@@ -131,7 +136,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </form>
             <div className="flex items-center gap-2 shrink-0">
               <ThemeToggle />
-              <div className="w-9 h-9 rounded-full bg-[var(--primary)] flex items-center justify-center text-[var(--on-primary)] text-[15px] font-bold shrink-0">W</div>
+              <AuthButton />
             </div>
           </div>
           {/* 第二行：导航 Tab */}
@@ -150,7 +155,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {/* 品牌 + slogan — 跨两列 */}
               <div className="col-span-2">
                 <Link href="/" className="inline-flex items-center gap-2 mb-3">
-                  <span className="text-white font-bold text-lg">AI360</span>
+                  <span className="text-white font-bold text-lg">ArcDock</span>
                 </Link>
                 <p className="text-sm leading-relaxed max-w-xs">
                   AI 工具独立评测平台。发现好工具，判断哪个好，基础工具一次配齐。
@@ -202,7 +207,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
 
             <div className="border-t border-gray-800 pt-6 flex flex-wrap items-center justify-between gap-3 text-xs text-gray-500">
-              <span>© 2026 AI360 · vokki.cn · 独立评测 · 不收上架费</span>
+              <span>© 2026 ArcDock · vokki.cn · 独立评测 · 不收上架费</span>
               <span className="flex items-center gap-2">
                 <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
                 数据每日更新 · 更新于 2026-08-13

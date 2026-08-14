@@ -27,7 +27,7 @@ export async function generateMetadata({
     title,
     description,
     alternates: { canonical: `/learn/tool/${platform}` },
-    openGraph: { title: `${title} · AI360`, description, type: 'website' },
+    openGraph: { title: `${title} · ArcDock`, description, type: 'website' },
   }
 }
 

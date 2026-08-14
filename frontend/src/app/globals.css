@@ -1,6 +1,7 @@
 @import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
 
-/* ===== AI360 设计令牌 — mcp.so 双模式（浅色暖中性 / 暗色纯黑）===== */
+/* ===== ArcDock 设计令牌 — mcp.so 双模式（浅色暖中性 / 暗色纯黑）===== */
 :root {
   --bg: #f9f7f4;
   --card: #fcfbf9;
@@ -50,7 +51,7 @@
   --blue-bg: rgba(96,165,250,0.12);
 }
 
-/* ===== AI360 全局样式 ===== */
+/* ===== ArcDock 全局样式 ===== */
 body {
   font-family: -apple-system, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
   background: var(--bg);

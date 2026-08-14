@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     '闯关式 AI 学习路径。按工具学（Hermes/扣子/Claude/GPTs）或按场景学（写文章/搭Agent/自动化/数据分析），每完成一步解锁下一步。',
   alternates: { canonical: '/learn' },
   openGraph: {
-    title: '学习中心 · AI360',
+    title: '学习中心 · ArcDock',
     description: '闯关式 AI 学习路径 — 按工具学 / 按场景学',
     type: 'website',
   },

@@ -45,7 +45,7 @@ export default async function ComparePage({
         </nav>
         <h1 className="text-[28px] font-bold text-[var(--fg)] leading-tight">Skill 对比</h1>
         <p className="text-[15px] text-[var(--fg3)] mt-1.5">
-          已选 {selected.length} 个工具 · 可添加至 3 个 · 数据基于 AI360 实测
+          已选 {selected.length} 个工具 · 可添加至 3 个 · 数据基于 ArcDock 实测
         </p>
       </div>
 

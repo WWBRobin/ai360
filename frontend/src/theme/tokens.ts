@@ -1,4 +1,4 @@
-/** AI360 设计令牌 — mcp.so 暖中性色系（基础版） */
+/** ArcDock 设计令牌 — mcp.so 暖中性色系（基础版） */
 export const tokens = {
   colors: {
     primary: '#1c1a18',

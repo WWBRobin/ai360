@@ -10,8 +10,8 @@ import type { MetadataRoute } from 'next'
  */
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'AI360 — AI Agent 时代的 360',
-    short_name: 'AI360',
+    name: 'ArcDock — AI Agent 时代的 360',
+    short_name: 'ArcDock',
     description:
       '发现好工具 · 判断哪个好 · 基础工具一次配齐。AI Skill 独立第三方评测聚合平台。',
     start_url: '/',
@@ -21,9 +21,14 @@ export default function manifest(): MetadataRoute.Manifest {
     lang: 'zh-CN',
     icons: [
       {
-        src: '/favicon.ico',
-        sizes: 'any',
-        type: 'image/x-icon',
+        src: '/icon.png',
+        sizes: '512x512',
+        type: 'image/png',
+      },
+      {
+        src: '/apple-icon.png',
+        sizes: '48x48',
+        type: 'image/png',
       },
     ],
     categories: ['productivity', 'utilities'],

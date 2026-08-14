@@ -101,7 +101,7 @@ export default function SelectionGuideProto7({
   return (
     <section className="content-card mt-10 p-7">
       <h2 className="text-[18px] font-bold text-[var(--fg)] mb-1.5">{scenarioName}场景 · 选型建议</h2>
-      <p className="text-[13px] text-[var(--fg3)] mb-5">基于 AI360 三维实测评分，按典型需求给出推荐</p>
+      <p className="text-[13px] text-[var(--fg3)] mb-5">基于 ArcDock 三维实测评分，按典型需求给出推荐</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
         {recs.map((rec) => (

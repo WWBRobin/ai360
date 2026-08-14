@@ -4,7 +4,7 @@ import AppSidebar from '@/components/AppSidebar'
 import { GuideList } from './GuideList'
 
 export const metadata: Metadata = {
-  title: '深度指南 — AI 全站文章索引 | AI360',
+  title: '深度指南 — AI 全站文章索引 | ArcDock',
   description:
     'AI 入门教程、工具横评、编程/办公/学习/安全全场景实战指南。从装机必备到行业应用，一篇覆盖你需要的全部 AI 知识。',
 }
