@@ -14,6 +14,7 @@ const TABS = [
   { label: '深度横评', href: '/guide', match: (p: string) => p.startsWith('/guide') },
   { label: '工具对比', href: '/compare', match: (p: string) => p.startsWith('/compare') },
   { label: '学习中心', href: '/learn', match: (p: string) => p.startsWith('/learn') },
+  { label: '资讯', href: '/news', match: (p: string) => p.startsWith('/news') },
 ]
 
 export default function TopNavTabs() {
@@ -28,6 +29,9 @@ export default function TopNavTabs() {
             <Link
               key={tab.href}
               href={tab.href}
+              // Next 16: 动态路由默认跳过 prefetch（仅静态路由自动全量预取）。
+              // 本站关键 tab（/essential、/compare 等）多为动态路由，显式开启全量 prefetch。
+              prefetch={true}
               className={`relative inline-flex h-11 shrink-0 items-center px-4 text-sm font-medium whitespace-nowrap transition ${
                 active ? 'text-[var(--primary)]' : 'text-[var(--fg2)] hover:text-[var(--fg)]'
               }`}

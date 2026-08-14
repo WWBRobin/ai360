@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { getFeaturedSkills, getPlatforms, getScenarios } from '@/lib/supabase'
+import { getPublishedNewsSlugs } from '@/app/news/queries'
 
 // 站点根域名。生产部署到 vokki.cn；可用 NEXT_PUBLIC_SITE_URL 覆盖。
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://tools.vokki.cn'
@@ -36,13 +37,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly',
       priority: 0.9,
     },
+    {
+      url: `${SITE_URL}/news`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.8,
+    },
   ]
 
   // 并行拉取动态数据；任一失败返回空，不影响其余页面
-  const [skills, platforms, scenarios] = await Promise.all([
+  const [skills, platforms, scenarios, newsSlugs] = await Promise.all([
     getFeaturedSkills(1000).catch(() => []),
     getPlatforms().catch(() => []),
     getScenarios().catch(() => []),
+    getPublishedNewsSlugs().catch(() => []),
   ])
 
   // Skill 详情页
@@ -75,5 +83,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     }))
 
-  return [...staticEntries, ...skillEntries, ...scenarioEntries, ...platformEntries]
+  // 新闻详情页（content pipeline 已发布的资讯）
+  const newsEntries: MetadataRoute.Sitemap = newsSlugs
+    .filter((n) => n.slug)
+    .map((n) => ({
+      url: `${SITE_URL}/news/${n.slug}`,
+      lastModified: n.published_at ? new Date(n.published_at) : now,
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    }))
+
+  return [...staticEntries, ...skillEntries, ...scenarioEntries, ...platformEntries, ...newsEntries]
 }
