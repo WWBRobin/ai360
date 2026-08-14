@@ -62,7 +62,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <div className="px-3 mb-2">
       <span
-        className="text-[11px] font-medium text-[var(--fg3)] uppercase"
+        className="text-xs font-semibold text-[var(--fg3)] uppercase tracking-wider"
         style={{ letterSpacing: '0.05em' }}
       >
         {children}
@@ -106,7 +106,7 @@ function NavLink({
     >
       <span className="flex-1">{label}</span>
       {count !== undefined && (
-        <span className="text-[13px]" style={{ color: active ? 'var(--primary)' : 'var(--fg3)' }}>
+        <span className="text-xs tabular-nums" style={{ color: active ? 'var(--primary)' : 'var(--fg3)' }}>
           {count}
         </span>
       )}
@@ -203,7 +203,7 @@ function HomeSidebar() {
       <div className="mb-1">
         <div className="flex items-center justify-between mb-2 px-3">
           <span
-            className="text-[11px] font-medium text-[var(--fg3)] uppercase"
+            className="text-xs font-semibold text-[var(--fg3)] uppercase tracking-wider"
             style={{ letterSpacing: '0.05em' }}
           >
             平台
@@ -237,7 +237,7 @@ function HomeSidebar() {
               }}
             >
               <span
-                className="w-5 h-5 rounded-full flex items-center justify-center overflow-hidden shrink-0"
+                className="w-4 h-4 rounded-full flex items-center justify-center overflow-hidden shrink-0"
               >
                 {p.logo ? (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -257,7 +257,7 @@ function HomeSidebar() {
               >
                 {p.name}
               </span>
-              <span className="text-[13px]" style={{ color: isSelected ? 'var(--primary)' : 'var(--fg3)' }}>
+              <span className="text-xs tabular-nums" style={{ color: isSelected ? 'var(--primary)' : 'var(--fg3)' }}>
                 {p.count}
               </span>
             </button>
@@ -612,7 +612,7 @@ function PlatformSidebar({ pathname }: { pathname: string }) {
                 }}
               >
                 <span
-                  className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold text-[var(--fg3)]"
+                  className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold text-[var(--fg3)]"
                   style={{ background: 'transparent', border: '1px solid var(--border)' }}
                 >
                   {p.name[0]}
@@ -623,7 +623,7 @@ function PlatformSidebar({ pathname }: { pathname: string }) {
                 >
                   {p.name}
                 </span>
-                <span className="text-[13px]" style={{ color: active ? 'var(--primary)' : 'var(--fg3)' }}>
+                <span className="text-xs tabular-nums" style={{ color: active ? 'var(--primary)' : 'var(--fg3)' }}>
                   {p.count}
                 </span>
               </Link>
