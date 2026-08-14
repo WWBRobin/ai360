@@ -58,7 +58,7 @@ export default async function EssentialPage({
 
       <main className="flex-1 min-w-0 relative">
         {isListMode ? (
-          <div className="px-6 md:px-10 py-7">
+          <div className="px-6 md:px-10 py-10">
             <div className="mb-6">
               <h1 className="text-[18px] font-bold text-[#1F2937] mb-1">装机必备工具</h1>
               <Link href="/essential" className="text-[13px] text-[#FF8C00] hover:underline">← 返回装机向导</Link>

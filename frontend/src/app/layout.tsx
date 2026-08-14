@@ -114,7 +114,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <span className="w-3 h-3 rounded-full bg-[#FF8C00]"></span>
               <span className="font-bold text-[18px] text-[#1F2937] tracking-tight">AI360</span>
             </Link>
-            <form action="/search" className="flex-1 max-w-md mx-auto">
+            <form action="/search" className="ml-auto max-w-md w-full">
               <input
                 type="text"
                 name="q"

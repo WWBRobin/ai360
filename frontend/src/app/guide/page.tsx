@@ -17,7 +17,7 @@ export default function GuideIndexPage() {
       <AppSidebar />
       <main className="flex-1 min-w-0 relative z-10">
         {/* 页头 */}
-        <div className="px-8 pt-8 pb-2">
+        <div className="px-8 pt-10 pb-2">
           <h1 className="text-[26px] font-bold text-[#000] mb-2.5" style={{ letterSpacing: '-0.4px' }}>
             深度评测
           </h1>

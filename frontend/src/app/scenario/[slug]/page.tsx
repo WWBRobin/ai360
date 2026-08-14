@@ -150,7 +150,7 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
     return (
       <div className="page-wrapper flex min-h-screen relative">
         <AppSidebar />
-        <main className="flex-1 min-w-0 relative z-10 px-8 py-7">
+        <main className="flex-1 min-w-0 relative z-10 px-8 py-10">
           <nav className="text-[12px] text-[#9CA3AF] mb-3.5">
             <Link href="/" className="hover:text-[#FF8C00]">首页</Link>
             <span> / </span>
@@ -185,7 +185,7 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
     <div className="page-wrapper flex min-h-screen relative">
       <AppSidebar />
 
-      <main className="flex-1 min-w-0 relative z-10 px-8 py-7 max-w-[1080px]">
+      <main className="flex-1 min-w-0 relative z-10 px-8 py-10 max-w-[1080px]">
         {/* 面包屑 */}
         <nav className="text-[12px] text-[#9CA3AF] mb-3.5">
           <Link href="/" className="hover:text-[#FF8C00]">首页</Link>

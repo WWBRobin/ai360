@@ -216,7 +216,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     return (
       <div className="page-wrapper flex min-h-screen">
         <aside className="w-[220px] shrink-0 hidden lg:block sticky top-[108px] self-start"><div className="p-4 text-[13px] text-[#9CA3AF]">使用顶部筛选条件搜索</div></aside>
-        <main className="flex-1 px-8 py-8">
+        <main className="flex-1 px-8 py-10">
           <h1 className="text-[20px] font-bold mb-2">搜索出错了</h1>
           <p className="text-[14px] text-[#9CA3AF]">错误信息: {String(err).substring(0, 200)}</p>
           <p className="text-[14px] text-[#9CA3AF] mt-2">请稍后重试，或<a href="/" className="text-[#FF8C00]">返回首页</a></p>

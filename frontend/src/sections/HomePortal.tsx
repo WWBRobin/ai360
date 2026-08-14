@@ -81,7 +81,7 @@ export default function HomePortal({
     <div className="page-wrapper flex">
       <AppSidebar />
 
-      <main className="flex-1 min-w-0 px-6 md:px-10 py-6">
+      <main className="flex-1 min-w-0 px-6 md:px-10 py-10">
         {/* 定位 */}
         <div className="pb-2">
           <h1 className="text-[18px] font-bold text-[#1F2937] mb-1">发现最适合你的 AI 工具</h1>
