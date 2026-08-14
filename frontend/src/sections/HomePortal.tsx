@@ -78,15 +78,17 @@ export default function HomePortal({
   const displayedSkills = filteredSkills.slice(0, showCount)
 
   return (
-    <div className="page-wrapper flex">
+    <div className="page-wrapper">
+      {/* 标题区 — 横跨全宽，对标 mcp.so */}
+      <div className="px-6 md:px-10 pt-10 pb-4">
+        <h1 className="text-[28px] font-bold text-[#1F2937] leading-tight">发现最适合你的 AI 工具</h1>
+        <p className="text-[15px] text-[#9CA3AF] mt-1.5">{totalCount} 个工具 · {platformCount} 个平台 · 独立评测</p>
+      </div>
+      {/* 双栏 */}
+      <div className="flex">
       <AppSidebar />
 
-      <main className="flex-1 min-w-0 px-6 md:px-10 py-10">
-        {/* 定位 */}
-        <div className="pb-2">
-          <h1 className="text-[18px] font-bold text-[#1F2937] mb-1">发现最适合你的 AI 工具</h1>
-          <p className="text-[13px] text-[#9CA3AF]">{totalCount} 个工具 · {platformCount} 个平台 · 独立评测</p>
-        </div>
+      <main className="flex-1 min-w-0 px-6 md:px-10 pb-10">
 
         {/* 场景筛选 — 当前页筛选不跳转 */}
         <div className="flex items-center gap-2 py-3 border-b border-[#F0F0F0] overflow-x-auto scrollbar-hide">
@@ -207,6 +209,7 @@ export default function HomePortal({
           </div>
         </div>
       </main>
+      </div>
     </div>
   )
 }
