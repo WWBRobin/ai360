@@ -93,8 +93,16 @@ export default function HomePortal({
     [skills, platformFilter]
   )
 
-  // 场景计数：基于平台过滤后的基础集实时计算（数字与实际筛选结果严格一致）
-  const sceneCount = (slug: string) => slug === 'all' ? platformSkills.length : platformSkills.filter(s => s.scenario_slugs?.includes(slug)).length
+  // 类型过滤后的集合（场景计数基于此——上层筛选影响下层数字）
+  const typeFiltered = useMemo(() => {
+    if (activeType === 'all') return platformSkills
+    if (activeType === 'MCP') return platformSkills.filter(isMcpSkill)
+    if (activeType === '工具') return platformSkills.filter(isToolSkill)
+    return platformSkills.filter(s => !isMcpSkill(s) && !isToolSkill(s))
+  }, [platformSkills, activeType])
+
+  // 场景计数：基于平台+类型过滤后的集合实时计算（数字与实际筛选结果严格一致）
+  const sceneCount = (slug: string) => slug === 'all' ? typeFiltered.length : typeFiltered.filter(s => s.scenario_slugs?.includes(slug)).length
   const SCENES = [
     { slug: 'all', name: '全部', count: sceneCount('all') },
     { slug: 'content-creation', name: '写作创作', count: sceneCount('content-creation') },
@@ -166,29 +174,8 @@ export default function HomePortal({
 
       <main className="flex-1 min-w-0 pb-10">
 
-        {/* 场景筛选 — mcp 下划线激活风格 */}
-        <div className="flex items-center gap-6 py-1 border-b border-[var(--border)] overflow-x-auto scrollbar-hide">
-          {SCENES.map(s => (
-            <button
-              key={s.slug}
-              onClick={() => setActiveScene(s.slug)}
-              className={`relative inline-flex h-11 shrink-0 items-center px-1 text-sm font-medium whitespace-nowrap transition ${
-                activeScene === s.slug
-                  ? 'text-[var(--fg)]'
-                  : 'text-[var(--fg3)] hover:text-[var(--fg)]'
-              }`}
-            >
-              {s.name}
-              <span className="ml-1.5 text-[11px] text-[var(--fg3)]">{s.count}</span>
-              {activeScene === s.slug && (
-                <span className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-[var(--primary)]" aria-hidden="true" />
-              )}
-            </button>
-          ))}
-        </div>
-
-        {/* 类型Tab + 排序 — mcp 下划线风格 */}
-        <div className="flex items-center gap-6 py-1">
+        {/* 类型Tab + 排序 — 第一行（先选形态再选场景） */}
+        <div className="flex items-center gap-6 py-1 border-b border-[var(--border)]">
           {TYPES.map(t => {
             const isActive = (t === '全部' && activeType === 'all') || activeType === t
             return (
@@ -231,6 +218,27 @@ export default function HomePortal({
               <option value="name">名称排序</option>
             </select>
           </div>
+        </div>
+
+        {/* 场景筛选 — 第二行（先形态后场景） */}
+        <div className="flex items-center gap-6 py-1 overflow-x-auto scrollbar-hide">
+          {SCENES.map(s => (
+            <button
+              key={s.slug}
+              onClick={() => setActiveScene(s.slug)}
+              className={`relative inline-flex h-10 shrink-0 items-center px-1 text-sm font-medium whitespace-nowrap transition ${
+                activeScene === s.slug
+                  ? 'text-[var(--fg)]'
+                  : 'text-[var(--fg3)] hover:text-[var(--fg)]'
+              }`}
+            >
+              {s.name}
+              <span className="ml-1.5 text-[11px] text-[var(--fg3)]">{s.count}</span>
+              {activeScene === s.slug && (
+                <span className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-[var(--primary)]" aria-hidden="true" />
+              )}
+            </button>
+          ))}
         </div>
 
         {/* 工具卡片网格 — 动态渲染筛选结果 */}
