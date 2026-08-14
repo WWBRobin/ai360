@@ -237,7 +237,7 @@ function EvalCard({
   return (
     <div className="content-card p-5">
       <div className="flex items-center gap-2.5 mb-2">
-        <span className="w-6 h-6 rounded-full bg-[var(--primary)] text-white text-xs font-bold flex items-center justify-center shrink-0">
+        <span className="w-6 h-6 rounded-full bg-[var(--primary)] text-[var(--on-primary)] text-xs font-bold flex items-center justify-center shrink-0">
           {num}
         </span>
         <span className="text-[15px] font-semibold text-[var(--fg)]">{question}</span>
@@ -449,7 +449,7 @@ function StepCard({
 
   return (
     <div className="content-card p-5">
-      <div className="w-9 h-9 rounded-full bg-[var(--primary)] text-white text-base font-bold flex items-center justify-center mb-3.5 shadow-[0_4px_10px_rgba(var(--dim-rgb),0.28)]">
+      <div className="w-9 h-9 rounded-full bg-[var(--primary)] text-[var(--on-primary)] text-base font-bold flex items-center justify-center mb-3.5 shadow-[0_4px_10px_rgba(var(--dim-rgb),0.28)]">
         {num}
       </div>
       <h3 className="text-[15px] font-bold text-[var(--fg)] mb-2">{title}</h3>
@@ -467,7 +467,7 @@ function TutorialTab({ skill }: { skill: SkillDetail }) {
       {/* 使用技巧 */}
       <div className="content-card p-5">
         <div className="flex items-center gap-2.5 mb-2">
-          <span className="w-6 h-6 rounded-full bg-[var(--primary)] text-white text-xs font-bold flex items-center justify-center shrink-0">
+          <span className="w-6 h-6 rounded-full bg-[var(--primary)] text-[var(--on-primary)] text-xs font-bold flex items-center justify-center shrink-0">
             ★
           </span>
           <span className="text-[15px] font-semibold text-[var(--fg)]">使用技巧</span>
@@ -485,7 +485,7 @@ function TutorialTab({ skill }: { skill: SkillDetail }) {
       {skill.guide_content && (
         <div className="content-card p-6">
           <div className="flex items-center gap-2.5 mb-3">
-            <span className="w-6 h-6 rounded-full bg-[var(--primary)] text-white text-xs font-bold flex items-center justify-center shrink-0">
+            <span className="w-6 h-6 rounded-full bg-[var(--primary)] text-[var(--on-primary)] text-xs font-bold flex items-center justify-center shrink-0">
               📖
             </span>
             <span className="text-[15px] font-semibold text-[var(--fg)]">详细指南</span>

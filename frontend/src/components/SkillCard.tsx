@@ -41,18 +41,18 @@ export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
             />
           ) : null}
           {(!skill.icon_url && !skill.platform_slug) && (
-            <span className="w-9 h-9 rounded-[10px] bg-[var(--primary)] flex items-center justify-center text-[13px] font-bold text-white shrink-0">
+            <span className="w-9 h-9 rounded-[10px] bg-[var(--primary)] flex items-center justify-center text-[13px] font-semibold text-[var(--on-primary)] shrink-0">
               {skill.name.charAt(0).toUpperCase()}
             </span>
           )}
           {/* fallback for platform logo error */}
           {!skill.icon_url && skill.platform_slug && (
-            <span className="w-9 h-9 rounded-[10px] bg-[var(--primary)] flex items-center justify-center text-[13px] font-bold text-white shrink-0" style={{ display: 'none' }}>
+            <span className="w-9 h-9 rounded-[10px] bg-[var(--primary)] flex items-center justify-center text-[13px] font-semibold text-[var(--on-primary)] shrink-0" style={{ display: 'none' }}>
               {skill.name.charAt(0).toUpperCase()}
             </span>
           )}
           <div className="min-w-0">
-            <div className="text-[15px] font-semibold text-[var(--fg)] group-hover:text-[var(--primary)] transition truncate">
+            <div className="text-[15px] font-medium text-[var(--fg)] group-hover:text-[var(--primary)] transition truncate">
               {skill.name}
             </div>
             <div className="text-[11px] text-[var(--fg3)] truncate">

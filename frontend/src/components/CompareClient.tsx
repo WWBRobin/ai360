@@ -181,7 +181,7 @@ export default function CompareClient({
                 </Link>
                 <button
                   onClick={() => removeSkill(s.slug)}
-                  className="w-4 h-4 rounded-full bg-[var(--fg4)] text-white flex items-center justify-center text-[10px] hover:bg-red-600 transition ml-1"
+                  className="w-4 h-4 rounded-full bg-[var(--fg4)] text-[var(--on-primary)] flex items-center justify-center text-[10px] hover:bg-red-600 transition ml-1"
                   aria-label={`移除 ${s.name}`}
                 >
                   ×
@@ -530,7 +530,7 @@ function ConclusionBar({
         {items.map((it, i) => (
           <div key={i} className="py-4 border-b border-[var(--border)] last:border-b-0">
             <div
-              className="inline-flex items-center text-[12px] font-bold text-white uppercase tracking-wide mb-2 px-3 py-1 rounded-md bg-[var(--primary)]"
+              className="inline-flex items-center text-[12px] font-bold text-[var(--on-primary)] uppercase tracking-wide mb-2 px-3 py-1 rounded-md bg-[var(--primary)]"
             >
               {it.label}
             </div>

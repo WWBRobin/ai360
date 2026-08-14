@@ -48,7 +48,7 @@ export default function Pagination({
 
   const btnBase =
     'inline-flex items-center justify-center min-w-[2.25rem] h-9 px-3 rounded-lg text-sm font-medium transition'
-  const btnActive = 'bg-[var(--primary)] text-white'
+  const btnActive = 'bg-[var(--primary)] text-[var(--on-primary)]'
   const btnIdle = 'bg-[var(--card)] text-[var(--fg2)] border border-[var(--border)] hover:border-[var(--primary)] hover:text-[var(--primary)]'
   const btnDisabled = 'bg-[var(--sidebar)] text-[var(--fg4)] border border-[var(--border)] cursor-not-allowed'
 

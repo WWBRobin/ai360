@@ -99,7 +99,7 @@ export default function SearchSidebar({
           <h2 className="text-sm font-bold text-gray-900 flex items-center gap-2">
             <span>🎛️ 筛选</span>
             {activeFilterCount > 0 && (
-              <span className="bg-[var(--primary)] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-medium">
+              <span className="bg-[var(--primary)] text-[var(--on-primary)] text-xs w-5 h-5 rounded-full flex items-center justify-center font-medium">
                 {activeFilterCount}
               </span>
             )}

@@ -27,7 +27,7 @@ export default function SkillCardProto7({ skill }: { skill: SkillCard }) {
       {/* 头部：图标 + 标题 + 评分 */}
       <div className="flex items-start justify-between mb-2.5">
         <div className="flex items-center gap-2.5 min-w-0">
-          <span className="w-9 h-9 rounded-[10px] bg-[var(--primary)] flex items-center justify-center text-[13px] font-bold text-white shrink-0">
+          <span className="w-9 h-9 rounded-[10px] bg-[var(--primary)] flex items-center justify-center text-[13px] font-bold text-[var(--on-primary)] shrink-0">
             {skill.name.charAt(0).toUpperCase()}
           </span>
           <div className="min-w-0">

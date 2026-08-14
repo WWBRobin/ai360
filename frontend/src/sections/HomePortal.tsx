@@ -160,17 +160,17 @@ export default function HomePortal({
                       <img src={`/platform-logos/${skill.platform_slug}.png`} alt={skill.name} loading="lazy" className="w-9 h-9 rounded-[10px] object-cover shrink-0"
                         onError={e => { e.currentTarget.style.display = 'none' }} />
                     ) : (
-                      <span className="w-9 h-9 rounded-[10px] bg-[var(--primary)] flex items-center justify-center text-[14px] font-bold text-white shrink-0">
+                      <span className="w-9 h-9 rounded-[10px] bg-[var(--primary)] flex items-center justify-center text-[14px] font-semibold text-[var(--on-primary)] shrink-0">
                         {skill.name[0]}
                       </span>
                     )}
                     <div>
-                      <div className="text-[15px] font-semibold text-[var(--fg)] group-hover:text-[var(--primary)] transition">{skill.name}</div>
+                      <div className="text-[15px] font-medium text-[var(--fg)] group-hover:text-[var(--primary)] transition">{skill.name}</div>
                       <div className="text-[11px] text-[var(--fg3)]">{skill.platform_name}</div>
                     </div>
                   </div>
                   {skill.overall_score && (
-                    <span className="text-[15px] font-bold text-[var(--primary)]">{skill.overall_score.toFixed(1)}</span>
+                    <span className="text-[15px] font-semibold text-[var(--fg2)]">{skill.overall_score.toFixed(1)}</span>
                   )}
                 </div>
                 <p className="text-[13px] text-[var(--fg2)] mb-2 leading-relaxed line-clamp-2">{skill.tagline}</p>

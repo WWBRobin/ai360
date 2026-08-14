@@ -56,7 +56,7 @@ export default function Error({
             onClick={() => retry()}
             className="
               px-6 py-2.5
-              bg-[var(--primary)] text-white
+              bg-[var(--primary)] text-[var(--on-primary)]
               font-medium text-sm
               rounded-lg
               hover:bg-[var(--fg)]

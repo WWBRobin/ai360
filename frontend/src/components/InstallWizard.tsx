@@ -196,7 +196,7 @@ export default function InstallWizard({ categories }: { categories: { label: str
                 {agent.logo ? (
                   <img src={agent.logo} alt={agent.name} className="w-10 h-10 rounded-lg object-cover" />
                 ) : (
-                  <span className="w-10 h-10 rounded-lg bg-[var(--primary)] flex items-center justify-center text-white text-[15px] font-bold">?</span>
+                  <span className="w-10 h-10 rounded-lg bg-[var(--primary)] flex items-center justify-center text-[var(--on-primary)] text-[15px] font-bold">?</span>
                 )}
                 <div>
                   <div className="text-[15px] font-semibold text-[var(--fg)] group-hover:text-[var(--primary)]">{agent.name}</div>

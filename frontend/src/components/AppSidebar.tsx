@@ -101,8 +101,8 @@ function NavLink({
           e.currentTarget.style.color = 'var(--fg)'
         }
       }}
-      className="flex items-center px-3 py-2 rounded-[6px] text-[14px] transition"
-      style={{ fontWeight: active ? 600 : 500, color: active ? 'var(--primary)' : 'var(--fg)' }}
+      className="flex items-center px-3 py-2 rounded-md text-[14px] transition"
+      style={{ fontWeight: active ? 600 : 500, color: active ? 'var(--primary)' : 'var(--fg2)', background: active ? 'rgba(var(--dim-rgb),0.08)' : 'transparent' }}
     >
       <span className="flex-1">{label}</span>
       {count !== undefined && (
@@ -1058,9 +1058,8 @@ export default function AppSidebar() {
     <aside
       suppressHydrationWarning
       className="hidden md:block w-56 shrink-0 sticky top-[108px] h-[calc(100vh-108px)] overflow-y-auto"
-      style={{ background: 'var(--sidebar)', borderRight: '1px solid var(--border)' }}
     >
-      <div className="px-3 pt-8 pb-6">
+      <div className="px-3 pb-6">
         {variant === 'home' && <HomeSidebar />}
         {variant === 'essential' && <EssentialSidebar />}
         {variant === 'guide' && <GuideSidebar />}
