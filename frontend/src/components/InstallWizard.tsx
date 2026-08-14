@@ -1,12 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import type { SkillCard } from '@/types'
 
 /**
- * ArcDock 装机向导 — "导师"定位
- * 核心：选Agent → 个性化清单 → 装完第一件事（验证引导）→ 踩坑预警
+ * ArcDock 装机向导 — 三步聚焦版
+ * Step 1: 选 Agent（唯一主路径，大标题 + 卡片居中）
+ * Step 2: 同页装机清单（顶部进度条 + 打勾计数 + 验证引导）
+ * 收底：体检 / 完整指南 / 浏览全部工具 收进底部一行小链接
  */
 
 interface Agent {
@@ -113,6 +115,12 @@ export default function InstallWizard({ categories }: { categories: { label: str
   const [copiedSlug, setCopiedSlug] = useState('')
   const [expandedVerify, setExpandedVerify] = useState<number | null>(null) // 展开验证引导
 
+  // 选中 Agent 后隐藏侧栏筛选（向导态不需要分类/难度筛选）
+  useEffect(() => {
+    document.body.classList.toggle('arcdock-wizard-active', step === 1)
+    return () => document.body.classList.remove('arcdock-wizard-active')
+  }, [step])
+
   const recommendedSkills = (() => {
     if (!selectedAgent) return []
     const allSkills = categories.flatMap(c => c.skills)
@@ -165,42 +173,45 @@ export default function InstallWizard({ categories }: { categories: { label: str
     })
   }
 
-  // === Step 0: 选择 Agent ===
+  // === 底部收底链接：体检 / 完整指南 / 浏览全部工具（降为一行小链接，不占主视觉） ===
+  const FooterLinks = () => (
+    <div className="mt-10 pt-6 border-t border-[var(--border)] flex items-center justify-center gap-3 text-[13px] text-[var(--fg3)] flex-wrap">
+      <Link href="/skill/agent-health-check" className="hover:text-[var(--primary)] transition">🏥 体检</Link>
+      <span aria-hidden className="text-[var(--fg4)]">·</span>
+      <Link href="/guide/install-guide" className="hover:text-[var(--primary)] transition">📖 完整指南</Link>
+      <span aria-hidden className="text-[var(--fg4)]">·</span>
+      <Link href="/essential?mode=list" className="hover:text-[var(--primary)] transition">📋 浏览全部工具</Link>
+    </div>
+  )
+
+  // === Step 1: 选择 Agent（初始态，唯一主路径） ===
   if (step === 0) {
     return (
-      <div className="pt-2">
-        {/* Agent 体检入口 */}
-        <div className="mb-6 p-4 rounded-xl border-2 border-[var(--primary)] bg-[rgba(var(--dim-rgb),0.04)]">
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="text-[15px] font-bold text-[var(--fg)] mb-1">🏥 Agent 体检</div>
-              <p className="text-[13px] text-[var(--fg2)]">扫描你的 Agent 配置，检测缺失能力 + 安全风险，一键生成健康报告</p>
-            </div>
-            <Link
-              href="/skill/agent-health-check"
-              className="btn-primary px-5 py-2.5 text-[14px] font-bold whitespace-nowrap shrink-0"
-            >
-              开始体检 →
-            </Link>
-          </div>
+      <div className="pt-4 pb-6">
+        <div className="text-center mb-8">
+          <h2 className="text-[24px] font-bold text-[var(--fg)] leading-tight" style={{ letterSpacing: '-0.01em' }}>
+            你平时用哪个 AI Agent？
+          </h2>
+          <p className="text-[14px] text-[var(--fg3)] mt-2">选中后给你一份专属装机清单，3 分钟配齐核心能力</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
+        <div className="max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {AGENTS.map(agent => (
             <button key={agent.id} onClick={() => { setSelectedAgent(agent); setStep(1) }}
-              className="content-card p-5 text-left group hover:border-[var(--primary)] transition">
-              <div className="flex items-center gap-3 mb-2">
+              className="content-card p-6 text-left group hover:border-[var(--primary)] transition">
+              <div className="flex items-center gap-3 mb-3">
                 {agent.logo ? (
-                  <img src={agent.logo} alt={agent.name} className="w-10 h-10 rounded-lg object-cover" />
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={agent.logo} alt={agent.name} className="w-11 h-11 rounded-lg object-cover" />
                 ) : (
-                  <span className="w-10 h-10 rounded-lg bg-[var(--primary)] flex items-center justify-center text-[var(--on-primary)] text-[15px] font-bold">?</span>
+                  <span className="w-11 h-11 rounded-lg bg-[var(--primary)] flex items-center justify-center text-[var(--on-primary)] text-[16px] font-bold">?</span>
                 )}
                 <div>
-                  <div className="text-[15px] font-semibold text-[var(--fg)] group-hover:text-[var(--primary)]">{agent.name}</div>
-                  <div className="text-[11px] text-[var(--fg3)]">{agent.desc}</div>
+                  <div className="text-[16px] font-semibold text-[var(--fg)] group-hover:text-[var(--primary)]">{agent.name}</div>
+                  <div className="text-[12px] text-[var(--fg3)]">{agent.desc}</div>
                 </div>
               </div>
-              <div className="flex flex-wrap gap-1 mt-2">
+              <div className="flex flex-wrap gap-1.5">
                 {agent.needs.map(n => (
                   <span key={n} className="text-[11px] px-2 py-0.5 rounded bg-[var(--bg2)] text-[var(--fg2)]">
                     {CAPABILITIES[n]?.icon} {CAPABILITIES[n]?.label}
@@ -211,45 +222,49 @@ export default function InstallWizard({ categories }: { categories: { label: str
           ))}
         </div>
 
-        <div className="border-t border-[var(--border)] pt-6">
-          <Link href="/essential?mode=list" className="text-[14px] text-[var(--primary)] hover:underline">
-            或者直接浏览全部工具 →
-          </Link>
-        </div>
+        <FooterLinks />
       </div>
     )
   }
 
-  // === Step 1: 装机清单 + 装完验证 ===
+  // === Step 2: 装机清单 + 装完验证 ===
   return (
-    <div className="pt-2">
-      <div className="flex items-center justify-between mb-6">
-        <button onClick={() => setStep(0)} className="text-[14px] text-[var(--fg3)] hover:text-[var(--fg)] transition">← 重新选择</button>
-        <div className="flex items-center gap-2">
-          {selectedAgent?.logo && <img src={selectedAgent.logo} alt="" className="w-6 h-6 rounded object-cover" />}
-          <span className="text-[14px] font-medium text-[var(--fg)]">{selectedAgent?.name} 装机清单</span>
+    <div className="pt-2 pb-6">
+      {/* 清单头部：步骤标识 + 换 Agent */}
+      <div className="flex items-center justify-between gap-4 mb-5">
+        <div className="flex items-center gap-3 min-w-0">
+          {selectedAgent?.logo && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={selectedAgent.logo} alt="" className="w-8 h-8 rounded-lg object-cover shrink-0" />
+          )}
+          <div className="min-w-0">
+            <h2 className="text-[18px] font-bold text-[var(--fg)] leading-tight truncate" style={{ letterSpacing: '-0.01em' }}>
+              📋 {selectedAgent?.name} 装机清单
+            </h2>
+            <div className="text-[12px] text-[var(--fg3)] mt-0.5">第 2 步 / 共 2 步 · 装一个勾一个</div>
+          </div>
         </div>
+        <button onClick={() => setStep(0)}
+          className="text-[13px] px-3.5 py-2 rounded-lg border border-[var(--border)] text-[var(--fg2)] hover:border-[var(--primary)] hover:text-[var(--primary)] transition whitespace-nowrap shrink-0">
+          换个 Agent
+        </button>
       </div>
 
-      {/* 进度条 */}
+      {/* 顶部进度条（显著展示） */}
       {totalToInstall > 0 && (
-        <div className="mb-6">
+        <div className="mb-6 p-4 rounded-xl bg-[var(--bg2)]">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-[14px] font-medium text-[var(--fg)]">装机进度</span>
-            <span className="text-[14px] text-[var(--primary)] font-semibold">{installedCount} / {totalToInstall}</span>
+            <span className="text-[14px] font-medium text-[var(--fg)]">
+              装机进度 <span className="text-[var(--primary)] font-semibold">{installedCount} / {totalToInstall}</span>
+              <span className="text-[var(--fg3)] font-normal">（{progress}%）</span>
+            </span>
+            <span className="text-[13px] text-[var(--fg3)]">
+              {progress === 100 ? '🎉 全部搞定' : '每装一个，回来点「装好了」'}
+            </span>
           </div>
-          <div className="h-2 bg-[var(--bg2)] rounded-full overflow-hidden">
+          <div className="h-2.5 bg-[var(--card)] rounded-full overflow-hidden border border-[var(--border)]">
             <div className="h-full bg-[var(--primary)] rounded-full transition-all duration-300" style={{ width: `${progress}%` }} />
           </div>
-          {progress === 100 && (
-            <div className="mt-4 p-4 rounded-lg bg-[rgba(var(--dim-rgb),0.08)] border border-[rgba(var(--dim-rgb),0.2)]">
-              <div className="text-[15px] text-[var(--primary)] font-bold mb-1">🎉 全部装完！</div>
-              <p className="text-[13px] text-[var(--fg2)]">你的 {selectedAgent?.name} 现在具备所有核心能力了。建议先试一个真实任务感受效果。</p>
-              <Link href="/learn" className="inline-block mt-2 text-[13px] text-[var(--primary)] font-medium hover:underline">
-                查看学习路径，从真实任务开始 →
-              </Link>
-            </div>
-          )}
         </div>
       )}
 
@@ -268,10 +283,17 @@ export default function InstallWizard({ categories }: { categories: { label: str
             const isExpanded = expandedVerify === skill.id
             return (
               <div key={skill.id}>
-                <div className={`content-card p-5 ${installed ? '' : ''}`}>
+                <div className={`content-card p-5 ${installed ? 'opacity-80' : ''}`}>
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex items-start gap-3 flex-1 min-w-0">
-                      <span className="w-10 h-10 rounded-lg bg-[var(--bg2)] flex items-center justify-center text-[18px] shrink-0">{cap?.icon}</span>
+                      {installed ? (
+                        /* 打勾计数：已装项用主色对勾替代能力图标 */
+                        <span className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'rgba(var(--dim-rgb),0.12)' }}>
+                          <svg width="16" height="16" viewBox="0 0 14 14"><polyline points="3 7 6 10 11 4" stroke="var(--primary)" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                        </span>
+                      ) : (
+                        <span className="w-10 h-10 rounded-lg bg-[var(--bg2)] flex items-center justify-center text-[18px] shrink-0">{cap?.icon}</span>
+                      )}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
                           <span className="text-[15px] font-semibold text-[var(--fg)]">{skill.name}</span>
@@ -372,6 +394,21 @@ export default function InstallWizard({ categories }: { categories: { label: str
           })}
         </div>
       )}
+
+      {/* 完成态：全部装完后出现 */}
+      {totalToInstall > 0 && progress === 100 && (
+        <div className="mt-5 p-5 rounded-xl bg-[rgba(var(--dim-rgb),0.06)] border border-[rgba(var(--dim-rgb),0.2)]">
+          <div className="text-[15px] text-[var(--primary)] font-bold mb-1">🎉 全部装完！</div>
+          <p className="text-[13px] text-[var(--fg2)] leading-relaxed">
+            你的 {selectedAgent?.name} 现在具备所有核心能力了。建议先试一个真实任务感受效果。
+          </p>
+          <Link href="/learn" className="inline-block mt-2 text-[13px] text-[var(--primary)] font-medium hover:underline">
+            查看学习路径，从真实任务开始 →
+          </Link>
+        </div>
+      )}
+
+      <FooterLinks />
     </div>
   )
 }

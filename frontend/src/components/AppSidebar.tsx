@@ -394,6 +394,29 @@ const DIFFICULTY_LEVELS = [
 
 function EssentialSidebar() {
   const [active, setActive] = useState<string>('office')
+  // 向导态（已选 Agent 进入清单）：隐藏分类/难度筛选，避免干扰主流程
+  // InstallWizard 会在选中 Agent 后给 body 加 arcdock-wizard-active
+  const [wizardActive, setWizardActive] = useState(false)
+  useEffect(() => {
+    const update = () => setWizardActive(document.body.classList.contains('arcdock-wizard-active'))
+    update()
+    const mo = new MutationObserver(update)
+    mo.observe(document.body, { attributes: true, attributeFilter: ['class'] })
+    return () => mo.disconnect()
+  }, [])
+
+  if (wizardActive) {
+    return (
+      <div className="px-3 pt-4">
+        <div
+          className="p-3 rounded-lg text-[12px] leading-relaxed text-[var(--fg3)]"
+          style={{ background: 'rgba(var(--dim-rgb),0.05)' }}
+        >
+          🧭 正在装机向导中 · 分类筛选已隐藏，点清单顶部「换个 Agent」可返回选择
+        </div>
+      </div>
+    )
+  }
 
   return (
     <>

@@ -76,20 +76,6 @@ export default async function EssentialPage({
         ) : (
           <InstallWizard categories={categories} />
         )}
-
-        {/* 装机指南 CTA */}
-        <section className="content-card mt-8 mb-8 p-6 text-center">
-          <h2 className="text-[18px] font-bold text-[var(--fg)] mb-2">📖 装机不知道从何下手？</h2>
-          <p className="mx-auto mt-2 max-w-xl text-[13px] text-[var(--fg2)] leading-[1.7]">
-            我们准备了一份从零开始的完整装机指南，手把手带你完成第一次配置。
-          </p>
-          <Link
-            href="/guide/install-guide"
-            className="btn-primary inline-flex items-center gap-2 mt-4 px-6 py-2.5 text-[14px] font-bold"
-          >
-            查看完整装机指南 →
-          </Link>
-        </section>
       </main>
       </div>
     </div>
