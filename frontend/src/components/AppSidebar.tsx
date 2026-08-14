@@ -227,7 +227,7 @@ function HomeSidebar() {
             <button
               key={p.slug}
               onClick={() => togglePlatform(p.slug)}
-              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-[8px] transition-all duration-150 relative"
+              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-md transition-all duration-150 relative"
               style={{ background: isSelected ? 'rgba(var(--dim-rgb),0.12)' : 'transparent' }}
               onMouseEnter={(e) => {
                 if (!isSelected) e.currentTarget.style.background = 'rgba(var(--dim-rgb),0.06)'
@@ -237,7 +237,7 @@ function HomeSidebar() {
               }}
             >
               <span
-                className="w-7 h-7 rounded-full flex items-center justify-center overflow-hidden shrink-0"
+                className="w-5 h-5 rounded-full flex items-center justify-center overflow-hidden shrink-0"
               >
                 {p.logo ? (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -268,7 +268,7 @@ function HomeSidebar() {
       <div className="mt-2">
         <button
           onClick={() => setShowAll(!showAll)}
-          className="w-full text-center py-1.5 rounded-[8px] text-[12px] transition"
+          className="w-full text-center py-1.5 rounded-md text-[12px] transition"
           style={{ border: '1px dashed var(--border)', color: 'var(--fg2)', background: 'transparent' }}
           onMouseEnter={(e) => {
             e.currentTarget.style.borderColor = 'var(--primary)'
@@ -332,7 +332,7 @@ function EssentialSidebar() {
             <button
               key={c.slug}
               
-              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-[8px] transition-all duration-150"
+              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-md transition-all duration-150"
               style={{ background: active === c.slug ? 'rgba(var(--dim-rgb),0.12)' : 'transparent' }}
               onMouseEnter={(e) => {
                 if (active !== c.slug) e.currentTarget.style.background = 'rgba(var(--dim-rgb),0.06)'
@@ -382,7 +382,7 @@ function EssentialSidebar() {
       <div className="mt-5">
         <Link
           href="/guide/install-guide"
-          className="flex items-center justify-center gap-1.5 py-2.5 rounded-[8px] text-[13px] font-semibold transition"
+          className="flex items-center justify-center gap-1.5 py-2.5 rounded-md text-[13px] font-semibold transition"
           style={{ border: '1px solid var(--primary)', color: 'var(--primary)', background: 'transparent' }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = 'var(--primary)'
@@ -444,7 +444,7 @@ function GuideSidebar() {
             <button
               key={c.slug}
               onClick={() => selectCat(c.slug)}
-              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-[8px] transition-all duration-150"
+              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-md transition-all duration-150"
               style={{ background: active === c.slug ? 'rgba(var(--dim-rgb),0.12)' : 'transparent' }}
               onMouseEnter={(e) => {
                 if (active !== c.slug) e.currentTarget.style.background = 'rgba(var(--dim-rgb),0.06)'
@@ -495,7 +495,7 @@ function GuideSidebar() {
       <div className="mt-5">
         <Link
           href="/"
-          className="block text-center py-2 rounded-[8px] text-[12px] transition"
+          className="block text-center py-2 rounded-md text-[12px] transition"
           style={{ border: '1px dashed var(--border)', color: 'var(--fg2)', background: 'transparent' }}
           onMouseEnter={(e) => {
             e.currentTarget.style.borderColor = 'var(--primary)'
@@ -547,7 +547,7 @@ function ScenarioSidebar({ pathname }: { pathname: string }) {
               <Link
                 key={s.slug}
                 href={`/scenario/${s.slug}`}
-                className="flex items-center gap-2.5 px-3 py-2 rounded-[8px] transition-all duration-150"
+                className="flex items-center gap-2.5 px-3 py-2 rounded-md transition-all duration-150"
                 style={{ background: active ? 'rgba(var(--dim-rgb),0.12)' : 'transparent' }}
                 onMouseEnter={(e) => {
                   if (!active) e.currentTarget.style.background = 'rgba(var(--dim-rgb),0.06)'
@@ -602,7 +602,7 @@ function PlatformSidebar({ pathname }: { pathname: string }) {
               <Link
                 key={p.slug}
                 href={`/platform/${p.slug}`}
-                className="flex items-center gap-2.5 px-3 py-2 rounded-[8px] transition-all duration-150"
+                className="flex items-center gap-2.5 px-3 py-2 rounded-md transition-all duration-150"
                 style={{ background: active ? 'rgba(var(--dim-rgb),0.12)' : 'transparent' }}
                 onMouseEnter={(e) => {
                   if (!active) e.currentTarget.style.background = 'rgba(var(--dim-rgb),0.06)'
@@ -612,7 +612,7 @@ function PlatformSidebar({ pathname }: { pathname: string }) {
                 }}
               >
                 <span
-                  className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold text-[var(--fg3)]"
+                  className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold text-[var(--fg3)]"
                   style={{ background: 'transparent', border: '1px solid var(--border)' }}
                 >
                   {p.name[0]}
@@ -635,7 +635,7 @@ function PlatformSidebar({ pathname }: { pathname: string }) {
       <div className="mt-5">
         <Link
           href="/"
-          className="block text-center py-2 rounded-[8px] text-[12px] transition"
+          className="block text-center py-2 rounded-md text-[12px] transition"
           style={{ border: '1px dashed var(--border)', color: 'var(--fg2)', background: 'transparent' }}
           onMouseEnter={(e) => {
             e.currentTarget.style.borderColor = 'var(--primary)'
@@ -821,7 +821,7 @@ function CompareSidebar() {
       <div className="mt-5">
         <Link
           href="/"
-          className="block text-center py-2 rounded-[8px] text-[12px] transition"
+          className="block text-center py-2 rounded-md text-[12px] transition"
           style={{ border: '1px dashed var(--border)', color: 'var(--fg2)', background: 'transparent' }}
           onMouseEnter={(e) => {
             e.currentTarget.style.borderColor = 'var(--primary)'
@@ -922,7 +922,7 @@ function SkillDetailSidebar({ pathname }: { pathname: string }) {
       <div className="mt-5">
         <Link
           href={`/compare?slugs=${pathname.split('/').pop()}`}
-          className="flex items-center justify-center gap-1.5 py-2.5 rounded-[8px] text-[13px] font-semibold transition"
+          className="flex items-center justify-center gap-1.5 py-2.5 rounded-md text-[13px] font-semibold transition"
           style={{ border: '1px solid var(--primary)', color: 'var(--primary)', background: 'transparent' }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = 'var(--primary)'
