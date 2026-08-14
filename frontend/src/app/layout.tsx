@@ -2,6 +2,7 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import './globals.css'
 import MobileNav from '@/components/MobileNav'
+import TopNavTabs from '@/components/TopNavTabs'
 
 // 站点根域名。生产部署到 vokki.cn；可用 NEXT_PUBLIC_SITE_URL 覆盖（如预览部署）。
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://tools.vokki.cn'
@@ -105,18 +106,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
 
-        {/* 顶栏 — 对标 mcp.so：h-16=64px，搜索框 h-9 居中 */}
+        {/* 顶栏 — 对标 mcp.so 两行结构：第一行 Logo+搜索框+头像，第二行导航 Tab */}
         <nav className="sticky top-0 z-50 bg-white border-b border-[#F0F0F0]">
+          {/* 第一行 */}
           <div className="page-wrapper flex items-center h-16 px-6 gap-6">
             <Link href="/" className="flex items-center gap-2 shrink-0">
               <span className="w-3 h-3 rounded-full bg-[#FF8C00]"></span>
               <span className="font-bold text-[18px] text-[#1F2937] tracking-tight">AI360</span>
             </Link>
-            <div className="hidden md:flex items-center gap-6 shrink-0">
-              <Link href="/" className="text-[14px] text-[#4B5563] hover:text-[#1F2937] transition font-medium">Skill聚合</Link>
-              <Link href="/essential" className="text-[14px] text-[#4B5563] hover:text-[#1F2937] transition font-medium">装机必备</Link>
-              <Link href="/guide" className="text-[14px] text-[#4B5563] hover:text-[#1F2937] transition font-medium">深度横评</Link>
-            </div>
             <form action="/search" className="flex-1 max-w-md mx-auto">
               <input
                 type="text"
@@ -127,6 +124,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </form>
             <div className="w-9 h-9 rounded-full bg-[#FF8C00] flex items-center justify-center text-white text-[15px] font-bold shrink-0">W</div>
           </div>
+          {/* 第二行：导航 Tab */}
+          <TopNavTabs />
         </nav>
 
         {/* 主内容 */}
