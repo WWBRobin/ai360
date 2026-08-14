@@ -5,9 +5,9 @@ import Link from 'next/link'
 
 const NAV_LINKS = [
   { href: '/essential', label: '装机必备' },
-  { href: '/scenario/content-creation', label: '场景库' },
-  { href: '/platform/coze', label: '平台库' },
-  { href: '/compare', label: '横评' },
+  { href: '/scenario', label: '场景库' },
+  { href: '/platform', label: '平台库' },
+  { href: '/compare', label: '工具对比' },
 ] as const
 
 /**

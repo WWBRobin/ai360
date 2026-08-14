@@ -174,9 +174,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <h4 className="text-white font-semibold text-sm mb-3">导航</h4>
                 <ul className="space-y-2 text-sm">
                   <li><Link href="/essential" className="hover:text-white transition">装机必备</Link></li>
-                  <li><Link href="/scenario/content-creation" className="hover:text-white transition">场景库</Link></li>
-                  <li><Link href="/platform/coze" className="hover:text-white transition">平台库</Link></li>
-                  <li><Link href="/compare" className="hover:text-white transition">横评</Link></li>
+                  <li><Link href="/scenario" className="hover:text-white transition">场景库</Link></li>
+                  <li><Link href="/platform" className="hover:text-white transition">平台库</Link></li>
+                  <li><Link href="/compare" className="hover:text-white transition">工具对比</Link></li>
                   <li><Link href="/search" className="hover:text-white transition">搜索</Link></li>
                 </ul>
               </div>

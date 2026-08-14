@@ -226,16 +226,33 @@ function HomeSidebar() {
     } catch {}
   }, [])
 
+  const [limitTip, setLimitTip] = useState(false)
   const togglePlatform = (slug: string) => {
     setSelected((prev) => {
       let next: string[]
-      if (prev.includes(slug)) next = prev.filter((s) => s !== slug)
-      else if (prev.length >= 3) next = [...prev.slice(1), slug]
-      else next = [...prev, slug]
+      if (prev.includes(slug)) {
+        next = prev.filter((s) => s !== slug)
+        setLimitTip(false)
+      } else if (prev.length >= 5) {
+        // 满了不挤掉，提示用户先取消
+        setLimitTip(true)
+        setTimeout(() => setLimitTip(false), 2500)
+        return prev
+      } else {
+        next = [...prev, slug]
+        setLimitTip(false)
+      }
       try { localStorage.setItem(PLATFORM_FILTER_KEY, JSON.stringify(next)) } catch {}
       window.dispatchEvent(new CustomEvent('arcdock-platform-change', { detail: next }))
       return next
     })
+  }
+
+  const clearSelection = () => {
+    setSelected([])
+    setLimitTip(false)
+    try { localStorage.setItem(PLATFORM_FILTER_KEY, '[]') } catch {}
+    window.dispatchEvent(new CustomEvent('arcdock-platform-change', { detail: [] }))
   }
 
   const sorted = [
@@ -255,10 +272,25 @@ function HomeSidebar() {
             平台
           </span>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] text-[var(--fg4)]">多选≤3</span>
+            {selected.length > 0 ? (
+              <button
+                onClick={clearSelection}
+                className="text-[10px] text-[var(--primary)] hover:underline transition"
+              >
+                清除（{selected.length}）
+              </button>
+            ) : (
+              <span className="text-[10px] text-[var(--fg4)]">多选≤5</span>
+            )}
           </div>
         </div>
       </div>
+
+      {limitTip && (
+        <div className="mx-3 mb-2 px-2.5 py-1.5 rounded-md text-[11px]" style={{ background: 'rgba(var(--dim-rgb),0.10)', color: 'var(--primary)' }}>
+          最多选 5 个平台，先取消一个再选
+        </div>
+      )}
 
       <div>
         {visible.map((p) => {

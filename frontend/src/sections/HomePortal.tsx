@@ -14,12 +14,16 @@ import type { SkillCard } from '@/types'
 
 const TYPES = ['全部', 'Skill', '工具', 'MCP']
 
+/** 类型互斥口径：MCP(slug/name含mcp) / 工具(有API且非MCP) / Skill(其余) —— 三类互斥，和=全部 */
+const isMcpSkill = (s: SkillCard) => s.slug.includes('mcp') || s.name.toLowerCase().includes('mcp')
+const isToolSkill = (s: SkillCard) => !!s.api_supported && !isMcpSkill(s)
+
 /** 类型 Tab 实时计数 — 与 activeType 筛选逻辑严格同口径（基于平台过滤后的集合） */
 function typeCount(platformSkills: SkillCard[], t: string): number {
   if (t === '全部') return platformSkills.length
-  if (t === 'MCP') return platformSkills.filter(s => s.slug.includes('mcp') || s.name.toLowerCase().includes('mcp')).length
-  if (t === 'Skill') return platformSkills.filter(s => s.category !== 'infrastructure').length
-  return platformSkills.filter(s => s.api_supported).length
+  if (t === 'MCP') return platformSkills.filter(isMcpSkill).length
+  if (t === '工具') return platformSkills.filter(isToolSkill).length
+  return platformSkills.filter(s => !isMcpSkill(s) && !isToolSkill(s)).length
 }
 
 const GUIDES = [
@@ -120,14 +124,14 @@ export default function HomePortal({
       result = result.filter(s => s.scenario_slugs?.includes(activeScene))
     }
 
-    // 类型筛选（用 category 字段）
+    // 类型筛选（互斥口径：MCP / 工具=有API非MCP / Skill=其余）
     if (activeType !== 'all') {
       if (activeType === 'MCP') {
-        result = result.filter(s => s.slug.includes('mcp') || s.name.toLowerCase().includes('mcp'))
+        result = result.filter(isMcpSkill)
       } else if (activeType === 'Skill') {
-        result = result.filter(s => s.category !== 'infrastructure')
+        result = result.filter(s => !isMcpSkill(s) && !isToolSkill(s))
       } else if (activeType === '工具') {
-        result = result.filter(s => s.api_supported)
+        result = result.filter(isToolSkill)
       }
     }
 
