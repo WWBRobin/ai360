@@ -20,7 +20,7 @@ export default function LearnHomeClient() {
   const completed = mounted ? isPathCompleted : () => false
 
   return (
-    <main className="flex-1 min-w-0 px-6 md:px-10 py-8">
+    <main className="flex-1 min-w-0 py-8">
       {/* 标题区 */}
         <div className="mb-8 pb-6 border-b border-[var(--border)]">
           <nav className="text-[12px] text-[var(--fg3)] mb-3">

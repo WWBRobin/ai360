@@ -34,10 +34,10 @@ export default async function ComparePage({
   const candidates = await getFeaturedSkills(60)
 
   return (
-    <div className="flex min-h-screen relative">
+    <div className="page-wrapper px-4 sm:px-6 lg:px-8 flex gap-8 min-h-screen relative">
       <AppSidebar />
       <main className="flex-1 min-w-0 relative z-10">
-        <div className="px-8 py-8 max-w-[1080px]">
+        <div className="py-8">
           {/* 面包屑 */}
           <nav className="flex items-center gap-2 text-[12px] text-[var(--fg3)] mb-4">
             <span>首页</span>

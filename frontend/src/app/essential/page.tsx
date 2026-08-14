@@ -53,12 +53,12 @@ export default async function EssentialPage({
   })).filter((c) => c.skills.length > 0)
 
   return (
-    <div className="page-wrapper flex min-h-screen">
+    <div className="page-wrapper px-4 sm:px-6 lg:px-8 flex gap-8 min-h-screen">
       <AppSidebar />
 
       <main className="flex-1 min-w-0 relative">
         {isListMode ? (
-          <div className="px-6 md:px-10 py-10">
+          <div className="py-10">
             <div className="mb-6">
               <h1 className="text-[18px] font-bold text-[var(--fg)] mb-1">装机必备工具</h1>
               <Link href="/essential" className="text-[13px] text-[var(--primary)] hover:underline">← 返回装机向导</Link>
@@ -70,7 +70,7 @@ export default async function EssentialPage({
         )}
 
         {/* 装机指南 CTA */}
-        <section className="content-card mx-6 md:mx-10 mt-8 mb-8 p-6 text-center">
+        <section className="content-card mt-8 mb-8 p-6 text-center">
           <h2 className="text-[18px] font-bold text-[var(--fg)] mb-2">📖 装机不知道从何下手？</h2>
           <p className="mx-auto mt-2 max-w-xl text-[13px] text-[var(--fg2)] leading-[1.7]">
             我们准备了一份从零开始的完整装机指南，手把手带你完成第一次配置。

@@ -150,12 +150,12 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const platforms = await getPlatforms().catch(() => [])
 
   return (
-    <div className="page-wrapper flex min-h-screen relative">
+    <div className="page-wrapper px-4 sm:px-6 lg:px-8 flex gap-8 min-h-screen relative">
       <aside className="w-56 shrink-0 hidden lg:block sticky top-[108px] self-start"><div className="p-4 text-[13px] text-[var(--fg3)]">使用顶部筛选条件搜索</div></aside>
 
       <main className="flex-1 min-w-0 relative z-10">
         {/* 页头：搜索结果标题 */}
-        <div className="px-8 pt-8 pb-2">
+        <div className="pt-8 pb-2">
           <h1 className="text-[26px] font-bold text-[var(--fg)] leading-tight mb-1" style={{ letterSpacing: '-0.4px' }}>
             搜索结果:{' '}
             {query ? (
@@ -176,7 +176,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
         {/* 排序栏 */}
         {allResults.length > 0 && (
-          <div className="px-8 py-3 flex items-center justify-between">
+          <div className="py-3 flex items-center justify-between">
             <span className="text-[14px] text-[var(--fg2)]">
               找到 <strong className="text-[var(--fg)] font-bold">{sorted.length}</strong> 个相关工具
               {filtered.length !== allResults.length && (
@@ -188,7 +188,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
         {/* 主体 */}
         {allResults.length > 0 ? (
-          <div className="px-8 pb-8">
+          <div className="pb-8">
             {sorted.length > 0 ? (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-[18px]">
                 {sorted.map((skill) => (
@@ -214,7 +214,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     console.error('SearchPage render error:', err)
     // 返回最小可用页面
     return (
-      <div className="page-wrapper flex min-h-screen">
+      <div className="page-wrapper px-4 sm:px-6 lg:px-8 flex gap-8 min-h-screen">
         <aside className="w-56 shrink-0 hidden lg:block sticky top-[108px] self-start"><div className="p-4 text-[13px] text-[var(--fg3)]">使用顶部筛选条件搜索</div></aside>
         <main className="flex-1 px-8 py-10">
           <h1 className="text-[20px] font-bold mb-2">搜索出错了</h1>
@@ -268,7 +268,7 @@ function NoSearchResults({
   platforms: { slug: string; name: string }[]
 }) {
   return (
-    <div className="px-8 pb-12">
+    <div className="pb-12">
       {/* 空状态主区 */}
       <div className="flex flex-col items-center justify-center py-10 text-center">
         <div className="w-[72px] h-[72px] rounded-full content-card flex items-center justify-center mb-5 text-[var(--primary)]">
@@ -341,7 +341,7 @@ function SearchLanding({
   platforms: { slug: string; name: string }[]
 }) {
   return (
-    <div className="px-8 pb-12">
+    <div className="pb-12">
       <div className="text-center py-10">
         <h2 className="text-[26px] font-bold text-[var(--fg)] mb-2">搜索 528+ AI Skill</h2>
         <p className="text-[14px] text-[var(--fg2)] mb-8">输入工具名、场景或关键词，找到最适合你的 AI 工具</p>

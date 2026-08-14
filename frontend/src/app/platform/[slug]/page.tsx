@@ -93,7 +93,7 @@ export default async function PlatformPage({
 
   if (!platform) {
     return (
-      <div className="page-wrapper flex min-h-screen relative">
+      <div className="page-wrapper px-4 sm:px-6 lg:px-8 flex gap-8 min-h-screen relative">
         <AppSidebar />
         <main className="flex-1 min-w-0 relative z-10 px-8 py-20 text-center text-[var(--fg3)]">
           平台不存在
@@ -132,10 +132,10 @@ export default async function PlatformPage({
   ]
 
   return (
-    <div className="page-wrapper flex min-h-screen relative">
+    <div className="page-wrapper px-4 sm:px-6 lg:px-8 flex gap-8 min-h-screen relative">
       <AppSidebar />
 
-      <main className="flex-1 min-w-0 relative z-10 px-8 py-10 max-w-[1080px]">
+      <main className="flex-1 min-w-0 relative z-10 py-10">
         {/* 面包屑 */}
         <nav className="text-[12px] text-[var(--fg3)] mb-4">
           <Link href="/" className="hover:text-[var(--primary)]">首页</Link>

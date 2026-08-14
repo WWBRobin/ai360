@@ -285,7 +285,7 @@ export default async function SkillDetailPage({
   }
 
   return (
-    <div className="page-wrapper flex min-h-screen relative">
+    <div className="page-wrapper px-4 sm:px-6 lg:px-8 flex gap-8 min-h-screen relative">
       {/* SEO 结构化数据 JSON-LD */}
       <script
         type="application/ld+json"
@@ -302,7 +302,7 @@ export default async function SkillDetailPage({
 
       <AppSidebar />
 
-      <main className="flex-1 min-w-0 relative px-4 md:px-8 py-6 max-w-[1080px]">
+      <main className="flex-1 min-w-0 relative py-6">
       {/* 1. 面包屑 */}
       <nav className="flex items-center gap-1.5 text-xs text-[var(--fg3)] mb-5 flex-wrap">
         <Link href="/" className="hover:text-[var(--primary)] transition">首页</Link>

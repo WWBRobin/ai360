@@ -16,9 +16,9 @@ export const metadata: Metadata = {
 
 export default function LearnPage() {
   return (
-    <>
+    <div className="page-wrapper px-4 sm:px-6 lg:px-8 flex gap-8 min-h-screen">
       <AppSidebar />
       <LearnHomeClient />
-    </>
+    </div>
   )
 }

@@ -13,11 +13,11 @@ export default function GuideIndexPage() {
   const articles = getAllArticleMetas()
 
   return (
-    <div className="page-wrapper flex min-h-screen">
+    <div className="page-wrapper px-4 sm:px-6 lg:px-8 flex gap-8 min-h-screen">
       <AppSidebar />
       <main className="flex-1 min-w-0 relative z-10">
         {/* 页头 */}
-        <div className="px-8 pt-10 pb-2">
+        <div className="pt-10 pb-8">
           <h1 className="text-[26px] font-bold text-[var(--fg)] mb-2.5" style={{ letterSpacing: '-0.4px' }}>
             深度评测
           </h1>
