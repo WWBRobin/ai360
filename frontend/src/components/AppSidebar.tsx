@@ -200,7 +200,7 @@ function HomeSidebar() {
 
   return (
     <>
-      <div className="mb-1">
+      <div className="mb-1 pt-4">
         <div className="flex items-center justify-between mb-2 px-3">
           <span
             className="text-xs font-semibold text-[var(--fg3)] uppercase tracking-wider"
