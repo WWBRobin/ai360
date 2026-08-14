@@ -105,9 +105,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
 
-        {/* 顶栏 — 统一极简白底，60px高度，搜索框居中 */}
+        {/* 顶栏 — 对标 mcp.so：h-16=64px，搜索框 h-9 居中 */}
         <nav className="sticky top-0 z-50 bg-white border-b border-[#F0F0F0]">
-          <div className="page-wrapper flex items-center h-[60px] px-6 gap-6">
+          <div className="page-wrapper flex items-center h-16 px-6 gap-6">
             <Link href="/" className="flex items-center gap-2 shrink-0">
               <span className="w-3 h-3 rounded-full bg-[#FF8C00]"></span>
               <span className="font-bold text-[18px] text-[#1F2937] tracking-tight">AI360</span>
@@ -117,12 +117,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/essential" className="text-[14px] text-[#4B5563] hover:text-[#1F2937] transition font-medium">装机必备</Link>
               <Link href="/guide" className="text-[14px] text-[#4B5563] hover:text-[#1F2937] transition font-medium">深度横评</Link>
             </div>
-            <form action="/search" className="flex-1 max-w-[480px] mx-auto">
+            <form action="/search" className="flex-1 max-w-md mx-auto">
               <input
                 type="text"
                 name="q"
                 placeholder="搜索 Skill / MCP / 工具..."
-                className="w-full h-[38px] px-4 border border-[#E5E7EB] rounded-lg text-[14px] text-[#1F2937] bg-white outline-none focus:border-[#FF8C00] focus:shadow-[0_0_0_3px_rgba(255,140,0,0.12)] transition"
+                className="w-full h-9 px-4 border border-[#E5E7EB] rounded-md text-[14px] text-[#1F2937] bg-white outline-none focus:border-[#FF8C00] focus:shadow-[0_0_0_3px_rgba(255,140,0,0.12)] transition"
               />
             </form>
             <div className="w-9 h-9 rounded-full bg-[#FF8C00] flex items-center justify-center text-white text-[15px] font-bold shrink-0">W</div>
