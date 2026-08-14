@@ -34,30 +34,28 @@ export default async function ComparePage({
   const candidates = await getFeaturedSkills(60)
 
   return (
-    <div className="page-wrapper px-4 sm:px-6 lg:px-8 flex gap-8 min-h-screen relative">
+    <div className="page-wrapper px-4 sm:px-6 lg:px-8 min-h-screen">
+      {/* 标题板块 — 横跨全宽，对齐首页 */}
+      <div className="pt-10 pb-8">
+        {/* 面包屑 */}
+        <nav className="flex items-center gap-2 text-[12px] text-[var(--fg3)] mb-4">
+          <span>首页</span>
+          <span>/</span>
+          <span className="text-[var(--fg)]">工具对比</span>
+        </nav>
+        <h1 className="text-[28px] font-bold text-[var(--fg)] leading-tight">Skill 对比</h1>
+        <p className="text-[15px] text-[var(--fg3)] mt-1.5">
+          已选 {selected.length} 个工具 · 可添加至 3 个 · 数据基于 AI360 实测
+        </p>
+      </div>
+
+      {/* 双栏 */}
+      <div className="flex gap-8">
       <AppSidebar />
-      <main className="flex-1 min-w-0 relative z-10">
-        <div className="py-8">
-          {/* 面包屑 */}
-          <nav className="flex items-center gap-2 text-[12px] text-[var(--fg3)] mb-4">
-            <span>首页</span>
-            <span>/</span>
-            <span className="text-[var(--fg)]">工具对比</span>
-          </nav>
-
-          {/* 标题 */}
-          <header className="mb-6">
-            <h1 className="text-[26px] font-bold text-[var(--fg)] mb-1.5" style={{ letterSpacing: '0.02em' }}>
-              Skill 对比
-            </h1>
-            <p className="text-[14px] text-[var(--fg3)]">
-              已选 {selected.length} 个工具 · 可添加至 3 个 · 数据基于 AI360 实测
-            </p>
-          </header>
-
-          <CompareClient initialSelected={selected} candidates={candidates} maxSelect={3} />
-        </div>
+      <main className="flex-1 min-w-0 relative z-10 pb-10">
+        <CompareClient initialSelected={selected} candidates={candidates} maxSelect={3} />
       </main>
+      </div>
     </div>
   )
 }

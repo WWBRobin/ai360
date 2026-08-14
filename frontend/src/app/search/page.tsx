@@ -11,6 +11,7 @@ import {
   SCENARIO_ICONS,
 } from '@/lib/supabase'
 import SkillCardComponent from '@/components/SkillCard'
+import AppSidebar from '@/components/AppSidebar'
 import type { SkillCard } from '@/types'
 
 // 搜索结果页不索引（低价值、易产生重复内容）
@@ -150,29 +151,27 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const platforms = await getPlatforms().catch(() => [])
 
   return (
-    <div className="page-wrapper px-4 sm:px-6 lg:px-8 flex gap-8 min-h-screen relative">
-      <aside className="w-56 shrink-0 hidden lg:block sticky top-[108px] self-start"><div className="p-4 text-[13px] text-[var(--fg3)]">使用顶部筛选条件搜索</div></aside>
+    <div className="page-wrapper px-4 sm:px-6 lg:px-8 min-h-screen">
+      {/* 标题板块 — 横跨全宽，对齐首页 */}
+      <div className="pt-10 pb-8">
+        <h1 className="text-[28px] font-bold text-[var(--fg)] leading-tight">
+          搜索结果:{' '}
+          {query ? (
+            <span className="text-[var(--primary)]">{query}</span>
+          ) : (
+            'AI Skill'
+          )}
+        </h1>
+        <p className="text-[15px] text-[var(--fg3)] mt-1.5">
+          {query ? `在全部工具中搜索 "${query}" 相关的 AI 工具和技能` : '输入关键词搜索 AI 工具、Skill、MCP…'}
+        </p>
+      </div>
 
-      <main className="flex-1 min-w-0 relative z-10">
-        {/* 页头：搜索结果标题 */}
-        <div className="pt-8 pb-2">
-          <h1 className="text-[26px] font-bold text-[var(--fg)] leading-tight mb-1" style={{ letterSpacing: '-0.4px' }}>
-            搜索结果:{' '}
-            {query ? (
-              <span className="text-[var(--primary)]">{query}</span>
-            ) : (
-              'AI Skill'
-            )}
-          </h1>
-          <p className="text-[14px] text-[var(--fg2)]">
-            {query ? `在全部工具中搜索 "${query}" 相关的 AI 工具和技能` : '输入关键词搜索 AI 工具、Skill、MCP…'}
-          </p>
-        </div>
+      {/* 双栏 */}
+      <div className="flex gap-8">
+      <AppSidebar />
 
-        {/* Tab 行：全部 / 免费 / 评分最高 / 装机必备 */}
-        <div className="px-8">
-          
-        </div>
+      <main className="flex-1 min-w-0 relative z-10 pb-8">
 
         {/* 排序栏 */}
         {allResults.length > 0 && (
@@ -208,6 +207,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           <SearchLanding scenarios={scenarios} platforms={platforms} />
         )}
       </main>
+      </div>
     </div>
   )
   } catch (err) {

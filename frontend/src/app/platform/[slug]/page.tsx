@@ -132,22 +132,25 @@ export default async function PlatformPage({
   ]
 
   return (
-    <div className="page-wrapper px-4 sm:px-6 lg:px-8 flex gap-8 min-h-screen relative">
-      <AppSidebar />
-
-      <main className="flex-1 min-w-0 relative z-10 py-10">
-        {/* 面包屑 */}
+    <div className="page-wrapper px-4 sm:px-6 lg:px-8 min-h-screen">
+      {/* 标题板块 — 横跨全宽，对齐首页 */}
+      <div className="pt-10 pb-8">
         <nav className="text-[12px] text-[var(--fg3)] mb-4">
           <Link href="/" className="hover:text-[var(--primary)]">首页</Link>
           <span> / </span>
           <span className="text-[var(--fg2)]">{platform.name}</span>
         </nav>
-
-        {/* 最后更新时间 */}
-        <p className="text-xs text-[var(--fg3)] mb-3">
-          最后更新：<time className="text-[var(--fg2)] font-medium">{new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+        <h1 className="text-[28px] font-bold text-[var(--fg)] leading-tight">{platform.name}</h1>
+        <p className="text-[15px] text-[var(--fg3)] mt-1.5">
+          {platform.description || `${platform.name}平台共 ${totalCount} 个工具与技能，覆盖编程、写作、研究、运维全场景。`}
         </p>
+      </div>
 
+      {/* 双栏 */}
+      <div className="flex gap-8">
+      <AppSidebar />
+
+      <main className="flex-1 min-w-0 relative z-10 pb-10">
         {/* 平台 Hero 区（content-card） */}
         <PlatformHero platform={platform} totalCount={totalCount} avgScore={avgScore} testedCount={testedCount} />
 
@@ -183,6 +186,7 @@ export default async function PlatformPage({
           </div>
         )}
       </main>
+      </div>
     </div>
   )
 }
@@ -215,16 +219,6 @@ function PlatformHero({
       </div>
 
       <div className="flex-1 min-w-0">
-        <h1 className="text-[26px] font-bold text-[var(--fg)] mb-1.5" style={{ letterSpacing: '-0.5px' }}>
-          {platform.name}
-        </h1>
-        {platform.description && (
-          <p className="text-[15px] font-semibold text-[var(--primary)] mb-2">{platform.description}</p>
-        )}
-        <p className="text-[14px] text-[var(--fg2)] max-w-[680px] mb-3 leading-[1.7]">
-          {platform.name}平台共 {totalCount} 个工具与技能，覆盖编程、写作、研究、运维全场景。
-        </p>
-
         {/* 链接 */}
         <div className="flex gap-2.5 flex-wrap items-center mb-3">
           {platform.base_url && (

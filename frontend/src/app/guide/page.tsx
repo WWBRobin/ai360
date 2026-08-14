@@ -13,25 +13,26 @@ export default function GuideIndexPage() {
   const articles = getAllArticleMetas()
 
   return (
-    <div className="page-wrapper px-4 sm:px-6 lg:px-8 flex gap-8 min-h-screen">
-      <AppSidebar />
-      <main className="flex-1 min-w-0 relative z-10">
-        {/* 页头 */}
-        <div className="pt-10 pb-8">
-          <h1 className="text-[26px] font-bold text-[var(--fg)] mb-2.5" style={{ letterSpacing: '-0.4px' }}>
-            深度评测
-          </h1>
-          <p className="text-[15px] text-[var(--fg2)] leading-[1.7] max-w-[640px]">
-            <span className="font-bold text-[var(--primary)]">
-              {articles.length}
-            </span>{' '}
-            篇深度评测文章。每一篇都基于 5 维度门控 + 8 种验证方法，给出明确的推荐结论。不写软文，只说实话。
-          </p>
-        </div>
+    <div className="page-wrapper px-4 sm:px-6 lg:px-8 min-h-screen">
+      {/* 标题板块 — 横跨全宽，对齐首页 */}
+      <div className="pt-10 pb-8">
+        <h1 className="text-[28px] font-bold text-[var(--fg)] leading-tight">深度评测</h1>
+        <p className="text-[15px] text-[var(--fg3)] mt-1.5">
+          <span className="font-bold text-[var(--primary)]">
+            {articles.length}
+          </span>{' '}
+          篇深度评测文章。每一篇都基于 5 维度门控 + 8 种验证方法，给出明确的推荐结论。不写软文，只说实话。
+        </p>
+      </div>
 
+      {/* 双栏 */}
+      <div className="flex gap-8">
+      <AppSidebar />
+      <main className="flex-1 min-w-0 relative z-10 pb-10">
         {/* Tab + 文章列表 + 分页（客户端交互） */}
         <GuideList articles={articles} />
       </main>
+      </div>
     </div>
   )
 }

@@ -285,7 +285,7 @@ export default async function SkillDetailPage({
   }
 
   return (
-    <div className="page-wrapper px-4 sm:px-6 lg:px-8 flex gap-8 min-h-screen relative">
+    <div className="page-wrapper px-4 sm:px-6 lg:px-8 min-h-screen">
       {/* SEO 结构化数据 JSON-LD */}
       <script
         type="application/ld+json"
@@ -300,56 +300,36 @@ export default async function SkillDetailPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
+      {/* 标题板块 — 横跨全宽，对齐首页 */}
+      <div className="pt-10 pb-8">
+        <nav className="flex items-center gap-1.5 text-xs text-[var(--fg3)] mb-4 flex-wrap">
+          <Link href="/" className="hover:text-[var(--primary)] transition">首页</Link>
+          <span>/</span>
+          {skill.platform_slug ? (
+            <Link href={`/platform/${skill.platform_slug}`} className="hover:text-[var(--primary)] transition">
+              {skill.platform_name || '平台'}
+            </Link>
+          ) : null}
+          <span>/</span>
+          <span className="text-[var(--fg2)]">{skill.name}</span>
+        </nav>
+        <h1 className="text-[28px] font-bold text-[var(--fg)] leading-tight">{skill.name}</h1>
+        {skill.tagline && (
+          <p className="text-[15px] text-[var(--fg3)] mt-1.5">{skill.tagline}</p>
+        )}
+      </div>
+
+      {/* 双栏 */}
+      <div className="flex gap-8">
       <AppSidebar />
 
-      <main className="flex-1 min-w-0 relative py-6">
-      {/* 1. 面包屑 */}
-      <nav className="flex items-center gap-1.5 text-xs text-[var(--fg3)] mb-5 flex-wrap">
-        <Link href="/" className="hover:text-[var(--primary)] transition">首页</Link>
-        <span>/</span>
-        {skill.platform_slug ? (
-          <Link href={`/platform/${skill.platform_slug}`} className="hover:text-[var(--primary)] transition">
-            {skill.platform_name || '平台'}
-          </Link>
-        ) : null}
-        <span>/</span>
-        <span className="text-[var(--fg2)]">{skill.name}</span>
-      </nav>
-
-      {/* 最后更新日期（SEO+GEO，显示在页面头部） */}
-      {updatedDateDisplay && (
-        <p className="text-xs text-[var(--fg3)] mb-3">
-          最后更新：<time dateTime={updatedDateISO || undefined} className="text-[var(--fg2)] font-medium">{updatedDateDisplay}</time>
-        </p>
-      )}
-
-      {/* 60字结论段（SEO 摘要，tagline 作为结论） */}
-      {skill.tagline && (
-        <p className="text-[15px] text-[var(--fg2)] leading-[1.7] mb-5 font-medium">
-          {skill.tagline}
-        </p>
-      )}
+      <main className="flex-1 min-w-0 relative pb-10">
 
       {/* 2. Hero 工具头部 */}
       <div className="content-card p-6 md:p-8 mb-6">
         <div className="flex items-start justify-between gap-6 flex-wrap">
           {/* 左：标题+标签+评分+描述 */}
           <div className="flex-1 min-w-0">
-            {/* 标题行：图标 + 名称 */}
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-12 h-12 rounded-xl bg-[#1f2937] flex items-center justify-center text-white text-xl font-bold shrink-0 overflow-hidden">
-                {skill.icon_url ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={skill.icon_url} alt={skill.name} loading="lazy" className="w-full h-full object-cover" />
-                ) : (
-                  <span>{skill.name.charAt(0).toUpperCase()}</span>
-                )}
-              </div>
-              <h1 className="text-[22px] md:text-[26px] font-bold text-[var(--fg)] leading-tight">
-                {skill.name}
-              </h1>
-            </div>
-
             {/* 标签行 */}
             <div className="flex gap-1.5 flex-wrap mb-3">
               <span className="tag tag-mcp">{skill.platform_name}</span>
@@ -376,7 +356,7 @@ export default async function SkillDetailPage({
 
             {/* 描述 */}
             <p className="text-[15px] text-[var(--fg2)] leading-[1.7]">
-              {skill.tagline || skill.description || `${skill.name}：${CATEGORY_LABELS[skill.category] || ''}类工具`}
+              {skill.description || skill.tagline || `${skill.name}：${CATEGORY_LABELS[skill.category] || ''}类工具`}
             </p>
           </div>
 
@@ -413,6 +393,7 @@ export default async function SkillDetailPage({
         evaluatedDate={evaluatedDate}
       />
       </main>
+      </div>
     </div>
   )
 }

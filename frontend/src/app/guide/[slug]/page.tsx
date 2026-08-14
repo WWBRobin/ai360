@@ -48,41 +48,40 @@ export default async function GuideArticlePage({
   const related = [...sameTag, ...others.filter((a) => a.tag !== article.tag)].slice(0, 3)
 
   return (
-    <div className="flex min-h-screen relative">
+    <div className="page-wrapper px-4 sm:px-6 lg:px-8 min-h-screen">
+      {/* 标题板块 — 横跨全宽，对齐首页 */}
+      <div className="pt-10 pb-8">
+        <nav className="flex items-center gap-2 text-[12px] text-[var(--fg3)] mb-4">
+          <Link href="/" className="hover:text-[var(--primary)] transition">
+            首页
+          </Link>
+          <span>/</span>
+          <Link href="/guide" className="hover:text-[var(--primary)] transition">
+            深度评测
+          </Link>
+          <span>/</span>
+          <span className="text-[var(--fg)]">{article.tag}</span>
+        </nav>
+        <div className="flex items-center gap-2 mb-3">
+          <span
+            className="text-[11px] font-medium px-2 py-0.5 rounded-md"
+            style={{ background: 'rgba(var(--dim-rgb),0.06)', color: 'var(--primary)' }}
+          >
+            {article.tag}
+          </span>
+          <span className="text-[12px] text-[var(--fg3)]">深度评测</span>
+        </div>
+        <h1 className="text-[28px] font-bold text-[var(--fg)] leading-tight">
+          <span className="mr-2">{article.icon}</span>
+          {article.title}
+        </h1>
+        <p className="text-[15px] text-[var(--fg3)] mt-1.5 leading-[1.7]">{article.summary}</p>
+      </div>
+
+      {/* 双栏 */}
+      <div className="flex gap-8">
       <AppSidebar />
-      <main className="flex-1 min-w-0 relative z-10">
-        <div className="px-8 py-8 max-w-[820px]">
-          {/* 面包屑 */}
-          <nav className="flex items-center gap-2 text-[12px] text-[var(--fg3)] mb-5">
-            <Link href="/" className="hover:text-[var(--primary)] transition">
-              首页
-            </Link>
-            <span>/</span>
-            <Link href="/guide" className="hover:text-[var(--primary)] transition">
-              深度评测
-            </Link>
-            <span>/</span>
-            <span className="text-[var(--fg)]">{article.tag}</span>
-          </nav>
-
-          {/* 文章头 */}
-          <header className="mb-8 pb-6 border-b border-[var(--border)]">
-            <div className="flex items-center gap-2 mb-3">
-              <span
-                className="text-[11px] font-medium px-2 py-0.5 rounded-md"
-                style={{ background: 'rgba(var(--dim-rgb),0.06)', color: 'var(--primary)' }}
-              >
-                {article.tag}
-              </span>
-              <span className="text-[12px] text-[var(--fg3)]">深度评测</span>
-            </div>
-            <h1 className="text-[28px] font-bold text-[var(--fg)] leading-tight mb-3">
-              <span className="mr-2">{article.icon}</span>
-              {article.title}
-            </h1>
-            <p className="text-[15px] text-[var(--fg2)] leading-[1.7]">{article.summary}</p>
-          </header>
-
+      <main className="flex-1 min-w-0 relative z-10 pb-10">
           {/* 正文：markdown 渲染（沿用全局 prose-guide 排版） */}
           <article className="prose-guide">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content}</ReactMarkdown>
@@ -115,8 +114,8 @@ export default async function GuideArticlePage({
               ← 查看全部评测
             </Link>
           </div>
-        </div>
       </main>
+      </div>
     </div>
   )
 }

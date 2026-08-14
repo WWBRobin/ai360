@@ -53,12 +53,20 @@ export default async function EssentialPage({
   })).filter((c) => c.skills.length > 0)
 
   return (
-    <div className="page-wrapper px-4 sm:px-6 lg:px-8 flex gap-8 min-h-screen">
+    <div className="page-wrapper px-4 sm:px-6 lg:px-8 min-h-screen">
+      {/* 标题板块 — 横跨全宽，对齐首页 */}
+      <div className="pt-10 pb-8">
+        <h1 className="text-[28px] font-bold text-[var(--fg)] leading-tight">AI Agent 装机向导</h1>
+        <p className="text-[15px] text-[var(--fg3)] mt-1.5">选择你在用的 AI Agent，3 分钟配齐核心能力，附手把手验证</p>
+      </div>
+
+      {/* 双栏 */}
+      <div className="flex gap-8">
       <AppSidebar />
 
-      <main className="flex-1 min-w-0 relative">
+      <main className="flex-1 min-w-0 relative pb-10">
         {isListMode ? (
-          <div className="py-10">
+          <div>
             <div className="mb-6">
               <h1 className="text-[18px] font-bold text-[var(--fg)] mb-1">装机必备工具</h1>
               <Link href="/essential" className="text-[13px] text-[var(--primary)] hover:underline">← 返回装机向导</Link>
@@ -83,6 +91,7 @@ export default async function EssentialPage({
           </Link>
         </section>
       </main>
+      </div>
     </div>
   )
 }

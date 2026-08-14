@@ -168,10 +168,7 @@ export default function InstallWizard({ categories }: { categories: { label: str
   // === Step 0: 选择 Agent ===
   if (step === 0) {
     return (
-      <div className="px-6 md:px-10 py-8">
-        <h1 className="text-[18px] font-bold text-[var(--fg)] mb-1">AI Agent 装机向导</h1>
-        <p className="text-[13px] text-[var(--fg3)] mb-4">选择你在用的 AI Agent，3 分钟配齐核心能力，附手把手验证</p>
-
+      <div className="pt-2">
         {/* Agent 体检入口 */}
         <div className="mb-6 p-4 rounded-xl border-2 border-[var(--primary)] bg-[rgba(var(--dim-rgb),0.04)]">
           <div className="flex items-center justify-between">
@@ -225,7 +222,7 @@ export default function InstallWizard({ categories }: { categories: { label: str
 
   // === Step 1: 装机清单 + 装完验证 ===
   return (
-    <div className="px-6 md:px-10 py-8">
+    <div className="pt-2">
       <div className="flex items-center justify-between mb-6">
         <button onClick={() => setStep(0)} className="text-[14px] text-[var(--fg3)] hover:text-[var(--fg)] transition">← 重新选择</button>
         <div className="flex items-center gap-2">

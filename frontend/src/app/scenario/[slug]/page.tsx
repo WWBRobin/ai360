@@ -182,36 +182,31 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
     : []
 
   return (
-    <div className="page-wrapper px-4 sm:px-6 lg:px-8 flex gap-8 min-h-screen relative">
-      <AppSidebar />
-
-      <main className="flex-1 min-w-0 relative z-10 py-10">
-        {/* 面包屑 */}
-        <nav className="text-[12px] text-[var(--fg3)] mb-3.5">
+    <div className="page-wrapper px-4 sm:px-6 lg:px-8 min-h-screen">
+      {/* 标题板块 — 横跨全宽，对齐首页 */}
+      <div className="pt-10 pb-8">
+        <nav className="text-[12px] text-[var(--fg3)] mb-4">
           <Link href="/" className="hover:text-[var(--primary)]">首页</Link>
           <span> / </span>
           <span className="text-[var(--fg2)]">{scenarioName}</span>
         </nav>
-
-        {/* 最后更新时间 */}
-        <p className="text-xs text-[var(--fg3)] mb-3">
-          最后更新：<time className="text-[var(--fg2)] font-medium">{new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+        <h1 className="text-[28px] font-bold text-[var(--fg)] leading-tight">
+          <span className="mr-2">{scenarioIcon}</span>
+          {scenarioName}
+          <span className="text-[14px] font-normal text-[var(--fg3)] ml-2">
+            · {allSkills.length} 个 Skill
+          </span>
+        </h1>
+        <p className="text-[15px] text-[var(--fg3)] mt-1.5">
+          {scenarioName}场景下的 AI Skill 横向对比，按平台分组展示，帮你快速找到最适合的方案。
         </p>
+      </div>
 
-        {/* 标题区 */}
-        <div className="mb-6 pb-5 border-b border-[var(--border)]">
-          <h1 className="text-[26px] font-bold text-[var(--fg)] mb-2.5" style={{ letterSpacing: '-0.5px' }}>
-            <span className="mr-2">{scenarioIcon}</span>
-            {scenarioName}
-            <span className="text-[14px] font-normal text-[var(--fg3)] ml-2">
-              · {allSkills.length} 个 Skill
-            </span>
-          </h1>
-          <p className="text-[15px] text-[var(--fg2)] max-w-[680px] leading-[1.7]">
-            {scenarioName}场景下的 AI Skill 横向对比，按平台分组展示，帮你快速找到最适合的方案。
-          </p>
-        </div>
+      {/* 双栏 */}
+      <div className="flex gap-8">
+      <AppSidebar />
 
+      <main className="flex-1 min-w-0 relative z-10 pb-10">
         {/* 双行 Tab：场景 7 + 类型 4 */}
         {sceneTabs.length > 0 && <ScenarioTabs scenes={sceneTabs} activeScene={slug} />}
 
@@ -272,6 +267,7 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
           </section>
         )}
       </main>
+      </div>
     </div>
   )
 }

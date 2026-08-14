@@ -1,11 +1,7 @@
 'use client'
 
 import { useLearnProgress } from '@/hooks/useLearnProgress'
-import {
-  TOOL_PATHS,
-  SCENE_PATHS,
-  DIFFICULTY_META,
-} from '@/lib/learn-paths'
+import { TOOL_PATHS, SCENE_PATHS } from '@/lib/learn-paths'
 import Link from 'next/link'
 
 /**
@@ -20,36 +16,7 @@ export default function LearnHomeClient() {
   const completed = mounted ? isPathCompleted : () => false
 
   return (
-    <main className="flex-1 min-w-0 py-8">
-      {/* 标题区 */}
-        <div className="mb-8 pb-6 border-b border-[var(--border)]">
-          <nav className="text-[12px] text-[var(--fg3)] mb-3">
-            <Link href="/" className="hover:text-[var(--primary)]">首页</Link>
-            <span> / </span>
-            <span className="text-[var(--fg2)]">学习中心</span>
-          </nav>
-          <h1 className="text-[26px] font-bold text-[var(--fg)] mb-2" style={{ letterSpacing: '-0.5px' }}>
-            🎓 学习中心
-          </h1>
-          <p className="text-[15px] text-[var(--fg2)] max-w-[640px] leading-relaxed">
-            选择一条路径，闯关式学习。每完成一步解锁下一步，走完全程获得徽章。
-          </p>
-
-          {/* 难度说明 */}
-          <div className="flex items-center gap-4 mt-4">
-            <span className="text-[12px] text-[var(--fg3)]">难度分级：</span>
-            {Object.entries(DIFFICULTY_META).map(([key, meta]) => (
-              <span
-                key={key}
-                className="text-[13px] px-2.5 py-1 rounded-full"
-                style={{ background: 'rgba(var(--dim-rgb),0.10)', color: 'var(--primary)' }}
-              >
-                {meta.icon} {meta.label}
-              </span>
-            ))}
-          </div>
-        </div>
-
+    <main className="flex-1 min-w-0 pb-10">
         {/* 两条路径入口 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
           {/* 按工具学 */}
