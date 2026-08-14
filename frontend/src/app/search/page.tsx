@@ -23,6 +23,9 @@ export const metadata: Metadata = {
   },
 }
 
+// 搜索页依赖 searchParams，强制动态渲染（避免 build 静态渲染报错）
+export const dynamic = 'force-dynamic'
+
 type SortKey = 'recommended' | 'rating' | 'latest' | 'easiest'
 
 // ===== 排序逻辑 =====
