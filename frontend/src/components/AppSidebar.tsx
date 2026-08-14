@@ -200,8 +200,6 @@ function HomeSidebar() {
 
   return (
     <>
-      <SearchBox />
-
       <div className="mb-1">
         <div className="flex items-center justify-between mb-2 px-3">
           <span
@@ -210,11 +208,19 @@ function HomeSidebar() {
           >
             平台
           </span>
-          <span className="text-[10px] text-[var(--fg4)]">多选≤3</span>
+          <div className="flex items-center gap-2">
+            <Link href="/search" aria-label="搜索" className="text-[var(--fg4)] hover:text-[var(--fg)] transition">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+              </svg>
+            </Link>
+            <span className="text-[10px] text-[var(--fg4)]">多选≤3</span>
+          </div>
         </div>
       </div>
 
-      <div className="px-3">
+      <div>
         {visible.map((p) => {
           const isSelected = selected.includes(p.slug)
           return (
@@ -259,7 +265,7 @@ function HomeSidebar() {
         })}
       </div>
 
-      <div className="px-3 mt-2">
+      <div className="mt-2">
         <button
           onClick={() => setShowAll(!showAll)}
           className="w-full text-center py-1.5 rounded-[8px] text-[12px] transition"
@@ -279,12 +285,12 @@ function HomeSidebar() {
 
       <div className="mt-5">
         <SectionLabel>学习成长</SectionLabel>
-        <div className="px-3">
+        <div>
           <NavLink href="/learn" label="🎓 学习中心" />
         </div>
       </div>
 
-      <div className="mt-5 px-3">
+      <div className="mt-5">
         <NavLink href="/compare" label="工具对比" />
       </div>
     </>
@@ -321,7 +327,7 @@ function EssentialSidebar() {
 
       <div className="mb-1">
         <SectionLabel>工具分类</SectionLabel>
-        <div className="px-3">
+        <div>
           {ESSENTIAL_CATEGORIES.map((c) => (
             <button
               key={c.slug}
@@ -352,7 +358,7 @@ function EssentialSidebar() {
 
       <div className="mt-5">
         <SectionLabel>难度</SectionLabel>
-        <div className="px-3">
+        <div>
           {DIFFICULTY_LEVELS.map((d) => (
             <button
               key={d.slug}
@@ -373,7 +379,7 @@ function EssentialSidebar() {
         </div>
       </div>
 
-      <div className="mt-5 px-3">
+      <div className="mt-5">
         <Link
           href="/guide/install-guide"
           className="flex items-center justify-center gap-1.5 py-2.5 rounded-[8px] text-[13px] font-semibold transition"
@@ -433,7 +439,7 @@ function GuideSidebar() {
 
       <div className="mb-1">
         <SectionLabel>评测分类</SectionLabel>
-        <div className="px-3">
+        <div>
           {GUIDE_CATEGORIES.map((c) => (
             <button
               key={c.slug}
@@ -464,7 +470,7 @@ function GuideSidebar() {
 
       <div className="mt-5">
         <SectionLabel>最新文章</SectionLabel>
-        <div className="px-3">
+        <div>
           {LATEST_ARTICLES.map((a) => (
             <Link
               key={a.slug}
@@ -486,7 +492,7 @@ function GuideSidebar() {
         </div>
       </div>
 
-      <div className="mt-5 px-3">
+      <div className="mt-5">
         <Link
           href="/"
           className="block text-center py-2 rounded-[8px] text-[12px] transition"
@@ -534,7 +540,7 @@ function ScenarioSidebar({ pathname }: { pathname: string }) {
 
       <div className="mb-1">
         <SectionLabel>使用场景</SectionLabel>
-        <div className="px-3">
+        <div>
           {SCENES.map((s) => {
             const active = currentSlug === s.slug
             return (
@@ -566,7 +572,7 @@ function ScenarioSidebar({ pathname }: { pathname: string }) {
 
       <div className="mt-5">
         <SectionLabel>发现更多</SectionLabel>
-        <div className="px-3">
+        <div>
           <NavLink href="/essential" label="装机必备" />
           <NavLink href="/compare" label="工具对比" />
           <NavLink href="/guide" label="深度评测" />
@@ -589,7 +595,7 @@ function PlatformSidebar({ pathname }: { pathname: string }) {
 
       <div className="mb-1">
         <SectionLabel>平台</SectionLabel>
-        <div className="px-3">
+        <div>
           {PLATFORMS.map((p) => {
             const active = currentSlug === p.slug
             return (
@@ -626,7 +632,7 @@ function PlatformSidebar({ pathname }: { pathname: string }) {
         </div>
       </div>
 
-      <div className="mt-5 px-3">
+      <div className="mt-5">
         <Link
           href="/"
           className="block text-center py-2 rounded-[8px] text-[12px] transition"
@@ -713,7 +719,7 @@ function SearchSidebarContent() {
       {/* 平台多选 */}
       <div className="mb-4">
         <SectionLabel>平台</SectionLabel>
-        <div className="px-3">
+        <div>
           {PLATFORMS.slice(0, 8).map((p) => (
             <CheckRow
               key={p.slug}
@@ -729,7 +735,7 @@ function SearchSidebarContent() {
       {/* 类型多选 */}
       <div className="mb-4">
         <SectionLabel>类型</SectionLabel>
-        <div className="px-3">
+        <div>
           {SEARCH_TYPES.map((t) => (
             <CheckRow
               key={t.slug}
@@ -745,7 +751,7 @@ function SearchSidebarContent() {
       {/* 价格多选 */}
       <div className="mb-4">
         <SectionLabel>价格</SectionLabel>
-        <div className="px-3">
+        <div>
           {PRICE_OPTIONS.map((p) => (
             <CheckRow
               key={p.slug}
@@ -780,7 +786,7 @@ function CompareSidebar() {
 
       <div className="mb-1">
         <SectionLabel>热门对比</SectionLabel>
-        <div className="px-3">
+        <div>
           {POPULAR_COMPARES.map((c) => (
             <Link
               key={c.slug}
@@ -805,14 +811,14 @@ function CompareSidebar() {
 
       <div className="mt-5">
         <SectionLabel>相关评测</SectionLabel>
-        <div className="px-3">
+        <div>
           <NavLink href="/guide/ai-coding-tools-deep-dive" label="编程工具深度对比" />
           <NavLink href="/guide/memory-comparison" label="记忆方案横评" />
           <NavLink href="/guide/search-comparison" label="搜索方案对比" />
         </div>
       </div>
 
-      <div className="mt-5 px-3">
+      <div className="mt-5">
         <Link
           href="/"
           className="block text-center py-2 rounded-[8px] text-[12px] transition"
@@ -859,7 +865,7 @@ function SkillDetailSidebar({ pathname }: { pathname: string }) {
     <>
       <div className="mb-1">
         <SectionLabel>目录</SectionLabel>
-        <div className="px-3">
+        <div>
           {SKILL_TOC.map((t) => {
             const active = activeSection === t.id
             return (
@@ -890,7 +896,7 @@ function SkillDetailSidebar({ pathname }: { pathname: string }) {
 
       <div className="mt-5">
         <SectionLabel>相关工具</SectionLabel>
-        <div className="px-3">
+        <div>
           {RELATED_SKILLS.map((s) => (
             <Link
               key={s.slug}
@@ -913,7 +919,7 @@ function SkillDetailSidebar({ pathname }: { pathname: string }) {
         </div>
       </div>
 
-      <div className="mt-5 px-3">
+      <div className="mt-5">
         <Link
           href={`/compare?slugs=${pathname.split('/').pop()}`}
           className="flex items-center justify-center gap-1.5 py-2.5 rounded-[8px] text-[13px] font-semibold transition"
@@ -962,7 +968,7 @@ function LearnSidebar({ pathname }: { pathname: string }) {
     <>
       <div className="mb-1">
         <SectionLabel>学习入口</SectionLabel>
-        <div className="px-3">
+        <div>
           <NavLink
             href="/learn"
             label="学习中心首页"
@@ -973,7 +979,7 @@ function LearnSidebar({ pathname }: { pathname: string }) {
 
       <div className="mt-5">
         <SectionLabel>🔧 按工具学</SectionLabel>
-        <div className="px-3">
+        <div>
           {LEARN_TOOL_PATHS.map((p) => {
             const active = currentKind === 'tool' && currentSlug === p.slug
             return (
@@ -1009,7 +1015,7 @@ function LearnSidebar({ pathname }: { pathname: string }) {
 
       <div className="mt-5">
         <SectionLabel>🎯 按场景学</SectionLabel>
-        <div className="px-3">
+        <div>
           {LEARN_SCENE_PATHS.map((s) => {
             const active = currentKind === 'scene' && currentSlug === s.slug
             return (
@@ -1059,7 +1065,7 @@ export default function AppSidebar() {
       suppressHydrationWarning
       className="hidden md:block w-56 shrink-0 sticky top-[108px] h-[calc(100vh-108px)] overflow-y-auto"
     >
-      <div className="px-3 pb-6">
+      <div className="pb-6">
         {variant === 'home' && <HomeSidebar />}
         {variant === 'essential' && <EssentialSidebar />}
         {variant === 'guide' && <GuideSidebar />}
