@@ -107,7 +107,7 @@ export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
           </span>
         ) : (
           <span className="text-[11px] bg-[var(--sidebar)] text-[var(--fg2)] px-2.5 py-1 rounded-lg font-medium border border-[var(--border)]">
-            去安装
+            查看详情
           </span>
         )}
       </div>

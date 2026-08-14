@@ -75,7 +75,7 @@ export default function EssentialToolCard({
             href={`/skill/${skill.slug}`}
             className="btn-primary px-4 py-1.5 text-[12px] font-semibold inline-block"
           >
-            去安装
+            查看详情
           </Link>
         )}
       </div>
