@@ -20,7 +20,7 @@ export default function TopNavTabs() {
   const pathname = usePathname()
 
   return (
-    <div className="page-wrapper flex items-center gap-1 overflow-x-auto px-6">
+    <div className="page-wrapper flex items-center gap-1 overflow-x-auto px-4 sm:px-6 lg:px-8">
       <nav className="-ml-4 flex items-center gap-1">
         {TABS.map((tab) => {
           const active = tab.match(pathname)

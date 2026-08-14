@@ -78,17 +78,17 @@ export default function HomePortal({
   const displayedSkills = filteredSkills.slice(0, showCount)
 
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper px-4 sm:px-6 lg:px-8">
       {/* 标题区 — 横跨全宽，对标 mcp.so */}
-      <div className="px-6 md:px-10 pt-10 pb-4">
+      <div className="pt-10 pb-4">
         <h1 className="text-[28px] font-bold text-[var(--fg)] leading-tight">发现最适合你的 AI 工具</h1>
         <p className="text-[15px] text-[var(--fg3)] mt-1.5">{totalCount} 个工具 · {platformCount} 个平台 · 独立评测</p>
       </div>
       {/* 双栏 */}
-      <div className="flex">
+      <div className="flex gap-8">
       <AppSidebar />
 
-      <main className="flex-1 min-w-0 px-6 md:px-10 pb-10">
+      <main className="flex-1 min-w-0 pb-10">
 
         {/* 场景筛选 — mcp 下划线激活风格 */}
         <div className="flex items-center gap-6 py-1 border-b border-[var(--border)] overflow-x-auto scrollbar-hide">

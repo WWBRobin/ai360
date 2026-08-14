@@ -116,10 +116,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* 顶栏 — 对标 mcp.so 两行结构：第一行 Logo+搜索框+头像，第二行导航 Tab */}
         <nav className="sticky top-0 z-50 bg-[var(--bg)] border-b border-[var(--border)]">
           {/* 第一行 */}
-          <div className="page-wrapper flex items-center h-16 px-6 gap-6">
+          <div className="page-wrapper flex items-center h-16 px-4 sm:px-6 lg:px-8 gap-4">
             <Link href="/" className="flex items-center gap-2 shrink-0">
               <span className="w-3 h-3 rounded-full bg-[var(--primary)]"></span>
-              <span className="font-bold text-[18px] text-[var(--fg)] tracking-tight">AI360</span>
+              <span className="font-semibold text-[18px] text-[var(--fg)] tracking-tight">AI360</span>
             </Link>
             <form action="/search" className="ml-auto max-w-md w-full">
               <input
