@@ -163,7 +163,7 @@ export default async function PlatformPage({
         {/* Skill 卡片网格（双列） */}
         {skills.length > 0 ? (
           <>
-            <div className="mt-3 grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
               {skills.map((skill) => (
                 <SkillCardProto7 key={skill.id} skill={skill} />
               ))}

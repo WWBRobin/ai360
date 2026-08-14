@@ -149,7 +149,7 @@ export default function HomePortal({
             <p className="text-[14px] text-[var(--fg3)]">该筛选下暂无工具</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 pb-8">
             {displayedSkills.map(skill => (
               <Link key={skill.slug} href={`/skill/${skill.slug}`} className="content-card block p-5 group">
                 <div className="flex items-start justify-between mb-2">

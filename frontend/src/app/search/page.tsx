@@ -151,7 +151,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
   return (
     <div className="page-wrapper flex min-h-screen relative">
-      <aside className="w-[220px] shrink-0 hidden lg:block sticky top-[108px] self-start"><div className="p-4 text-[13px] text-[var(--fg3)]">使用顶部筛选条件搜索</div></aside>
+      <aside className="w-56 shrink-0 hidden lg:block sticky top-[108px] self-start"><div className="p-4 text-[13px] text-[var(--fg3)]">使用顶部筛选条件搜索</div></aside>
 
       <main className="flex-1 min-w-0 relative z-10">
         {/* 页头：搜索结果标题 */}
@@ -215,7 +215,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     // 返回最小可用页面
     return (
       <div className="page-wrapper flex min-h-screen">
-        <aside className="w-[220px] shrink-0 hidden lg:block sticky top-[108px] self-start"><div className="p-4 text-[13px] text-[var(--fg3)]">使用顶部筛选条件搜索</div></aside>
+        <aside className="w-56 shrink-0 hidden lg:block sticky top-[108px] self-start"><div className="p-4 text-[13px] text-[var(--fg3)]">使用顶部筛选条件搜索</div></aside>
         <main className="flex-1 px-8 py-10">
           <h1 className="text-[20px] font-bold mb-2">搜索出错了</h1>
           <p className="text-[14px] text-[var(--fg3)]">错误信息: {String(err).substring(0, 200)}</p>

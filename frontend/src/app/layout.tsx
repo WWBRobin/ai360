@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import MobileNav from '@/components/MobileNav'
 import TopNavTabs from '@/components/TopNavTabs'
+import ThemeToggle from '@/components/ThemeToggle'
 
 // 站点根域名。生产部署到 vokki.cn；可用 NEXT_PUBLIC_SITE_URL 覆盖（如预览部署）。
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://tools.vokki.cn'
@@ -128,7 +129,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 className="w-full h-9 px-4 border border-[var(--border)] rounded-md text-[14px] text-[var(--fg)] bg-[var(--card)] outline-none focus:border-[var(--primary)] transition"
               />
             </form>
-            <div className="w-9 h-9 rounded-full bg-[var(--primary)] flex items-center justify-center text-[var(--on-primary)] text-[15px] font-bold shrink-0">W</div>
+            <div className="flex items-center gap-2 shrink-0">
+              <ThemeToggle />
+              <div className="w-9 h-9 rounded-full bg-[var(--primary)] flex items-center justify-center text-[var(--on-primary)] text-[15px] font-bold shrink-0">W</div>
+            </div>
           </div>
           {/* 第二行：导航 Tab */}
           <TopNavTabs />
