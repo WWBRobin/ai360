@@ -81,7 +81,7 @@ export default function PathDetailClient({
                   className="h-full rounded-full transition-all duration-500"
                   style={{
                     width: `${pct}%`,
-                    background: allDone ? '#10B981' : 'var(--primary)',
+                    background: allDone ? 'var(--green)' : 'var(--primary)',
                   }}
                 />
               </div>
@@ -89,7 +89,7 @@ export default function PathDetailClient({
             {allDone && (
               <div
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[13px] font-semibold"
-                style={{ background: '#F0FDF4', color: '#059669' }}
+                style={{ background: 'var(--green-bg)', color: 'var(--green)' }}
               >
                 🏅 路径已完成
               </div>
@@ -134,10 +134,10 @@ export default function PathDetailClient({
         {allDone && (
           <div
             className="mt-8 p-6 rounded-[12px] text-center"
-            style={{ border: '1px solid #10B981', background: '#F0FDF4' }}
+            style={{ border: '1px solid var(--green)', background: 'var(--green-bg)' }}
           >
             <div className="text-[40px] mb-2">🏅</div>
-            <h3 className="text-[18px] font-bold text-[#059669] mb-1">恭喜！路径已完成</h3>
+            <h3 className="text-[18px] font-bold text-[var(--green)] mb-1">恭喜！路径已完成</h3>
             <p className="text-[13px] text-[var(--fg2)] mb-4">
               你已完成「{title}」全部 {steps.length} 个步骤。
             </p>

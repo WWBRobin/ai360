@@ -131,7 +131,7 @@ export default function LearnHomeClient() {
                       </h3>
                     </div>
                     {done && (
-                      <span className="text-[11px] px-2 py-0.5 rounded-full font-medium" style={{ background: '#F0FDF4', color: '#059669' }}>
+                      <span className="text-[11px] px-2 py-0.5 rounded-full font-medium" style={{ background: 'var(--green-bg)', color: 'var(--green)' }}>
                         🏅 已完成
                       </span>
                     )}
@@ -142,7 +142,7 @@ export default function LearnHomeClient() {
                     <div className="flex-1 h-[6px] rounded-full overflow-hidden" style={{ background: 'var(--bg2)' }}>
                       <div
                         className="h-full rounded-full transition-all duration-300"
-                        style={{ width: `${pct}%`, background: pct === 100 ? '#10B981' : 'var(--primary)' }}
+                        style={{ width: `${pct}%`, background: pct === 100 ? 'var(--green)' : 'var(--primary)' }}
                       />
                     </div>
                     <span className="text-[11px] text-[var(--fg3)] tabular-nums w-8 text-right">{pct}%</span>
@@ -181,7 +181,7 @@ export default function LearnHomeClient() {
                       </h3>
                     </div>
                     {done && (
-                      <span className="text-[11px] px-2 py-0.5 rounded-full font-medium" style={{ background: '#F0FDF4', color: '#059669' }}>
+                      <span className="text-[11px] px-2 py-0.5 rounded-full font-medium" style={{ background: 'var(--green-bg)', color: 'var(--green)' }}>
                         🏅 已完成
                       </span>
                     )}
@@ -191,7 +191,7 @@ export default function LearnHomeClient() {
                     <div className="flex-1 h-[6px] rounded-full overflow-hidden" style={{ background: 'var(--bg2)' }}>
                       <div
                         className="h-full rounded-full transition-all duration-300"
-                        style={{ width: `${pct}%`, background: pct === 100 ? '#10B981' : 'var(--primary)' }}
+                        style={{ width: `${pct}%`, background: pct === 100 ? 'var(--green)' : 'var(--primary)' }}
                       />
                     </div>
                     <span className="text-[11px] text-[var(--fg3)] tabular-nums w-8 text-right">{pct}%</span>

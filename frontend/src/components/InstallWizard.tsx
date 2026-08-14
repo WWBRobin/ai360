@@ -346,7 +346,7 @@ export default function InstallWizard({ categories }: { categories: { label: str
                     <div className="mb-3 flex items-start gap-2">
                       <span className="text-[14px] shrink-0">✅</span>
                       <div>
-                        <div className="text-[11px] font-bold text-[#16a34a] mb-0.5">成功长这样</div>
+                        <div className="text-[11px] font-bold text-[var(--green)] mb-0.5">成功长这样</div>
                         <p className="text-[13px] text-[var(--fg2)] leading-relaxed">{guide.expectSuccess}</p>
                       </div>
                     </div>

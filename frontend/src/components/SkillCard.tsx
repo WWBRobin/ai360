@@ -89,7 +89,7 @@ export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
           <DimBadge label={`上手 ${dimLabel(skill.difficulty_score)}`} score={skill.difficulty_score} />
           <DimBadge label={`稳定 ${dimLabel(skill.stability_score)}`} score={skill.stability_score} />
           {skill.free_quota && (
-            <span className="text-[11px] px-2 py-0.5 rounded-full font-medium text-[#16a34a] bg-[#f0fdf4]">
+            <span className="text-[11px] px-2 py-0.5 rounded-full font-medium text-[var(--green)] bg-[var(--green-bg)]">
               🎁 {skill.free_quota}
             </span>
           )}

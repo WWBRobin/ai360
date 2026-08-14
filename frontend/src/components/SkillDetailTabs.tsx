@@ -244,7 +244,7 @@ function EvalCard({
       </div>
       <p className="text-sm text-[var(--fg2)] leading-[1.7] pl-8">{answer}</p>
       {scoreLabel && (
-        <span className="inline-flex items-center mt-2 ml-8 text-xs font-semibold text-[#059669] bg-[#f0fdf4] px-2.5 py-1 rounded-md">
+        <span className="inline-flex items-center mt-2 ml-8 text-xs font-semibold text-[var(--green)] bg-[var(--green-bg)] px-2.5 py-1 rounded-md">
           {scoreLabel}
         </span>
       )}
@@ -255,7 +255,7 @@ function EvalCard({
 function FeatureItem({ text }: { text: string }) {
   return (
     <li className="text-sm text-[var(--fg2)] py-2.5 border-b border-[var(--bg2)] last:border-b-0 flex items-start gap-2">
-      <span className="text-[#059669] font-bold shrink-0">✓</span>
+      <span className="text-[var(--green)] font-bold shrink-0">✓</span>
       <span>{text}</span>
     </li>
   )
@@ -476,7 +476,7 @@ function TutorialTab({ skill }: { skill: SkillDetail }) {
           {skill.tagline || `${skill.name} 是一款${CATEGORY_LABELS[skill.category] || ''}类工具。`}
           {skill.description && ` ${skill.description}`}
         </p>
-        <span className="inline-flex items-center mt-2 ml-8 text-xs font-semibold text-[#059669] bg-[#f0fdf4] px-2.5 py-1 rounded-md">
+        <span className="inline-flex items-center mt-2 ml-8 text-xs font-semibold text-[var(--green)] bg-[var(--green-bg)] px-2.5 py-1 rounded-md">
           AI360 实测推荐
         </span>
       </div>
@@ -627,7 +627,7 @@ function RelatedTab({
                       </td>
                       <td className="px-4 py-3">
                         {row.free_quota ? (
-                          <span className="text-xs font-medium text-[#059669]">{row.free_quota}</span>
+                          <span className="text-xs font-medium text-[var(--green)]">{row.free_quota}</span>
                         ) : (
                           <span className="text-[var(--fg4)]">—</span>
                         )}
@@ -685,7 +685,7 @@ function RelatedTab({
 
 function CompareScoreCell({ score }: { score: number | null }) {
   if (score == null) return <span className="text-[var(--fg4)]">—</span>
-  const color = score >= 4 ? 'text-[#059669]' : score >= 3 ? 'text-[var(--fg2)]' : 'text-[var(--fg2)]'
+  const color = score >= 4 ? 'text-[var(--green)]' : score >= 3 ? 'text-[var(--fg2)]' : 'text-[var(--fg2)]'
   return <span className={`font-medium ${color}`}>{score}/5</span>
 }
 
@@ -714,7 +714,7 @@ function AlternativeCard({ row }: { row: CompareRow }) {
           {row.overall_score != null ? (
             <span className="flex items-center gap-1">
               <span className="text-[var(--primary)]">★</span>
-              <span className="font-bold text-[#059669]">{row.overall_score.toFixed(1)}</span>
+              <span className="font-bold text-[var(--green)]">{row.overall_score.toFixed(1)}</span>
             </span>
           ) : (
             <span className="text-[var(--fg3)]">暂无评分</span>

@@ -229,7 +229,7 @@ function CompareTable({ selected }: { selected: SkillDetail[] }) {
           多维对比
         </h2>
         <span className="text-[12px] text-[var(--fg3)]">
-          <span className="text-[#16a34a] font-bold">⬆</span> 为优势项 · 金色高亮为胜出
+          <span className="text-[var(--green)] font-bold">⬆</span> 为优势项 · 金色高亮为胜出
         </span>
       </div>
 
@@ -342,7 +342,7 @@ function CompareTable({ selected }: { selected: SkillDetail[] }) {
                 zebra={1}
                 cell={(s) =>
                   s.free_quota ? (
-                    <span className="font-medium text-[#16a34a]">{s.free_quota}</span>
+                    <span className="font-medium text-[var(--green)]">{s.free_quota}</span>
                   ) : (
                     <span className="text-gray-400">未提供</span>
                   )
@@ -456,11 +456,11 @@ function Row({
             className="p-3.5 border-b border-[var(--border)] align-top"
             style={{
               background: isBest ? 'rgba(var(--dim-rgb),0.06)' : baseBg,
-              color: isBest ? '#16a34a' : undefined,
+              color: isBest ? 'var(--green)' : undefined,
               fontWeight: isBest ? 700 : undefined,
             }}
           >
-            {isBest && <span className="text-[#16a34a] mr-1">⬆</span>}
+            {isBest && <span className="text-[var(--green)] mr-1">⬆</span>}
             {cell(s)}
           </td>
         )

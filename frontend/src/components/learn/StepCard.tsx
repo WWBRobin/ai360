@@ -34,7 +34,7 @@ export default function StepCard({
   const diff = DIFFICULTY_META[step.difficulty as Difficulty]
 
   const stateClass = isCompleted
-    ? 'border-[#10B981] bg-[#F0FDF4]'
+    ? 'border-[var(--green)] bg-[var(--green-bg)]'
     : isCurrent
       ? 'border-[var(--primary)] bg-[rgba(var(--dim-rgb),0.04)]'
       : isUnlocked
@@ -51,7 +51,7 @@ export default function StepCard({
           className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-[15px] font-bold"
           style={{
             background: isCompleted
-              ? '#10B981'
+              ? 'var(--green)'
               : isCurrent
                 ? 'var(--primary)'
                 : 'var(--bg2)',
@@ -67,7 +67,7 @@ export default function StepCard({
             <h3
               className="text-[15px] font-semibold"
               style={{
-                color: isCompleted ? '#059669' : isUnlocked ? 'var(--fg)' : 'var(--fg3)',
+                color: isCompleted ? 'var(--green)' : isUnlocked ? 'var(--fg)' : 'var(--fg3)',
               }}
             >
               {step.title}

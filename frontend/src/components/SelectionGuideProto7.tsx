@@ -13,7 +13,7 @@ interface Badge {
 
 const BADGES: Record<string, Badge> = {
   best: { text: '综合最佳', cls: 'bg-[rgba(var(--dim-rgb),0.10)] text-[var(--primary)]' },
-  newbie: { text: '新手友好', cls: 'bg-[#f0fdf4] text-[#059669]' },
+  newbie: { text: '新手友好', cls: 'bg-[var(--green-bg)] text-[var(--green)]' },
   free: { text: '免费额度', cls: 'bg-[rgba(var(--dim-rgb),0.10)] text-[var(--primary)]' },
   stable: { text: '最稳定', cls: 'bg-[rgba(var(--dim-rgb),0.10)] text-[var(--primary)]' },
 }
