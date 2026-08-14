@@ -22,7 +22,9 @@ import NewsContent from '../NewsContent'
  * /news/[slug] — 新闻详情页（server component）
  * ISR：5 分钟；?level= 切换 beginner/intermediate/advanced 版本
  */
-export const revalidate = 300
+// 本页 await searchParams（L 版本切换）→ 显式 Dynamic。
+// 不能同时有 revalidate / generateStaticParams（触发 DYNAMIC_SERVER_USAGE 500）。
+export const dynamic = 'force-dynamic'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://tools.vokki.cn'
 
@@ -61,16 +63,8 @@ export async function generateMetadata({
   }
 }
 
-// ===== 构建时预渲染已发布新闻（管线内容持续增加，运行时按需兜底）=====
-
-export async function generateStaticParams() {
-  try {
-    const rows = await getPublishedNewsSlugs()
-    return rows.map((r) => ({ slug: r.slug }))
-  } catch {
-    return []
-  }
-}
+// generateStaticParams 已移除：与 force-dynamic 不兼容（DYNAMIC_SERVER_USAGE）。
+// 新闻量小，运行时渲染即可；SEO 靠 sitemap 提交。
 
 // ===== 页面主体 =====
 
