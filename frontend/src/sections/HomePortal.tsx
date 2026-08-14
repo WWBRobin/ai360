@@ -207,7 +207,8 @@ export default function HomePortal({
               type="search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="搜索工具名 / 平台…"
+              onKeyDown={(e) => { if (e.key === 'Enter' && searchQuery.trim()) window.location.href = `/search?q=${encodeURIComponent(searchQuery.trim())}` }}
+              placeholder="搜索，回车语义搜索"
               className="h-8 w-44 rounded-md border border-[var(--border)] bg-transparent px-2.5 text-[13px] text-[var(--fg)] placeholder:text-[var(--fg4)] outline-none focus:border-[var(--primary)] transition"
             />
             <LevelFilterSwitch

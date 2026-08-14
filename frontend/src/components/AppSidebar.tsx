@@ -255,12 +255,6 @@ function HomeSidebar() {
             平台
           </span>
           <div className="flex items-center gap-2">
-            <Link href="/search" aria-label="搜索" className="text-[var(--fg4)] hover:text-[var(--fg)] transition">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="11" cy="11" r="8" />
-                <path d="m21 21-4.3-4.3" />
-              </svg>
-            </Link>
             <span className="text-[10px] text-[var(--fg4)]">多选≤3</span>
           </div>
         </div>
