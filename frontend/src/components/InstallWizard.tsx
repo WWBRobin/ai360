@@ -105,7 +105,7 @@ export default function InstallWizard({ categories }: { categories: { label: str
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null)
   const [installedIds, setInstalledIds] = useState<Set<number>>(() => {
     try {
-      const saved = localStorage.getItem('ai360-installed')
+      const saved = localStorage.getItem('arcdock-installed') ?? localStorage.getItem('ai360-installed')
       if (saved) return new Set(JSON.parse(saved))
     } catch {}
     return new Set()
@@ -152,7 +152,7 @@ export default function InstallWizard({ categories }: { categories: { label: str
     setInstalledIds(prev => {
       const next = new Set(prev)
       next.add(skillId)
-      try { localStorage.setItem('ai360-installed', JSON.stringify([...next])) } catch {}
+      try { localStorage.setItem('arcdock-installed', JSON.stringify([...next])) } catch {}
       return next
     })
     setExpandedVerify(skillId) // 装完自动展开验证引导

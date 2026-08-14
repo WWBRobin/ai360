@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { createBrowserClient } from '@/lib/supabase-browser'
+import { getSupabaseBrowserClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
 
 /**
@@ -12,7 +12,7 @@ import type { User } from '@supabase/supabase-js'
  */
 export default function AuthButton() {
   const router = useRouter()
-  const supabase = createBrowserClient()
+  const supabase = getSupabaseBrowserClient()
 
   const [user, setUser] = useState<User | null>(null)
   const [open, setOpen] = useState(false)
@@ -20,10 +20,10 @@ export default function AuthButton() {
 
   useEffect(() => {
     // 初始 session + 后续变化监听
-    supabase.auth.getSession().then(({ data }) => {
+    supabase.auth.getSession().then(({ data }: { data: { session: import('@supabase/supabase-js').Session | null } }) => {
       setUser(data.session?.user ?? null)
     })
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: sub } = supabase.auth.onAuthStateChange((_event: string, session: import('@supabase/supabase-js').Session | null) => {
       setUser(session?.user ?? null)
     })
     return () => sub.subscription.unsubscribe()

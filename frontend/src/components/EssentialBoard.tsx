@@ -27,7 +27,7 @@ export default function EssentialBoard({ categories }: { categories: EssentialCa
   const [installedIds, setInstalledIds] = useState<Set<number>>(() => {
     // 从 localStorage 恢复安装状态
     try {
-      const saved = localStorage.getItem('ai360-installed')
+      const saved = localStorage.getItem('arcdock-installed') ?? localStorage.getItem('ai360-installed')
       if (saved) return new Set(JSON.parse(saved))
     } catch {}
     return new Set()
@@ -67,7 +67,7 @@ export default function EssentialBoard({ categories }: { categories: EssentialCa
       else next.delete(id)
       // 持久化到 localStorage
       try {
-        localStorage.setItem('ai360-installed', JSON.stringify([...next]))
+        localStorage.setItem('arcdock-installed', JSON.stringify([...next]))
       } catch {}
       return next
     })

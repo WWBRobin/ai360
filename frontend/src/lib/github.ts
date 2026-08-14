@@ -87,7 +87,7 @@ export async function getGitHubRepoData(
 
   const headers: Record<string, string> = {
     Accept: 'application/vnd.github+json',
-    'User-Agent': 'ai360-tools.vokki.cn',
+    'User-Agent': 'arcdock-tools.vokki.cn',
   }
   const token = process.env.GITHUB_TOKEN || process.env.NEXT_PUBLIC_GITHUB_TOKEN
   if (token) headers.Authorization = `Bearer ${token}`

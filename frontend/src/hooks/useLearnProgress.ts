@@ -11,7 +11,7 @@ import { useState, useEffect, useCallback } from 'react'
  * - 完成全部步骤获得"路径完成"徽章
  */
 
-const STORAGE_KEY = 'ai360-learn-progress'
+const STORAGE_KEY = 'arcdock-learn-progress'
 
 // stepId -> completed boolean
 type ProgressMap = Record<string, boolean>
