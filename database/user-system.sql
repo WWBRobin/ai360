@@ -213,3 +213,10 @@ UNION ALL SELECT 'favorites', COUNT(*) FROM favorites
 UNION ALL SELECT 'assessment_results', COUNT(*) FROM assessment_results
 UNION ALL SELECT 'learning_progress', COUNT(*) FROM learning_progress
 UNION ALL SELECT 'learning_credentials', COUNT(*) FROM learning_credentials;
+
+-- ============================================================
+-- 11. 补丁（2026-08-15 E2E 发现）：sequence 权限
+--     症状：authenticated INSERT favorites 报 42501 permission denied for sequence
+--     根因：BIGSERIAL 的 sequence 默认只授给 owner（postgres），authenticated 无法 nextval
+-- ============================================================
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO authenticated;
