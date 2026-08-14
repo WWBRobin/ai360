@@ -211,16 +211,30 @@ function SearchBox() {
 // Variant 1: 首页 — 平台筛选 + LEARN（保持原样）
 // ============================================================
 
+export const PLATFORM_FILTER_KEY = 'arcdock-platform-filter'
+
 function HomeSidebar() {
-  const [selected, setSelected] = useState<string[]>(['hermes'])
+  const [selected, setSelected] = useState<string[]>([])
   const PLATFORMS = usePlatforms()
   const [showAll, setShowAll] = useState(false)
 
+  // 恢复上次选择（客户端）
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(PLATFORM_FILTER_KEY) || '[]')
+      if (Array.isArray(saved)) setSelected(saved)
+    } catch {}
+  }, [])
+
   const togglePlatform = (slug: string) => {
     setSelected((prev) => {
-      if (prev.includes(slug)) return prev.filter((s) => s !== slug)
-      if (prev.length >= 3) return [...prev.slice(1), slug]
-      return [...prev, slug]
+      let next: string[]
+      if (prev.includes(slug)) next = prev.filter((s) => s !== slug)
+      else if (prev.length >= 3) next = [...prev.slice(1), slug]
+      else next = [...prev, slug]
+      try { localStorage.setItem(PLATFORM_FILTER_KEY, JSON.stringify(next)) } catch {}
+      window.dispatchEvent(new CustomEvent('arcdock-platform-change', { detail: next }))
+      return next
     })
   }
 

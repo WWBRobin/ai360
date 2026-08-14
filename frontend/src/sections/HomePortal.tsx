@@ -14,12 +14,12 @@ import type { SkillCard } from '@/types'
 
 const TYPES = ['全部', 'Skill', '工具', 'MCP']
 
-/** 类型 Tab 实时计数 — 与 activeType 筛选逻辑严格同口径 */
-function typeCount(skills: SkillCard[], t: string): number {
-  if (t === '全部') return skills.length
-  if (t === 'MCP') return skills.filter(s => s.slug.includes('mcp') || s.name.toLowerCase().includes('mcp')).length
-  if (t === 'Skill') return skills.filter(s => s.category !== 'infrastructure').length
-  return skills.filter(s => s.api_supported).length
+/** 类型 Tab 实时计数 — 与 activeType 筛选逻辑严格同口径（基于平台过滤后的集合） */
+function typeCount(platformSkills: SkillCard[], t: string): number {
+  if (t === '全部') return platformSkills.length
+  if (t === 'MCP') return platformSkills.filter(s => s.slug.includes('mcp') || s.name.toLowerCase().includes('mcp')).length
+  if (t === 'Skill') return platformSkills.filter(s => s.category !== 'infrastructure').length
+  return platformSkills.filter(s => s.api_supported).length
 }
 
 const GUIDES = [
@@ -53,9 +53,24 @@ export default function HomePortal({
   const [activeScene, setActiveScene] = useState('all')
   const [activeType, setActiveType] = useState('all')
   const [sortBy, setSortBy] = useState('score')
+  const [searchQuery, setSearchQuery] = useState('')
   const [showCount, setShowCount] = useState(20)
   const [levelFilter, setLevelFilter] = useState(false)
   const { level: userLevel, loaded: levelLoaded } = useUserLevel()
+  // 平台过滤（侧栏多选联动）
+  const [platformFilter, setPlatformFilter] = useState<string[]>([])
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('arcdock-platform-filter') || '[]')
+      if (Array.isArray(saved)) setPlatformFilter(saved)
+    } catch {}
+    const onChange = (e: Event) => {
+      const detail = (e as CustomEvent<string[]>).detail
+      if (Array.isArray(detail)) setPlatformFilter(detail)
+    }
+    window.addEventListener('arcdock-platform-change', onChange)
+    return () => window.removeEventListener('arcdock-platform-change', onChange)
+  }, [])
 
   // localStorage 恢复开关状态（仅在已评测时生效）
   useEffect(() => {
@@ -65,23 +80,40 @@ export default function HomePortal({
     } catch {}
   }, [])
 
-  const SCENES = [
-    { slug: 'all', name: '全部', count: totalCount },
-    { slug: 'content-creation', name: '写作创作', count: sceneCounts['content-creation'] || 0 },
-    { slug: 'office', name: '数据办公', count: sceneCounts['office'] || 0 },
-    { slug: 'research', name: '研究分析', count: sceneCounts['research'] || 0 },
-    { slug: 'code', name: '开发编程', count: sceneCounts['code'] || 0 },
-    { slug: 'design', name: '设计媒体', count: sceneCounts['design'] || 0 },
-    { slug: 'automation', name: '自动化', count: sceneCounts['automation'] || 0 },
-    { slug: 'model-router', name: 'AI增强', count: sceneCounts['model-router'] || 0 },
-  ]
-
   // 智能筛选是否生效（已评测 + 开关开启）
   const smartFilterOn = levelFilter && levelLoaded && !!userLevel
 
-  // 当前页筛选
+  // 平台过滤后的基础集（场景/类型计数口径与之一致）
+  const platformSkills = useMemo(
+    () => platformFilter.length ? skills.filter(s => platformFilter.includes(s.platform_slug || '')) : skills,
+    [skills, platformFilter]
+  )
+
+  // 场景计数：基于平台过滤后的基础集实时计算（数字与实际筛选结果严格一致）
+  const sceneCount = (slug: string) => slug === 'all' ? platformSkills.length : platformSkills.filter(s => s.scenario_slugs?.includes(slug)).length
+  const SCENES = [
+    { slug: 'all', name: '全部', count: sceneCount('all') },
+    { slug: 'content-creation', name: '写作创作', count: sceneCount('content-creation') },
+    { slug: 'office', name: '数据办公', count: sceneCount('office') },
+    { slug: 'research', name: '研究分析', count: sceneCount('research') },
+    { slug: 'code', name: '开发编程', count: sceneCount('code') },
+    { slug: 'design', name: '设计媒体', count: sceneCount('design') },
+    { slug: 'automation', name: '自动化', count: sceneCount('automation') },
+    { slug: 'model-router', name: 'AI增强', count: sceneCount('model-router') },
+  ]
+
   const filteredSkills = useMemo(() => {
-    let result = [...skills]
+    let result = [...platformSkills]
+
+    // 关键词搜索（工具名/平台/标签）
+    if (searchQuery.trim()) {
+      const kw = searchQuery.trim().toLowerCase()
+      result = result.filter(s =>
+        s.name.toLowerCase().includes(kw) ||
+        (s.platform_name || '').toLowerCase().includes(kw) ||
+        (s.tagline || '').toLowerCase().includes(kw)
+      )
+    }
 
     // 场景筛选
     if (activeScene !== 'all') {
@@ -112,7 +144,7 @@ export default function HomePortal({
     }
 
     return result
-  }, [skills, activeScene, activeType, sortBy, smartFilterOn, userLevel])
+  }, [platformSkills, searchQuery, activeScene, activeType, sortBy, smartFilterOn, userLevel])
 
   const displayedSkills = filteredSkills.slice(0, showCount)
 
@@ -121,7 +153,7 @@ export default function HomePortal({
       {/* 标题区 — 横跨全宽，对标 mcp.so */}
       <div className="pt-10 pb-8">
         <h1 className="text-[28px] font-bold text-[var(--fg)] leading-tight">发现最适合你的 AI 工具</h1>
-        <p className="text-[15px] text-[var(--fg3)] mt-1.5">{totalCount} 个工具 · {platformCount} 个平台 · 独立评测</p>
+        <p className="text-[15px] text-[var(--fg3)] mt-1.5">{platformSkills.length} 个工具{platformFilter.length > 0 ? ` · 已选 ${platformFilter.length} 个平台` : ` · ${platformCount} 个平台`} · 独立评测</p>
       </div>
       {/* 双栏 */}
       <div className="flex gap-8">
@@ -163,7 +195,7 @@ export default function HomePortal({
                 }`}
               >
                 {t}
-                <span className="ml-1 text-[11px] text-[var(--fg3)]">{typeCount(skills, t)}</span>
+                <span className="ml-1 text-[11px] text-[var(--fg3)]">{typeCount(platformSkills, t)}</span>
                 {isActive && (
                   <span className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-[var(--primary)]" aria-hidden="true" />
                 )}
@@ -171,6 +203,13 @@ export default function HomePortal({
             )
           })}
           <div className="ml-auto flex items-center gap-3">
+            <input
+              type="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="搜索工具名 / 平台…"
+              className="h-8 w-44 rounded-md border border-[var(--border)] bg-transparent px-2.5 text-[13px] text-[var(--fg)] placeholder:text-[var(--fg4)] outline-none focus:border-[var(--primary)] transition"
+            />
             <LevelFilterSwitch
               enabled={levelFilter}
               onChange={setLevelFilter}
