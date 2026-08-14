@@ -83,6 +83,13 @@ export default function AuthButton() {
           </div>
           <div className="py-1">
             <Link
+              href="/assessment"
+              onClick={() => setOpen(false)}
+              className="block px-4 py-2 text-[13px] text-[var(--fg)] hover:bg-[var(--bg2)] transition"
+            >
+              能力评测
+            </Link>
+            <Link
               href="/learn"
               onClick={() => setOpen(false)}
               className="block px-4 py-2 text-[13px] text-[var(--fg)] hover:bg-[var(--bg2)] transition"

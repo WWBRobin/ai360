@@ -2,7 +2,9 @@
 
 import { useLearnProgress } from '@/hooks/useLearnProgress'
 import { TOOL_PATHS, SCENE_PATHS } from '@/lib/learn-paths'
+import { getSupabaseBrowserClient } from '@/lib/supabase/client'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 /**
  * 学习中心首页内容（客户端组件）
@@ -11,12 +13,53 @@ import Link from 'next/link'
 export default function LearnHomeClient() {
   const { mounted, pathProgress, isPathCompleted } = useLearnProgress()
 
+  // 评测引导条：未登录 或 已登录但未评测（user_profiles.level 为空）时显示
+  const [showAssessBanner, setShowAssessBanner] = useState(false)
+
+  useEffect(() => {
+    const supabase = getSupabaseBrowserClient()
+    let cancelled = false
+    supabase.auth.getSession().then(async ({ data }: { data: { session: import('@supabase/supabase-js').Session | null } }) => {
+      if (cancelled) return
+      if (!data.session) {
+        setShowAssessBanner(true) // 未登录：显示引导
+        return
+      }
+      const { data: profile } = await supabase
+        .from('user_profiles')
+        .select('level')
+        .eq('id', data.session.user.id)
+        .maybeSingle()
+      if (cancelled) return
+      setShowAssessBanner(!profile?.level) // 已评测则不显示
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
   // 防止 SSR/CSR 不一致
   const progress = mounted ? pathProgress : () => 0
   const completed = mounted ? isPathCompleted : () => false
 
   return (
     <main className="flex-1 min-w-0 pb-10">
+        {/* 评测引导条（非侵入） */}
+        {showAssessBanner && (
+          <Link
+            href="/assessment"
+            className="flex items-center justify-between gap-3 px-4 py-3 mb-6 rounded-[10px] border border-[var(--border)] hover:border-[var(--primary)] transition-colors group"
+            style={{ background: 'var(--card)' }}
+          >
+            <span className="text-[13px] text-[var(--fg2)]">
+              🎯 测测你的 AI 等级（30 秒 · 5 道题），获得个性化推荐
+            </span>
+            <span className="text-[13px] font-medium shrink-0 group-hover:underline" style={{ color: 'var(--primary)' }}>
+              去评测 →
+            </span>
+          </Link>
+        )}
+
         {/* 两条路径入口 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
           {/* 按工具学 */}
