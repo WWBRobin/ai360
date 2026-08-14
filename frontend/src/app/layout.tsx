@@ -119,8 +119,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {/* 第一行 */}
           <div className="page-wrapper flex items-center h-16 px-4 sm:px-6 lg:px-8 gap-4">
             <Link href="/" className="flex items-center gap-2.5 shrink-0">
-              <img src="/logo-light.png" alt="ArcDock" className="h-12 w-auto self-center dark:hidden" />
-              <img src="/logo-dark.png" alt="ArcDock" className="h-12 w-auto self-center hidden dark:block" />
+              <img src="/logo-light.png" alt="ArcDock" className="h-[50px] w-auto self-center dark:hidden" />
+              <img src="/logo-dark.png" alt="ArcDock" className="h-[50px] w-auto self-center hidden dark:block" />
               <span className="flex flex-col leading-none">
                 <span className="font-semibold text-[18px] text-[var(--fg)] tracking-tight">ArcDock</span>
                 <span className="text-[12px] text-[var(--fg3)] font-medium mt-1 ml-[48px]">弧光万象</span>
