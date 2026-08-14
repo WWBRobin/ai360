@@ -18,6 +18,9 @@ export interface SkillCard {
   install_url: string
   scenario_slugs: string[]
   evaluation_method: string | null
+  // L1-L5 等级标注（skill_cards_view 新增列，未标注为 null）
+  level_min?: string | null
+  level_optimal?: string | null
 }
 
 // Skill 详情（比卡片多字段，从 skills + evaluations + guides join 获取）

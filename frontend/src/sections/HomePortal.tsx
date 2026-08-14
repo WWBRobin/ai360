@@ -1,8 +1,11 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import AppSidebar from '@/components/AppSidebar'
+import LevelFilterSwitch from '@/components/LevelFilterSwitch'
+import { useUserLevel } from '@/hooks/useUserLevel'
+import { fitSkill, sortBySmartFit, LEVEL_FILTER_STORAGE_KEY, LEVEL_DIFFICULTY_META, levelToNumber, type FitKind } from '@/lib/levels'
 import type { SkillCard } from '@/types'
 
 /**
@@ -17,6 +20,16 @@ const GUIDES = [
   { slug: 'search-comparison', title: '怎么让 AI 能上网？3款对比', desc: 'Tavily / Firecrawl / Brave Search' },
   { slug: 'ecommerce-copy', title: '电商文案 Skill 实测', desc: '3款文案工具谁写的好' },
 ]
+
+/** 未标注 L 档时的兜底：老 difficulty_score（1-5，越高越易）→ 简易文案 */
+function difficultyLabel(score: number | null | undefined): string {
+  if (score == null) return '—'
+  if (score >= 4.5) return '一看就会'
+  if (score >= 3.5) return '简单配置'
+  if (score >= 2.5) return '需要理解工作流'
+  if (score >= 1.5) return '需要技术基础'
+  return '需要开发能力'
+}
 
 export default function HomePortal({
   totalCount = 0,
@@ -33,6 +46,16 @@ export default function HomePortal({
   const [activeType, setActiveType] = useState('all')
   const [sortBy, setSortBy] = useState('score')
   const [showCount, setShowCount] = useState(20)
+  const [levelFilter, setLevelFilter] = useState(false)
+  const { level: userLevel, loaded: levelLoaded } = useUserLevel()
+
+  // localStorage 恢复开关状态（仅在已评测时生效）
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(LEVEL_FILTER_STORAGE_KEY)
+      if (saved === 'on') setLevelFilter(true)
+    } catch {}
+  }, [])
 
   const SCENES = [
     { slug: 'all', name: '全部', count: totalCount },
@@ -44,6 +67,9 @@ export default function HomePortal({
     { slug: 'automation', name: '自动化', count: sceneCounts['automation'] || 0 },
     { slug: 'model-router', name: 'AI增强', count: sceneCounts['model-router'] || 0 },
   ]
+
+  // 智能筛选是否生效（已评测 + 开关开启）
+  const smartFilterOn = levelFilter && levelLoaded && !!userLevel
 
   // 当前页筛选
   const filteredSkills = useMemo(() => {
@@ -66,14 +92,19 @@ export default function HomePortal({
     }
 
     // 排序
-    if (sortBy === 'score') {
+    if (smartFilterOn && userLevel) {
+      // 智能排序：适配分×0.5 + 热度分×0.3；未标注卡片保持原序（稳定排序）
+      result = sortBySmartFit(result, userLevel)
+    } else if (sortBy === 'score') {
       result.sort((a, b) => (b.overall_score || 0) - (a.overall_score || 0))
     } else if (sortBy === 'name') {
       result.sort((a, b) => a.name.localeCompare(b.name))
+    } else if (sortBy === 'easiest') {
+      result.sort((a, b) => (a.difficulty_score ?? 99) - (b.difficulty_score ?? 99))
     }
 
     return result
-  }, [skills, activeScene, activeType, sortBy])
+  }, [skills, activeScene, activeType, sortBy, smartFilterOn, userLevel])
 
   const displayedSkills = filteredSkills.slice(0, showCount)
 
@@ -131,6 +162,10 @@ export default function HomePortal({
             )
           })}
           <div className="ml-auto flex items-center gap-3">
+            <LevelFilterSwitch
+              enabled={levelFilter}
+              onChange={setLevelFilter}
+            />
             <span className="text-[14px] text-[var(--fg3)]">共 {filteredSkills.length} 个</span>
             <select
               value={sortBy}
@@ -138,6 +173,7 @@ export default function HomePortal({
               className="text-[14px] text-[var(--fg2)] border border-[var(--border)] rounded-md px-2 py-1 bg-[var(--card)] outline-none"
             >
               <option value="score">综合评分</option>
+              <option value="easiest">上手最易</option>
               <option value="name">名称排序</option>
             </select>
           </div>
@@ -150,8 +186,17 @@ export default function HomePortal({
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 pb-8">
-            {displayedSkills.map(skill => (
-              <Link key={skill.slug} href={`/skill/${skill.slug}`} className="content-card block p-5 group">
+            {displayedSkills.map(skill => {
+              // 智能筛选标记（只对已评测用户 + 有 level_min 标注的卡片生效）
+              const fit = smartFilterOn && userLevel ? fitSkill(userLevel, skill) : null
+              const fitKind: FitKind | null = fit?.kind === 'later' && fit.adaptScore === 50 ? null : (fit?.kind ?? null)
+              const isLocked = fitKind === 'later'
+              return (
+              <Link key={skill.slug} href={`/skill/${skill.slug}`} className={`content-card block p-5 group relative${isLocked ? ' opacity-60' : ''}`}>
+                {/* 锁定卡片保持可点击，仅视觉降级（40% 蒙层由 opacity-60 近似） */}
+                {isLocked && (
+                  <span className="absolute top-3 right-3 text-[14px] text-[var(--fg3)]" title="当前等级暂不建议，可先收藏">🔒</span>
+                )}
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex items-center gap-2.5">
                     {skill.icon_url ? (
@@ -178,16 +223,30 @@ export default function HomePortal({
                   {skill.overall_score && <span className="tag tag-tested">ArcDock 实测</span>}
                   {!skill.overall_score && <span className="tag" style={{ background: 'var(--bg2)', color: 'var(--fg3)' }}>收录未评测</span>}
                   {skill.free_quota && <span className="tag tag-free">免费</span>}
+                  {fitKind === 'fit' && (
+                    <span className="tag" style={{ background: 'var(--green-bg)', color: 'var(--green)' }}>✅ 适合你</span>
+                  )}
+                  {fitKind === 'challenge' && (
+                    <span className="tag" style={{ background: 'rgba(245,158,11,0.14)', color: '#b45309' }}>⬆️ 进阶挑战</span>
+                  )}
+                  {fitKind === 'later' && (
+                    <span className="tag" style={{ background: 'var(--bg2)', color: 'var(--fg3)' }}>🔒 建议稍后</span>
+                  )}
                 </div>
                 {skill.overall_score && (
                   <div className="flex items-center gap-4 pt-2 border-t border-[var(--bg2)] text-[11px] text-[var(--fg3)]">
-                    <span>上手 {skill.difficulty_score}/5</span>
+                    <span>
+                      上手 {skill.level_min
+                        ? `${LEVEL_DIFFICULTY_META[skill.level_min as keyof typeof LEVEL_DIFFICULTY_META]?.label ?? skill.level_min}`
+                        : difficultyLabel(skill.difficulty_score)}
+                    </span>
                     <span>稳定 {skill.stability_score}/5</span>
                     {skill.free_quota && <span className="text-[var(--fg2)]">{skill.free_quota.substring(0, 15)}</span>}
                   </div>
                 )}
               </Link>
-            ))}
+              )
+            })}
           </div>
         )}
 

@@ -6,7 +6,8 @@
  * - ToolLearningPath：按平台工具的路径
  * - SceneLearningPath：按场景的路径
  *
- * 难度三级：🌱小白 / 🌿新手 / 🌳进阶
+ * 难度：数据层保留 3 级（beginner/intermediate/advanced），
+ * 展示层统一映射到 L1-L5（见 @/lib/levels 的 DIFFICULTY_LEVEL_RANGE）。
  */
 
 export type Difficulty = 'beginner' | 'intermediate' | 'advanced'
@@ -36,10 +37,14 @@ export interface SceneLearningPath {
   steps: LearningStep[]
 }
 
+/**
+ * @deprecated 展示层已统一 L1-L5（@/lib/levels）。此导出仅为兼容保留，
+ * label 已改为 L 档区间描述。
+ */
 export const DIFFICULTY_META: Record<Difficulty, { label: string; icon: string }> = {
-  beginner: { label: '小白', icon: '🌱' },
-  intermediate: { label: '新手', icon: '🌿' },
-  advanced: { label: '进阶', icon: '🌳' },
+  beginner: { label: 'L1-L2', icon: '🌱' },
+  intermediate: { label: 'L3', icon: '🌿' },
+  advanced: { label: 'L4-L5', icon: '🌳' },
 }
 
 // ============================================================

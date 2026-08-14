@@ -313,9 +313,11 @@ const ESSENTIAL_CATEGORIES = [
 ]
 
 const DIFFICULTY_LEVELS = [
-  { slug: 'beginner', name: '新手友好', desc: '5 分钟上手' },
-  { slug: 'intermediate', name: '进阶工具', desc: '需要一点基础' },
-  { slug: 'pro', name: '专业级', desc: '面向开发者' },
+  { slug: 'L1', name: '一看就会', desc: '零基础' },
+  { slug: 'L2', name: '简单配置', desc: '填参数即可' },
+  { slug: 'L3', name: '理解工作流', desc: '要有概念' },
+  { slug: 'L4', name: '需要技术基础', desc: '懂 API 更佳' },
+  { slug: 'L5', name: '需要开发能力', desc: '面向开发者' },
 ]
 
 function EssentialSidebar() {

@@ -13,7 +13,7 @@ interface Badge {
 
 const BADGES: Record<string, Badge> = {
   best: { text: '综合最佳', cls: 'bg-[rgba(var(--dim-rgb),0.10)] text-[var(--primary)]' },
-  newbie: { text: '新手友好', cls: 'bg-[var(--green-bg)] text-[var(--green)]' },
+  newbie: { text: '零基础友好', cls: 'bg-[var(--green-bg)] text-[var(--green)]' },
   free: { text: '免费额度', cls: 'bg-[rgba(var(--dim-rgb),0.10)] text-[var(--primary)]' },
   stable: { text: '最稳定', cls: 'bg-[rgba(var(--dim-rgb),0.10)] text-[var(--primary)]' },
 }
@@ -81,7 +81,7 @@ export default function SelectionGuideProto7({
       badge: BADGES.newbie,
       skill: beginnerFriendlyP,
       why: beginnerFriendlyP?.difficulty_score
-        ? `上手难度 ${beginnerFriendlyP.difficulty_score.toFixed(1)}/5，最容易入门`
+        ? `上手难度 L${Math.max(1, Math.min(5, Math.round(6 - beginnerFriendlyP.difficulty_score)))}，一看就会`
         : '优先选择有试用功能的',
     },
     {

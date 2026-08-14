@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { DIFFICULTY_META, type Difficulty, type LearningStep } from '@/lib/learn-paths'
+import { type Difficulty, type LearningStep } from '@/lib/learn-paths'
+import { DIFFICULTY_LEVEL_RANGE } from '@/lib/levels'
 
 /**
  * 学习步骤卡片 — 闯关式
@@ -31,7 +32,7 @@ export default function StepCard({
   onComplete,
   onUncomplete,
 }: StepCardProps) {
-  const diff = DIFFICULTY_META[step.difficulty as Difficulty]
+  const diff = DIFFICULTY_LEVEL_RANGE[step.difficulty as Difficulty]
 
   const stateClass = isCompleted
     ? 'border-[var(--green)] bg-[var(--green-bg)]'
@@ -79,7 +80,7 @@ export default function StepCard({
                 color: isUnlocked ? 'var(--primary)' : 'var(--fg3)',
               }}
             >
-              {diff.icon} {diff.label}
+              {diff.range} · {diff.label}
             </span>
           </div>
 

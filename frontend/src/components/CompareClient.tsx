@@ -499,7 +499,7 @@ function ConclusionBar({
     },
     {
       label: '上手最简单',
-      text: easiestName ? `${easiestName} 的上手难度评分最高，新手友好。` : '暂无上手难度数据。',
+      text: easiestName ? `${easiestName} 的上手难度最低（难度分最高），零基础也能快速上手。` : '暂无上手难度数据。',
       show: !!easiestName,
     },
     {

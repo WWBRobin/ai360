@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import AppSidebar from '@/components/AppSidebar'
 import LearnHomeClient from '@/components/learn/LearnHomeClient'
-import { DIFFICULTY_META } from '@/lib/learn-paths'
+import { LEVELS, LEVEL_DIFFICULTY_META } from '@/lib/levels'
 
 export const metadata: Metadata = {
   title: '学习中心',
@@ -22,11 +22,11 @@ export default function LearnPage() {
       <div className="pt-10 pb-8">
         <h1 className="text-[28px] font-bold text-[var(--fg)] leading-tight">🎓 学习中心</h1>
         <p className="text-[15px] text-[var(--fg3)] mt-1.5">选择一条路径，闯关式学习。每完成一步解锁下一步，走完全程获得徽章。</p>
-        <div className="flex items-center gap-4 mt-4">
+        <div className="flex items-center gap-3 mt-4 flex-wrap">
           <span className="text-[12px] text-[var(--fg3)]">难度分级：</span>
-          {Object.entries(DIFFICULTY_META).map(([key, meta]) => (
-            <span key={key} className="text-[13px] px-2.5 py-1 rounded-full" style={{ background: 'rgba(var(--dim-rgb),0.10)', color: 'var(--primary)' }}>
-              {meta.icon} {meta.label}
+          {LEVELS.map((lv) => (
+            <span key={lv} className="text-[13px] px-2.5 py-1 rounded-full" style={{ background: 'rgba(var(--dim-rgb),0.10)', color: 'var(--primary)' }}>
+              {lv} {LEVEL_DIFFICULTY_META[lv].icon} {LEVEL_DIFFICULTY_META[lv].label}
             </span>
           ))}
         </div>

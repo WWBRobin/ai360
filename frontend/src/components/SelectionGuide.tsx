@@ -52,9 +52,9 @@ export default function SelectionGuide({ skills }: SelectionGuideProps) {
     },
     {
       icon: '🌱',
-      title: '新手友好',
+      title: '零基础友好',
       reason: beginnerFriendly?.difficulty_score
-        ? `上手难度 ${beginnerFriendly.difficulty_score}/5，最容易入门`
+        ? `上手难度 L${Math.max(1, Math.min(5, Math.round(6 - beginnerFriendly.difficulty_score)))}，一看就会`
         : '优先选择有试用功能的',
       skill: beginnerFriendly,
     },
