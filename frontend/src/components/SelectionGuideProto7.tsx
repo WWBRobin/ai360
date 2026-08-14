@@ -12,10 +12,10 @@ interface Badge {
 }
 
 const BADGES: Record<string, Badge> = {
-  best: { text: '综合最佳', cls: 'bg-[rgba(255,140,0,0.10)] text-[#FF8C00]' },
+  best: { text: '综合最佳', cls: 'bg-[rgba(28, 26, 24,0.10)] text-[#1c1a18]' },
   newbie: { text: '新手友好', cls: 'bg-[#f0fdf4] text-[#059669]' },
-  free: { text: '免费额度', cls: 'bg-[rgba(255,140,0,0.10)] text-[#FF8C00]' },
-  stable: { text: '最稳定', cls: 'bg-[rgba(255,140,0,0.10)] text-[#FF8C00]' },
+  free: { text: '免费额度', cls: 'bg-[rgba(28, 26, 24,0.10)] text-[#1c1a18]' },
+  stable: { text: '最稳定', cls: 'bg-[rgba(28, 26, 24,0.10)] text-[#1c1a18]' },
 }
 
 export default function SelectionGuideProto7({
@@ -101,13 +101,13 @@ export default function SelectionGuideProto7({
   return (
     <section className="content-card mt-10 p-7">
       <h2 className="text-[18px] font-bold text-[#1A1A1A] mb-1.5">{scenarioName}场景 · 选型建议</h2>
-      <p className="text-[13px] text-[#9CA3AF] mb-5">基于 AI360 三维实测评分，按典型需求给出推荐</p>
+      <p className="text-[13px] text-[#a1a1a1] mb-5">基于 AI360 三维实测评分，按典型需求给出推荐</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
         {recs.map((rec) => (
           <div
             key={rec.badge.text}
-            className="rounded-xl p-4 bg-[#FFFFFF] border border-[#F0F0F0] transition hover:border-[#E5E7EB]"
+            className="rounded-xl p-4 bg-[#fcfbf9] border border-[#e3e0dd] transition hover:border-[#e3e0dd]"
           >
             <span
               className={`inline-block text-[11px] font-bold uppercase tracking-[0.4px] px-2.5 py-[3px] rounded-md mb-2 ${rec.badge.cls}`}
@@ -116,15 +116,15 @@ export default function SelectionGuideProto7({
             </span>
             {rec.skill ? (
               <Link href={`/skill/${rec.skill.slug}`} className="block group">
-                <div className="text-[14px] font-semibold text-[#1A1A1A] group-hover:text-[#FF8C00] transition mb-1.5">
+                <div className="text-[14px] font-semibold text-[#1A1A1A] group-hover:text-[#1c1a18] transition mb-1.5">
                   {rec.skill.name}
                 </div>
-                <p className="text-[12px] text-[#6B7280] leading-[1.6]">{rec.why}</p>
+                <p className="text-[12px] text-[#656360] leading-[1.6]">{rec.why}</p>
               </Link>
             ) : (
               <div>
-                <div className="text-[14px] font-semibold text-[#9CA3AF] mb-1.5">暂无推荐</div>
-                <p className="text-[12px] text-[#6B7280] leading-[1.6]">{rec.why}</p>
+                <div className="text-[14px] font-semibold text-[#a1a1a1] mb-1.5">暂无推荐</div>
+                <p className="text-[12px] text-[#656360] leading-[1.6]">{rec.why}</p>
               </div>
             )}
           </div>

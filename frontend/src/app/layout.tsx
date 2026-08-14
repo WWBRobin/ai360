@@ -107,22 +107,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
 
         {/* 顶栏 — 对标 mcp.so 两行结构：第一行 Logo+搜索框+头像，第二行导航 Tab */}
-        <nav className="sticky top-0 z-50 bg-white border-b border-[#F0F0F0]">
+        <nav className="sticky top-0 z-50 bg-white border-b border-[#e3e0dd]">
           {/* 第一行 */}
           <div className="page-wrapper flex items-center h-16 px-6 gap-6">
             <Link href="/" className="flex items-center gap-2 shrink-0">
-              <span className="w-3 h-3 rounded-full bg-[#FF8C00]"></span>
-              <span className="font-bold text-[18px] text-[#1F2937] tracking-tight">AI360</span>
+              <span className="w-3 h-3 rounded-full bg-[#1c1a18]"></span>
+              <span className="font-bold text-[18px] text-[#2a2724] tracking-tight">AI360</span>
             </Link>
             <form action="/search" className="ml-auto max-w-md w-full">
               <input
                 type="text"
                 name="q"
                 placeholder="搜索 Skill / MCP / 工具..."
-                className="w-full h-9 px-4 border border-[#E5E7EB] rounded-md text-[14px] text-[#1F2937] bg-white outline-none focus:border-[#FF8C00] focus:shadow-[0_0_0_3px_rgba(255,140,0,0.12)] transition"
+                className="w-full h-9 px-4 border border-[#e3e0dd] rounded-md text-[14px] text-[#2a2724] bg-white outline-none focus:border-[#1c1a18] focus:shadow-[0_0_0_3px_rgba(28, 26, 24,0.12)] transition"
               />
             </form>
-            <div className="w-9 h-9 rounded-full bg-[#FF8C00] flex items-center justify-center text-white text-[15px] font-bold shrink-0">W</div>
+            <div className="w-9 h-9 rounded-full bg-[#1c1a18] flex items-center justify-center text-white text-[15px] font-bold shrink-0">W</div>
           </div>
           {/* 第二行：导航 Tab */}
           <TopNavTabs />
@@ -147,7 +147,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </p>
                 <Link
                   href="/subscribe"
-                  className="inline-flex items-center gap-1.5 mt-4 text-xs font-medium text-[#FF8C00] hover:text-[#E67300] transition"
+                  className="inline-flex items-center gap-1.5 mt-4 text-xs font-medium text-[#1c1a18] hover:text-[#000000] transition"
                 >
                   订阅每周更新
                   <span aria-hidden>→</span>

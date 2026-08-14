@@ -27,7 +27,7 @@ function ScoreDots({ score, total = 5 }: { score: number | null; total?: number 
         <span
           key={i}
           className={`inline-block h-2 w-2 rounded-full ${
-            i < filled ? 'bg-[#FF8C00]' : 'bg-[#E5E7EB]'
+            i < filled ? 'bg-[#1c1a18]' : 'bg-[#e3e0dd]'
           }`}
         />
       ))}
@@ -41,7 +41,7 @@ function ScoreDots({ score, total = 5 }: { score: number | null; total?: number 
  */
 function EssentialCard({ skill, accent }: { skill: SkillCard; accent: string }) {
   return (
-    <div className="group relative flex flex-col content-card p-6 transition-all duration-200 hover:border-[#FF8C00]">
+    <div className="group relative flex flex-col content-card p-6 transition-all duration-200 hover:border-[#1c1a18]">
       {/* 顶部：图标 + 名称 + 评分 */}
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-start gap-3">
@@ -51,7 +51,7 @@ function EssentialCard({ skill, accent }: { skill: SkillCard; accent: string }) 
             <span aria-hidden>{skill.name.charAt(0)}</span>
           </div>
           <div>
-            <h3 className="text-lg font-bold text-[#1A1A1A] group-hover:text-[#FF8C00]">
+            <h3 className="text-lg font-bold text-[#1A1A1A] group-hover:text-[#1c1a18]">
               <Link href={`/skill/${skill.slug}`} className="hover:underline">
                 {skill.name}
               </Link>
@@ -67,7 +67,7 @@ function EssentialCard({ skill, accent }: { skill: SkillCard; accent: string }) 
         </div>
         {skill.overall_score ? (
           <div className="shrink-0 text-right">
-            <div className="text-2xl font-bold leading-none text-[#FF8C00]">
+            <div className="text-2xl font-bold leading-none text-[#1c1a18]">
               {skill.overall_score.toFixed(1)}
             </div>
             <div className="mt-1 text-xs text-gray-400">综合评分</div>
@@ -117,7 +117,7 @@ function EssentialCard({ skill, accent }: { skill: SkillCard; accent: string }) 
         </a>
         <Link
           href={`/skill/${skill.slug}`}
-          className="text-sm font-medium text-[#FF8C00] hover:underline"
+          className="text-sm font-medium text-[#1c1a18] hover:underline"
         >
           查看完整评测 →
         </Link>
@@ -155,8 +155,8 @@ export default function EssentialTabs({ tabs }: { tabs: EssentialTab[] }) {
               aria-pressed={isActive}
               className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all ${
                 isActive
-                  ? 'bg-[#FF8C00] text-white shadow-sm'
-                  : 'text-[#6B7280] hover:bg-[#FAFAFA] hover:text-[#1F2937]'
+                  ? 'bg-[#1c1a18] text-white shadow-sm'
+                  : 'text-[#656360] hover:bg-[#f4f1ed] hover:text-[#2a2724]'
               }`}
             >
               <span className="text-base" aria-hidden>
@@ -165,7 +165,7 @@ export default function EssentialTabs({ tabs }: { tabs: EssentialTab[] }) {
               {tab.label}
               <span
                 className={`rounded-full px-1.5 py-0.5 text-[11px] font-bold ${
-                  isActive ? 'bg-white/25 text-white' : 'bg-[#F3F4F6] text-[#9CA3AF]'
+                  isActive ? 'bg-white/25 text-white' : 'bg-[#f0ede9] text-[#a1a1a1]'
                 }`}
               >
                 {tab.skills.length}
@@ -194,7 +194,7 @@ export default function EssentialTabs({ tabs }: { tabs: EssentialTab[] }) {
       ) : (
         <div className="mt-6 grid gap-5 lg:grid-cols-2">
           {active.skills.map((skill) => (
-            <EssentialCard key={skill.id} skill={skill} accent="bg-[rgba(255,140,0,0.08)]" />
+            <EssentialCard key={skill.id} skill={skill} accent="bg-[rgba(28, 26, 24,0.08)]" />
           ))}
         </div>
       )}

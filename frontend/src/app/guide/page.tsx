@@ -22,7 +22,7 @@ export default function GuideIndexPage() {
             深度评测
           </h1>
           <p className="text-[15px] text-[#666] leading-[1.7] max-w-[640px]">
-            <span className="font-bold text-[#FF8C00]">
+            <span className="font-bold text-[#1c1a18]">
               {articles.length}
             </span>{' '}
             篇深度评测文章。每一篇都基于 5 维度门控 + 8 种验证方法，给出明确的推荐结论。不写软文，只说实话。

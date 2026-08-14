@@ -125,7 +125,7 @@ export default function CompareClient({
                 : '搜索并添加 Skill…'
             }
             disabled={selected.length >= maxSelect}
-            className="w-full px-4 py-2.5 text-[13px] bg-white border border-[#E5E7EB] rounded-xl focus:outline-none focus:border-[#FF8C00] transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-4 py-2.5 text-[13px] bg-white border border-[#e3e0dd] rounded-xl focus:outline-none focus:border-[#1c1a18] transition disabled:opacity-50 disabled:cursor-not-allowed"
           />
           {showDropdown && selected.length < maxSelect && (
             <div className="absolute z-20 mt-1 w-full bg-white border border-[#eee] rounded-xl shadow-lg max-h-72 overflow-y-auto">
@@ -135,7 +135,7 @@ export default function CompareClient({
                     key={c.slug}
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={() => addSkill(c)}
-                    className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-[#FAFAFA] transition border-b border-gray-50 last:border-0"
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-[#f4f1ed] transition border-b border-gray-50 last:border-0"
                   >
                     <span className="text-lg flex-shrink-0">
                       {c.icon_url ? (
@@ -153,9 +153,9 @@ export default function CompareClient({
                       </div>
                     </div>
                     {c.overall_score != null && (
-                      <span className="text-[12px] text-[#FF8C00] flex-shrink-0">⭐{c.overall_score.toFixed(1)}</span>
+                      <span className="text-[12px] text-[#1c1a18] flex-shrink-0">⭐{c.overall_score.toFixed(1)}</span>
                     )}
-                    <span className="text-[#FF8C00] text-sm flex-shrink-0">+</span>
+                    <span className="text-[#1c1a18] text-sm flex-shrink-0">+</span>
                   </button>
                 ))
               ) : (
@@ -173,9 +173,9 @@ export default function CompareClient({
             {selected.map((s) => (
               <span
                 key={s.slug}
-                className="inline-flex items-center gap-2 bg-[#FAFAFA] border border-[#E5E7EB] rounded-full px-4 py-2 text-[13px] text-[#333] font-medium"
+                className="inline-flex items-center gap-2 bg-[#f4f1ed] border border-[#e3e0dd] rounded-full px-4 py-2 text-[13px] text-[#333] font-medium"
               >
-                <Link href={`/skill/${s.slug}`} className="flex items-center gap-1.5 hover:text-[#FF8C00] transition">
+                <Link href={`/skill/${s.slug}`} className="flex items-center gap-1.5 hover:text-[#1c1a18] transition">
                   {s.name}
                   <span className="text-[11px] text-[#aaa]">{s.platform_name}</span>
                 </Link>
@@ -194,7 +194,7 @@ export default function CompareClient({
                   const input = document.querySelector<HTMLInputElement>('input[type="text"]')
                   input?.focus()
                 }}
-                className="inline-flex items-center gap-1.5 bg-white border border-dashed border-[#ccc] rounded-full px-4 py-2 text-[13px] text-[#999] hover:border-[#FF8C00] hover:text-[#FF8C00] transition"
+                className="inline-flex items-center gap-1.5 bg-white border border-dashed border-[#ccc] rounded-full px-4 py-2 text-[13px] text-[#999] hover:border-[#1c1a18] hover:text-[#1c1a18] transition"
               >
                 + 添加工具
               </button>
@@ -240,7 +240,7 @@ function CompareTable({ selected }: { selected: SkillDetail[] }) {
             <tbody>
               {/* 表头：Skill 名 */}
               <tr>
-                <th className="sticky left-0 z-10 bg-[#FAFAFA] w-[170px] min-w-[170px] align-bottom text-left p-3.5 text-[12px] font-semibold text-[#000] uppercase tracking-wide border-b border-[#f0f0f0]">
+                <th className="sticky left-0 z-10 bg-[#f4f1ed] w-[170px] min-w-[170px] align-bottom text-left p-3.5 text-[12px] font-semibold text-[#000] uppercase tracking-wide border-b border-[#f0f0f0]">
                   维度
                 </th>
                 {selected.map((s) => (
@@ -269,7 +269,7 @@ function CompareTable({ selected }: { selected: SkillDetail[] }) {
                 cell={(s) =>
                   s.overall_score != null ? (
                     <div className="flex items-center gap-1.5">
-                      <span className="text-[#FF8C00] text-xs">{scoreToStars(s.overall_score)}</span>
+                      <span className="text-[#1c1a18] text-xs">{scoreToStars(s.overall_score)}</span>
                       <span className="font-semibold text-gray-800">{s.overall_score.toFixed(1)}</span>
                       <span className="text-gray-400 text-xs">/5</span>
                     </div>
@@ -303,7 +303,7 @@ function CompareTable({ selected }: { selected: SkillDetail[] }) {
                   s.difficulty_score != null ? (
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <span className="text-[#FF8C00] text-xs">{scoreToStars(s.difficulty_score)}</span>
+                        <span className="text-[#1c1a18] text-xs">{scoreToStars(s.difficulty_score)}</span>
                         <span className="font-medium text-gray-800">{s.difficulty_score}/5</span>
                       </div>
                       {s.difficulty_notes && <p className="text-gray-500 text-xs mt-1">{s.difficulty_notes}</p>}
@@ -324,7 +324,7 @@ function CompareTable({ selected }: { selected: SkillDetail[] }) {
                   s.stability_score != null ? (
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <span className="text-[#FF8C00] text-xs">{scoreToStars(s.stability_score)}</span>
+                        <span className="text-[#1c1a18] text-xs">{scoreToStars(s.stability_score)}</span>
                         <span className="font-medium text-gray-800">{s.stability_score}/5</span>
                       </div>
                       {s.stability_notes && <p className="text-gray-500 text-xs mt-1">{s.stability_notes}</p>}
@@ -380,7 +380,7 @@ function CompareTable({ selected }: { selected: SkillDetail[] }) {
                   s.trial_enabled ? (
                     <Link
                       href={`/skill/${s.slug}`}
-                      className="text-[12px] bg-[rgba(255,140,0,0.06)] text-[#FF8C00] px-2.5 py-1 rounded-lg font-medium inline-block"
+                      className="text-[12px] bg-[rgba(28, 26, 24,0.06)] text-[#1c1a18] px-2.5 py-1 rounded-lg font-medium inline-block"
                     >
                       支持试用 →
                     </Link>
@@ -438,8 +438,8 @@ function Row({
   highlight?: string | null
   zebra?: number
 }) {
-  // 斑马纹：奇数行 #FAFAFA，偶数行透明
-  const baseBg = zebra === 1 ? '#FAFAFA' : 'rgba(255,255,255,0.4)'
+  // 斑马纹：奇数行 #f4f1ed，偶数行透明
+  const baseBg = zebra === 1 ? '#f4f1ed' : 'rgba(255,255,255,0.4)'
   return (
     <tr className="transition">
       <th
@@ -455,7 +455,7 @@ function Row({
             key={s.slug}
             className="p-3.5 border-b border-[#f0f0f0] align-top"
             style={{
-              background: isBest ? 'rgba(255,140,0,0.06)' : baseBg,
+              background: isBest ? 'rgba(28, 26, 24,0.06)' : baseBg,
               color: isBest ? '#16a34a' : undefined,
               fontWeight: isBest ? 700 : undefined,
             }}
@@ -521,8 +521,8 @@ function ConclusionBar({
       </h2>
       <div className="content-card p-7 relative overflow-hidden">
         {/* 金色顶条 */}
-        <div className="absolute top-0 left-0 right-0 h-[5px] bg-[#FF8C00]" />
-        <h3 className="text-[22px] font-bold mb-1.5 text-[#FF8C00]" style={{ letterSpacing: '0.02em' }}>
+        <div className="absolute top-0 left-0 right-0 h-[5px] bg-[#1c1a18]" />
+        <h3 className="text-[22px] font-bold mb-1.5 text-[#1c1a18]" style={{ letterSpacing: '0.02em' }}>
           最终推荐
         </h3>
         <p className="text-[13px] text-[#aaa] mb-5">基于多维度实测对比，按场景给出选型建议</p>
@@ -530,7 +530,7 @@ function ConclusionBar({
         {items.map((it, i) => (
           <div key={i} className="py-4 border-b border-[#f0f0f0] last:border-b-0">
             <div
-              className="inline-flex items-center text-[12px] font-bold text-white uppercase tracking-wide mb-2 px-3 py-1 rounded-md bg-[#FF8C00]"
+              className="inline-flex items-center text-[12px] font-bold text-white uppercase tracking-wide mb-2 px-3 py-1 rounded-md bg-[#1c1a18]"
             >
               {it.label}
             </div>
@@ -556,24 +556,24 @@ function EmptyHint({ selected, candidates }: { selected: SkillDetail[]; candidat
     <div className="content-card py-12">
       {current ? (
         <div className="text-center">
-          <p className="text-[15px] text-[#1F2937] mb-1">已添加「{current.name}」，再加一个就能对比了</p>
-          <p className="text-[13px] text-[#9CA3AF] mb-6">推荐和它对比的工具：</p>
+          <p className="text-[15px] text-[#2a2724] mb-1">已添加「{current.name}」，再加一个就能对比了</p>
+          <p className="text-[13px] text-[#a1a1a1] mb-6">推荐和它对比的工具：</p>
           <div className="flex flex-wrap justify-center gap-3">
             {suggestions.map(s => (
               <Link
                 key={s.slug}
                 href={`/compare?slugs=${selected.map(x => x.slug).join(',')},${s.slug}`}
-                className="flex items-center gap-2 px-4 py-2.5 border border-[#F0F0F0] rounded-lg hover:border-[#FF8C00] hover:bg-[rgba(255,140,0,0.04)] transition group"
+                className="flex items-center gap-2 px-4 py-2.5 border border-[#e3e0dd] rounded-lg hover:border-[#1c1a18] hover:bg-[rgba(28, 26, 24,0.04)] transition group"
               >
-                <span className="text-[14px] font-medium text-[#1F2937] group-hover:text-[#FF8C00]">{s.name}</span>
-                {s.overall_score && <span className="text-[12px] text-[#9CA3AF]">{s.overall_score.toFixed(1)}分</span>}
+                <span className="text-[14px] font-medium text-[#2a2724] group-hover:text-[#1c1a18]">{s.name}</span>
+                {s.overall_score && <span className="text-[12px] text-[#a1a1a1]">{s.overall_score.toFixed(1)}分</span>}
               </Link>
             ))}
           </div>
         </div>
       ) : (
         <div className="text-center">
-          <div className="w-[72px] h-[72px] rounded-full mx-auto mb-4 flex items-center justify-center text-[#FF8C00] bg-[rgba(255,140,0,0.06)]">
+          <div className="w-[72px] h-[72px] rounded-full mx-auto mb-4 flex items-center justify-center text-[#1c1a18] bg-[rgba(28, 26, 24,0.06)]">
             <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M12 3v18M3 12h18" />
             </svg>
@@ -581,7 +581,7 @@ function EmptyHint({ selected, candidates }: { selected: SkillDetail[]; candidat
           <p className="text-[15px] text-[#666] mb-1.5">至少选择 2 个 Skill 才能对比</p>
           <p className="text-[13px] text-[#999]">
             在上方搜索框添加，或从
-            <Link href="/" className="text-[#FF8C00] mx-1 hover:underline">首页精选</Link>
+            <Link href="/" className="text-[#1c1a18] mx-1 hover:underline">首页精选</Link>
             里挑两个感兴趣的试试。
           </p>
         </div>

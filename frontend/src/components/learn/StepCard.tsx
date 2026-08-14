@@ -36,10 +36,10 @@ export default function StepCard({
   const stateClass = isCompleted
     ? 'border-[#10B981] bg-[#F0FDF4]'
     : isCurrent
-      ? 'border-[#FF8C00] bg-[rgba(255,140,0,0.04)]'
+      ? 'border-[#1c1a18] bg-[rgba(28, 26, 24,0.04)]'
       : isUnlocked
-        ? 'border-[#F0F0F0] bg-white hover:border-[#E5E7EB]'
-        : 'border-[#F0F0F0] bg-[#FAFAFA] opacity-60'
+        ? 'border-[#e3e0dd] bg-white hover:border-[#e3e0dd]'
+        : 'border-[#e3e0dd] bg-[#f4f1ed] opacity-60'
 
   return (
     <div
@@ -53,9 +53,9 @@ export default function StepCard({
             background: isCompleted
               ? '#10B981'
               : isCurrent
-                ? '#FF8C00'
-                : '#F3F4F6',
-            color: isCompleted || isCurrent ? '#FFFFFF' : '#9CA3AF',
+                ? '#1c1a18'
+                : '#f0ede9',
+            color: isCompleted || isCurrent ? '#FFFFFF' : '#a1a1a1',
           }}
         >
           {isCompleted ? '✓' : isUnlocked ? index + 1 : '🔒'}
@@ -67,7 +67,7 @@ export default function StepCard({
             <h3
               className="text-[15px] font-semibold"
               style={{
-                color: isCompleted ? '#059669' : isUnlocked ? '#1F2937' : '#9CA3AF',
+                color: isCompleted ? '#059669' : isUnlocked ? '#2a2724' : '#a1a1a1',
               }}
             >
               {step.title}
@@ -75,8 +75,8 @@ export default function StepCard({
             <span
               className="text-[11px] px-2 py-0.5 rounded-full font-medium"
               style={{
-                background: isUnlocked ? 'rgba(255,140,0,0.10)' : '#F3F4F6',
-                color: isUnlocked ? '#FF8C00' : '#9CA3AF',
+                background: isUnlocked ? 'rgba(28, 26, 24,0.10)' : '#f0ede9',
+                color: isUnlocked ? '#1c1a18' : '#a1a1a1',
               }}
             >
               {diff.icon} {diff.label}
@@ -86,21 +86,21 @@ export default function StepCard({
           {/* 描述 */}
           <p
             className="text-[13px] mb-3 leading-relaxed"
-            style={{ color: isUnlocked ? '#4B5563' : '#9CA3AF' }}
+            style={{ color: isUnlocked ? '#656360' : '#a1a1a1' }}
           >
             {step.description}
           </p>
 
           {/* 底部信息行 */}
           <div className="flex items-center justify-between gap-3 flex-wrap">
-            <div className="flex items-center gap-3 text-[12px]" style={{ color: '#9CA3AF' }}>
+            <div className="flex items-center gap-3 text-[12px]" style={{ color: '#a1a1a1' }}>
               <span className="flex items-center gap-1">
                 <span>⏱</span> {step.estimatedTime}
               </span>
               {step.skillHref && isUnlocked && (
                 <Link
                   href={step.skillHref}
-                  className="hover:text-[#FF8C00] transition font-medium"
+                  className="hover:text-[#1c1a18] transition font-medium"
                   onClick={(e) => e.stopPropagation()}
                 >
                   查看教程 →
@@ -115,14 +115,14 @@ export default function StepCard({
                 className="text-[13px] px-3.5 py-1.5 rounded-[6px] font-medium transition"
                 style={
                   isCompleted
-                    ? { border: '1px solid #D1D5DB', color: '#6B7280', background: 'transparent' }
-                    : { background: '#FF8C00', color: '#FFFFFF' }
+                    ? { border: '1px solid #c4c1bd', color: '#656360', background: 'transparent' }
+                    : { background: '#1c1a18', color: '#FFFFFF' }
                 }
                 onMouseEnter={(e) => {
-                  if (!isCompleted) e.currentTarget.style.background = '#E67300'
+                  if (!isCompleted) e.currentTarget.style.background = '#000000'
                 }}
                 onMouseLeave={(e) => {
-                  if (!isCompleted) e.currentTarget.style.background = '#FF8C00'
+                  if (!isCompleted) e.currentTarget.style.background = '#1c1a18'
                 }}
               >
                 {isCompleted ? '↩ 重新学习' : '✓ 标记完成'}

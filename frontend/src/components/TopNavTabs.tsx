@@ -29,13 +29,13 @@ export default function TopNavTabs() {
               key={tab.href}
               href={tab.href}
               className={`relative inline-flex h-11 shrink-0 items-center px-4 text-sm font-medium whitespace-nowrap transition ${
-                active ? 'text-[#FF8C00]' : 'text-[#4B5563] hover:text-[#1F2937]'
+                active ? 'text-[#1c1a18]' : 'text-[#656360] hover:text-[#2a2724]'
               }`}
             >
               {tab.label}
               {active && (
                 <span
-                  className="bg-[#FF8C00] absolute inset-x-4 bottom-0 h-0.5 rounded-md"
+                  className="bg-[#1c1a18] absolute inset-x-4 bottom-0 h-0.5 rounded-md"
                   aria-hidden="true"
                 />
               )}

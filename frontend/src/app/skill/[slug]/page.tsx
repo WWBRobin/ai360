@@ -304,11 +304,11 @@ export default async function SkillDetailPage({
 
       <main className="flex-1 min-w-0 relative px-4 md:px-8 py-6 max-w-[1080px]">
       {/* 1. 面包屑 */}
-      <nav className="flex items-center gap-1.5 text-xs text-[#9CA3AF] mb-5 flex-wrap">
-        <Link href="/" className="hover:text-[#FF8C00] transition">首页</Link>
+      <nav className="flex items-center gap-1.5 text-xs text-[#a1a1a1] mb-5 flex-wrap">
+        <Link href="/" className="hover:text-[#1c1a18] transition">首页</Link>
         <span>/</span>
         {skill.platform_slug ? (
-          <Link href={`/platform/${skill.platform_slug}`} className="hover:text-[#FF8C00] transition">
+          <Link href={`/platform/${skill.platform_slug}`} className="hover:text-[#1c1a18] transition">
             {skill.platform_name || '平台'}
           </Link>
         ) : null}
@@ -318,8 +318,8 @@ export default async function SkillDetailPage({
 
       {/* 最后更新日期（SEO+GEO，显示在页面头部） */}
       {updatedDateDisplay && (
-        <p className="text-xs text-[#9CA3AF] mb-3">
-          最后更新：<time dateTime={updatedDateISO || undefined} className="text-[#6B7280] font-medium">{updatedDateDisplay}</time>
+        <p className="text-xs text-[#a1a1a1] mb-3">
+          最后更新：<time dateTime={updatedDateISO || undefined} className="text-[#656360] font-medium">{updatedDateDisplay}</time>
         </p>
       )}
 
@@ -363,19 +363,19 @@ export default async function SkillDetailPage({
             {/* 评分行 */}
             {skill.overall_score != null && (
               <div className="flex items-center gap-2 mb-3 text-sm">
-                <span className="text-[#FF8C00] tracking-wide">
+                <span className="text-[#1c1a18] tracking-wide">
                   {scoreToStars(skill.overall_score)}
                 </span>
-                <span className="font-bold text-[#6B7280]">{skill.overall_score.toFixed(1)}</span>
-                <span className="text-xs text-[#9CA3AF]">/ 5.0</span>
+                <span className="font-bold text-[#656360]">{skill.overall_score.toFixed(1)}</span>
+                <span className="text-xs text-[#a1a1a1]">/ 5.0</span>
                 {evaluatedDate && (
-                  <span className="text-xs text-[#9CA3AF]">· 评测于 {evaluatedDate}</span>
+                  <span className="text-xs text-[#a1a1a1]">· 评测于 {evaluatedDate}</span>
                 )}
               </div>
             )}
 
             {/* 描述 */}
-            <p className="text-[15px] text-[#6B7280] leading-[1.7]">
+            <p className="text-[15px] text-[#656360] leading-[1.7]">
               {skill.tagline || skill.description || `${skill.name}：${CATEGORY_LABELS[skill.category] || ''}类工具`}
             </p>
           </div>

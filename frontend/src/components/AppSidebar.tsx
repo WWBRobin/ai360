@@ -62,7 +62,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <div className="px-3 mb-2">
       <span
-        className="text-[11px] font-medium text-[#9CA3AF] uppercase"
+        className="text-[11px] font-medium text-[#a1a1a1] uppercase"
         style={{ letterSpacing: '0.05em' }}
       >
         {children}
@@ -71,7 +71,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   )
 }
 
-/** 可点击的链接行（极简线条，透明背景，hover #FF8C00） */
+/** 可点击的链接行（极简线条，透明背景，hover #1c1a18） */
 function NavLink({
   href,
   label,
@@ -90,23 +90,23 @@ function NavLink({
       href={href}
       onMouseEnter={(e) => {
         if (!active) {
-          e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
-          e.currentTarget.style.color = '#FF8C00'
+          e.currentTarget.style.background = 'rgba(28, 26, 24,0.06)'
+          e.currentTarget.style.color = '#1c1a18'
         }
         onHover?.()
       }}
       onMouseLeave={(e) => {
         if (!active) {
           e.currentTarget.style.background = 'transparent'
-          e.currentTarget.style.color = '#1F2937'
+          e.currentTarget.style.color = '#2a2724'
         }
       }}
       className="flex items-center px-3 py-2 rounded-[6px] text-[14px] transition"
-      style={{ fontWeight: active ? 600 : 500, color: active ? '#FF8C00' : '#1F2937' }}
+      style={{ fontWeight: active ? 600 : 500, color: active ? '#1c1a18' : '#2a2724' }}
     >
       <span className="flex-1">{label}</span>
       {count !== undefined && (
-        <span className="text-[13px]" style={{ color: active ? '#FF8C00' : '#9CA3AF' }}>
+        <span className="text-[13px]" style={{ color: active ? '#1c1a18' : '#a1a1a1' }}>
           {count}
         </span>
       )}
@@ -131,12 +131,12 @@ function CheckRow({
       onClick={onToggle}
       className="w-full flex items-center gap-2.5 px-3 py-2 rounded-[6px] transition-all duration-150"
       style={{
-        background: checked ? 'rgba(255,140,0,0.12)' : 'transparent',
-        color: checked ? '#FF8C00' : '#1F2937',
+        background: checked ? 'rgba(28, 26, 24,0.12)' : 'transparent',
+        color: checked ? '#1c1a18' : '#2a2724',
         fontWeight: checked ? 600 : 500,
       }}
       onMouseEnter={(e) => {
-        if (!checked) e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
+        if (!checked) e.currentTarget.style.background = 'rgba(28, 26, 24,0.06)'
       }}
       onMouseLeave={(e) => {
         if (!checked) e.currentTarget.style.background = 'transparent'
@@ -145,8 +145,8 @@ function CheckRow({
       <span
         className="w-3.5 h-3.5 rounded-[3px] flex items-center justify-center text-[9px]"
         style={{
-          border: checked ? '1px solid #FF8C00' : '1px solid #D1D5DB',
-          background: checked ? '#FF8C00' : 'transparent',
+          border: checked ? '1px solid #1c1a18' : '1px solid #c4c1bd',
+          background: checked ? '#1c1a18' : 'transparent',
           color: '#fff',
         }}
       >
@@ -154,7 +154,7 @@ function CheckRow({
       </span>
       <span className="flex-1 text-left text-[14px]">{label}</span>
       {count !== undefined && (
-        <span className="text-[12px]" style={{ color: checked ? '#FF8C00' : '#9CA3AF' }}>
+        <span className="text-[12px]" style={{ color: checked ? '#1c1a18' : '#a1a1a1' }}>
           {count}
         </span>
       )}
@@ -166,11 +166,11 @@ function CheckRow({
 function SearchBox() {
   return (
     <div className="search-input flex items-center gap-2 px-3 py-2 mb-5">
-      <span className="text-[#D1D5DB] text-sm">⌕</span>
+      <span className="text-[#c4c1bd] text-sm">⌕</span>
       <input
         type="text"
         placeholder="搜索..."
-        className="flex-1 bg-transparent border-none outline-none text-[13px] text-[#1F2937] placeholder:text-[#D1D5DB]"
+        className="flex-1 bg-transparent border-none outline-none text-[13px] text-[#2a2724] placeholder:text-[#c4c1bd]"
       />
     </div>
   )
@@ -205,12 +205,12 @@ function HomeSidebar() {
       <div className="mb-1">
         <div className="flex items-center justify-between mb-2 px-3">
           <span
-            className="text-[11px] font-medium text-[#9CA3AF] uppercase"
+            className="text-[11px] font-medium text-[#a1a1a1] uppercase"
             style={{ letterSpacing: '0.05em' }}
           >
             平台
           </span>
-          <span className="text-[10px] text-[#D1D5DB]">多选≤3</span>
+          <span className="text-[10px] text-[#c4c1bd]">多选≤3</span>
         </div>
       </div>
 
@@ -222,9 +222,9 @@ function HomeSidebar() {
               key={p.slug}
               onClick={() => togglePlatform(p.slug)}
               className="w-full flex items-center gap-2.5 px-3 py-2 rounded-[8px] transition-all duration-150 relative"
-              style={{ background: isSelected ? 'rgba(255,140,0,0.12)' : 'transparent' }}
+              style={{ background: isSelected ? 'rgba(28, 26, 24,0.12)' : 'transparent' }}
               onMouseEnter={(e) => {
-                if (!isSelected) e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
+                if (!isSelected) e.currentTarget.style.background = 'rgba(28, 26, 24,0.06)'
               }}
               onMouseLeave={(e) => {
                 if (!isSelected) e.currentTarget.style.background = 'transparent'
@@ -237,7 +237,7 @@ function HomeSidebar() {
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={p.logo} alt={p.name} className="w-full h-full object-cover" />
                 ) : (
-                  <span className="text-[10px] font-bold text-[#9CA3AF]" style={{ border: '1px solid #F0F0F0', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%' }}>
+                  <span className="text-[10px] font-bold text-[#a1a1a1]" style={{ border: '1px solid #e3e0dd', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%' }}>
                     {p.name[0]}
                   </span>
                 )}
@@ -246,12 +246,12 @@ function HomeSidebar() {
                 className="flex-1 text-left text-[14px]"
                 style={{
                   fontWeight: isSelected ? 600 : 500,
-                  color: isSelected ? '#FF8C00' : '#1F2937',
+                  color: isSelected ? '#1c1a18' : '#2a2724',
                 }}
               >
                 {p.name}
               </span>
-              <span className="text-[13px]" style={{ color: isSelected ? '#FF8C00' : '#9CA3AF' }}>
+              <span className="text-[13px]" style={{ color: isSelected ? '#1c1a18' : '#a1a1a1' }}>
                 {p.count}
               </span>
             </button>
@@ -263,14 +263,14 @@ function HomeSidebar() {
         <button
           onClick={() => setShowAll(!showAll)}
           className="w-full text-center py-1.5 rounded-[8px] text-[12px] transition"
-          style={{ border: '1px dashed #E5E7EB', color: '#6B7280', background: 'transparent' }}
+          style={{ border: '1px dashed #e3e0dd', color: '#656360', background: 'transparent' }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = '#FF8C00'
-            e.currentTarget.style.color = '#FF8C00'
+            e.currentTarget.style.borderColor = '#1c1a18'
+            e.currentTarget.style.color = '#1c1a18'
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = '#E5E7EB'
-            e.currentTarget.style.color = '#6B7280'
+            e.currentTarget.style.borderColor = '#e3e0dd'
+            e.currentTarget.style.color = '#656360'
           }}
         >
           {showAll ? '收起' : `全部平台 (${PLATFORMS.length}个) →`}
@@ -327,9 +327,9 @@ function EssentialSidebar() {
               key={c.slug}
               
               className="w-full flex items-center gap-2.5 px-3 py-2 rounded-[8px] transition-all duration-150"
-              style={{ background: active === c.slug ? 'rgba(255,140,0,0.12)' : 'transparent' }}
+              style={{ background: active === c.slug ? 'rgba(28, 26, 24,0.12)' : 'transparent' }}
               onMouseEnter={(e) => {
-                if (active !== c.slug) e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
+                if (active !== c.slug) e.currentTarget.style.background = 'rgba(28, 26, 24,0.06)'
               }}
               onMouseLeave={(e) => {
                 if (active !== c.slug) e.currentTarget.style.background = 'transparent'
@@ -340,7 +340,7 @@ function EssentialSidebar() {
                 className="flex-1 text-left text-[14px]"
                 style={{
                   fontWeight: active === c.slug ? 600 : 500,
-                  color: active === c.slug ? '#FF8C00' : '#1F2937',
+                  color: active === c.slug ? '#1c1a18' : '#2a2724',
                 }}
               >
                 {c.name}
@@ -358,16 +358,16 @@ function EssentialSidebar() {
               key={d.slug}
               className="w-full flex items-center gap-2.5 px-3 py-2 rounded-[6px] transition"
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
+                e.currentTarget.style.background = 'rgba(28, 26, 24,0.06)'
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = 'transparent'
               }}
             >
-              <span className="flex-1 text-left text-[14px] font-medium text-[#1F2937]">
+              <span className="flex-1 text-left text-[14px] font-medium text-[#2a2724]">
                 {d.name}
               </span>
-              <span className="text-[11px] text-[#9CA3AF]">{d.desc}</span>
+              <span className="text-[11px] text-[#a1a1a1]">{d.desc}</span>
             </button>
           ))}
         </div>
@@ -377,14 +377,14 @@ function EssentialSidebar() {
         <Link
           href="/guide/install-guide"
           className="flex items-center justify-center gap-1.5 py-2.5 rounded-[8px] text-[13px] font-semibold transition"
-          style={{ border: '1px solid #FF8C00', color: '#FF8C00', background: 'transparent' }}
+          style={{ border: '1px solid #1c1a18', color: '#1c1a18', background: 'transparent' }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#FF8C00'
+            e.currentTarget.style.background = '#1c1a18'
             e.currentTarget.style.color = '#fff'
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.background = 'transparent'
-            e.currentTarget.style.color = '#FF8C00'
+            e.currentTarget.style.color = '#1c1a18'
           }}
         >
           📖 装机完整指南
@@ -439,9 +439,9 @@ function GuideSidebar() {
               key={c.slug}
               onClick={() => selectCat(c.slug)}
               className="w-full flex items-center gap-2.5 px-3 py-2 rounded-[8px] transition-all duration-150"
-              style={{ background: active === c.slug ? 'rgba(255,140,0,0.12)' : 'transparent' }}
+              style={{ background: active === c.slug ? 'rgba(28, 26, 24,0.12)' : 'transparent' }}
               onMouseEnter={(e) => {
-                if (active !== c.slug) e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
+                if (active !== c.slug) e.currentTarget.style.background = 'rgba(28, 26, 24,0.06)'
               }}
               onMouseLeave={(e) => {
                 if (active !== c.slug) e.currentTarget.style.background = 'transparent'
@@ -452,7 +452,7 @@ function GuideSidebar() {
                 className="flex-1 text-left text-[14px]"
                 style={{
                   fontWeight: active === c.slug ? 600 : 500,
-                  color: active === c.slug ? '#FF8C00' : '#1F2937',
+                  color: active === c.slug ? '#1c1a18' : '#2a2724',
                 }}
               >
                 {c.name}
@@ -471,12 +471,12 @@ function GuideSidebar() {
               href={`/guide/${a.slug}`}
               className="flex items-center gap-2.5 px-3 py-2 rounded-[6px] transition"
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
-                e.currentTarget.style.color = '#FF8C00'
+                e.currentTarget.style.background = 'rgba(28, 26, 24,0.06)'
+                e.currentTarget.style.color = '#1c1a18'
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = 'transparent'
-                e.currentTarget.style.color = '#1F2937'
+                e.currentTarget.style.color = '#2a2724'
               }}
             >
               <span className="text-[15px]">{a.icon}</span>
@@ -490,14 +490,14 @@ function GuideSidebar() {
         <Link
           href="/"
           className="block text-center py-2 rounded-[8px] text-[12px] transition"
-          style={{ border: '1px dashed #E5E7EB', color: '#6B7280', background: 'transparent' }}
+          style={{ border: '1px dashed #e3e0dd', color: '#656360', background: 'transparent' }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = '#FF8C00'
-            e.currentTarget.style.color = '#FF8C00'
+            e.currentTarget.style.borderColor = '#1c1a18'
+            e.currentTarget.style.color = '#1c1a18'
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = '#E5E7EB'
-            e.currentTarget.style.color = '#6B7280'
+            e.currentTarget.style.borderColor = '#e3e0dd'
+            e.currentTarget.style.color = '#656360'
           }}
         >
           ← 返回首页
@@ -542,9 +542,9 @@ function ScenarioSidebar({ pathname }: { pathname: string }) {
                 key={s.slug}
                 href={`/scenario/${s.slug}`}
                 className="flex items-center gap-2.5 px-3 py-2 rounded-[8px] transition-all duration-150"
-                style={{ background: active ? 'rgba(255,140,0,0.12)' : 'transparent' }}
+                style={{ background: active ? 'rgba(28, 26, 24,0.12)' : 'transparent' }}
                 onMouseEnter={(e) => {
-                  if (!active) e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
+                  if (!active) e.currentTarget.style.background = 'rgba(28, 26, 24,0.06)'
                 }}
                 onMouseLeave={(e) => {
                   if (!active) e.currentTarget.style.background = 'transparent'
@@ -553,11 +553,11 @@ function ScenarioSidebar({ pathname }: { pathname: string }) {
                 <span className="text-[16px]">{s.icon}</span>
                 <span
                   className="flex-1 text-[14px]"
-                  style={{ fontWeight: active ? 600 : 500, color: active ? '#FF8C00' : '#1F2937' }}
+                  style={{ fontWeight: active ? 600 : 500, color: active ? '#1c1a18' : '#2a2724' }}
                 >
                   {s.name}
                 </span>
-                {active && <span className="text-[12px] text-[#FF8C00]">●</span>}
+                {active && <span className="text-[12px] text-[#1c1a18]">●</span>}
               </Link>
             )
           })}
@@ -597,27 +597,27 @@ function PlatformSidebar({ pathname }: { pathname: string }) {
                 key={p.slug}
                 href={`/platform/${p.slug}`}
                 className="flex items-center gap-2.5 px-3 py-2 rounded-[8px] transition-all duration-150"
-                style={{ background: active ? 'rgba(255,140,0,0.12)' : 'transparent' }}
+                style={{ background: active ? 'rgba(28, 26, 24,0.12)' : 'transparent' }}
                 onMouseEnter={(e) => {
-                  if (!active) e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
+                  if (!active) e.currentTarget.style.background = 'rgba(28, 26, 24,0.06)'
                 }}
                 onMouseLeave={(e) => {
                   if (!active) e.currentTarget.style.background = 'transparent'
                 }}
               >
                 <span
-                  className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold text-[#9CA3AF]"
-                  style={{ background: 'transparent', border: '1px solid #F0F0F0' }}
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold text-[#a1a1a1]"
+                  style={{ background: 'transparent', border: '1px solid #e3e0dd' }}
                 >
                   {p.name[0]}
                 </span>
                 <span
                   className="flex-1 text-[14px]"
-                  style={{ fontWeight: active ? 600 : 500, color: active ? '#FF8C00' : '#1F2937' }}
+                  style={{ fontWeight: active ? 600 : 500, color: active ? '#1c1a18' : '#2a2724' }}
                 >
                   {p.name}
                 </span>
-                <span className="text-[13px]" style={{ color: active ? '#FF8C00' : '#9CA3AF' }}>
+                <span className="text-[13px]" style={{ color: active ? '#1c1a18' : '#a1a1a1' }}>
                   {p.count}
                 </span>
               </Link>
@@ -630,14 +630,14 @@ function PlatformSidebar({ pathname }: { pathname: string }) {
         <Link
           href="/"
           className="block text-center py-2 rounded-[8px] text-[12px] transition"
-          style={{ border: '1px dashed #E5E7EB', color: '#6B7280', background: 'transparent' }}
+          style={{ border: '1px dashed #e3e0dd', color: '#656360', background: 'transparent' }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = '#FF8C00'
-            e.currentTarget.style.color = '#FF8C00'
+            e.currentTarget.style.borderColor = '#1c1a18'
+            e.currentTarget.style.color = '#1c1a18'
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = '#E5E7EB'
-            e.currentTarget.style.color = '#6B7280'
+            e.currentTarget.style.borderColor = '#e3e0dd'
+            e.currentTarget.style.color = '#656360'
           }}
         >
           ← 返回首页
@@ -689,7 +689,7 @@ function SearchSidebarContent() {
     <>
       <div className="flex items-center justify-between mb-4 px-3">
         <span
-          className="text-[13px] font-bold text-[#1F2937]"
+          className="text-[13px] font-bold text-[#2a2724]"
         >
           🎛️ 筛选条件
         </span>
@@ -703,7 +703,7 @@ function SearchSidebarContent() {
               const qs = params.toString()
               router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
             }}
-            className="text-[11px] text-[#FF8C00] hover:underline"
+            className="text-[11px] text-[#1c1a18] hover:underline"
           >
             清除
           </button>
@@ -787,17 +787,17 @@ function CompareSidebar() {
               href={`/compare?slugs=${c.slug}`}
               className="flex items-center gap-2.5 px-3 py-2 rounded-[6px] transition"
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
-                e.currentTarget.style.color = '#FF8C00'
+                e.currentTarget.style.background = 'rgba(28, 26, 24,0.06)'
+                e.currentTarget.style.color = '#1c1a18'
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = 'transparent'
-                e.currentTarget.style.color = '#1F2937'
+                e.currentTarget.style.color = '#2a2724'
               }}
             >
-              <span className="text-[13px] text-[#9CA3AF]">⇄</span>
+              <span className="text-[13px] text-[#a1a1a1]">⇄</span>
               <span className="flex-1 text-[13px] font-medium leading-snug">{c.title}</span>
-              <span className="text-[11px] text-[#D1D5DB]">{c.count}</span>
+              <span className="text-[11px] text-[#c4c1bd]">{c.count}</span>
             </Link>
           ))}
         </div>
@@ -816,14 +816,14 @@ function CompareSidebar() {
         <Link
           href="/"
           className="block text-center py-2 rounded-[8px] text-[12px] transition"
-          style={{ border: '1px dashed #E5E7EB', color: '#6B7280', background: 'transparent' }}
+          style={{ border: '1px dashed #e3e0dd', color: '#656360', background: 'transparent' }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = '#FF8C00'
-            e.currentTarget.style.color = '#FF8C00'
+            e.currentTarget.style.borderColor = '#1c1a18'
+            e.currentTarget.style.color = '#1c1a18'
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = '#E5E7EB'
-            e.currentTarget.style.color = '#6B7280'
+            e.currentTarget.style.borderColor = '#e3e0dd'
+            e.currentTarget.style.color = '#656360'
           }}
         >
           ← 返回首页
@@ -869,12 +869,12 @@ function SkillDetailSidebar({ pathname }: { pathname: string }) {
                 onClick={() => setActiveSection(t.id)}
                 className="flex items-center gap-2.5 px-3 py-2 rounded-[6px] transition"
                 style={{
-                  background: active ? 'rgba(255,140,0,0.12)' : 'transparent',
-                  color: active ? '#FF8C00' : '#1F2937',
+                  background: active ? 'rgba(28, 26, 24,0.12)' : 'transparent',
+                  color: active ? '#1c1a18' : '#2a2724',
                   fontWeight: active ? 600 : 500,
                 }}
                 onMouseEnter={(e) => {
-                  if (!active) e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
+                  if (!active) e.currentTarget.style.background = 'rgba(28, 26, 24,0.06)'
                 }}
                 onMouseLeave={(e) => {
                   if (!active) e.currentTarget.style.background = 'transparent'
@@ -897,17 +897,17 @@ function SkillDetailSidebar({ pathname }: { pathname: string }) {
               href={`/skill/${s.slug}`}
               className="flex items-center gap-2.5 px-3 py-2 rounded-[6px] transition"
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
-                e.currentTarget.style.color = '#FF8C00'
+                e.currentTarget.style.background = 'rgba(28, 26, 24,0.06)'
+                e.currentTarget.style.color = '#1c1a18'
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = 'transparent'
-                e.currentTarget.style.color = '#1F2937'
+                e.currentTarget.style.color = '#2a2724'
               }}
             >
               <span className="text-[15px]">{s.icon}</span>
               <span className="flex-1 text-[13px] font-medium">{s.name}</span>
-              <span className="text-[12px] text-[#D1D5DB]">→</span>
+              <span className="text-[12px] text-[#c4c1bd]">→</span>
             </Link>
           ))}
         </div>
@@ -917,14 +917,14 @@ function SkillDetailSidebar({ pathname }: { pathname: string }) {
         <Link
           href={`/compare?slugs=${pathname.split('/').pop()}`}
           className="flex items-center justify-center gap-1.5 py-2.5 rounded-[8px] text-[13px] font-semibold transition"
-          style={{ border: '1px solid #FF8C00', color: '#FF8C00', background: 'transparent' }}
+          style={{ border: '1px solid #1c1a18', color: '#1c1a18', background: 'transparent' }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#FF8C00'
+            e.currentTarget.style.background = '#1c1a18'
             e.currentTarget.style.color = '#fff'
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.background = 'transparent'
-            e.currentTarget.style.color = '#FF8C00'
+            e.currentTarget.style.color = '#1c1a18'
           }}
         >
           ⇄ 加入对比
@@ -982,20 +982,20 @@ function LearnSidebar({ pathname }: { pathname: string }) {
                 href={`/learn/tool/${p.slug}`}
                 className="flex items-center gap-2.5 px-3 py-2 rounded-[6px] transition"
                 style={{
-                  background: active ? 'rgba(255,140,0,0.12)' : 'transparent',
-                  color: active ? '#FF8C00' : '#1F2937',
+                  background: active ? 'rgba(28, 26, 24,0.12)' : 'transparent',
+                  color: active ? '#1c1a18' : '#2a2724',
                   fontWeight: active ? 600 : 500,
                 }}
                 onMouseEnter={(e) => {
                   if (!active) {
-                    e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
-                    e.currentTarget.style.color = '#FF8C00'
+                    e.currentTarget.style.background = 'rgba(28, 26, 24,0.06)'
+                    e.currentTarget.style.color = '#1c1a18'
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!active) {
                     e.currentTarget.style.background = 'transparent'
-                    e.currentTarget.style.color = '#1F2937'
+                    e.currentTarget.style.color = '#2a2724'
                   }
                 }}
               >
@@ -1018,20 +1018,20 @@ function LearnSidebar({ pathname }: { pathname: string }) {
                 href={`/learn/scene/${s.slug}`}
                 className="flex items-center gap-2.5 px-3 py-2 rounded-[6px] transition"
                 style={{
-                  background: active ? 'rgba(255,140,0,0.12)' : 'transparent',
-                  color: active ? '#FF8C00' : '#1F2937',
+                  background: active ? 'rgba(28, 26, 24,0.12)' : 'transparent',
+                  color: active ? '#1c1a18' : '#2a2724',
                   fontWeight: active ? 600 : 500,
                 }}
                 onMouseEnter={(e) => {
                   if (!active) {
-                    e.currentTarget.style.background = 'rgba(255,140,0,0.06)'
-                    e.currentTarget.style.color = '#FF8C00'
+                    e.currentTarget.style.background = 'rgba(28, 26, 24,0.06)'
+                    e.currentTarget.style.color = '#1c1a18'
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!active) {
                     e.currentTarget.style.background = 'transparent'
-                    e.currentTarget.style.color = '#1F2937'
+                    e.currentTarget.style.color = '#2a2724'
                   }
                 }}
               >
@@ -1058,7 +1058,7 @@ export default function AppSidebar() {
     <aside
       suppressHydrationWarning
       className="hidden md:block w-[220px] shrink-0 sticky top-[108px] h-[calc(100vh-108px)] overflow-y-auto"
-      style={{ background: '#FAFAFA', borderRight: '1px solid #F0F0F0' }}
+      style={{ background: '#f4f1ed', borderRight: '1px solid #e3e0dd' }}
     >
       <div className="px-3 pt-8 pb-6">
         {variant === 'home' && <HomeSidebar />}

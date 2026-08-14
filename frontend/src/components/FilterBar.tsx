@@ -57,15 +57,15 @@ export default function FilterBar({
 
   const selectClass =
     'text-[13px] text-[#1f2937] rounded-lg px-3 py-[7px] cursor-pointer outline-none transition ' +
-    'border border-[#F0F0F0] bg-[#FFFFFF] ' +
-    'focus:border-[#FF8C00] focus:shadow-[0_0_0_3px_rgba(255,140,0,0.12)]'
+    'border border-[#e3e0dd] bg-[#fcfbf9] ' +
+    'focus:border-[#1c1a18] focus:shadow-[0_0_0_3px_rgba(28, 26, 24,0.12)]'
 
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 py-4">
-      <div className="text-[13px] text-[#6B7280]">
+      <div className="text-[13px] text-[#656360]">
         共 <b className="text-[#1A1A1A]">{total}</b> 个
         {testedCount != null && (
-          <span className="text-[#9CA3AF]"> · 实测 <b className="text-[#1A1A1A]">{testedCount}</b></span>
+          <span className="text-[#a1a1a1]"> · 实测 <b className="text-[#1A1A1A]">{testedCount}</b></span>
         )}
       </div>
       <div className="flex items-center gap-2">

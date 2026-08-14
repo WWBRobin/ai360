@@ -151,15 +151,15 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
       <div className="page-wrapper flex min-h-screen relative">
         <AppSidebar />
         <main className="flex-1 min-w-0 relative z-10 px-8 py-10">
-          <nav className="text-[12px] text-[#9CA3AF] mb-3.5">
-            <Link href="/" className="hover:text-[#FF8C00]">首页</Link>
+          <nav className="text-[12px] text-[#a1a1a1] mb-3.5">
+            <Link href="/" className="hover:text-[#1c1a18]">首页</Link>
             <span> / </span>
-            <span className="text-[#6B7280]">{scenarioName}</span>
+            <span className="text-[#656360]">{scenarioName}</span>
           </nav>
           <div className="flex flex-col items-center justify-center py-24 text-center">
             <div className="text-6xl mb-4">{scenarioIcon}</div>
             <h1 className="text-2xl font-bold text-[#1A1A1A] mb-2">「{scenarioName}」场景暂无评测</h1>
-            <p className="text-[#6B7280] mb-8 max-w-md">
+            <p className="text-[#656360] mb-8 max-w-md">
               我们正在加紧评测该场景下的 AI Skill，请稍后再来看看。
             </p>
             <div className="flex gap-3">
@@ -187,15 +187,15 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
 
       <main className="flex-1 min-w-0 relative z-10 px-8 py-10 max-w-[1080px]">
         {/* 面包屑 */}
-        <nav className="text-[12px] text-[#9CA3AF] mb-3.5">
-          <Link href="/" className="hover:text-[#FF8C00]">首页</Link>
+        <nav className="text-[12px] text-[#a1a1a1] mb-3.5">
+          <Link href="/" className="hover:text-[#1c1a18]">首页</Link>
           <span> / </span>
-          <span className="text-[#6B7280]">{scenarioName}</span>
+          <span className="text-[#656360]">{scenarioName}</span>
         </nav>
 
         {/* 最后更新时间 */}
-        <p className="text-xs text-[#9CA3AF] mb-3">
-          最后更新：<time className="text-[#6B7280] font-medium">{new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+        <p className="text-xs text-[#a1a1a1] mb-3">
+          最后更新：<time className="text-[#656360] font-medium">{new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
         </p>
 
         {/* 标题区 */}
@@ -203,11 +203,11 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
           <h1 className="text-[26px] font-bold text-[#1A1A1A] mb-2.5" style={{ letterSpacing: '-0.5px' }}>
             <span className="mr-2">{scenarioIcon}</span>
             {scenarioName}
-            <span className="text-[14px] font-normal text-[#9CA3AF] ml-2">
+            <span className="text-[14px] font-normal text-[#a1a1a1] ml-2">
               · {allSkills.length} 个 Skill
             </span>
           </h1>
-          <p className="text-[15px] text-[#6B7280] max-w-[680px] leading-[1.7]">
+          <p className="text-[15px] text-[#656360] max-w-[680px] leading-[1.7]">
             {scenarioName}场景下的 AI Skill 横向对比，按平台分组展示，帮你快速找到最适合的方案。
           </p>
         </div>
@@ -223,19 +223,19 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
           {groups.size === 0 ? (
             <div className="flex flex-col items-center justify-center py-16 text-center">
               <div className="text-5xl mb-4">🔍</div>
-              <p className="text-lg font-medium text-[#6B7280] mb-2">没有符合条件的结果</p>
-              <p className="text-sm text-[#9CA3AF]">当前筛选条件下没有 Skill，试试切换平台或排序方式。</p>
+              <p className="text-lg font-medium text-[#656360] mb-2">没有符合条件的结果</p>
+              <p className="text-sm text-[#a1a1a1]">当前筛选条件下没有 Skill，试试切换平台或排序方式。</p>
             </div>
           ) : (
             [...groups.entries()].map(([pslug, group]) => (
               <section key={pslug}>
                 <div className="mb-3.5 flex items-center gap-2.5">
                   <h2 className="text-[16px] font-semibold text-[#1A1A1A]">{group.name}</h2>
-                  <span className="rounded-full bg-[#F3F4F6] px-2.5 py-0.5 text-[11px] font-medium text-[#6B7280]">
+                  <span className="rounded-full bg-[#f0ede9] px-2.5 py-0.5 text-[11px] font-medium text-[#656360]">
                     {group.skills.length} 个
                   </span>
                   {platformRank(pslug) <= 2 && (
-                    <span className="rounded-full bg-[rgba(255,140,0,0.10)] px-2.5 py-0.5 text-[11px] font-medium text-[#FF8C00]">
+                    <span className="rounded-full bg-[rgba(28, 26, 24,0.10)] px-2.5 py-0.5 text-[11px] font-medium text-[#1c1a18]">
                       主流平台
                     </span>
                   )}
@@ -262,7 +262,7 @@ export default async function ScenarioPage(props: ScenarioPageProps) {
                 <Link
                   key={s.slug}
                   href={`/scenario/${s.slug}`}
-                  className="inline-flex items-center gap-2 rounded-full bg-[#FFFFFF] border border-[#F0F0F0] px-4 py-2 text-sm text-[#6B7280] transition hover:border-[#FF8C00] hover:text-[#FF8C00]"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#fcfbf9] border border-[#e3e0dd] px-4 py-2 text-sm text-[#656360] transition hover:border-[#1c1a18] hover:text-[#1c1a18]"
                 >
                   <span>{SCENARIO_ICONS[s.slug] || '🎯'}</span>
                   {s.name}

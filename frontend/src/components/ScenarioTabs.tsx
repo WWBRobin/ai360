@@ -42,7 +42,7 @@ export default function ScenarioTabs({
               }`}
             >
               {s.name}
-              <span className="text-[11px] text-[#9CA3AF] ml-1">{s.count}</span>
+              <span className="text-[11px] text-[#a1a1a1] ml-1">{s.count}</span>
             </a>
           )
         })}
@@ -56,7 +56,7 @@ export default function ScenarioTabs({
             type="button"
             onClick={() => setActiveType(i)}
             className={`text-[13px] transition ${
-              activeType === i ? 'text-[#FF8C00] font-semibold' : 'text-[#9CA3AF] hover:text-[#6B7280]'
+              activeType === i ? 'text-[#1c1a18] font-semibold' : 'text-[#a1a1a1] hover:text-[#656360]'
             }`}
           >
             {t}

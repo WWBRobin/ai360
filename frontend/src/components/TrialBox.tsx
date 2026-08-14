@@ -60,7 +60,7 @@ export default function TrialBox({
         <span className="text-lg">🧪</span>
         <h3 className="font-bold text-[#1A1A1A]">在线试用 {skillName}</h3>
         {remaining !== null && (
-          <span className="ml-auto text-xs text-[#FF8C00] bg-[rgba(255,140,0,0.06)] px-2 py-0.5 rounded-full border border-[rgba(255,140,0,0.20)]">
+          <span className="ml-auto text-xs text-[#1c1a18] bg-[rgba(28, 26, 24,0.06)] px-2 py-0.5 rounded-full border border-[rgba(28, 26, 24,0.20)]">
             剩余 {remaining} 次
           </span>
         )}
@@ -73,11 +73,11 @@ export default function TrialBox({
         placeholder={placeholder}
         rows={4}
         disabled={status === 'loading'}
-        className="w-full px-4 py-3 text-sm bg-white border border-[#E5E7EB] rounded-xl resize-none focus:outline-none focus:border-[#FF8C00] focus:ring-2 focus:ring-[rgba(255,140,0,0.12)] transition disabled:opacity-60"
+        className="w-full px-4 py-3 text-sm bg-white border border-[#e3e0dd] rounded-xl resize-none focus:outline-none focus:border-[#1c1a18] focus:ring-2 focus:ring-[rgba(28, 26, 24,0.12)] transition disabled:opacity-60"
       />
 
       <div className="flex items-center justify-between mt-3">
-        <span className="text-xs text-[#9CA3AF]">
+        <span className="text-xs text-[#a1a1a1]">
           ⌘/Ctrl + Enter 快捷发送
         </span>
         <button

@@ -27,8 +27,8 @@ export default function SubTags({ tags }: { tags: SubTag[] }) {
             onClick={() => setActive(t.id)}
             className={`text-[13px] px-3.5 py-[7px] rounded-[20px] whitespace-nowrap inline-flex items-center gap-1.5 transition ${
               isActive
-                ? 'bg-[rgba(255,140,0,0.08)] text-[#FF8C00] border border-[rgba(255,140,0,0.30)] shadow-[0_4px_12px_rgba(255,140,0,0.20)]'
-                : 'bg-white text-[#6B7280] border border-transparent shadow-[0_1px_4px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 hover:shadow-md'
+                ? 'bg-[rgba(28, 26, 24,0.08)] text-[#1c1a18] border border-[rgba(28, 26, 24,0.30)] shadow-[0_4px_12px_rgba(28, 26, 24,0.20)]'
+                : 'bg-white text-[#656360] border border-transparent shadow-[0_1px_4px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 hover:shadow-md'
             }`}
           >
             <span className="text-sm font-bold">{t.icon}</span>

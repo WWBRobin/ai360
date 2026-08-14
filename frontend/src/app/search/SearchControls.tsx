@@ -110,13 +110,13 @@ export function SearchControls({ tabs, facets, filters, query }: Props) {
                 href={href}
                 className={`px-[18px] py-2.5 text-[14px] border-b-[3px] -mb-px transition whitespace-nowrap ${
                   isActive
-                    ? 'text-[#FF8C00] font-bold border-[#FF8C00]'
+                    ? 'text-[#1c1a18] font-bold border-[#1c1a18]'
                     : 'text-[#888] font-medium border-transparent hover:text-[#000]'
                 }`}
               >
                 {t.label}
                 {typeof t.num === 'number' && (
-                  <span className={`text-[11px] ml-1 ${isActive ? 'text-[#FF8C00]' : 'text-[#bbb]'}`}>
+                  <span className={`text-[11px] ml-1 ${isActive ? 'text-[#1c1a18]' : 'text-[#bbb]'}`}>
                     {t.num}
                   </span>
                 )}
@@ -166,7 +166,7 @@ export function SearchControls({ tabs, facets, filters, query }: Props) {
         <div className="relative" ref={sortRef}>
           <button
             onClick={() => setSortOpen((o) => !o)}
-            className="flex items-center gap-1.5 px-3.5 py-2 border border-[rgba(0,0,0,0.06)] rounded-lg text-[13px] text-[#555] bg-white cursor-pointer transition hover:border-[#FF8C00] hover:text-[#FF8C00]"
+            className="flex items-center gap-1.5 px-3.5 py-2 border border-[rgba(0,0,0,0.06)] rounded-lg text-[13px] text-[#555] bg-white cursor-pointer transition hover:border-[#1c1a18] hover:text-[#1c1a18]"
           >
             {currentSortLabel} <span style={{ fontSize: '10px' }}>▾</span>
           </button>
@@ -178,8 +178,8 @@ export function SearchControls({ tabs, facets, filters, query }: Props) {
                   onClick={() => setSort(s.value)}
                   className={`px-4 py-2.5 text-[13px] cursor-pointer transition ${
                     s.value === currentSort
-                      ? 'text-[#000] font-semibold bg-[rgba(255,140,0,0.06)]'
-                      : 'text-[#555] hover:bg-[#FAFAFA] hover:text-[#FF8C00]'
+                      ? 'text-[#000] font-semibold bg-[rgba(28, 26, 24,0.06)]'
+                      : 'text-[#555] hover:bg-[#f4f1ed] hover:text-[#1c1a18]'
                   }`}
                 >
                   {s.label}
@@ -214,7 +214,7 @@ function FilterSelect({
       <select
         value={current}
         onChange={(e) => onChange(e.target.value)}
-        className="appearance-none pl-3 pr-7 py-1.5 text-[13px] text-[#555] bg-white border border-[rgba(0,0,0,0.06)] rounded-lg cursor-pointer outline-none transition hover:border-[#FF8C00] hover:text-[#FF8C00]"
+        className="appearance-none pl-3 pr-7 py-1.5 text-[13px] text-[#555] bg-white border border-[rgba(0,0,0,0.06)] rounded-lg cursor-pointer outline-none transition hover:border-[#1c1a18] hover:text-[#1c1a18]"
         aria-label={label}
       >
         <option value="all">{allLabel}</option>

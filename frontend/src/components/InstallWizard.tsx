@@ -169,15 +169,15 @@ export default function InstallWizard({ categories }: { categories: { label: str
   if (step === 0) {
     return (
       <div className="px-6 md:px-10 py-8">
-        <h1 className="text-[18px] font-bold text-[#1F2937] mb-1">AI Agent 装机向导</h1>
-        <p className="text-[13px] text-[#9CA3AF] mb-4">选择你在用的 AI Agent，3 分钟配齐核心能力，附手把手验证</p>
+        <h1 className="text-[18px] font-bold text-[#2a2724] mb-1">AI Agent 装机向导</h1>
+        <p className="text-[13px] text-[#a1a1a1] mb-4">选择你在用的 AI Agent，3 分钟配齐核心能力，附手把手验证</p>
 
         {/* Agent 体检入口 */}
-        <div className="mb-6 p-4 rounded-xl border-2 border-[#FF8C00] bg-[rgba(255,140,0,0.04)]">
+        <div className="mb-6 p-4 rounded-xl border-2 border-[#1c1a18] bg-[rgba(28, 26, 24,0.04)]">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-[15px] font-bold text-[#1F2937] mb-1">🏥 Agent 体检</div>
-              <p className="text-[13px] text-[#4B5563]">扫描你的 Agent 配置，检测缺失能力 + 安全风险，一键生成健康报告</p>
+              <div className="text-[15px] font-bold text-[#2a2724] mb-1">🏥 Agent 体检</div>
+              <p className="text-[13px] text-[#656360]">扫描你的 Agent 配置，检测缺失能力 + 安全风险，一键生成健康报告</p>
             </div>
             <Link
               href="/skill/agent-health-check"
@@ -191,21 +191,21 @@ export default function InstallWizard({ categories }: { categories: { label: str
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
           {AGENTS.map(agent => (
             <button key={agent.id} onClick={() => { setSelectedAgent(agent); setStep(1) }}
-              className="content-card p-5 text-left group hover:border-[#FF8C00] transition">
+              className="content-card p-5 text-left group hover:border-[#1c1a18] transition">
               <div className="flex items-center gap-3 mb-2">
                 {agent.logo ? (
                   <img src={agent.logo} alt={agent.name} className="w-10 h-10 rounded-lg object-cover" />
                 ) : (
-                  <span className="w-10 h-10 rounded-lg bg-[#FF8C00] flex items-center justify-center text-white text-[15px] font-bold">?</span>
+                  <span className="w-10 h-10 rounded-lg bg-[#1c1a18] flex items-center justify-center text-white text-[15px] font-bold">?</span>
                 )}
                 <div>
-                  <div className="text-[15px] font-semibold text-[#1F2937] group-hover:text-[#FF8C00]">{agent.name}</div>
-                  <div className="text-[11px] text-[#9CA3AF]">{agent.desc}</div>
+                  <div className="text-[15px] font-semibold text-[#2a2724] group-hover:text-[#1c1a18]">{agent.name}</div>
+                  <div className="text-[11px] text-[#a1a1a1]">{agent.desc}</div>
                 </div>
               </div>
               <div className="flex flex-wrap gap-1 mt-2">
                 {agent.needs.map(n => (
-                  <span key={n} className="text-[11px] px-2 py-0.5 rounded bg-[#F3F4F6] text-[#6B7280]">
+                  <span key={n} className="text-[11px] px-2 py-0.5 rounded bg-[#f0ede9] text-[#656360]">
                     {CAPABILITIES[n]?.icon} {CAPABILITIES[n]?.label}
                   </span>
                 ))}
@@ -214,8 +214,8 @@ export default function InstallWizard({ categories }: { categories: { label: str
           ))}
         </div>
 
-        <div className="border-t border-[#F0F0F0] pt-6">
-          <Link href="/essential?mode=list" className="text-[14px] text-[#FF8C00] hover:underline">
+        <div className="border-t border-[#e3e0dd] pt-6">
+          <Link href="/essential?mode=list" className="text-[14px] text-[#1c1a18] hover:underline">
             或者直接浏览全部工具 →
           </Link>
         </div>
@@ -227,10 +227,10 @@ export default function InstallWizard({ categories }: { categories: { label: str
   return (
     <div className="px-6 md:px-10 py-8">
       <div className="flex items-center justify-between mb-6">
-        <button onClick={() => setStep(0)} className="text-[14px] text-[#9CA3AF] hover:text-[#1F2937] transition">← 重新选择</button>
+        <button onClick={() => setStep(0)} className="text-[14px] text-[#a1a1a1] hover:text-[#2a2724] transition">← 重新选择</button>
         <div className="flex items-center gap-2">
           {selectedAgent?.logo && <img src={selectedAgent.logo} alt="" className="w-6 h-6 rounded object-cover" />}
-          <span className="text-[14px] font-medium text-[#1F2937]">{selectedAgent?.name} 装机清单</span>
+          <span className="text-[14px] font-medium text-[#2a2724]">{selectedAgent?.name} 装机清单</span>
         </div>
       </div>
 
@@ -238,17 +238,17 @@ export default function InstallWizard({ categories }: { categories: { label: str
       {totalToInstall > 0 && (
         <div className="mb-6">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-[14px] font-medium text-[#1F2937]">装机进度</span>
-            <span className="text-[14px] text-[#FF8C00] font-semibold">{installedCount} / {totalToInstall}</span>
+            <span className="text-[14px] font-medium text-[#2a2724]">装机进度</span>
+            <span className="text-[14px] text-[#1c1a18] font-semibold">{installedCount} / {totalToInstall}</span>
           </div>
-          <div className="h-2 bg-[#F3F4F6] rounded-full overflow-hidden">
-            <div className="h-full bg-[#FF8C00] rounded-full transition-all duration-300" style={{ width: `${progress}%` }} />
+          <div className="h-2 bg-[#f0ede9] rounded-full overflow-hidden">
+            <div className="h-full bg-[#1c1a18] rounded-full transition-all duration-300" style={{ width: `${progress}%` }} />
           </div>
           {progress === 100 && (
-            <div className="mt-4 p-4 rounded-lg bg-[rgba(255,140,0,0.08)] border border-[rgba(255,140,0,0.2)]">
-              <div className="text-[15px] text-[#FF8C00] font-bold mb-1">🎉 全部装完！</div>
-              <p className="text-[13px] text-[#4B5563]">你的 {selectedAgent?.name} 现在具备所有核心能力了。建议先试一个真实任务感受效果。</p>
-              <Link href="/learn" className="inline-block mt-2 text-[13px] text-[#FF8C00] font-medium hover:underline">
+            <div className="mt-4 p-4 rounded-lg bg-[rgba(28, 26, 24,0.08)] border border-[rgba(28, 26, 24,0.2)]">
+              <div className="text-[15px] text-[#1c1a18] font-bold mb-1">🎉 全部装完！</div>
+              <p className="text-[13px] text-[#656360]">你的 {selectedAgent?.name} 现在具备所有核心能力了。建议先试一个真实任务感受效果。</p>
+              <Link href="/learn" className="inline-block mt-2 text-[13px] text-[#1c1a18] font-medium hover:underline">
                 查看学习路径，从真实任务开始 →
               </Link>
             </div>
@@ -259,7 +259,7 @@ export default function InstallWizard({ categories }: { categories: { label: str
       {/* 工具列表 */}
       {recommendedSkills.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-[14px] text-[#9CA3AF] mb-4">暂未找到匹配工具</p>
+          <p className="text-[14px] text-[#a1a1a1] mb-4">暂未找到匹配工具</p>
           <Link href="/essential?mode=list" className="btn-primary inline-block px-5 py-2 text-[14px]">浏览全部工具</Link>
         </div>
       ) : (
@@ -274,22 +274,22 @@ export default function InstallWizard({ categories }: { categories: { label: str
                 <div className={`content-card p-5 ${installed ? '' : ''}`}>
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex items-start gap-3 flex-1 min-w-0">
-                      <span className="w-10 h-10 rounded-lg bg-[#F3F4F6] flex items-center justify-center text-[18px] shrink-0">{cap?.icon}</span>
+                      <span className="w-10 h-10 rounded-lg bg-[#f0ede9] flex items-center justify-center text-[18px] shrink-0">{cap?.icon}</span>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="text-[15px] font-semibold text-[#1F2937]">{skill.name}</span>
-                          <span className="text-[11px] px-2 py-0.5 rounded bg-[rgba(255,140,0,0.08)] text-[#E67300]">{cap?.label}</span>
+                          <span className="text-[15px] font-semibold text-[#2a2724]">{skill.name}</span>
+                          <span className="text-[11px] px-2 py-0.5 rounded bg-[rgba(28, 26, 24,0.08)] text-[#000000]">{cap?.label}</span>
                         </div>
-                        <p className="text-[13px] text-[#6B7280] leading-relaxed">{skill.tagline || cap?.desc}</p>
+                        <p className="text-[13px] text-[#656360] leading-relaxed">{skill.tagline || cap?.desc}</p>
 
                         {/* 未安装：显示安装命令 */}
                         {!installed && (
                           <div className="flex items-center gap-2 mt-3">
-                            <code className="text-[12px] bg-[#1F2937] text-[#e5e7eb] px-3 py-1.5 rounded font-mono flex-1 overflow-x-auto">
+                            <code className="text-[12px] bg-[#2a2724] text-[#e5e7eb] px-3 py-1.5 rounded font-mono flex-1 overflow-x-auto">
                               npx ai-tool add {skill.slug}
                             </code>
                             <button onClick={() => copyInstallCmd(skill.slug)}
-                              className="text-[12px] px-3 py-1.5 rounded border border-[#E5E7EB] text-[#4B5563] hover:border-[#FF8C00] hover:text-[#FF8C00] transition shrink-0">
+                              className="text-[12px] px-3 py-1.5 rounded border border-[#e3e0dd] text-[#656360] hover:border-[#1c1a18] hover:text-[#1c1a18] transition shrink-0">
                               {copiedSlug === skill.slug ? '✓ 已复制' : '复制'}
                             </button>
                           </div>
@@ -300,7 +300,7 @@ export default function InstallWizard({ categories }: { categories: { label: str
                           <div className="mt-3">
                             <button
                               onClick={() => setExpandedVerify(isExpanded ? null : skill.id)}
-                              className="flex items-center gap-1.5 text-[13px] font-medium text-[#FF8C00]"
+                              className="flex items-center gap-1.5 text-[13px] font-medium text-[#1c1a18]"
                             >
                               <span>{isExpanded ? '▼' : '▶'}</span>
                               装好了？试这个验证是否生效
@@ -312,7 +312,7 @@ export default function InstallWizard({ categories }: { categories: { label: str
 
                     <div className="shrink-0">
                       {installed ? (
-                        <span className="text-[13px] font-semibold text-[#FF8C00] px-4 py-2" style={{ background: 'rgba(255,140,0,0.12)', borderRadius: '8px' }}>
+                        <span className="text-[13px] font-semibold text-[#1c1a18] px-4 py-2" style={{ background: 'rgba(28, 26, 24,0.12)', borderRadius: '8px' }}>
                           ✓ 已装
                         </span>
                       ) : (
@@ -322,7 +322,7 @@ export default function InstallWizard({ categories }: { categories: { label: str
                             装好了
                           </button>
                           <Link href={`/skill/${skill.slug}`}
-                            className="text-[12px] text-[#9CA3AF] hover:text-[#FF8C00] transition">
+                            className="text-[12px] text-[#a1a1a1] hover:text-[#1c1a18] transition">
                             详情 →
                           </Link>
                         </div>
@@ -333,11 +333,11 @@ export default function InstallWizard({ categories }: { categories: { label: str
 
                 {/* 装完验证引导（展开面板） */}
                 {installed && guide && isExpanded && (
-                  <div className="ml-4 mr-4 mb-2 p-4 bg-[#FAFAFA] rounded-lg border border-[#F0F0F0]">
+                  <div className="ml-4 mr-4 mb-2 p-4 bg-[#f4f1ed] rounded-lg border border-[#e3e0dd]">
                     {/* 试什么 */}
                     <div className="mb-3">
-                      <div className="text-[11px] font-bold text-[#9CA3AF] uppercase tracking-wide mb-1">🎯 试这个</div>
-                      <div className="text-[14px] text-[#1F2937] font-medium bg-white rounded-lg p-3 border border-[#F0F0F0]">
+                      <div className="text-[11px] font-bold text-[#a1a1a1] uppercase tracking-wide mb-1">🎯 试这个</div>
+                      <div className="text-[14px] text-[#2a2724] font-medium bg-white rounded-lg p-3 border border-[#e3e0dd]">
                         {guide.tryIt}
                       </div>
                     </div>
@@ -347,7 +347,7 @@ export default function InstallWizard({ categories }: { categories: { label: str
                       <span className="text-[14px] shrink-0">✅</span>
                       <div>
                         <div className="text-[11px] font-bold text-[#16a34a] mb-0.5">成功长这样</div>
-                        <p className="text-[13px] text-[#4B5563] leading-relaxed">{guide.expectSuccess}</p>
+                        <p className="text-[13px] text-[#656360] leading-relaxed">{guide.expectSuccess}</p>
                       </div>
                     </div>
 
@@ -356,7 +356,7 @@ export default function InstallWizard({ categories }: { categories: { label: str
                       <span className="text-[14px] shrink-0">❌</span>
                       <div>
                         <div className="text-[11px] font-bold text-[#ef4444] mb-0.5">不生效怎么办</div>
-                        <p className="text-[13px] text-[#4B5563] leading-relaxed">{guide.expectFail}</p>
+                        <p className="text-[13px] text-[#656360] leading-relaxed">{guide.expectFail}</p>
                       </div>
                     </div>
 
@@ -365,7 +365,7 @@ export default function InstallWizard({ categories }: { categories: { label: str
                       <span className="text-[14px] shrink-0">⚠️</span>
                       <div>
                         <div className="text-[11px] font-bold text-[#ef4444] mb-0.5">踩坑预警</div>
-                        <p className="text-[13px] text-[#4B5563] leading-relaxed">{guide.pitfall}</p>
+                        <p className="text-[13px] text-[#656360] leading-relaxed">{guide.pitfall}</p>
                       </div>
                     </div>
                   </div>

@@ -12,7 +12,7 @@ import type { SkillCard } from '@/types'
 function StarRating({ score }: { score: number | null }) {
   if (!score) return null
   return (
-    <span className="inline-flex items-center gap-1 text-[12px] text-[#FF8C00] font-semibold whitespace-nowrap bg-[rgba(255,140,0,0.12)] px-2 py-[3px] rounded-lg">
+    <span className="inline-flex items-center gap-1 text-[12px] text-[#1c1a18] font-semibold whitespace-nowrap bg-[rgba(28, 26, 24,0.12)] px-2 py-[3px] rounded-lg">
       <span aria-hidden>★</span>
       {score.toFixed(1)}
     </span>
@@ -44,7 +44,7 @@ export default function EssentialToolCard({
           <div className="text-[15px] font-semibold text-[#1A1A1A] mb-[3px] truncate">
             {skill.name}
           </div>
-          <div className="text-[11px] text-[#9CA3AF]">by {skill.platform_name}</div>
+          <div className="text-[11px] text-[#a1a1a1]">by {skill.platform_name}</div>
         </div>
         <StarRating score={skill.overall_score} />
       </div>
@@ -58,16 +58,16 @@ export default function EssentialToolCard({
 
       {/* 描述 */}
       {skill.tagline && (
-        <p className="text-[13px] text-[#6B7280] leading-[1.6] line-clamp-2">{skill.tagline}</p>
+        <p className="text-[13px] text-[#656360] leading-[1.6] line-clamp-2">{skill.tagline}</p>
       )}
 
       {/* 底部：分类 + 安装按钮 */}
       <div className="flex items-center justify-between mt-auto pt-1">
-        <span className="text-[11px] text-[#9CA3AF] bg-[#F3F4F6] px-2.5 py-1 rounded-md">
+        <span className="text-[11px] text-[#a1a1a1] bg-[#f0ede9] px-2.5 py-1 rounded-md">
           {categoryLabel}
         </span>
         {installed ? (
-          <span className="text-[12px] font-semibold text-[#FF8C00] px-4 py-1.5" style={{ background: 'rgba(255,140,0,0.12)', borderRadius: '8px' }}>
+          <span className="text-[12px] font-semibold text-[#1c1a18] px-4 py-1.5" style={{ background: 'rgba(28, 26, 24,0.12)', borderRadius: '8px' }}>
             ✓ 已安装
           </span>
         ) : (

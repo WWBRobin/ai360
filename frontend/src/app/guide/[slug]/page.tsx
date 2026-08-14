@@ -54,11 +54,11 @@ export default async function GuideArticlePage({
         <div className="px-8 py-8 max-w-[820px]">
           {/* 面包屑 */}
           <nav className="flex items-center gap-2 text-[12px] text-[#aaa] mb-5">
-            <Link href="/" className="hover:text-[#FF8C00] transition">
+            <Link href="/" className="hover:text-[#1c1a18] transition">
               首页
             </Link>
             <span>/</span>
-            <Link href="/guide" className="hover:text-[#FF8C00] transition">
+            <Link href="/guide" className="hover:text-[#1c1a18] transition">
               深度评测
             </Link>
             <span>/</span>
@@ -66,11 +66,11 @@ export default async function GuideArticlePage({
           </nav>
 
           {/* 文章头 */}
-          <header className="mb-8 pb-6 border-b border-[#F0F0F0]">
+          <header className="mb-8 pb-6 border-b border-[#e3e0dd]">
             <div className="flex items-center gap-2 mb-3">
               <span
                 className="text-[11px] font-medium px-2 py-0.5 rounded-md"
-                style={{ background: 'rgba(255,140,0,0.06)', color: '#FF8C00' }}
+                style={{ background: 'rgba(28, 26, 24,0.06)', color: '#1c1a18' }}
               >
                 {article.tag}
               </span>
@@ -90,16 +90,16 @@ export default async function GuideArticlePage({
 
           {/* 相关文章（content-card） */}
           {related.length > 0 && (
-            <section className="mt-14 border-t border-[#F0F0F0] pt-8">
+            <section className="mt-14 border-t border-[#e3e0dd] pt-8">
               <h2 className="mb-4 text-[17px] font-bold text-[#000]">继续阅读</h2>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {related.map((a) => (
                   <Link key={a.slug} href={`/guide/${a.slug}`} className="content-card block p-4 group">
                     <div className="text-2xl mb-2">{a.icon}</div>
-                    <div className="font-medium text-[#000] text-sm line-clamp-2 group-hover:text-[#FF8C00] transition">
+                    <div className="font-medium text-[#000] text-sm line-clamp-2 group-hover:text-[#1c1a18] transition">
                       {a.title}
                     </div>
-                    <div className="text-[12px] text-[#FF8C00] mt-2 font-medium">阅读 →</div>
+                    <div className="text-[12px] text-[#1c1a18] mt-2 font-medium">阅读 →</div>
                   </Link>
                 ))}
               </div>
@@ -110,7 +110,7 @@ export default async function GuideArticlePage({
           <div className="mt-10 text-center">
             <Link
               href="/guide"
-              className="inline-block text-sm text-[#FF8C00] font-medium hover:underline"
+              className="inline-block text-sm text-[#1c1a18] font-medium hover:underline"
             >
               ← 查看全部评测
             </Link>
