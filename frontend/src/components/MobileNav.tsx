@@ -51,7 +51,7 @@ export default function MobileNav() {
             aria-hidden
           />
           <nav
-            className="absolute left-0 right-0 top-14 z-50 bg-white border-b border-gray-200 shadow-lg"
+            className="absolute left-0 right-0 top-14 z-50 bg-[var(--card)] border-b border-gray-200 shadow-lg"
           >
             <div className="px-4 py-3 space-y-1">
               {NAV_LINKS.map((link) => (
@@ -59,7 +59,7 @@ export default function MobileNav() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block px-3 py-2.5 rounded-lg text-base font-medium text-[#656360] hover:bg-[rgba(28, 26, 24,0.06)] hover:text-[#1c1a18] transition"
+                  className="block px-3 py-2.5 rounded-lg text-base font-medium text-[var(--fg2)] hover:bg-[rgba(var(--dim-rgb),0.06)] hover:text-[var(--primary)] transition"
                 >
                   {link.label}
                 </Link>

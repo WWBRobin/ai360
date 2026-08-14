@@ -9,11 +9,11 @@ function ScoreBar({ label, value }: { label: string; value: number | null | unde
   const pct = value ? (value / 5) * 100 : 0
   return (
     <div className="flex-1">
-      <div className="text-[10px] text-[#a1a1a1] uppercase tracking-[0.3px] mb-1">{label}</div>
-      <div className="h-[5px] bg-[#e3e0dd] rounded-[3px] overflow-hidden">
+      <div className="text-[10px] text-[var(--fg3)] uppercase tracking-[0.3px] mb-1">{label}</div>
+      <div className="h-[5px] bg-[var(--border)] rounded-[3px] overflow-hidden">
         <div className="score-bar h-full transition-all duration-500" style={{ width: `${pct}%` }} />
       </div>
-      <div className="text-[11px] text-[#1c1a18] font-semibold mt-[3px]">
+      <div className="text-[11px] text-[var(--primary)] font-semibold mt-[3px]">
         {value ? value.toFixed(1) : '—'}
       </div>
     </div>
@@ -27,14 +27,14 @@ export default function SkillCardProto7({ skill }: { skill: SkillCard }) {
       {/* 头部：图标 + 标题 + 评分 */}
       <div className="flex items-start justify-between mb-2.5">
         <div className="flex items-center gap-2.5 min-w-0">
-          <span className="w-9 h-9 rounded-[10px] bg-[#1c1a18] flex items-center justify-center text-[13px] font-bold text-white shrink-0">
+          <span className="w-9 h-9 rounded-[10px] bg-[var(--primary)] flex items-center justify-center text-[13px] font-bold text-white shrink-0">
             {skill.name.charAt(0).toUpperCase()}
           </span>
           <div className="min-w-0">
-            <div className="text-[15px] font-semibold text-[#2a2724] group-hover:text-[#1c1a18] transition truncate">
+            <div className="text-[15px] font-semibold text-[var(--fg)] group-hover:text-[var(--primary)] transition truncate">
               {skill.name}
             </div>
-            <div className="text-[11px] text-[#a1a1a1] truncate">{skill.platform_name}</div>
+            <div className="text-[11px] text-[var(--fg3)] truncate">{skill.platform_name}</div>
           </div>
         </div>
         {hasEval && (
@@ -44,7 +44,7 @@ export default function SkillCardProto7({ skill }: { skill: SkillCard }) {
 
       {/* 描述 */}
       {skill.tagline && (
-        <p className="text-[13px] text-[#656360] leading-[1.6] mb-3 line-clamp-2">{skill.tagline}</p>
+        <p className="text-[13px] text-[var(--fg2)] leading-[1.6] mb-3 line-clamp-2">{skill.tagline}</p>
       )}
 
       {/* 标签 */}
@@ -57,7 +57,7 @@ export default function SkillCardProto7({ skill }: { skill: SkillCard }) {
 
       {/* 三维评分 */}
       {hasEval && (
-        <div className="flex gap-3.5 pt-3 border-t border-[#e3e0dd]">
+        <div className="flex gap-3.5 pt-3 border-t border-[var(--border)]">
           <ScoreBar label="实测" value={skill.overall_score} />
           <ScoreBar label="稳定" value={skill.stability_score} />
           <ScoreBar label="易用" value={skill.difficulty_score} />

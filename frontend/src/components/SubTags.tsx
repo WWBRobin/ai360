@@ -17,7 +17,7 @@ export default function SubTags({ tags }: { tags: SubTag[] }) {
   const [active, setActive] = useState(tags[0]?.id ?? '')
   if (tags.length === 0) return null
   return (
-    <div className="flex gap-2.5 flex-wrap py-4 border-b border-[#e3e0dd]">
+    <div className="flex gap-2.5 flex-wrap py-4 border-b border-[var(--border)]">
       {tags.map((t) => {
         const isActive = t.id === active
         return (
@@ -27,8 +27,8 @@ export default function SubTags({ tags }: { tags: SubTag[] }) {
             onClick={() => setActive(t.id)}
             className={`text-[13px] px-3.5 py-[7px] rounded-[20px] whitespace-nowrap inline-flex items-center gap-1.5 transition ${
               isActive
-                ? 'bg-[rgba(28, 26, 24,0.08)] text-[#1c1a18] border border-[rgba(28, 26, 24,0.30)] shadow-[0_4px_12px_rgba(28, 26, 24,0.20)]'
-                : 'bg-white text-[#656360] border border-transparent shadow-[0_1px_4px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 hover:shadow-md'
+                ? 'bg-[rgba(var(--dim-rgb),0.08)] text-[var(--primary)] border border-[rgba(var(--dim-rgb),0.30)] shadow-[0_4px_12px_rgba(var(--dim-rgb),0.20)]'
+                : 'bg-[var(--card)] text-[var(--fg2)] border border-transparent shadow-[0_1px_4px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 hover:shadow-md'
             }`}
           >
             <span className="text-sm font-bold">{t.icon}</span>

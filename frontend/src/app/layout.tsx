@@ -97,7 +97,13 @@ const jsonLd = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh-CN">
-      <body className="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+      <body className="bg-[var(--bg)] text-[var(--fg)] min-h-screen flex flex-col">
+        {/* 暗色切换脚本 — 跟随系统 + localStorage，渲染前执行避免闪白 */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);if(d)document.documentElement.classList.add('dark');}catch(e){}})();`,
+          }}
+        />
         {/* JSON-LD 结构化数据 */}
         <script
           type="application/ld+json"
@@ -107,22 +113,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
 
         {/* 顶栏 — 对标 mcp.so 两行结构：第一行 Logo+搜索框+头像，第二行导航 Tab */}
-        <nav className="sticky top-0 z-50 bg-white border-b border-[#e3e0dd]">
+        <nav className="sticky top-0 z-50 bg-[var(--bg)] border-b border-[var(--border)]">
           {/* 第一行 */}
           <div className="page-wrapper flex items-center h-16 px-6 gap-6">
             <Link href="/" className="flex items-center gap-2 shrink-0">
-              <span className="w-3 h-3 rounded-full bg-[#1c1a18]"></span>
-              <span className="font-bold text-[18px] text-[#2a2724] tracking-tight">AI360</span>
+              <span className="w-3 h-3 rounded-full bg-[var(--primary)]"></span>
+              <span className="font-bold text-[18px] text-[var(--fg)] tracking-tight">AI360</span>
             </Link>
             <form action="/search" className="ml-auto max-w-md w-full">
               <input
                 type="text"
                 name="q"
                 placeholder="搜索 Skill / MCP / 工具..."
-                className="w-full h-9 px-4 border border-[#e3e0dd] rounded-md text-[14px] text-[#2a2724] bg-white outline-none focus:border-[#1c1a18] focus:shadow-[0_0_0_3px_rgba(28, 26, 24,0.12)] transition"
+                className="w-full h-9 px-4 border border-[var(--border)] rounded-md text-[14px] text-[var(--fg)] bg-[var(--card)] outline-none focus:border-[var(--primary)] transition"
               />
             </form>
-            <div className="w-9 h-9 rounded-full bg-[#1c1a18] flex items-center justify-center text-white text-[15px] font-bold shrink-0">W</div>
+            <div className="w-9 h-9 rounded-full bg-[var(--primary)] flex items-center justify-center text-[var(--on-primary)] text-[15px] font-bold shrink-0">W</div>
           </div>
           {/* 第二行：导航 Tab */}
           <TopNavTabs />
@@ -147,7 +153,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </p>
                 <Link
                   href="/subscribe"
-                  className="inline-flex items-center gap-1.5 mt-4 text-xs font-medium text-[#1c1a18] hover:text-[#000000] transition"
+                  className="inline-flex items-center gap-1.5 mt-4 text-xs font-medium text-[var(--primary)] hover:text-[var(--fg)] transition"
                 >
                   订阅每周更新
                   <span aria-hidden>→</span>

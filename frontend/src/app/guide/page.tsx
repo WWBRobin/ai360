@@ -18,11 +18,11 @@ export default function GuideIndexPage() {
       <main className="flex-1 min-w-0 relative z-10">
         {/* 页头 */}
         <div className="px-8 pt-10 pb-2">
-          <h1 className="text-[26px] font-bold text-[#000] mb-2.5" style={{ letterSpacing: '-0.4px' }}>
+          <h1 className="text-[26px] font-bold text-[var(--fg)] mb-2.5" style={{ letterSpacing: '-0.4px' }}>
             深度评测
           </h1>
-          <p className="text-[15px] text-[#666] leading-[1.7] max-w-[640px]">
-            <span className="font-bold text-[#1c1a18]">
+          <p className="text-[15px] text-[var(--fg2)] leading-[1.7] max-w-[640px]">
+            <span className="font-bold text-[var(--primary)]">
               {articles.length}
             </span>{' '}
             篇深度评测文章。每一篇都基于 5 维度门控 + 8 种验证方法，给出明确的推荐结论。不写软文，只说实话。

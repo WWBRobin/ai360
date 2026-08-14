@@ -30,7 +30,7 @@ export default function ScenarioTabs({
   return (
     <>
       {/* 第一行：场景 */}
-      <div className="flex gap-0 border-b border-[#e3e0dd] overflow-x-auto scrollbar-hide">
+      <div className="flex gap-0 border-b border-[var(--border)] overflow-x-auto scrollbar-hide">
         {scenes.map((s) => {
           const isActive = s.slug === activeScene
           return (
@@ -42,21 +42,21 @@ export default function ScenarioTabs({
               }`}
             >
               {s.name}
-              <span className="text-[11px] text-[#a1a1a1] ml-1">{s.count}</span>
+              <span className="text-[11px] text-[var(--fg3)] ml-1">{s.count}</span>
             </a>
           )
         })}
       </div>
 
       {/* 第二行：类型 */}
-      <div className="flex gap-4 py-3 border-b border-[#e3e0dd]">
+      <div className="flex gap-4 py-3 border-b border-[var(--border)]">
         {TYPES.map((t, i) => (
           <button
             key={t}
             type="button"
             onClick={() => setActiveType(i)}
             className={`text-[13px] transition ${
-              activeType === i ? 'text-[#1c1a18] font-semibold' : 'text-[#a1a1a1] hover:text-[#656360]'
+              activeType === i ? 'text-[var(--primary)] font-semibold' : 'text-[var(--fg3)] hover:text-[var(--fg2)]'
             }`}
           >
             {t}

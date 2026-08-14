@@ -56,10 +56,10 @@ export default function Error({
             onClick={() => retry()}
             className="
               px-6 py-2.5
-              bg-[#1c1a18] text-white
+              bg-[var(--primary)] text-white
               font-medium text-sm
               rounded-lg
-              hover:bg-[#000000]
+              hover:bg-[var(--fg)]
               transition-colors
             "
           >
@@ -69,7 +69,7 @@ export default function Error({
             href="/"
             className="
               px-6 py-2.5
-              bg-white text-gray-700
+              bg-[var(--card)] text-gray-700
               font-medium text-sm
               rounded-lg
               border border-gray-300

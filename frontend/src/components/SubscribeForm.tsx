@@ -60,7 +60,7 @@ export default function SubscribeForm({
   // 成功态：显示固定成功文案
   if (status === 'done') {
     return (
-      <div className={withCard ? 'bg-white rounded-2xl border border-gray-200 p-8 text-center' : 'text-center'}>
+      <div className={withCard ? 'bg-[var(--card)] rounded-2xl border border-gray-200 p-8 text-center' : 'text-center'}>
         <div className="text-5xl mb-4">🎉</div>
         <h3 className="text-xl font-bold text-gray-900 mb-2">订阅成功！下周一见</h3>
         <p className="text-sm text-gray-500">
@@ -94,7 +94,7 @@ export default function SubscribeForm({
           placeholder={placeholder}
           disabled={status === 'loading'}
           aria-label="邮箱地址"
-          className="flex-1 px-4 py-3 text-base bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition disabled:opacity-60"
+          className="flex-1 px-4 py-3 text-base bg-[var(--card)] border border-gray-200 rounded-xl focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition disabled:opacity-60"
         />
         <button
           type="submit"
@@ -125,7 +125,7 @@ export default function SubscribeForm({
   if (!withCard) return form
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
+    <div className="bg-[var(--card)] rounded-2xl border border-gray-200 p-8 shadow-sm">
       {form}
     </div>
   )

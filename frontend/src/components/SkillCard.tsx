@@ -5,8 +5,8 @@ import type { SkillCard } from '@/types'
 import { CATEGORY_LABELS, CATEGORY_ICONS } from '@/lib/supabase'
 
 /**
- * 统一极简线条 #1c1a18 风格卡片
- * 与 SkillCardProto7 风格一致：content-card + #1c1a18 + tag 样式
+ * 统一极简线条 var(--primary) 风格卡片
+ * 与 SkillCardProto7 风格一致：content-card + var(--primary) + tag 样式
  */
 export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
   const hasEval = !!skill.overall_score
@@ -41,21 +41,21 @@ export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
             />
           ) : null}
           {(!skill.icon_url && !skill.platform_slug) && (
-            <span className="w-9 h-9 rounded-[10px] bg-[#1c1a18] flex items-center justify-center text-[13px] font-bold text-white shrink-0">
+            <span className="w-9 h-9 rounded-[10px] bg-[var(--primary)] flex items-center justify-center text-[13px] font-bold text-white shrink-0">
               {skill.name.charAt(0).toUpperCase()}
             </span>
           )}
           {/* fallback for platform logo error */}
           {!skill.icon_url && skill.platform_slug && (
-            <span className="w-9 h-9 rounded-[10px] bg-[#1c1a18] flex items-center justify-center text-[13px] font-bold text-white shrink-0" style={{ display: 'none' }}>
+            <span className="w-9 h-9 rounded-[10px] bg-[var(--primary)] flex items-center justify-center text-[13px] font-bold text-white shrink-0" style={{ display: 'none' }}>
               {skill.name.charAt(0).toUpperCase()}
             </span>
           )}
           <div className="min-w-0">
-            <div className="text-[15px] font-semibold text-[#2a2724] group-hover:text-[#1c1a18] transition truncate">
+            <div className="text-[15px] font-semibold text-[var(--fg)] group-hover:text-[var(--primary)] transition truncate">
               {skill.name}
             </div>
-            <div className="text-[11px] text-[#a1a1a1] truncate">
+            <div className="text-[11px] text-[var(--fg3)] truncate">
               {CATEGORY_ICONS[skill.category]} {skill.platform_name}
             </div>
           </div>
@@ -69,7 +69,7 @@ export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
 
       {/* 描述 */}
       {skill.tagline && (
-        <p className="text-[13px] text-[#656360] leading-[1.6] mb-3 line-clamp-2">
+        <p className="text-[13px] text-[var(--fg2)] leading-[1.6] mb-3 line-clamp-2">
           {skill.tagline}
         </p>
       )}
@@ -77,7 +77,7 @@ export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
       {/* 标签 */}
       <div className="flex flex-wrap gap-1.5 mb-3">
         {hasEval && <span className="tag tag-tested">AI360 实测</span>}
-        {!hasEval && <span className="tag" style={{ background: '#f0ede9', color: '#a1a1a1' }}>收录未评测</span>}
+        {!hasEval && <span className="tag" style={{ background: 'var(--bg2)', color: 'var(--fg3)' }}>收录未评测</span>}
         {skill.category === 'infrastructure' && <span className="tag tag-mcp">装机必备</span>}
         {skill.api_supported && <span className="tag tag-official">官方 API</span>}
         {skill.free_quota && <span className="tag tag-free">免费</span>}
@@ -85,7 +85,7 @@ export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
 
       {/* 评分 + 维度徽章（只有真实评测才显示） */}
       {hasEval && (
-        <div className="flex flex-wrap items-center gap-1.5 pt-3 border-t border-[#e3e0dd]">
+        <div className="flex flex-wrap items-center gap-1.5 pt-3 border-t border-[var(--border)]">
           <DimBadge label={`上手 ${dimLabel(skill.difficulty_score)}`} score={skill.difficulty_score} />
           <DimBadge label={`稳定 ${dimLabel(skill.stability_score)}`} score={skill.stability_score} />
           {skill.free_quota && (
@@ -97,16 +97,16 @@ export default function SkillCardComponent({ skill }: { skill: SkillCard }) {
       )}
 
       {/* 底部操作 */}
-      <div className="mt-3 pt-3 border-t border-[#e3e0dd] flex items-center justify-between">
-        <span className="text-[12px] text-[#1c1a18] font-medium group-hover:underline">
+      <div className="mt-3 pt-3 border-t border-[var(--border)] flex items-center justify-between">
+        <span className="text-[12px] text-[var(--primary)] font-medium group-hover:underline">
           {hasEval ? '查看评测 →' : '查看详情 →'}
         </span>
         {skill.trial_enabled ? (
-          <span className="text-[11px] bg-[rgba(28, 26, 24,0.06)] text-[#1c1a18] px-2.5 py-1 rounded-lg font-medium">
+          <span className="text-[11px] bg-[rgba(var(--dim-rgb),0.06)] text-[var(--primary)] px-2.5 py-1 rounded-lg font-medium">
             免费试用
           </span>
         ) : (
-          <span className="text-[11px] bg-[#f4f1ed] text-[#656360] px-2.5 py-1 rounded-lg font-medium border border-[#e3e0dd]">
+          <span className="text-[11px] bg-[var(--sidebar)] text-[var(--fg2)] px-2.5 py-1 rounded-lg font-medium border border-[var(--border)]">
             去安装
           </span>
         )}
@@ -130,8 +130,8 @@ function DimBadge({ label, score }: { label: string; score: number | null | unde
     <span
       className={`text-[11px] px-2 py-0.5 rounded-full font-medium ${
         isHigh
-          ? 'text-[#1c1a18] bg-[rgba(28, 26, 24,0.08)]'
-          : 'text-[#656360] bg-[#f0ede9]'
+          ? 'text-[var(--primary)] bg-[rgba(var(--dim-rgb),0.08)]'
+          : 'text-[var(--fg2)] bg-[var(--bg2)]'
       }`}
     >
       {label}

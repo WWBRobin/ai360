@@ -15,7 +15,7 @@ export default function Loading() {
           {[0, 1, 2].map((i) => (
             <div
               key={i}
-              className="bg-white rounded-2xl border border-gray-200 p-5 animate-pulse"
+              className="bg-[var(--card)] rounded-2xl border border-gray-200 p-5 animate-pulse"
             >
               <div className="flex items-center gap-2 mb-3">
                 <div className="h-5 w-16 bg-gray-200 rounded" />

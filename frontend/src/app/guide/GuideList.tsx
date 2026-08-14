@@ -7,11 +7,11 @@ import type { ArticleMeta } from '@/lib/articles'
 // 标签 → 金色 tag-free 样式（统一极简线条金色）
 type TagKind = 'compare' | 'review' | 'tutorial' | 'beginner' | 'tested'
 const TAG_STYLES: Record<TagKind, { bg: string; color: string }> = {
-  compare: { bg: 'rgba(28, 26, 24,0.06)', color: '#1c1a18' },
-  review: { bg: 'rgba(28, 26, 24,0.06)', color: '#1c1a18' },
-  tutorial: { bg: 'rgba(28, 26, 24,0.06)', color: '#1c1a18' },
-  beginner: { bg: 'rgba(28, 26, 24,0.06)', color: '#1c1a18' },
-  tested: { bg: 'rgba(28, 26, 24,0.06)', color: '#1c1a18' },
+  compare: { bg: 'rgba(var(--dim-rgb),0.06)', color: 'var(--primary)' },
+  review: { bg: 'rgba(var(--dim-rgb),0.06)', color: 'var(--primary)' },
+  tutorial: { bg: 'rgba(var(--dim-rgb),0.06)', color: 'var(--primary)' },
+  beginner: { bg: 'rgba(var(--dim-rgb),0.06)', color: 'var(--primary)' },
+  tested: { bg: 'rgba(var(--dim-rgb),0.06)', color: 'var(--primary)' },
 }
 const TAG_LABELS: Record<TagKind, string> = {
   review: '评测',
@@ -92,7 +92,7 @@ export function GuideList({ articles }: { articles: ArticleMeta[] }) {
     <>
       {/* Tab */}
       <div className="px-8">
-        <div className="border-b border-[rgba(0,0,0,0.06)]">
+        <div className="border-b border-[var(--border)]">
           <div className="flex gap-0">
             {TABS.map((t) => (
               <button
@@ -100,8 +100,8 @@ export function GuideList({ articles }: { articles: ArticleMeta[] }) {
                 onClick={() => switchTab(t.key)}
                 className={`px-[18px] py-2.5 text-[14px] border-b-[3px] -mb-px transition ${
                   activeTab === t.key
-                    ? 'text-[#1c1a18] font-bold border-[#1c1a18]'
-                    : 'text-[#888] font-medium border-transparent hover:text-[#000]'
+                    ? 'text-[var(--primary)] font-bold border-[var(--primary)]'
+                    : 'text-[var(--fg2)] font-medium border-transparent hover:text-[var(--fg)]'
                 }`}
               >
                 {t.label}
@@ -117,7 +117,7 @@ export function GuideList({ articles }: { articles: ArticleMeta[] }) {
           <Link key={a.slug} href={`/guide/${a.slug}`} className="content-card block p-[22px_24px] group">
             {/* 标题 */}
             <div className="flex items-start justify-between gap-3 mb-2.5">
-              <h2 className="text-[18px] font-bold text-[#000] leading-[1.4] flex-1 group-hover:text-[#1c1a18] transition">
+              <h2 className="text-[18px] font-bold text-[var(--fg)] leading-[1.4] flex-1 group-hover:text-[var(--primary)] transition">
                 {a.title}
               </h2>
             </div>
@@ -136,7 +136,7 @@ export function GuideList({ articles }: { articles: ArticleMeta[] }) {
               {info.hasTutorial && (
                 <span
                   className="inline-flex items-center text-[10px] font-bold px-2 py-[3px] rounded-md leading-[1.4]"
-                  style={{ background: 'rgba(28, 26, 24,0.06)', color: '#1c1a18' }}
+                  style={{ background: 'rgba(var(--dim-rgb),0.06)', color: 'var(--primary)' }}
                 >
                   有教程
                 </span>
@@ -144,21 +144,21 @@ export function GuideList({ articles }: { articles: ArticleMeta[] }) {
             </div>
 
             {/* 摘要 */}
-            <p className="text-[14px] text-[#666] leading-[1.7] mb-3.5 line-clamp-2">{a.summary}</p>
+            <p className="text-[14px] text-[var(--fg2)] leading-[1.7] mb-3.5 line-clamp-2">{a.summary}</p>
 
             {/* 元信息行 */}
             <div className="flex items-center gap-3.5 flex-wrap">
-              <span className="text-[12px] text-[#aaa]">{a.tag}</span>
-              <span className="w-[3px] h-[3px] rounded-full bg-[#ddd]" />
-              <span className="text-[12px] text-[#aaa]">{info.duration}阅读</span>
+              <span className="text-[12px] text-[var(--fg3)]">{a.tag}</span>
+              <span className="w-[3px] h-[3px] rounded-full bg-[var(--border)]" />
+              <span className="text-[12px] text-[var(--fg3)]">{info.duration}阅读</span>
               <span
                 className="text-[12px] font-semibold px-3 py-1 rounded-full ml-auto"
-                style={{ background: 'rgba(28, 26, 24,0.06)', color: '#1c1a18' }}
+                style={{ background: 'rgba(var(--dim-rgb),0.06)', color: 'var(--primary)' }}
               >
                 {info.conclusion}
               </span>
               {info.hasTutorial && (
-                <span className="text-[12px] font-semibold text-[#1c1a18] inline-flex items-center gap-1">
+                <span className="text-[12px] font-semibold text-[var(--primary)] inline-flex items-center gap-1">
                   查看配套教程
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="M5 12h14" />
@@ -171,7 +171,7 @@ export function GuideList({ articles }: { articles: ArticleMeta[] }) {
         ))}
 
         {pageItems.length === 0 && (
-          <div className="text-center py-16 text-[#888]">
+          <div className="text-center py-16 text-[var(--fg2)]">
             <p className="text-[15px]">该分类暂无文章</p>
           </div>
         )}
@@ -183,7 +183,7 @@ export function GuideList({ articles }: { articles: ArticleMeta[] }) {
           <button
             onClick={() => setPage(Math.max(1, current - 1))}
             disabled={current <= 1}
-            className="min-w-[36px] h-9 px-2.5 flex items-center justify-center text-[13px] text-[#666] rounded-[10px] hover:bg-[rgba(28, 26, 24,0.08)] hover:text-[#1c1a18] transition disabled:opacity-40 disabled:hover:bg-transparent"
+            className="min-w-[36px] h-9 px-2.5 flex items-center justify-center text-[13px] text-[var(--fg2)] rounded-[10px] hover:bg-[rgba(var(--dim-rgb),0.08)] hover:text-[var(--primary)] transition disabled:opacity-40 disabled:hover:bg-transparent"
           >
             «
           </button>
@@ -193,8 +193,8 @@ export function GuideList({ articles }: { articles: ArticleMeta[] }) {
               onClick={() => setPage(p)}
               className={`min-w-[36px] h-9 px-2.5 flex items-center justify-center text-[13px] rounded-[10px] transition ${
                 p === current
-                  ? 'text-white font-bold bg-[#1c1a18]'
-                  : 'text-[#666] hover:bg-[rgba(28, 26, 24,0.08)] hover:text-[#1c1a18]'
+                  ? 'text-white font-bold bg-[var(--primary)]'
+                  : 'text-[var(--fg2)] hover:bg-[rgba(var(--dim-rgb),0.08)] hover:text-[var(--primary)]'
               }`}
             >
               {p}
@@ -203,7 +203,7 @@ export function GuideList({ articles }: { articles: ArticleMeta[] }) {
           <button
             onClick={() => setPage(Math.min(totalPages, current + 1))}
             disabled={current >= totalPages}
-            className="min-w-[36px] h-9 px-2.5 flex items-center justify-center text-[13px] text-[#666] rounded-[10px] hover:bg-[rgba(28, 26, 24,0.08)] hover:text-[#1c1a18] transition disabled:opacity-40 disabled:hover:bg-transparent"
+            className="min-w-[36px] h-9 px-2.5 flex items-center justify-center text-[13px] text-[var(--fg2)] rounded-[10px] hover:bg-[rgba(var(--dim-rgb),0.08)] hover:text-[var(--primary)] transition disabled:opacity-40 disabled:hover:bg-transparent"
           >
             »
           </button>

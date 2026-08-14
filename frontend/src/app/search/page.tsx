@@ -151,20 +151,20 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
   return (
     <div className="page-wrapper flex min-h-screen relative">
-      <aside className="w-[220px] shrink-0 hidden lg:block sticky top-[108px] self-start"><div className="p-4 text-[13px] text-[#a1a1a1]">使用顶部筛选条件搜索</div></aside>
+      <aside className="w-[220px] shrink-0 hidden lg:block sticky top-[108px] self-start"><div className="p-4 text-[13px] text-[var(--fg3)]">使用顶部筛选条件搜索</div></aside>
 
       <main className="flex-1 min-w-0 relative z-10">
         {/* 页头：搜索结果标题 */}
         <div className="px-8 pt-8 pb-2">
-          <h1 className="text-[26px] font-bold text-[#2a2724] leading-tight mb-1" style={{ letterSpacing: '-0.4px' }}>
+          <h1 className="text-[26px] font-bold text-[var(--fg)] leading-tight mb-1" style={{ letterSpacing: '-0.4px' }}>
             搜索结果:{' '}
             {query ? (
-              <span className="text-[#1c1a18]">{query}</span>
+              <span className="text-[var(--primary)]">{query}</span>
             ) : (
               'AI Skill'
             )}
           </h1>
-          <p className="text-[14px] text-[#888]">
+          <p className="text-[14px] text-[var(--fg2)]">
             {query ? `在全部工具中搜索 "${query}" 相关的 AI 工具和技能` : '输入关键词搜索 AI 工具、Skill、MCP…'}
           </p>
         </div>
@@ -177,10 +177,10 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         {/* 排序栏 */}
         {allResults.length > 0 && (
           <div className="px-8 py-3 flex items-center justify-between">
-            <span className="text-[14px] text-[#666]">
-              找到 <strong className="text-[#000] font-bold">{sorted.length}</strong> 个相关工具
+            <span className="text-[14px] text-[var(--fg2)]">
+              找到 <strong className="text-[var(--fg)] font-bold">{sorted.length}</strong> 个相关工具
               {filtered.length !== allResults.length && (
-                <span className="text-[#1c1a18]"> · 筛选后 {sorted.length} 个</span>
+                <span className="text-[var(--primary)]"> · 筛选后 {sorted.length} 个</span>
               )}
             </span>
           </div>
@@ -215,11 +215,11 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     // 返回最小可用页面
     return (
       <div className="page-wrapper flex min-h-screen">
-        <aside className="w-[220px] shrink-0 hidden lg:block sticky top-[108px] self-start"><div className="p-4 text-[13px] text-[#a1a1a1]">使用顶部筛选条件搜索</div></aside>
+        <aside className="w-[220px] shrink-0 hidden lg:block sticky top-[108px] self-start"><div className="p-4 text-[13px] text-[var(--fg3)]">使用顶部筛选条件搜索</div></aside>
         <main className="flex-1 px-8 py-10">
           <h1 className="text-[20px] font-bold mb-2">搜索出错了</h1>
-          <p className="text-[14px] text-[#a1a1a1]">错误信息: {String(err).substring(0, 200)}</p>
-          <p className="text-[14px] text-[#a1a1a1] mt-2">请稍后重试，或<a href="/" className="text-[#1c1a18]">返回首页</a></p>
+          <p className="text-[14px] text-[var(--fg3)]">错误信息: {String(err).substring(0, 200)}</p>
+          <p className="text-[14px] text-[var(--fg3)] mt-2">请稍后重试，或<a href="/" className="text-[var(--primary)]">返回首页</a></p>
         </main>
       </div>
     )
@@ -230,14 +230,14 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 function NoFilterResults({ query, onClearFiltersHref }: { query: string; onClearFiltersHref: string }) {
   return (
     <div className="flex flex-col items-center justify-center py-20 text-center">
-      <div className="w-[72px] h-[72px] rounded-full content-card flex items-center justify-center mb-5 text-[#1c1a18]">
+      <div className="w-[72px] h-[72px] rounded-full content-card flex items-center justify-center mb-5 text-[var(--primary)]">
         <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <circle cx="11" cy="11" r="8" />
           <line x1="21" y1="21" x2="16.65" y2="16.65" />
         </svg>
       </div>
-      <h2 className="text-[18px] font-bold text-[#000] mb-2">当前筛选条件下没有结果</h2>
-      <p className="text-[14px] text-[#888] mb-6 max-w-md">
+      <h2 className="text-[18px] font-bold text-[var(--fg)] mb-2">当前筛选条件下没有结果</h2>
+      <p className="text-[14px] text-[var(--fg2)] mb-6 max-w-md">
         搜索 &ldquo;{query}&rdquo; 有结果，但加上筛选条件后没有匹配的 Skill。
       </p>
       <div className="flex gap-3">
@@ -271,20 +271,20 @@ function NoSearchResults({
     <div className="px-8 pb-12">
       {/* 空状态主区 */}
       <div className="flex flex-col items-center justify-center py-10 text-center">
-        <div className="w-[72px] h-[72px] rounded-full content-card flex items-center justify-center mb-5 text-[#1c1a18]">
+        <div className="w-[72px] h-[72px] rounded-full content-card flex items-center justify-center mb-5 text-[var(--primary)]">
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <circle cx="11" cy="11" r="8" />
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
         </div>
-        <h2 className="text-[18px] font-bold text-[#000] mb-2">没有找到匹配的工具，但你可能感兴趣</h2>
-        <p className="text-[14px] text-[#888] mb-7">试试更宽泛的关键词，或浏览以下精选推荐</p>
+        <h2 className="text-[18px] font-bold text-[var(--fg)] mb-2">没有找到匹配的工具，但你可能感兴趣</h2>
+        <p className="text-[14px] text-[var(--fg2)] mb-7">试试更宽泛的关键词，或浏览以下精选推荐</p>
       </div>
 
       {/* 推荐区：编辑精选 */}
       {recommendations.length > 0 && (
         <section className="max-w-[680px] mx-auto">
-          <div className="text-[13px] font-bold text-[#1c1a18] text-left mb-3.5 pl-1">编辑精选推荐</div>
+          <div className="text-[13px] font-bold text-[var(--primary)] text-left mb-3.5 pl-1">编辑精选推荐</div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
             {recommendations.map((skill) => (
               <SkillCardComponent key={skill.id} skill={skill} />
@@ -296,13 +296,13 @@ function NoSearchResults({
       {/* 热门分类 */}
       {scenarios.length > 0 && (
         <section className="max-w-[680px] mx-auto mt-7">
-          <div className="text-[13px] font-bold text-[#666] text-left mb-3">热门分类</div>
+          <div className="text-[13px] font-bold text-[var(--fg2)] text-left mb-3">热门分类</div>
           <div className="flex gap-2 flex-wrap justify-start">
             {scenarios.slice(0, 8).map((s) => (
               <Link
                 key={s.slug}
                 href={`/scenario/${s.slug}`}
-                className="content-card px-3.5 py-1.5 text-[12px] text-[#666] hover:text-[#1c1a18] transition cursor-pointer"
+                className="content-card px-3.5 py-1.5 text-[12px] text-[var(--fg2)] hover:text-[var(--primary)] transition cursor-pointer"
               >
                 {SCENARIO_ICONS[s.slug] || s.icon || '🎯'} {s.name}
               </Link>
@@ -314,10 +314,10 @@ function NoSearchResults({
       {/* 平台 */}
       {platforms.length > 0 && (
         <section className="max-w-[680px] mx-auto mt-7">
-          <div className="text-[13px] font-bold text-[#666] text-left mb-3">按平台浏览</div>
+          <div className="text-[13px] font-bold text-[var(--fg2)] text-left mb-3">按平台浏览</div>
           <div className="flex gap-2 flex-wrap justify-start">
             {platforms.map((p) => (
-              <Link key={p.slug} href={`/platform/${p.slug}`} className="content-card px-3.5 py-1.5 text-[12px] text-[#666] hover:text-[#1c1a18] transition">
+              <Link key={p.slug} href={`/platform/${p.slug}`} className="content-card px-3.5 py-1.5 text-[12px] text-[var(--fg2)] hover:text-[var(--primary)] transition">
                 {p.name}
               </Link>
             ))}
@@ -325,8 +325,8 @@ function NoSearchResults({
         </section>
       )}
 
-      <p className="text-center text-[13px] text-[#999] mt-6">
-        提示：试试 <strong className="text-[#1c1a18]">知识库</strong>、<strong className="text-[#1c1a18]">笔记</strong>、<strong className="text-[#1c1a18]">上下文</strong> 等更宽泛的关键词
+      <p className="text-center text-[13px] text-[var(--fg3)] mt-6">
+        提示：试试 <strong className="text-[var(--primary)]">知识库</strong>、<strong className="text-[var(--primary)]">笔记</strong>、<strong className="text-[var(--primary)]">上下文</strong> 等更宽泛的关键词
       </p>
     </div>
   )
@@ -343,13 +343,13 @@ function SearchLanding({
   return (
     <div className="px-8 pb-12">
       <div className="text-center py-10">
-        <h2 className="text-[26px] font-bold text-[#000] mb-2">搜索 528+ AI Skill</h2>
-        <p className="text-[14px] text-[#888] mb-8">输入工具名、场景或关键词，找到最适合你的 AI 工具</p>
+        <h2 className="text-[26px] font-bold text-[var(--fg)] mb-2">搜索 528+ AI Skill</h2>
+        <p className="text-[14px] text-[var(--fg2)] mb-8">输入工具名、场景或关键词，找到最适合你的 AI 工具</p>
       </div>
 
       {/* 热门搜索 */}
       <section className="mb-10">
-        <h3 className="text-[15px] font-bold text-[#000] mb-4 flex items-center gap-2">
+        <h3 className="text-[15px] font-bold text-[var(--fg)] mb-4 flex items-center gap-2">
           🔥 热门搜索
         </h3>
         <div className="flex flex-wrap gap-2.5">
@@ -357,7 +357,7 @@ function SearchLanding({
             <Link
               key={tag}
               href={`/search?q=${encodeURIComponent(tag)}`}
-              className="content-card px-4 py-1.5 text-[13px] text-[#666] hover:text-[#1c1a18] transition"
+              className="content-card px-4 py-1.5 text-[13px] text-[var(--fg2)] hover:text-[var(--primary)] transition"
             >
               {tag}
             </Link>
@@ -368,7 +368,7 @@ function SearchLanding({
       {/* 按场景 */}
       {scenarios.length > 0 && (
         <section className="mb-10">
-          <h3 className="text-[15px] font-bold text-[#000] mb-4">📂 按场景找</h3>
+          <h3 className="text-[15px] font-bold text-[var(--fg)] mb-4">📂 按场景找</h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
             {scenarios.slice(0, 12).map((s) => (
               <Link
@@ -377,7 +377,7 @@ function SearchLanding({
                 className="content-card p-4 flex flex-col items-center gap-2 group"
               >
                 <span className="text-2xl">{SCENARIO_ICONS[s.slug] || s.icon || '🎯'}</span>
-                <span className="text-sm text-[#666] group-hover:text-[#1c1a18] transition">{s.name}</span>
+                <span className="text-sm text-[var(--fg2)] group-hover:text-[var(--primary)] transition">{s.name}</span>
               </Link>
             ))}
           </div>
@@ -387,7 +387,7 @@ function SearchLanding({
       {/* 按平台 */}
       {platforms.length > 0 && (
         <section className="mb-10">
-          <h3 className="text-[15px] font-bold text-[#000] mb-4">📍 按平台找</h3>
+          <h3 className="text-[15px] font-bold text-[var(--fg)] mb-4">📍 按平台找</h3>
           <div className="flex flex-wrap gap-2.5">
             {platforms.map((p) => (
               <Link
@@ -395,10 +395,10 @@ function SearchLanding({
                 href={`/platform/${p.slug}`}
                 className="content-card px-4 py-2.5 flex items-center gap-2"
               >
-                <span className="w-6 h-6 rounded-full bg-[rgba(28, 26, 24,0.08)] flex items-center justify-center text-[10px] font-bold text-[#1c1a18]">
+                <span className="w-6 h-6 rounded-full bg-[rgba(var(--dim-rgb),0.08)] flex items-center justify-center text-[10px] font-bold text-[var(--primary)]">
                   {p.name[0]}
                 </span>
-                <span className="text-sm text-[#666] font-medium">{p.name}</span>
+                <span className="text-sm text-[var(--fg2)] font-medium">{p.name}</span>
               </Link>
             ))}
           </div>

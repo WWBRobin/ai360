@@ -261,7 +261,7 @@ function collectForm(
 
 // ===== UI 小部件 =====
 const inputCls =
-  'w-full px-3 py-2 text-sm bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400'
+  'w-full px-3 py-2 text-sm bg-[var(--card)] border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400'
 
 function Field({
   label,

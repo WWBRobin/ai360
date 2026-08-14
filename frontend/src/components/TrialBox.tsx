@@ -58,9 +58,9 @@ export default function TrialBox({
     <div className="content-card p-6">
       <div className="flex items-center gap-2 mb-4">
         <span className="text-lg">🧪</span>
-        <h3 className="font-bold text-[#2a2724]">在线试用 {skillName}</h3>
+        <h3 className="font-bold text-[var(--fg)]">在线试用 {skillName}</h3>
         {remaining !== null && (
-          <span className="ml-auto text-xs text-[#1c1a18] bg-[rgba(28, 26, 24,0.06)] px-2 py-0.5 rounded-full border border-[rgba(28, 26, 24,0.20)]">
+          <span className="ml-auto text-xs text-[var(--primary)] bg-[rgba(var(--dim-rgb),0.06)] px-2 py-0.5 rounded-full border border-[rgba(var(--dim-rgb),0.20)]">
             剩余 {remaining} 次
           </span>
         )}
@@ -73,11 +73,11 @@ export default function TrialBox({
         placeholder={placeholder}
         rows={4}
         disabled={status === 'loading'}
-        className="w-full px-4 py-3 text-sm bg-white border border-[#e3e0dd] rounded-xl resize-none focus:outline-none focus:border-[#1c1a18] focus:ring-2 focus:ring-[rgba(28, 26, 24,0.12)] transition disabled:opacity-60"
+        className="w-full px-4 py-3 text-sm bg-[var(--card)] border border-[var(--border)] rounded-xl resize-none focus:outline-none focus:border-[var(--primary)] focus:ring-2 focus:ring-[rgba(var(--dim-rgb),0.12)] transition disabled:opacity-60"
       />
 
       <div className="flex items-center justify-between mt-3">
-        <span className="text-xs text-[#a1a1a1]">
+        <span className="text-xs text-[var(--fg3)]">
           ⌘/Ctrl + Enter 快捷发送
         </span>
         <button
@@ -98,7 +98,7 @@ export default function TrialBox({
 
       {/* 输出区 */}
       {output && (
-        <div className="mt-4 bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <div className="mt-4 bg-[var(--card)] rounded-xl border border-gray-200 overflow-hidden">
           <div className="px-4 py-2 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
             <span className="text-xs font-medium text-gray-500">运行结果</span>
             {tokensUsed !== null && (

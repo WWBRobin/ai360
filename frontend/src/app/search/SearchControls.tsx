@@ -78,7 +78,7 @@ export function SearchControls({ tabs, facets, filters, query }: Props) {
   return (
     <>
       {/* Tab 行 */}
-      <div className="border-b border-[rgba(0,0,0,0.06)]">
+      <div className="border-b border-[var(--border)]">
         <div className="flex gap-0">
           {tabs.map((t) => {
             // 简易 tab：只切换基础筛选（免费/评分/装机必备）
@@ -110,13 +110,13 @@ export function SearchControls({ tabs, facets, filters, query }: Props) {
                 href={href}
                 className={`px-[18px] py-2.5 text-[14px] border-b-[3px] -mb-px transition whitespace-nowrap ${
                   isActive
-                    ? 'text-[#1c1a18] font-bold border-[#1c1a18]'
-                    : 'text-[#888] font-medium border-transparent hover:text-[#000]'
+                    ? 'text-[var(--primary)] font-bold border-[var(--primary)]'
+                    : 'text-[var(--fg2)] font-medium border-transparent hover:text-[var(--fg)]'
                 }`}
               >
                 {t.label}
                 {typeof t.num === 'number' && (
-                  <span className={`text-[11px] ml-1 ${isActive ? 'text-[#1c1a18]' : 'text-[#bbb]'}`}>
+                  <span className={`text-[11px] ml-1 ${isActive ? 'text-[var(--primary)]' : 'text-[var(--fg4)]'}`}>
                     {t.num}
                   </span>
                 )}
@@ -166,20 +166,20 @@ export function SearchControls({ tabs, facets, filters, query }: Props) {
         <div className="relative" ref={sortRef}>
           <button
             onClick={() => setSortOpen((o) => !o)}
-            className="flex items-center gap-1.5 px-3.5 py-2 border border-[rgba(0,0,0,0.06)] rounded-lg text-[13px] text-[#555] bg-white cursor-pointer transition hover:border-[#1c1a18] hover:text-[#1c1a18]"
+            className="flex items-center gap-1.5 px-3.5 py-2 border border-[var(--border)] rounded-lg text-[13px] text-[var(--fg2)] bg-[var(--card)] cursor-pointer transition hover:border-[var(--primary)] hover:text-[var(--primary)]"
           >
             {currentSortLabel} <span style={{ fontSize: '10px' }}>▾</span>
           </button>
           {sortOpen && (
-            <div className="absolute top-full right-0 mt-1.5 bg-white rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.04),0_12px_32px_rgba(0,0,0,0.08)] min-w-[150px] z-50 overflow-hidden">
+            <div className="absolute top-full right-0 mt-1.5 bg-[var(--card)] rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.04),0_12px_32px_rgba(0,0,0,0.08)] min-w-[150px] z-50 overflow-hidden">
               {SORT_OPTIONS.map((s) => (
                 <div
                   key={s.value}
                   onClick={() => setSort(s.value)}
                   className={`px-4 py-2.5 text-[13px] cursor-pointer transition ${
                     s.value === currentSort
-                      ? 'text-[#000] font-semibold bg-[rgba(28, 26, 24,0.06)]'
-                      : 'text-[#555] hover:bg-[#f4f1ed] hover:text-[#1c1a18]'
+                      ? 'text-[var(--fg)] font-semibold bg-[rgba(var(--dim-rgb),0.06)]'
+                      : 'text-[var(--fg2)] hover:bg-[var(--sidebar)] hover:text-[var(--primary)]'
                   }`}
                 >
                   {s.label}
@@ -214,7 +214,7 @@ function FilterSelect({
       <select
         value={current}
         onChange={(e) => onChange(e.target.value)}
-        className="appearance-none pl-3 pr-7 py-1.5 text-[13px] text-[#555] bg-white border border-[rgba(0,0,0,0.06)] rounded-lg cursor-pointer outline-none transition hover:border-[#1c1a18] hover:text-[#1c1a18]"
+        className="appearance-none pl-3 pr-7 py-1.5 text-[13px] text-[var(--fg2)] bg-[var(--card)] border border-[var(--border)] rounded-lg cursor-pointer outline-none transition hover:border-[var(--primary)] hover:text-[var(--primary)]"
         aria-label={label}
       >
         <option value="all">{allLabel}</option>
@@ -224,7 +224,7 @@ function FilterSelect({
           </option>
         ))}
       </select>
-      <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-[#aaa]">▾</span>
+      <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-[var(--fg3)]">▾</span>
       {current !== 'all' && <span className="sr-only">{value}</span>}
     </div>
   )

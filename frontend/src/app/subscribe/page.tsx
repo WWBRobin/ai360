@@ -38,17 +38,17 @@ export default function SubscribePage() {
 
         {/* 价值点说明 */}
         <div className="mt-10 max-w-lg mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-          <div className="bg-white/60 rounded-xl p-4">
+          <div className="bg-[var(--card)]/60 rounded-xl p-4">
             <div className="text-2xl mb-1">🧪</div>
             <div className="text-sm font-medium text-gray-700">实测评测</div>
             <div className="text-xs text-gray-400 mt-1">每个 Skill 都亲手测过</div>
           </div>
-          <div className="bg-white/60 rounded-xl p-4">
+          <div className="bg-[var(--card)]/60 rounded-xl p-4">
             <div className="text-2xl mb-1">⚡</div>
             <div className="text-sm font-medium text-gray-700">省时间</div>
             <div className="text-xs text-gray-400 mt-1">不用自己一个个去试</div>
           </div>
-          <div className="bg-white/60 rounded-xl p-4">
+          <div className="bg-[var(--card)]/60 rounded-xl p-4">
             <div className="text-2xl mb-1">🚫</div>
             <div className="text-sm font-medium text-gray-700">不广告</div>
             <div className="text-xs text-gray-400 mt-1">不收上架费，不卖排名</div>

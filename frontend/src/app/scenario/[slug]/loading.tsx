@@ -16,7 +16,7 @@ export default function Loading() {
       {/* 卡片网格骨架 */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {[0, 1, 2, 3, 4, 5].map((i) => (
-          <div key={i} className="bg-white rounded-2xl border border-gray-200 p-5 animate-pulse">
+          <div key={i} className="bg-[var(--card)] rounded-2xl border border-gray-200 p-5 animate-pulse">
             <div className="flex items-center gap-2 mb-3">
               <div className="h-5 w-16 bg-gray-200 rounded" />
               <div className="h-5 w-12 bg-gray-200 rounded" />

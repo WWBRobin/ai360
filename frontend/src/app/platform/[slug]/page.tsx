@@ -95,7 +95,7 @@ export default async function PlatformPage({
     return (
       <div className="page-wrapper flex min-h-screen relative">
         <AppSidebar />
-        <main className="flex-1 min-w-0 relative z-10 px-8 py-20 text-center text-[#a1a1a1]">
+        <main className="flex-1 min-w-0 relative z-10 px-8 py-20 text-center text-[var(--fg3)]">
           平台不存在
         </main>
       </div>
@@ -137,15 +137,15 @@ export default async function PlatformPage({
 
       <main className="flex-1 min-w-0 relative z-10 px-8 py-10 max-w-[1080px]">
         {/* 面包屑 */}
-        <nav className="text-[12px] text-[#a1a1a1] mb-4">
-          <Link href="/" className="hover:text-[#1c1a18]">首页</Link>
+        <nav className="text-[12px] text-[var(--fg3)] mb-4">
+          <Link href="/" className="hover:text-[var(--primary)]">首页</Link>
           <span> / </span>
-          <span className="text-[#656360]">{platform.name}</span>
+          <span className="text-[var(--fg2)]">{platform.name}</span>
         </nav>
 
         {/* 最后更新时间 */}
-        <p className="text-xs text-[#a1a1a1] mb-3">
-          最后更新：<time className="text-[#656360] font-medium">{new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+        <p className="text-xs text-[var(--fg3)] mb-3">
+          最后更新：<time className="text-[var(--fg2)] font-medium">{new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
         </p>
 
         {/* 平台 Hero 区（content-card） */}
@@ -178,8 +178,8 @@ export default async function PlatformPage({
         ) : (
           <div className="text-center py-20">
             <div className="text-5xl mb-4">📦</div>
-            <p className="text-[#a1a1a1]">该平台暂无已评测 Skill</p>
-            <p className="text-[#a1a1a1] text-sm mt-2">我们正在持续收录中</p>
+            <p className="text-[var(--fg3)]">该平台暂无已评测 Skill</p>
+            <p className="text-[var(--fg3)] text-sm mt-2">我们正在持续收录中</p>
           </div>
         )}
       </main>
@@ -208,20 +208,20 @@ function PlatformHero({
       <div
         className="w-[72px] h-[72px] rounded-[18px] flex items-center justify-center text-[34px] font-extrabold text-white shrink-0"
         style={{
-          background: '#1c1a18',
+          background: 'var(--primary)',
         }}
       >
         {platform.name.charAt(0).toUpperCase()}
       </div>
 
       <div className="flex-1 min-w-0">
-        <h1 className="text-[26px] font-bold text-[#2a2724] mb-1.5" style={{ letterSpacing: '-0.5px' }}>
+        <h1 className="text-[26px] font-bold text-[var(--fg)] mb-1.5" style={{ letterSpacing: '-0.5px' }}>
           {platform.name}
         </h1>
         {platform.description && (
-          <p className="text-[15px] font-semibold text-[#1c1a18] mb-2">{platform.description}</p>
+          <p className="text-[15px] font-semibold text-[var(--primary)] mb-2">{platform.description}</p>
         )}
-        <p className="text-[14px] text-[#656360] max-w-[680px] mb-3 leading-[1.7]">
+        <p className="text-[14px] text-[var(--fg2)] max-w-[680px] mb-3 leading-[1.7]">
           {platform.name}平台共 {totalCount} 个工具与技能，覆盖编程、写作、研究、运维全场景。
         </p>
 
@@ -232,20 +232,20 @@ function PlatformHero({
               href={platform.base_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#f4f1ed] text-[12px] text-[#656360] transition hover:bg-[#e3e0dd] hover:text-[#2a2724]"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[var(--sidebar)] text-[12px] text-[var(--fg2)] transition hover:bg-[var(--border)] hover:text-[var(--fg)]"
             >
               官网 ↗
             </a>
           )}
           {platform.api_supported && (
-            <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#f4f1ed] text-[12px] text-[#656360]">
+            <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[var(--sidebar)] text-[12px] text-[var(--fg2)]">
               支持 API
             </span>
           )}
         </div>
 
         {/* stats */}
-        <div className="flex gap-7 pt-3 border-t border-[#e3e0dd]">
+        <div className="flex gap-7 pt-3 border-t border-[var(--border)]">
           <Stat label="工具总数" value={String(totalCount)} />
           <Stat label="AI360 实测" value={String(testedCount)} />
           {avgScore != null && (
@@ -257,9 +257,9 @@ function PlatformHero({
       {/* 整体评分徽章 */}
       {avgScore != null && (
         <div className="flex flex-col items-end gap-3 shrink-0">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[rgba(28, 26, 24,0.06)] border border-[#e3e0dd]">
-            <span className="text-[22px] font-extrabold text-[#1c1a18]">{avgScore.toFixed(1)}</span>
-            <span className="text-[11px] text-[#a1a1a1] leading-[1.3]">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[rgba(var(--dim-rgb),0.06)] border border-[var(--border)]">
+            <span className="text-[22px] font-extrabold text-[var(--primary)]">{avgScore.toFixed(1)}</span>
+            <span className="text-[11px] text-[var(--fg3)] leading-[1.3]">
               整体
               <br />
               评分
@@ -273,9 +273,9 @@ function PlatformHero({
 
 function Stat({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
   return (
-    <div className="text-[12px] text-[#a1a1a1]">
+    <div className="text-[12px] text-[var(--fg3)]">
       <strong
-        className={`text-[18px] font-bold block mb-0.5 ${highlight ? 'text-[#1c1a18]' : 'text-[#2a2724]'}`}
+        className={`text-[18px] font-bold block mb-0.5 ${highlight ? 'text-[var(--primary)]' : 'text-[var(--fg)]'}`}
       >
         {value}
       </strong>

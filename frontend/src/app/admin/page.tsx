@@ -99,7 +99,7 @@ export default async function AdminHomePage() {
       </div>
 
       {/* 列表 */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div className="bg-[var(--card)] rounded-xl border border-gray-200 overflow-hidden">
         <table className="w-full text-sm">
           <thead className="bg-gray-50 text-gray-500 text-xs">
             <tr>
@@ -169,7 +169,7 @@ export default async function AdminHomePage() {
 
 function Stat({ label, value }: { label: string; value: number }) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 px-4 py-3">
+    <div className="bg-[var(--card)] rounded-xl border border-gray-200 px-4 py-3">
       <div className="text-xs text-gray-500">{label}</div>
       <div className="text-2xl font-bold text-gray-900 mt-1">{value}</div>
     </div>

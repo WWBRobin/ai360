@@ -53,34 +53,34 @@ export default async function GuideArticlePage({
       <main className="flex-1 min-w-0 relative z-10">
         <div className="px-8 py-8 max-w-[820px]">
           {/* 面包屑 */}
-          <nav className="flex items-center gap-2 text-[12px] text-[#aaa] mb-5">
-            <Link href="/" className="hover:text-[#1c1a18] transition">
+          <nav className="flex items-center gap-2 text-[12px] text-[var(--fg3)] mb-5">
+            <Link href="/" className="hover:text-[var(--primary)] transition">
               首页
             </Link>
             <span>/</span>
-            <Link href="/guide" className="hover:text-[#1c1a18] transition">
+            <Link href="/guide" className="hover:text-[var(--primary)] transition">
               深度评测
             </Link>
             <span>/</span>
-            <span className="text-[#333]">{article.tag}</span>
+            <span className="text-[var(--fg)]">{article.tag}</span>
           </nav>
 
           {/* 文章头 */}
-          <header className="mb-8 pb-6 border-b border-[#e3e0dd]">
+          <header className="mb-8 pb-6 border-b border-[var(--border)]">
             <div className="flex items-center gap-2 mb-3">
               <span
                 className="text-[11px] font-medium px-2 py-0.5 rounded-md"
-                style={{ background: 'rgba(28, 26, 24,0.06)', color: '#1c1a18' }}
+                style={{ background: 'rgba(var(--dim-rgb),0.06)', color: 'var(--primary)' }}
               >
                 {article.tag}
               </span>
-              <span className="text-[12px] text-[#aaa]">深度评测</span>
+              <span className="text-[12px] text-[var(--fg3)]">深度评测</span>
             </div>
-            <h1 className="text-[28px] font-bold text-[#2a2724] leading-tight mb-3">
+            <h1 className="text-[28px] font-bold text-[var(--fg)] leading-tight mb-3">
               <span className="mr-2">{article.icon}</span>
               {article.title}
             </h1>
-            <p className="text-[15px] text-[#666] leading-[1.7]">{article.summary}</p>
+            <p className="text-[15px] text-[var(--fg2)] leading-[1.7]">{article.summary}</p>
           </header>
 
           {/* 正文：markdown 渲染（沿用全局 prose-guide 排版） */}
@@ -90,16 +90,16 @@ export default async function GuideArticlePage({
 
           {/* 相关文章（content-card） */}
           {related.length > 0 && (
-            <section className="mt-14 border-t border-[#e3e0dd] pt-8">
-              <h2 className="mb-4 text-[17px] font-bold text-[#000]">继续阅读</h2>
+            <section className="mt-14 border-t border-[var(--border)] pt-8">
+              <h2 className="mb-4 text-[17px] font-bold text-[var(--fg)]">继续阅读</h2>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {related.map((a) => (
                   <Link key={a.slug} href={`/guide/${a.slug}`} className="content-card block p-4 group">
                     <div className="text-2xl mb-2">{a.icon}</div>
-                    <div className="font-medium text-[#000] text-sm line-clamp-2 group-hover:text-[#1c1a18] transition">
+                    <div className="font-medium text-[var(--fg)] text-sm line-clamp-2 group-hover:text-[var(--primary)] transition">
                       {a.title}
                     </div>
-                    <div className="text-[12px] text-[#1c1a18] mt-2 font-medium">阅读 →</div>
+                    <div className="text-[12px] text-[var(--primary)] mt-2 font-medium">阅读 →</div>
                   </Link>
                 ))}
               </div>
@@ -110,7 +110,7 @@ export default async function GuideArticlePage({
           <div className="mt-10 text-center">
             <Link
               href="/guide"
-              className="inline-block text-sm text-[#1c1a18] font-medium hover:underline"
+              className="inline-block text-sm text-[var(--primary)] font-medium hover:underline"
             >
               ← 查看全部评测
             </Link>
