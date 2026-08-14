@@ -63,11 +63,11 @@ export default function LoginPage() {
         {/* 标题 */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2.5 mb-4">
-            <img src="/logo-light.png" alt="ArcDock" className="h-10 w-auto dark:hidden" />
-            <img src="/logo-dark.png" alt="ArcDock" className="h-10 w-auto hidden dark:block" />
+            <img src="/logo-light.png" alt="ArcDock" className="h-[34px] w-auto dark:hidden" />
+            <img src="/logo-dark.png" alt="ArcDock" className="h-[34px] w-auto hidden dark:block" />
             <span className="flex flex-col leading-none items-start">
               <span className="font-semibold text-[18px] text-[var(--fg)]">ArcDock</span>
-              <span className="text-[12px] text-[var(--fg3)] mt-1 ml-1">弧光万象</span>
+              <span className="text-[12px] text-[var(--fg)] font-medium mt-1 ml-[32px]">弧光万象</span>
             </span>
           </Link>
           <h1 className="text-[24px] font-bold text-[var(--fg)] leading-tight">
