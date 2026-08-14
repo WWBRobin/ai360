@@ -104,6 +104,7 @@ export default function HomePortal({
     { slug: 'design', name: '设计媒体', count: sceneCount('design') },
     { slug: 'automation', name: '自动化', count: sceneCount('automation') },
     { slug: 'model-router', name: 'AI增强', count: sceneCount('model-router') },
+    { slug: 'uncategorized', name: '其他', count: sceneCount('uncategorized') },
   ]
 
   const filteredSkills = useMemo(() => {
