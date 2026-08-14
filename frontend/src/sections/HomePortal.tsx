@@ -80,7 +80,7 @@ export default function HomePortal({
   return (
     <div className="page-wrapper px-4 sm:px-6 lg:px-8">
       {/* 标题区 — 横跨全宽，对标 mcp.so */}
-      <div className="pt-10 pb-4">
+      <div className="pt-10 pb-8">
         <h1 className="text-[28px] font-bold text-[var(--fg)] leading-tight">发现最适合你的 AI 工具</h1>
         <p className="text-[15px] text-[var(--fg3)] mt-1.5">{totalCount} 个工具 · {platformCount} 个平台 · 独立评测</p>
       </div>
