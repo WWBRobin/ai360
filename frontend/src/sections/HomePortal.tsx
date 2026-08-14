@@ -14,6 +14,14 @@ import type { SkillCard } from '@/types'
 
 const TYPES = ['全部', 'Skill', '工具', 'MCP']
 
+/** 类型 Tab 实时计数 — 与 activeType 筛选逻辑严格同口径 */
+function typeCount(skills: SkillCard[], t: string): number {
+  if (t === '全部') return skills.length
+  if (t === 'MCP') return skills.filter(s => s.slug.includes('mcp') || s.name.toLowerCase().includes('mcp')).length
+  if (t === 'Skill') return skills.filter(s => s.category !== 'infrastructure').length
+  return skills.filter(s => s.api_supported).length
+}
+
 const GUIDES = [
   { slug: 'install-guide', title: '装机必备完整指南', desc: '30分钟配齐所有基础工具' },
   { slug: 'memory-comparison', title: 'AI 怎么记住你？4款横评', desc: 'claude-mem / Mem0 / Supermemory 实测' },
@@ -155,6 +163,7 @@ export default function HomePortal({
                 }`}
               >
                 {t}
+                <span className="ml-1 text-[11px] text-[var(--fg3)]">{typeCount(skills, t)}</span>
                 {isActive && (
                   <span className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-[var(--primary)]" aria-hidden="true" />
                 )}

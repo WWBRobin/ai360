@@ -2,14 +2,15 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { getSupabaseBrowserClient } from '@/lib/supabase/client'
 
 // ============================================================
 // 共享数据
 // ============================================================
 
-const PLATFORMS = [
-  { slug: 'hermes', name: 'Hermes', count: 271, logo: '/platform-logos/hermes.png' },
+const PLATFORMS_BASE = [
+  { slug: 'hermes', name: 'Hermes', count: 20, logo: '/platform-logos/hermes.png' },
   { slug: 'gpts', name: 'GPTs', count: 86, logo: '/platform-logos/gpts.png' },
   { slug: 'coze', name: '扣子', count: 45, logo: '/platform-logos/coze.png' },
   { slug: 'saas', name: 'SaaS', count: 24, logo: '/platform-logos/saas.png' },
@@ -24,6 +25,36 @@ const PLATFORMS = [
   { slug: 'ernie', name: '文心', count: 13, logo: '/platform-logos/ernie.png' },
   { slug: 'workbuddy', name: 'WorkBuddy', count: 15, logo: '/platform-logos/workbuddy.png' },
 ]
+
+/** 实时平台计数（DB platforms.skill_count，published 口径）。拉取失败时沿用静态值兜底。 */
+let _cachedCounts: Record<string, number> | null = null
+
+function usePlatformCounts() {
+  const [counts, setCounts] = useState<Record<string, number>>(_cachedCounts || {})
+  useEffect(() => {
+    if (_cachedCounts) return
+    let cancelled = false
+    getSupabaseBrowserClient()
+      .from('platforms')
+      .select('slug, skill_count')
+      .then(({ data }: { data: { slug: string; skill_count: number }[] | null }) => {
+        if (cancelled || !data) return
+        const m: Record<string, number> = {}
+        for (const row of data) if (row.skill_count != null) m[row.slug] = row.skill_count
+        _cachedCounts = m
+        setCounts(m)
+      })
+      .catch(() => {})
+    return () => { cancelled = true }
+  }, [])
+  return counts
+}
+
+/** 组件内取平台列表：实时计数 merge 静态兜底（logo/name 来自静态配置） */
+function usePlatforms() {
+  const counts = usePlatformCounts()
+  return PLATFORMS_BASE.map((p) => ({ ...p, count: counts[p.slug] ?? p.count }))
+}
 
 // ============================================================
 // 小工具：路由判定
@@ -182,6 +213,7 @@ function SearchBox() {
 
 function HomeSidebar() {
   const [selected, setSelected] = useState<string[]>(['hermes'])
+  const PLATFORMS = usePlatforms()
   const [showAll, setShowAll] = useState(false)
 
   const togglePlatform = (slug: string) => {
@@ -591,6 +623,7 @@ function ScenarioSidebar({ pathname }: { pathname: string }) {
 function PlatformSidebar({ pathname }: { pathname: string }) {
   const currentSlug = pathname.split('/')[2] || ''
 
+  const PLATFORMS = usePlatforms()
   return (
     <>
       <SearchBox />
@@ -676,6 +709,7 @@ function SearchSidebarContent() {
   const pathname = usePathname()
   const router = useRouter()
   const searchParams = useSearchParams()
+  const platformsList = usePlatforms()
   const selPlatforms = searchParams.get('platform')?.split(',').filter(Boolean) || []
   const selTypes = searchParams.get('type')?.split(',').filter(Boolean) || []
   const selPrices = searchParams.get('price')?.split(',').filter(Boolean) || []
@@ -722,7 +756,7 @@ function SearchSidebarContent() {
       <div className="mb-4">
         <SectionLabel>平台</SectionLabel>
         <div>
-          {PLATFORMS.slice(0, 8).map((p) => (
+          {platformsList.slice(0, 8).map((p) => (
             <CheckRow
               key={p.slug}
               label={p.name}
