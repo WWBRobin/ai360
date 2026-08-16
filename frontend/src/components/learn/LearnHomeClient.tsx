@@ -117,6 +117,38 @@ export default function LearnHomeClient() {
           </Link>
         </div>
 
+        {/* 星图模式 — 标杆星入口（v3 新） */}
+        <section className="mb-10">
+          <div className="flex items-center gap-2.5 mb-5">
+            <h2 className="text-[18px] font-bold text-[var(--fg)]">⭐ 星图模式</h2>
+            <span className="text-[12px] px-2 py-0.5 rounded-full" style={{ background: 'rgba(245,158,11,0.14)', color: '#b45309' }}>指导手册 · 新</span>
+          </div>
+          <a
+            href="/learn/star/xhs-note"
+            className="group block rounded-[10px] border border-[var(--border)] p-5 transition-colors hover:border-[var(--primary)]"
+            style={{ background: 'var(--card)', textDecoration: 'none' }}
+          >
+            <div className="flex items-center gap-2.5">
+              <span className="text-[20px] leading-none">📝</span>
+              <span className="text-[15px] font-bold text-[var(--fg)]">用 AI 写小红书笔记</span>
+              <span className="ml-auto text-[11px] px-2 py-0.5 rounded-full font-medium" style={{ background: 'rgba(245,158,11,0.14)', color: '#b45309' }}>
+                9.6 分 · 标杆星
+              </span>
+            </div>
+            <p className="text-[13px] text-[var(--fg3)] mt-2 leading-relaxed">
+              5 盏灯走完全程：找对标 → 写文案 → 配图 → 提示词 → 数据复盘。每步自选工具（全维度评判矩阵），结果不满意随时 AI 诊断，走完点亮这颗星。
+            </p>
+            <div className="flex items-center gap-2 mt-3 flex-wrap">
+              {['找对标', '写文案', '配图', '提示词', '复盘'].map((s, i) => (
+                <span key={i} className="text-[11px] px-2 py-0.5 rounded-full" style={{ background: 'rgba(var(--dim-rgb),0.08)', color: 'var(--fg3)' }}>
+                  {i + 1}. {s}
+                </span>
+              ))}
+              <span className="ml-auto text-[12px] font-medium text-[var(--primary)] group-hover:underline">开始点亮 →</span>
+            </div>
+          </a>
+        </section>
+
         {/* 按工具学 — 路径列表 */}
         <section id="tool-paths" className="mb-10 scroll-mt-20">
           <div className="flex items-center gap-2.5 mb-5">
