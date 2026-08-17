@@ -1162,7 +1162,7 @@ export default function AppSidebar() {
   return (
     <aside
       suppressHydrationWarning
-      className="hidden md:block w-56 shrink-0 sticky top-[108px] h-[calc(100vh-108px)] overflow-y-auto"
+      className="hidden sm:block w-56 shrink-0 sticky top-[108px] h-[calc(100vh-108px)] overflow-y-auto"
     >
       <div className="pb-6">
         {variant === 'home' && <HomeSidebar />}
