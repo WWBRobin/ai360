@@ -1,0 +1,133 @@
+/* ===== SoftwareCard 样式（首页 B · 软件卡）=====
+ * 视觉纪律：现有 CSS 变量暖中性（--bg/--card/--fg/--border 系列），
+ * 琥珀 #f59e0b 仅用于 ⭐评分和主按钮描边（任务书原文）。
+ */
+
+.softcard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.softcard:hover {
+  border-color: rgba(245, 158, 11, 0.45);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+/* 顶行：logo + 平台名 + 评分 */
+.softcard-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.softcard-logo {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--bg2);
+  color: var(--fg2);
+  font-size: 15px;
+  font-weight: 600;
+  user-select: none;
+}
+
+.softcard-name {
+  flex: 1;
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--fg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ⭐评分：琥珀（全卡唯一允许用琥珀处之一） */
+.softcard-rating {
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #f59e0b;
+}
+
+/* 说人话一句话 */
+.softcard-liner {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--fg2);
+}
+
+/* 三硬门槛标 */
+.softcard-gates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.softcard-gate {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--fg2);
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 3px 9px;
+}
+
+.softcard-gate-warn {
+  color: #b45309;
+  border-color: rgba(245, 158, 11, 0.35);
+  background: rgba(245, 158, 11, 0.08);
+}
+
+/* 入门门槛 + 装机时间 */
+.softcard-meta {
+  font-size: 12px;
+  color: var(--fg3);
+}
+
+/* 主按钮 → /install（琥珀描边，全卡第二个允许用琥珀处） */
+.softcard-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg);
+  background: var(--card);
+  border: 1.5px solid #f59e0b;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.softcard-btn:hover {
+  background: #f59e0b;
+  color: #fff;
+}
+
+/* 进阶入口 → /skills */
+.softcard-advanced {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--fg3);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.softcard-advanced:hover {
+  color: #f59e0b;
+}
