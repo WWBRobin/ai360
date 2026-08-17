@@ -90,6 +90,8 @@
   color: var(--fg);
   animation: installFadeIn 0.25s ease;
 }
+.install-stuck-msg { margin: 0; }
+.install-stuck-suggest { margin: 6px 0 0; color: var(--text2); font-size: 12.5px; }
 @keyframes installFadeIn {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: none; }

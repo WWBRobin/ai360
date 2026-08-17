@@ -43,7 +43,14 @@ export default async function HomePage() {
         }
       }
     }
-  } catch {}
+  } catch (err) {
+    // 构建/ISR 预渲染时 Supabase 不可达：首页降级空数据，绝不 rethrow 保 build
+    console.warn('[build-degrade] / 首页数据拉取失败，渲染空态', err)
+    skills = []
+    totalCount = 0
+    platformCount = 0
+    sceneCounts = {}
+  }
 
   return <HomePortal totalCount={totalCount} platformCount={platformCount} sceneCounts={sceneCounts} skills={skills} />
 }

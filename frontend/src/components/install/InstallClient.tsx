@@ -84,7 +84,7 @@ const DEFAULT_PLAN = makePlanState('content-creation')
 export default function InstallClient() {
   const [mounted, setMounted] = useState(false)
   const [state, setState] = useState<PlanState>(DEFAULT_PLAN)
-  const [stuckNotice, setStuckNotice] = useState<string | null>(null)
+  const [stuckNotice, setStuckNotice] = useState<{ message: string; suggestion?: string } | null>(null)
 
   useEffect(() => {
     const saved = readJSON<PlanState | null>(PLAN_KEY, null)
@@ -175,18 +175,47 @@ export default function InstallClient() {
     })
   }
 
-  function stuck(slug: string, stepIndex: number, symptom: string) {
-    // 卡点队列（数据飞轮起点）。diagnose API 语义为学习流程，装机卡住走本地兜底。
+  async function stuck(slug: string, stepIndex: number, stepTitle: string) {
+    const item = itemBySlug.get(slug)
+    if (!item) return
+    // 卡点队列（数据飞轮起点）照旧记录
     const queue = readJSON<StuckEvent[]>(STUCK_KEY, [])
     queue.push({
       tool_slug: slug,
       step_index: stepIndex,
-      symptom,
+      symptom: stepTitle,
       created_at: new Date().toISOString(),
     })
     writeJSON(STUCK_KEY, queue)
-    setStuckNotice(`卡点已记录：「${symptom}」。教练稍后分析，先试试：开梯子重试、看官方文档、或先跳过装下一个。`)
-    setTimeout(() => setStuckNotice(null), 6000)
+
+    setStuckNotice({ message: `正在诊断「${stepTitle}」…` })
+    let final: { message: string; suggestion?: string }
+    try {
+      const res = await fetch('/api/learn/diagnose', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          pack: 'install',
+          tool_name: item.name,
+          step_title: stepTitle,
+          user_input: '',
+        }),
+      })
+      const j = (await res.json()) as { diagnosis_type?: string; message?: string; suggestion?: string; error?: string }
+      if (res.ok && j.diagnosis_type && j.message) {
+        final = { message: j.message, suggestion: j.suggestion }
+      } else {
+        final = {
+          message: `卡点已记录：「${stepTitle}」。教练稍后分析，先试试：开梯子重试、看官方文档、或先跳过装下一个。`,
+        }
+      }
+    } catch {
+      final = {
+        message: `卡点已记录：「${stepTitle}」。教练稍后分析，先试试：开梯子重试、看官方文档、或先跳过装下一个。`,
+      }
+    }
+    setStuckNotice(final)
+    setTimeout(() => setStuckNotice(null), 8000)
   }
 
   return (
@@ -232,7 +261,12 @@ export default function InstallClient() {
         <p className="install-milestone">{milestone(doneCount, total)}</p>
       </div>
 
-      {stuckNotice && <div className="install-stuck-notice">{stuckNotice}</div>}
+      {stuckNotice && (
+        <div className="install-stuck-notice">
+          <p className="install-stuck-msg">{stuckNotice.message}</p>
+          {stuckNotice.suggestion && <p className="install-stuck-suggest">{stuckNotice.suggestion}</p>}
+        </div>
+      )}
 
       {/* 装机项列表 */}
       <div className="install-list">

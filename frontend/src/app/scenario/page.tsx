@@ -26,10 +26,12 @@ const ICONS: Record<string, string> = {
 }
 
 export default async function ScenarioListPage() {
-  let scenarios: { name: string; slug: string; description: string | null }[] = []
+  // 注：scenarios 表无 description 列（含 id/name/slug/icon/parent_id/sort_order），
+  // 原 select('description') 会触发 42703 常驻失败导致页面永远空态，已改为只查有效列。
+  let scenarios: { name: string; slug: string }[] = []
   let counts: Record<string, number> = {}
   try {
-    const { data } = await supabase.from('scenarios').select('name, slug, description').order('sort_order')
+    const { data } = await supabase.from('scenarios').select('name, slug').order('sort_order')
     if (data) scenarios = data
     const { data: rows } = await supabase.from('skill_cards_view').select('scenario_slugs')
     if (rows) {
@@ -37,7 +39,12 @@ export default async function ScenarioListPage() {
         for (const s of (row.scenario_slugs || [])) counts[s] = (counts[s] || 0) + 1
       }
     }
-  } catch {}
+  } catch (err) {
+    // 构建/ISR 预渲染时 Supabase 不可达（ECS→Supabase 跨境网络不稳）：降级空态，绝不 rethrow 保 build
+    console.warn('[build-degrade] /scenario 场景数据拉取失败，渲染空态', err)
+    scenarios = []
+    counts = {}
+  }
 
   return (
     <div className="page-wrapper px-4 sm:px-6 lg:px-8 min-h-screen">
@@ -45,26 +52,33 @@ export default async function ScenarioListPage() {
         <h1 className="text-[28px] font-bold text-[var(--fg)] leading-tight">🧭 场景库</h1>
         <p className="text-[15px] text-[var(--fg3)] mt-1.5">你打算用 AI 做什么？从场景出发找到合适的工具。</p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pb-10">
-        {scenarios.map((s) => (
-          <Link
-            key={s.slug}
-            href={`/scenario/${s.slug}`}
-            className="content-card block p-5 group"
-          >
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2.5">
-                <span className="text-[20px]">{ICONS[s.slug] || '📁'}</span>
-                <div className="text-[15px] font-medium text-[var(--fg)] group-hover:text-[var(--primary)] transition">{s.name}</div>
+      {scenarios.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pb-10">
+          {scenarios.map((s) => (
+            <Link
+              key={s.slug}
+              href={`/scenario/${s.slug}`}
+              className="content-card block p-5 group"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-[20px]">{ICONS[s.slug] || '📁'}</span>
+                  <div className="text-[15px] font-medium text-[var(--fg)] group-hover:text-[var(--primary)] transition">{s.name}</div>
+                </div>
+                <span className="text-[12px] text-[var(--fg3)]">{counts[s.slug] || 0} 个</span>
               </div>
-              <span className="text-[12px] text-[var(--fg3)]">{counts[s.slug] || 0} 个</span>
-            </div>
-            {s.description && (
-              <p className="text-[13px] text-[var(--fg2)] leading-relaxed line-clamp-2">{s.description}</p>
-            )}
-          </Link>
-        ))}
-      </div>
+            </Link>
+          ))}
+        </div>
+      ) : (
+        <div className="pb-10">
+          <div className="content-card rounded-xl p-10 text-center">
+            <div className="text-5xl mb-4">🧭</div>
+            <p className="text-[15px] font-medium text-[var(--fg2)] mb-1.5">场景内容加载中</p>
+            <p className="text-[13px] text-[var(--fg3)]">数据拉取失败或尚未就绪，页面会自动重试刷新。</p>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

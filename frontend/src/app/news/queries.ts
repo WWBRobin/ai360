@@ -58,37 +58,47 @@ export function normalizeLevel(value: string | undefined): VersionType {
  */
 export async function getPublishedNews(page = 1, pageSize = PAGE_SIZE) {
   const from = Math.max(0, (page - 1) * pageSize)
-  const { data, error, count } = await supabase
-    .from('content_items')
-    .select('id,title,slug,category,tags,source_url,published_at,related_skill_ids', {
-      count: 'exact',
-    })
-    .eq('status', 'published')
-    .not('published_at', 'is', null)
-    .order('published_at', { ascending: false })
-    .range(from, from + pageSize - 1)
+  try {
+    const { data, error, count } = await supabase
+      .from('content_items')
+      .select('id,title,slug,category,tags,source_url,published_at,related_skill_ids', {
+        count: 'exact',
+      })
+      .eq('status', 'published')
+      .not('published_at', 'is', null)
+      .order('published_at', { ascending: false })
+      .range(from, from + pageSize - 1)
 
-  if (error) {
-    console.error('getPublishedNews error:', error.message)
+    if (error) {
+      console.error('getPublishedNews error:', error.message)
+      return { items: [] as NewsItem[], total: 0 }
+    }
+    return { items: (data || []) as unknown as NewsItem[], total: count || 0 }
+  } catch (err) {
+    console.warn('[build-degrade] getPublishedNews 拉取失败，降级空列表', err)
     return { items: [] as NewsItem[], total: 0 }
   }
-  return { items: (data || []) as unknown as NewsItem[], total: count || 0 }
 }
 
 /** 按 slug 取单条已发布新闻（详情页入口） */
 export async function getNewsBySlug(slug: string): Promise<NewsItem | null> {
-  const { data, error } = await supabase
-    .from('content_items')
-    .select('id,title,slug,category,tags,source_url,published_at,related_skill_ids')
-    .eq('slug', slug)
-    .eq('status', 'published')
-    .maybeSingle()
+  try {
+    const { data, error } = await supabase
+      .from('content_items')
+      .select('id,title,slug,category,tags,source_url,published_at,related_skill_ids')
+      .eq('slug', slug)
+      .eq('status', 'published')
+      .maybeSingle()
 
-  if (error) {
-    console.error('getNewsBySlug error:', error.message)
+    if (error) {
+      console.error('getNewsBySlug error:', error.message)
+      return null
+    }
+    return (data as unknown as NewsItem) || null
+  } catch (err) {
+    console.warn('[build-degrade] getNewsBySlug 拉取失败，降级 null', err)
     return null
   }
-  return (data as unknown as NewsItem) || null
 }
 
 /** 取一条新闻的全部版本；返回 availableLevels + 指定（或回退）版本 */
@@ -96,41 +106,51 @@ export async function getNewsVersions(
   contentId: number,
   preferred: VersionType
 ): Promise<{ versions: NewsVersion[]; active: NewsVersion | null }> {
-  const { data, error } = await supabase
-    .from('content_versions')
-    .select(
-      'id,content_id,version_type,title,content,meta_title,meta_description,keywords'
-    )
-    .eq('content_id', contentId)
+  try {
+    const { data, error } = await supabase
+      .from('content_versions')
+      .select(
+        'id,content_id,version_type,title,content,meta_title,meta_description,keywords'
+      )
+      .eq('content_id', contentId)
 
-  if (error) {
-    console.error('getNewsVersions error:', error.message)
+    if (error) {
+      console.error('getNewsVersions error:', error.message)
+      return { versions: [], active: null }
+    }
+    const versions = (data || []) as unknown as NewsVersion[]
+
+    // 回退顺序：指定版本 → intermediate → 任意存在的版本
+    const active =
+      versions.find((v) => v.version_type === preferred) ||
+      versions.find((v) => v.version_type === 'intermediate') ||
+      versions[0] ||
+      null
+
+    return { versions, active }
+  } catch (err) {
+    console.warn('[build-degrade] getNewsVersions 拉取失败，降级空版本', err)
     return { versions: [], active: null }
   }
-  const versions = (data || []) as unknown as NewsVersion[]
-
-  // 回退顺序：指定版本 → intermediate → 任意存在的版本
-  const active =
-    versions.find((v) => v.version_type === preferred) ||
-    versions.find((v) => v.version_type === 'intermediate') ||
-    versions[0] ||
-    null
-
-  return { versions, active }
 }
 
 /** sitemap / generateStaticParams 用：所有已发布新闻的 slug + published_at */
 export async function getPublishedNewsSlugs(): Promise<{ slug: string; published_at: string | null }[]> {
-  const { data, error } = await supabase
-    .from('content_items')
-    .select('slug,published_at')
-    .eq('status', 'published')
-    .not('slug', 'is', null)
-    .order('published_at', { ascending: false })
-    .limit(2000)
+  try {
+    const { data, error } = await supabase
+      .from('content_items')
+      .select('slug,published_at')
+      .eq('status', 'published')
+      .not('slug', 'is', null)
+      .order('published_at', { ascending: false })
+      .limit(2000)
 
-  if (error) return []
-  return (data || []) as { slug: string; published_at: string | null }[]
+    if (error) return []
+    return (data || []) as { slug: string; published_at: string | null }[]
+  } catch (err) {
+    console.warn('[build-degrade] getPublishedNewsSlugs 拉取失败，降级空数组', err)
+    return []
+  }
 }
 
 // ===== 工具函数 =====

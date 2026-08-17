@@ -42,14 +42,18 @@ export default async function EssentialPage({
   const sp = await searchParams
   const isListMode = sp.mode === 'list'
 
-  const allSkills = await getSkillsByCategory('infrastructure')
+  const allSkills = await getSkillsByCategory('infrastructure').catch((err) => {
+    console.warn('[build-degrade] /essential 装机必备数据拉取失败，渲染空态', err)
+    return []
+  })
 
   const categories: EssentialCategory[] = TAB_CONFIG.map((cfg) => ({
     id: cfg.id,
     label: cfg.label,
     icon: cfg.icon,
     desc: cfg.desc,
-    skills: allSkills.filter((s) => s.scenario_slugs.some((slug) => cfg.slugs.includes(slug))),
+    // 防御：scenario_slugs 可能为 undefined，用空数组兜底，避免 build 时 TypeError
+    skills: allSkills.filter((s) => (s.scenario_slugs || []).some((slug) => cfg.slugs.includes(slug))),
   })).filter((c) => c.skills.length > 0)
 
   return (

@@ -179,36 +179,41 @@ export function inlineMd(s: string): string {
 
 /** 拉一盏星的全部灯（slug 升序）。RLS：anon 只读 published。 */
 export async function getLampsByStarPrefix(prefix: string): Promise<Lamp[]> {
-  const { data, error } = await supabase
-    .from('content_items')
-    .select('slug, title, content_versions!inner(version_number, version_type, content, title)')
-    .like('slug', `${prefix}%`)
-    .eq('status', 'published')
-    .order('slug', { ascending: true })
+  try {
+    const { data, error } = await supabase
+      .from('content_items')
+      .select('slug, title, content_versions!inner(version_number, version_type, content, title)')
+      .like('slug', `${prefix}%`)
+      .eq('status', 'published')
+      .order('slug', { ascending: true })
 
-  if (error || !data) {
-    console.error('getLampsByStarPrefix error:', error)
+    if (error || !data) {
+      console.error('getLampsByStarPrefix error:', error)
+      return []
+    }
+
+    const lamps: Lamp[] = []
+    for (const row of data as unknown as RawRow[]) {
+      // 取 version_type=beginner 里 version_number 最大的一条
+      const versions = (row.content_versions || []).filter((v) => v.version_type === 'beginner')
+      if (!versions.length) continue
+      const best = versions.reduce((a, b) => (a.version_number >= b.version_number ? a : b))
+      const sections = parseLampMarkdown(best.content || '')
+      const firstText = sections
+        .flatMap((s) => s.blocks)
+        .find((b): b is Extract<LampBlock, { kind: 'p' }> => b.kind === 'p')?.text || ''
+      lamps.push({
+        slug: row.slug,
+        title: row.title,
+        sections,
+        intro: firstText.slice(0, 80),
+      })
+    }
+    return lamps
+  } catch (err) {
+    console.warn('[build-degrade] getLampsByStarPrefix 拉取失败，降级空数组', err)
     return []
   }
-
-  const lamps: Lamp[] = []
-  for (const row of data as unknown as RawRow[]) {
-    // 取 version_type=beginner 里 version_number 最大的一条
-    const versions = (row.content_versions || []).filter((v) => v.version_type === 'beginner')
-    if (!versions.length) continue
-    const best = versions.reduce((a, b) => (a.version_number >= b.version_number ? a : b))
-    const sections = parseLampMarkdown(best.content || '')
-    const firstText = sections
-      .flatMap((s) => s.blocks)
-      .find((b): b is Extract<LampBlock, { kind: 'p' }> => b.kind === 'p')?.text || ''
-    lamps.push({
-      slug: row.slug,
-      title: row.title,
-      sections,
-      intro: firstText.slice(0, 80),
-    })
-  }
-  return lamps
 }
 
 interface RawRow {

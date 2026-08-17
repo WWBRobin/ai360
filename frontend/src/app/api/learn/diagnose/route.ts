@@ -1,19 +1,28 @@
 import { NextResponse } from 'next/server'
+import { createClient } from '@supabase/supabase-js'
 
 /**
- * POST /api/learn/diagnose — 满意度分叉「结果不理想」诊断教练（v3）
+ * POST /api/learn/diagnose — 诊断引擎（knowledge_pack 参数化 v4）
  *
- * body: { lamp_slug, tool_name, user_input?, image_url? }
+ * body: { pack?: 'learning' | 'install', ... }
+ *   learning（默认，向后兼容，行为与 v3 完全一致）:
+ *     { lamp_slug, tool_name?, user_input?, image_url? }
+ *   install（新增，装机陪跑五分类诊断）:
+ *     { tool_name, step_title, user_input? }
+ *
  * 流程：
- *   1. 诊断树第 0 步：先看用户这步选的工具在矩阵里的水平（tool_expectation 早退）
- *   2. 文本 → DeepSeek；带图 → 千问 VL（DASHSCOPE compatible-mode, qwen-vl-plus）
- *   3. 返回 { diagnosis_type, message, suggestion }，前端展示
- * 速率限制：每用户/匿名 IP 每灯 5 次/天（内存计数，重启即清，够用）
+ *   1. learning：诊断树第 0 步（矩阵水平比对）→ 文本走 DeepSeek / 带图走千问 VL
+ *   2. install：装机语境五分类（网络/账号/配置/顺序/预期）→ DeepSeek
+ *   3. 返回 { diagnosis_type, message, suggestion }；install 额外写 learning_diagnoses（pack 区分，best-effort）
+ * 速率限制：每用户/匿名 IP 每灯（learning）或每工具（install）5 次/天（内存计数，重启即清）
  */
 
 export const maxDuration = 60
 
-type DiagType = 'tool_expectation' | 'operation' | 'flow' | 'expectation'
+type Pack = 'learning' | 'install'
+
+const LEARNING_TYPES = ['tool_expectation', 'operation', 'flow', 'expectation'] as const
+const INSTALL_TYPES = ['network', 'account', 'config', 'order', 'expectation'] as const
 
 interface MatrixRow {
   lamp: string
@@ -47,7 +56,7 @@ const LAMP_FLOW: Record<string, string> = {
   'xhs-lamp-4': '灯4 数据复盘：每篇记录标题公式/结构/发布时段/48h数据四项→10篇一周期→看标题打开率/结构收藏率/时段规律→每篇写一句"下篇要改什么"。',
 }
 
-/* ---------- 速率限制：每灯每天 5 次 ---------- */
+/* ---------- 速率限制：每灯/每工具每天 5 次 ---------- */
 const rateMap = new Map<string, { day: string; n: number }>()
 function rateLimited(key: string): boolean {
   const today = new Date().toISOString().slice(0, 10)
@@ -62,12 +71,18 @@ function rateLimited(key: string): boolean {
 
 /* ---------- 模型调用 ---------- */
 interface DiagResult {
-  diagnosis_type: DiagType
+  diagnosis_type: string
   message: string
   suggestion: string
 }
 
-function buildPrompt(lampSlug: string, toolName: string, matrixRow: MatrixRow | undefined, userInput: string, hasImage: boolean): string {
+function buildLearningPrompt(
+  lampSlug: string,
+  toolName: string,
+  matrixRow: MatrixRow | undefined,
+  userInput: string,
+  hasImage: boolean
+): string {
   const flow = LAMP_FLOW[lampSlug] || ''
   return [
     '你是 ArcDock 学习中心的诊断教练。用户在小红书 AI 笔记学习流程中某一步结果不理想，请按诊断树分析并给具体下一步。',
@@ -89,15 +104,36 @@ function buildPrompt(lampSlug: string, toolName: string, matrixRow: MatrixRow | 
   ].filter(Boolean).join('\n')
 }
 
-function parseDiagJson(text: string): DiagResult | null {
+function buildInstallPrompt(toolName: string, stepTitle: string, userInput: string): string {
+  return [
+    '你是 ArcDock 装机陪跑的诊断教练。用户正在安装一个 AI 工具，卡在某一步，请判断卡点类型并给出具体、可执行的下一步。',
+    '',
+    `【当前工具】${toolName}`,
+    `【卡住的步骤】${stepTitle}`,
+    userInput
+      ? `【用户症状描述】\n${userInput.slice(0, 2000)}`
+      : '【用户症状描述】（空，请结合步骤本身推断该步最常见的卡点）',
+    '',
+    '诊断分类（按顺序判断，输出最可能的第一个）：',
+    '① network 网络问题：页面打不开/加载慢/超时/连不上/502/503，跟梯子、DNS、地区有关；',
+    '② account 账号问题：注册/登录/验证码/手机号/扫码/权限有关；',
+    '③ config 配置问题：API Key 填错、参数/base_url/路径配置错、401/404 报错有关；',
+    '④ order 操作顺序问题：步骤跳了或顺序不对、前置步骤没做完；',
+    '⑤ expectation 预期理解偏差：用户对这一步该做什么、做完能得到什么理解错了。',
+    '',
+    '严格输出 JSON（不要 markdown 代码块，不要多余文字）：',
+    '{"diagnosis_type":"network|account|config|order|expectation","message":"诊断结论，2-3句，直接说原因","suggestion":"具体下一步，含可操作动作（开梯子/重登/重填 Key/回到哪一步），可执行"}',
+  ].join('\n')
+}
+
+function parseDiagJson(text: string, allowed: readonly string[]): DiagResult | null {
   const m = text.match(/\{[\s\S]*\}/)
   if (!m) return null
   try {
     const j = JSON.parse(m[0]) as { diagnosis_type?: string; message?: string; suggestion?: string }
-    const types = ['tool_expectation', 'operation', 'flow', 'expectation']
-    if (!j.diagnosis_type || !types.includes(j.diagnosis_type) || !j.message || !j.suggestion) return null
+    if (!j.diagnosis_type || !allowed.includes(j.diagnosis_type) || !j.message || !j.suggestion) return null
     return {
-      diagnosis_type: j.diagnosis_type as DiagType,
+      diagnosis_type: j.diagnosis_type,
       message: j.message,
       suggestion: j.suggestion,
     }
@@ -106,7 +142,7 @@ function parseDiagJson(text: string): DiagResult | null {
   }
 }
 
-async function callDeepSeek(prompt: string): Promise<DiagResult> {
+async function callDeepSeek(prompt: string, allowed: readonly string[]): Promise<DiagResult> {
   const key = process.env.DEEPSEEK_API_KEY
   if (!key) throw new Error('DEEPSEEK_API_KEY 未配置')
   const res = await fetch('https://api.deepseek.com/chat/completions', {
@@ -125,12 +161,12 @@ async function callDeepSeek(prompt: string): Promise<DiagResult> {
   if (!res.ok) throw new Error(`deepseek ${res.status}: ${(await res.text()).slice(0, 200)}`)
   const data = (await res.json()) as { choices?: { message?: { content?: string } }[] }
   const content = data.choices?.[0]?.message?.content || ''
-  const parsed = parseDiagJson(content)
+  const parsed = parseDiagJson(content, allowed)
   if (!parsed) throw new Error('模型输出无法解析为 JSON')
   return parsed
 }
 
-async function callQwenVL(imageUrl: string, prompt: string): Promise<DiagResult> {
+async function callQwenVL(imageUrl: string, prompt: string, allowed: readonly string[]): Promise<DiagResult> {
   const key = process.env.DASHSCOPE_API_KEY
   if (!key) throw new Error('DASHSCOPE_API_KEY 未配置')
   const res = await fetch('https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', {
@@ -154,20 +190,73 @@ async function callQwenVL(imageUrl: string, prompt: string): Promise<DiagResult>
   if (!res.ok) throw new Error(`qwen-vl ${res.status}: ${(await res.text()).slice(0, 200)}`)
   const data = (await res.json()) as { choices?: { message?: { content?: string } }[] }
   const content = data.choices?.[0]?.message?.content || ''
-  const parsed = parseDiagJson(content)
+  const parsed = parseDiagJson(content, allowed)
   if (!parsed) throw new Error('VL 输出无法解析为 JSON')
   return parsed
 }
 
-export async function POST(req: Request) {
-  let body: { lamp_slug?: string; tool_name?: string; user_input?: string; image_url?: string }
+/* ---------- 诊断落库（best-effort，静默降级，不影响响应） ---------- */
+async function persistInstallDiagnosis(row: Record<string, unknown>): Promise<void> {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (!url || !key) return
   try {
-    body = await req.json()
-  } catch {
-    return NextResponse.json({ error: 'invalid json' }, { status: 400 })
+    const admin = createClient(url, key, { auth: { persistSession: false } })
+    const { error } = await admin.from('learning_diagnoses').insert(row)
+    if (error) console.error('learning_diagnoses(install) insert skipped:', error.message)
+  } catch (e) {
+    console.error('learning_diagnoses(install) persist error:', e)
   }
+}
 
-  const { lamp_slug, tool_name = '', user_input = '', image_url } = body
+/* ---------- 装机降级兜底（无模型/无 key 时，按症状关键词给五分类中文建议） ---------- */
+function installFallback(toolName: string, stepTitle: string, userInput: string): DiagResult {
+  const text = `${stepTitle} ${userInput}`.toLowerCase()
+  const has = (kws: string[]) => kws.some((k) => text.includes(k))
+
+  if (has(['梯子', '翻墙', '打不开', '超时', '网络', '连接', 'dns', '加载', '连不上', '很慢', '502', '503', 'timeout', 'proxy', '代理'])) {
+    return {
+      diagnosis_type: 'network',
+      message: `「${stepTitle}」这一步页面无法正常打开或响应，多半是网络链路问题，跟工具本身无关。`,
+      suggestion: `先确认网络：开梯子后刷新重试；换无痕窗口；DNS 换成 223.5.5.5 或 8.8.8.8；还不行就等几分钟再试（${toolName} 侧偶尔抖动）。`,
+    }
+  }
+  if (has(['登录', '注册', '账号', '验证码', '手机号', '密码', '扫码', '验证', '邮箱', '权限', '登录不上'])) {
+    return {
+      diagnosis_type: 'account',
+      message: `「${stepTitle}」卡在账号环节，注册或登录没走通。`,
+      suggestion: '核对登录方式是否与平台要求一致（手机号/微信/邮箱）；验证码收不到就等 60 秒重发、检查短信拦截；或点「忘记密码」重置；换扫码登录通常最省事。',
+    }
+  }
+  if (has(['key', '密钥', 'token', '401', '404', '参数', 'base_url', '配置', 'api', '报错', '错误码', 'sk-', '鉴权', '凭证', 'endpoint'])) {
+    return {
+      diagnosis_type: 'config',
+      message: `「${stepTitle}」报错或没反应，通常是 Key/参数配置不对。`,
+      suggestion: '重新完整复制 API Key（点「复制」按钮别手选，去首尾空格）；核对 base_url 用示例里的完整地址；401=Key 错或带空格，404=端点路径错。',
+    }
+  }
+  if (has(['顺序', '先', '后', '前置', '跳过', '没做', '再', '然后', '第一步', '第二步'])) {
+    return {
+      diagnosis_type: 'order',
+      message: `「${stepTitle}」可能是操作顺序问题，前置步骤还没完成。`,
+      suggestion: '回到上一步检查是否真的做完并勾选；按步骤卡里的 guide 从第 1 步依次走到当前步，别跳步。',
+    }
+  }
+  return {
+    diagnosis_type: 'expectation',
+    message: `「${stepTitle}」这一步可能对「做完能拿到什么」理解有偏差，导致以为没成功。`,
+    suggestion: '重看这一步的「预期」栏：确认当前结果是否已经达标；如果已经看到预期结果，直接点「我做到了」点亮，无需额外动作。',
+  }
+}
+
+/* ---------- learning 包（v3 逻辑，向后兼容，不动） ---------- */
+async function handleLearning(body: Record<string, unknown>, req: Request): Promise<NextResponse> {
+  const { lamp_slug, tool_name = '', user_input = '', image_url } = body as {
+    lamp_slug?: string
+    tool_name?: string
+    user_input?: string
+    image_url?: string
+  }
   if (!lamp_slug || !LAMP_FLOW[lamp_slug]) {
     return NextResponse.json({ error: 'unknown lamp_slug' }, { status: 400 })
   }
@@ -185,13 +274,15 @@ export async function POST(req: Request) {
     (m) => m.lamp === lamp_slug && tool_name && (tool_name.includes(m.tool) || m.tool.includes(tool_name.slice(0, 4)))
   )
 
-  const prompt = buildPrompt(lamp_slug, tool_name, matrixRow, user_input, Boolean(image_url))
+  const prompt = buildLearningPrompt(lamp_slug, tool_name, matrixRow, user_input, Boolean(image_url))
 
   try {
-    const result = image_url ? await callQwenVL(image_url, prompt) : await callDeepSeek(prompt)
+    const result = image_url
+      ? await callQwenVL(image_url, prompt, LEARNING_TYPES)
+      : await callDeepSeek(prompt, LEARNING_TYPES)
     return NextResponse.json({ ...result, model: image_url ? 'qwen-vl-plus' : 'deepseek-chat' })
   } catch (e) {
-    console.error('diagnose error:', e)
+    console.error('diagnose(learning) error:', e)
     // 降级：不走模型也要给用户路——回溯到矩阵第 0 步的静态建议
     const fallback: DiagResult = matrixRow
       ? {
@@ -206,4 +297,67 @@ export async function POST(req: Request) {
         }
     return NextResponse.json({ ...fallback, degraded: true }, { status: 200 })
   }
+}
+
+/* ---------- install 包（新增：装机陪跑五分类诊断） ---------- */
+async function handleInstall(body: Record<string, unknown>, req: Request): Promise<NextResponse> {
+  const { tool_name = '', step_title = '', user_input = '', anon_id } = body as {
+    tool_name?: string
+    step_title?: string
+    user_input?: string
+    anon_id?: string | null
+  }
+  if (!tool_name.trim()) {
+    return NextResponse.json({ error: 'tool_name required' }, { status: 400 })
+  }
+  if (!step_title.trim()) {
+    return NextResponse.json({ error: 'step_title required' }, { status: 400 })
+  }
+
+  // 速率限制同款：每工具每天 5 次
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'anon'
+  if (rateLimited(`${ip}:install:${tool_name}`)) {
+    return NextResponse.json(
+      { error: '这个工具的装机诊断次数已用完（5 次/天），明天再来或换一个工具。' },
+      { status: 429 }
+    )
+  }
+
+  const prompt = buildInstallPrompt(tool_name, step_title, user_input)
+
+  try {
+    const result = await callDeepSeek(prompt, INSTALL_TYPES)
+    // 落库（best-effort，表/列未就绪时静默跳过，不影响响应）
+    await persistInstallDiagnosis({
+      pack: 'install',
+      lamp_slug: null,
+      anon_id: anon_id ?? null,
+      tool_name,
+      step_title,
+      diagnosis_type: result.diagnosis_type,
+      user_input: user_input || null,
+      image_url: null,
+      message: result.message,
+      suggestion: result.suggestion,
+      model: 'deepseek-chat',
+      meta: { pack: 'install', tool_name, step_title },
+    })
+    return NextResponse.json({ ...result, model: 'deepseek-chat' })
+  } catch (e) {
+    console.error('diagnose(install) error:', e)
+    const fallback = installFallback(tool_name, step_title, user_input)
+    return NextResponse.json({ ...fallback, degraded: true }, { status: 200 })
+  }
+}
+
+export async function POST(req: Request) {
+  let body: Record<string, unknown>
+  try {
+    body = await req.json()
+  } catch {
+    return NextResponse.json({ error: 'invalid json' }, { status: 400 })
+  }
+
+  const pack: Pack = body.pack === 'install' ? 'install' : 'learning'
+  return pack === 'install' ? handleInstall(body, req) : handleLearning(body, req)
 }
