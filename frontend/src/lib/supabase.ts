@@ -13,6 +13,12 @@ if (!supabaseUrl || !supabaseAnonKey) {
 // 常规查询（rpc/select）均为毫秒级，15s 上限足够宽裕。
 const FETCH_TIMEOUT_MS = 15000
 
+// ECS 跨境黑洞时的降级开关：BUILD_NO_DB=1 让所有查询走 catch 降级，build 不碰 Supabase
+const NO_DB = process.env.BUILD_NO_DB === '1'
+function buildNoDbFetch(): Promise<Response> {
+  return Promise.reject(new Error('BUILD_NO_DB: skipped supabase fetch'))
+}
+
 function fetchWithTimeout(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS)
@@ -21,7 +27,7 @@ function fetchWithTimeout(input: RequestInfo | URL, init?: RequestInit): Promise
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: { persistSession: false },
-  global: { fetch: fetchWithTimeout },
+  global: { fetch: NO_DB ? buildNoDbFetch : fetchWithTimeout },
 })
 
 // ===== 查询函数 =====

@@ -1,0 +1,194 @@
+/* ============================================================
+   我的装备页（管家最小版 · /equipment）
+   视觉基线：复用 install.css / star-lamp.css 的暖琥珀点亮色体系，
+   琥珀 --glow 仅表达「点亮」，进行中/未开始一律中性色。
+   双模式：亮/暗用 .dark class + var(--fg/--card/--border 等)。
+   ============================================================ */
+
+.equipment-page {
+  --glow: #f59e0b;
+  --glow-deep: #d97706;
+  --glow-soft: #fcd34d;
+  --glow-bg: rgba(245, 158, 11, 0.1);
+  --glow-ring: rgba(245, 158, 11, 0.38);
+  --warn: #dc2626;
+  --warn-bg: rgba(220, 38, 38, 0.08);
+  --surface: var(--card);
+  --surface-2: var(--bg2);
+  --text2: var(--fg2);
+  --text3: var(--fg3);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.05);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--fg);
+}
+.dark .equipment-page {
+  --glow: #fbbf24;
+  --glow-deep: #f59e0b;
+  --glow-soft: #fde68a;
+  --glow-bg: rgba(251, 191, 36, 0.12);
+  --glow-ring: rgba(251, 191, 36, 0.42);
+  --warn: #f87171;
+  --warn-bg: rgba(248, 113, 113, 0.12);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+/* ---------- 页头 ---------- */
+.equipment-head { margin-bottom: 24px; }
+.equipment-title { font-size: 26px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.35; }
+.equipment-sub { color: var(--text2); font-size: 14px; margin-top: 4px; }
+
+/* ---------- 空状态大卡（E7：新用户第一眼，禁止空白页） ---------- */
+.equipment-empty {
+  text-align: center;
+  padding: 64px 24px 44px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  margin-top: 16px;
+}
+.equipment-empty-icon { color: var(--glow); display: grid; place-items: center; margin-bottom: 20px; }
+.equipment-empty-icon svg { filter: drop-shadow(0 0 18px var(--glow-ring)); }
+.equipment-empty-title { font-size: 26px; font-weight: 500; letter-spacing: -0.02em; }
+.equipment-empty-sub {
+  color: var(--text2);
+  font-size: 14px;
+  margin-top: 10px;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.equipment-cta {
+  display: inline-block;
+  margin-top: 26px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #1c1917;
+  background: linear-gradient(180deg, var(--glow), var(--glow-deep));
+  padding: 11px 24px;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 4px 12px var(--glow-ring);
+  transition: transform 0.15s;
+}
+.equipment-cta:hover { transform: translateY(-1px); }
+
+/* ---------- 星空预览（空状态底部示意） ---------- */
+.equipment-preview { margin-top: 40px; padding-top: 26px; border-top: 1px dashed var(--border); }
+.equipment-preview-label { font-size: 12px; color: var(--text3); }
+.equipment-preview-lamps { display: flex; justify-content: center; gap: 22px; margin-top: 16px; }
+.equipment-preview-lamp { color: var(--glow); }
+.equipment-preview-lamp svg { filter: drop-shadow(0 0 8px var(--glow-ring)); }
+.equipment-preview-lamp.dim { color: var(--fg4); }
+.equipment-preview-lamp.dim svg { filter: none; }
+
+/* ---------- 资产总览条 ---------- */
+.equipment-summary {
+  display: flex;
+  gap: 32px;
+  padding: 18px 24px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  margin-bottom: 28px;
+}
+.equipment-summary-item { display: flex; align-items: baseline; gap: 6px; }
+.equipment-summary-item .num {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+.equipment-summary-item .label { font-size: 13px; color: var(--text2); }
+
+/* ---------- 分组列表 ---------- */
+.equipment-group { margin-bottom: 28px; }
+.equipment-group-title { font-size: 15px; font-weight: 600; color: var(--fg); margin-bottom: 12px; }
+.equipment-list { display: flex; flex-direction: column; gap: 12px; }
+
+.equipment-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  transition: border-color 0.18s;
+}
+.equipment-row:hover { border-color: var(--glow-ring); }
+.equipment-logo {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--glow-deep);
+  background: var(--glow-bg);
+}
+.equipment-main { flex: 1; min-width: 0; }
+.equipment-name-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.equipment-name { font-size: 16px; font-weight: 500; color: var(--fg); letter-spacing: -0.01em; }
+.equipment-badge { font-size: 12px; padding: 2px 9px; border-radius: 999px; font-weight: 500; line-height: 1.6; }
+.equipment-badge.ok { color: var(--glow-deep); background: var(--glow-bg); }
+.equipment-badge.warn { color: var(--warn); background: var(--warn-bg); }
+.equipment-why { font-size: 13px; color: var(--text2); margin-top: 3px; line-height: 1.6; }
+.equipment-actions { flex-shrink: 0; display: flex; align-items: center; gap: 12px; }
+.equipment-use {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1c1917;
+  background: linear-gradient(180deg, var(--glow), var(--glow-deep));
+  padding: 8px 16px;
+  border-radius: 9px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 3px 10px var(--glow-ring);
+  transition: transform 0.15s;
+}
+.equipment-use:hover { transform: translateY(-1px); }
+.equipment-escort { font-size: 13px; color: var(--text2); padding: 8px 12px; border-radius: 8px; }
+.equipment-escort:hover { color: var(--fg); background: var(--surface-2); }
+
+/* ---------- 该换没换（装备优化 · 变现通道） ---------- */
+.equipment-swap { margin-bottom: 28px; }
+.equipment-swap-list { display: flex; flex-direction: column; gap: 10px; }
+.equipment-swap-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  border: 1px solid var(--glow-ring);
+  border-radius: 12px;
+  background: var(--glow-bg);
+  font-size: 14px;
+  color: var(--fg);
+  flex-wrap: wrap;
+}
+.equipment-swap-cta { flex-shrink: 0; font-size: 13px; font-weight: 500; color: var(--glow-deep); border-bottom: 1px solid var(--glow-ring); }
+.equipment-swap-cta:hover { color: var(--fg); }
+
+/* ---------- 底部入口 ---------- */
+.equipment-footer {
+  margin-top: 8px;
+  padding: 16px 20px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  text-align: center;
+}
+.equipment-footer-link { font-size: 14px; font-weight: 500; color: var(--glow-deep); }
+.equipment-footer-link:hover { color: var(--fg); }
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 560px) {
+  .equipment-title { font-size: 22px; }
+  .equipment-empty-title { font-size: 22px; }
+  .equipment-row { flex-wrap: wrap; }
+  .equipment-actions { width: 100%; justify-content: flex-end; }
+  .equipment-summary { gap: 20px; }
+}

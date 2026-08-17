@@ -11,6 +11,7 @@ import { usePathname } from 'next/navigation'
 const TABS = [
   { label: 'Skill聚合', href: '/', match: (p: string) => p === '/' },
   { label: '装机必备', href: '/essential', match: (p: string) => p.startsWith('/essential') },
+  { label: '我的装备', href: '/equipment', match: (p: string) => p.startsWith('/equipment') },
   { label: '深度横评', href: '/guide', match: (p: string) => p.startsWith('/guide') },
   { label: '工具对比', href: '/compare', match: (p: string) => p.startsWith('/compare') },
   { label: '学习中心', href: '/learn', match: (p: string) => p.startsWith('/learn') },
