@@ -6,6 +6,9 @@ import { usePathname } from 'next/navigation'
 /**
  * 顶部导航 Tab — 对标 mcp.so
  * 第二行导航：h-11，激活项橙色文字 + 底部 2px 下划线
+ * Skill聚合(/skills/classic)=纯Skill目录经典视图（早期形态）
+ * 能力扩展库(/skills)=品类容器（品类Tab落地后承载 AI软件/大模型 等品类）
+ * 纯 pathname 高亮（不用 useSearchParams），SSR 完整输出导航词
  */
 
 const TABS = [
@@ -13,7 +16,8 @@ const TABS = [
   { label: '我的装备', href: '/equipment', match: (p: string) => p.startsWith('/equipment') },
   { label: 'AI体检', href: '/assessment', match: (p: string) => p.startsWith('/assessment') },
   { label: '学习中心', href: '/learn', match: (p: string) => p.startsWith('/learn') },
-  { label: '能力扩展库', href: '/skills', match: (p: string) => p.startsWith('/skills') },
+  { label: 'Skill聚合', href: '/skills/classic', match: (p: string) => p === '/skills/classic' },
+  { label: '能力扩展库', href: '/skills', match: (p: string) => p.startsWith('/skills') && p !== '/skills/classic' },
   { label: '资讯', href: '/news', match: (p: string) => p.startsWith('/news') },
 ]
 
@@ -30,7 +34,7 @@ export default function TopNavTabs() {
               key={tab.href}
               href={tab.href}
               // Next 16: 动态路由默认跳过 prefetch（仅静态路由自动全量预取）。
-              // 本站关键 tab（/essential、/compare 等）多为动态路由，显式开启全量 prefetch。
+              // 本站关键 tab 多为动态路由，显式开启全量 prefetch。
               prefetch={true}
               className={`relative inline-flex h-11 shrink-0 items-center px-4 text-sm font-medium whitespace-nowrap transition ${
                 active ? 'text-[var(--primary)]' : 'text-[var(--fg2)] hover:text-[var(--fg)]'
