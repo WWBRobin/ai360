@@ -107,10 +107,16 @@ export default function EquipmentClient({ dbEquipment }: { dbEquipment: Equipmen
       {/* 该换没换（数据不足整块隐藏，不留空壳） */}
       {swaps.length > 0 && <SwapBlock swaps={swaps} />}
 
-      {/* 底部入口：跑一次装备体检（过渡，体检页未建前链 /assessment） */}
+      {/* 底部入口：跑一次装备体检（过渡，体检页未建前链 /assessment）+ 问诊百科 */}
       <div className="equipment-footer">
         <Link href="/assessment" className="equipment-footer-link">
           跑一次装备体检 →
+        </Link>
+        <span className="equipment-footer-sep" aria-hidden>
+          ·
+        </span>
+        <Link href="/ask" className="equipment-footer-link equipment-footer-link-secondary">
+          AI 出问题了？问诊 →
         </Link>
       </div>
     </div>
