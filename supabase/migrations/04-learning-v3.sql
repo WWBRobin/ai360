@@ -1,7 +1,9 @@
 -- ============================================================
 -- 04-learning-v3.sql · 学习板块 v3（指导手册模式）数据底座
--- 状态：草案（本任务不执行，交主线审核后在 Supabase SQL Editor 跑）
+-- 状态：已审核执行（2026-08-16，经 Management API PAT 逐语句跑通）
 -- 依赖：auth.users（Supabase 内置）、learning_progress 已存在
+-- 注意：Management API query 端点一次只接受一条语句，执行时逐条 POST；
+--       create policy 语句加 if not exists 语义用 drop policy if exists 前置实现
 -- ============================================================
 
 -- 1) 工具选择记录（评判矩阵点击埋点 → 数据飞轮）
@@ -49,15 +51,26 @@ alter table public.learning_choices   enable row level security;
 alter table public.learning_diagnoses enable row level security;
 
 -- 写入只允许本人（登录用户）；匿名写入走服务端 route（service_role，绕过 RLS）
+drop policy if exists "choices insert own" on public.learning_choices;
 create policy "choices insert own" on public.learning_choices
   for insert to authenticated with check (auth.uid() = user_id);
+drop policy if exists "choices read own" on public.learning_choices;
 create policy "choices read own" on public.learning_choices
   for select to authenticated using (auth.uid() = user_id);
 
+drop policy if exists "diag insert own" on public.learning_diagnoses;
 create policy "diag insert own" on public.learning_diagnoses
   for insert to authenticated with check (auth.uid() = user_id);
+drop policy if exists "diag read own" on public.learning_diagnoses;
 create policy "diag read own" on public.learning_diagnoses
   for select to authenticated using (auth.uid() = user_id);
+
+-- 3.5) GRANT（2026-08-16 审核补：Management API 建的表默认零 GRANT，42501 老坑）
+-- service_role 绕 RLS 但不绕 GRANT：服务端 route 直写（choice/diagnose）必须有表权限
+grant all on public.learning_choices, public.learning_diagnoses to service_role;
+-- authenticated 经 RLS policy 读写本人行，还需表权限 + 序列 USAGE（BIGSERIAL id_seq 默认只授 owner）
+grant select, insert on public.learning_choices, public.learning_diagnoses to authenticated;
+grant usage, select on sequence public.learning_choices_id_seq, public.learning_diagnoses_id_seq to authenticated;
 
 -- 4) 矩阵反哺聚合视图（最终满意口径 + 切换链弃用口径）
 --    成功 = 该 user 在该灯最后一次 choice 之后点亮（learning_progress completed）。
@@ -94,6 +107,9 @@ from last_choice lc
 left join lit l on l.user_id = lc.user_id and l.lamp_slug = lc.lamp_slug
 left join abandoned ab on ab.tool_key = lc.tool_key and ab.lamp_slug = lc.lamp_slug
 group by lc.lamp_slug, lc.tool_key, ab.abandoned_cnt;
+
+-- 视图授权（security_invoker 视图仍需显式 GRANT 才能被 REST 查询）
+grant select on public.v_tool_matrix_stats to service_role, authenticated;
 
 -- 5) 备注（不执行，仅文档）
 -- learning_progress 复用现有表：path_id='xhs-note', unit_id=lamp_slug, status='completed'
