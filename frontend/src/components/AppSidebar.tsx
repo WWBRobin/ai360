@@ -74,6 +74,8 @@ type SidebarVariant =
 
 function getVariant(pathname: string): SidebarVariant {
   if (pathname === '/') return 'home'
+  // /skills 与 /skills/classic（Skill聚合/能力扩展库）：目录页，走首页平台菜单侧栏
+  if (pathname.startsWith('/skills')) return 'home'
   if (pathname.startsWith('/essential')) return 'essential'
   if (pathname.startsWith('/guide')) return 'guide'
   if (pathname.startsWith('/scenario')) return 'scenario'
