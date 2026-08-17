@@ -183,6 +183,9 @@
 }
 .equipment-footer-link { font-size: 14px; font-weight: 500; color: var(--glow-deep); }
 .equipment-footer-link:hover { color: var(--fg); }
+.equipment-footer-sep { margin: 0 12px; color: var(--fg4); }
+.equipment-footer-link-secondary { color: var(--text3); font-weight: 400; }
+.equipment-footer-link-secondary:hover { color: var(--glow-deep); }
 
 /* ---------- 响应式 ---------- */
 @media (max-width: 560px) {
