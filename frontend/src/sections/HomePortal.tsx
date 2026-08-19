@@ -64,6 +64,18 @@ export default function HomePortal({
   // 平台过滤（侧栏多选联动）
   const [platformFilter, setPlatformFilter] = useState<string[]>([])
   useEffect(() => {
+    // 深链支持：/skills/classic?platform=xxx（软件管家 Skill 类"去 Skill中心找"入口）。
+    // 纯客户端读 location.search（不用 useSearchParams，避免 SSR/Suspense 坑），只在该参数存在时覆盖一次。
+    try {
+      const q = new URLSearchParams(window.location.search).get('platform')
+      if (q) {
+        const fromDeep = [q]
+        setPlatformFilter(fromDeep)
+        localStorage.setItem('arcdock-platform-filter', JSON.stringify(fromDeep))
+        window.dispatchEvent(new CustomEvent('arcdock-platform-change', { detail: fromDeep }))
+        return
+      }
+    } catch {}
     try {
       const saved = JSON.parse(localStorage.getItem('arcdock-platform-filter') || '[]')
       if (Array.isArray(saved)) setPlatformFilter(saved)

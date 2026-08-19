@@ -1,0 +1,13 @@
+[
+  { "slug": "llm", "name": "大模型", "layer": 1, "pageDesc": "GPT、Claude、DeepSeek……这些是 AI 世界的发动机" },
+  { "slug": "apps", "name": "AI 软件 / 独立产品", "layer": 1, "pageDesc": "装上就能用的完整 AI 产品" },
+  { "slug": "search", "name": "AI 搜索", "layer": 1, "pageDesc": "用 AI 的方式找答案" },
+  { "slug": "gen", "name": "内容生成", "layer": 1, "pageDesc": "写、画、剪、配音——AI 替你生产内容" },
+  { "slug": "office", "name": "办公生产力", "layer": 2, "pageDesc": "文档、表格、会议——日常工作的 AI 加速" },
+  { "slug": "coding", "name": "编程开发", "layer": 2, "pageDesc": "写代码的 AI 同事" },
+  { "slug": "agent", "name": "Agent 平台 / 框架", "layer": 2, "pageDesc": "搭自己的 AI 机器人" },
+  { "slug": "skill", "name": "Skill / 插件", "layer": 3, "pageDesc": "给 AI 装上新能力" },
+  { "slug": "mcp", "name": "MCP / 工具协议", "layer": 3, "pageDesc": "让 AI 连接外部世界的标准协议" },
+  { "slug": "data", "name": "数据源 / 知识库", "layer": 3, "pageDesc": "喂给 AI 的数据底座" },
+  { "slug": "relay", "name": "中转 / API 网关", "layer": 3, "pageDesc": "一个密钥用所有模型" }
+]

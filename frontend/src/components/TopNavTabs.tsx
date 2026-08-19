@@ -5,19 +5,18 @@ import { usePathname } from 'next/navigation'
 
 /**
  * 顶部导航 Tab — 对标 mcp.so
- * 第二行导航：h-11，激活项橙色文字 + 底部 2px 下划线
- * Skill聚合(/skills/classic)=纯Skill目录经典视图（早期形态）
- * 能力扩展库(/skills)=品类容器（品类Tab落地后承载 AI软件/大模型 等品类）
+ * 第二行导航：h-11，激活项主色文字 + 底部 2px 下划线
+ * 2026-08-19 顶栏收敛（软件管家任务书）：+软件管家(/tools)；Skill聚合+能力扩展库收成一个「Skill中心」(/skills/classic)
  * 纯 pathname 高亮（不用 useSearchParams），SSR 完整输出导航词
  */
 
 const TABS = [
   { label: '装机必备', href: '/essential', match: (p: string) => p.startsWith('/essential') },
+  { label: '软件管家', href: '/tools', match: (p: string) => p.startsWith('/tools') },
   { label: '我的装备', href: '/equipment', match: (p: string) => p.startsWith('/equipment') },
   { label: 'AI体检', href: '/assessment', match: (p: string) => p.startsWith('/assessment') },
   { label: '学习中心', href: '/learn', match: (p: string) => p.startsWith('/learn') },
-  { label: 'Skill聚合', href: '/skills/classic', match: (p: string) => p === '/skills/classic' },
-  { label: '能力扩展库', href: '/skills', match: (p: string) => p.startsWith('/skills') && p !== '/skills/classic' },
+  { label: 'Skill中心', href: '/skills/classic', match: (p: string) => p.startsWith('/skills') },
   { label: '资讯', href: '/news', match: (p: string) => p.startsWith('/news') },
 ]
 
