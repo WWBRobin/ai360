@@ -25,14 +25,14 @@
 
   /* ── 双轨表现层变量（组件零模式判断，模式各自最优）── */
   /* 语法差异：日间=物理光影(多层阴影+内高光+描边) / 夜间=发光语言(外光晕+透明+渐变) */
-  --al-panel-shadow: 0 1px 2px rgba(28,26,24,0.04), 0 12px 36px rgba(28,26,24,0.07), inset 0 1px 0 rgba(255,255,255,0.7);
+  --al-panel-shadow: 0 2px 4px rgba(28,26,24,0.05), 0 16px 44px rgba(28,26,24,0.09), inset 0 1px 0 rgba(255,255,255,0.7);
   --al-panel-border-top: color-mix(in srgb, var(--fg4) 45%, var(--border));
   --al-panel-border-bottom: color-mix(in srgb, var(--fg4) 45%, var(--border));
-  --al-card-shadow: 0 1px 2px rgba(28,26,24,0.025), inset 0 1px 0 rgba(255,255,255,0.6);
-  --al-card-shadow-hover: 0 2px 4px rgba(28,26,24,0.04), 0 8px 20px rgba(28,26,24,0.06), inset 0 1px 0 rgba(255,255,255,0.6);
+  --al-card-shadow: 0 1px 2px rgba(28,26,24,0.06), 0 4px 10px rgba(28,26,24,0.05), inset 0 1px 0 rgba(255,255,255,0.7);
+  --al-card-shadow-hover: 0 2px 4px rgba(28,26,24,0.07), 0 10px 28px rgba(28,26,24,0.09), inset 0 1px 0 rgba(255,255,255,0.7);
   --al-log-bg: var(--bg2);
   --al-metric-bg: color-mix(in srgb, var(--bg2) 55%, var(--card));
-  --al-heading-weight: 300;
+  --al-heading-weight: 550;
   --al-num-stroke: 1px rgba(4, 120, 87, 0.25);
   --al-bgnum-opacity: 0.7;
 
@@ -154,8 +154,15 @@
   border: none;
   cursor: pointer;
   transition: all 0.2s;
+  /* 日间按压感（HY3-ROI5）：inset 底边压边 + 贴地阴影；夜间发光语言不受影响（阴影在暖白底才可见） */
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.25), 0 1px 2px rgba(28,26,24,0.12);
 }
-.btn-solid:hover { opacity: 0.88; transform: translateY(-1px); }
+.btn-solid:hover {
+  opacity: 1;
+  background: #3a3633;
+  transform: translateY(-1px);
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.3), 0 4px 12px rgba(28,26,24,0.16);
+}
 .dev-badge {
   font-size: 11px;
   font-weight: 500;
@@ -196,8 +203,7 @@
   width: 100%;
   max-width: 560px;
   background: var(--al-surface);
-  border-top: 1px solid var(--al-panel-border-top);
-  border-bottom: 1px solid var(--al-panel-border-bottom);
+  border: 1px solid var(--al-panel-border-top);
   padding: 0;
   position: relative;
   overflow: hidden;

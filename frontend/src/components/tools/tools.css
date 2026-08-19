@@ -4,16 +4,16 @@
   /* 占位选择器只为注释锚点 */
 }
 :root {
-  --t-hero-shadow: 0 1px 2px rgba(28,26,24,0.03), 0 8px 24px rgba(28,26,24,0.04), inset 0 1px 0 color-mix(in srgb, var(--card) 80%, #fff);
-  --t-cat-shadow: 0 1px 2px rgba(28,26,24,0.025), inset 0 1px 0 rgba(255,255,255,0.6);
-  --t-cat-shadow-hover: 0 2px 4px rgba(28,26,24,0.04), 0 8px 20px rgba(28,26,24,0.06), inset 0 1px 0 rgba(255,255,255,0.6);
-  --t-rowa-shadow: 0 1px 2px rgba(28,26,24,0.02);
+  --t-hero-shadow: 0 1px 2px rgba(28,26,24,0.05), 0 10px 30px rgba(28,26,24,0.06), inset 0 1px 0 color-mix(in srgb, var(--card) 80%, #fff);
+  --t-cat-shadow: 0 1px 2px rgba(28,26,24,0.06), 0 4px 10px rgba(28,26,24,0.05), inset 0 1px 0 rgba(255,255,255,0.7);
+  --t-cat-shadow-hover: 0 2px 4px rgba(28,26,24,0.07), 0 10px 28px rgba(28,26,24,0.09), inset 0 1px 0 rgba(255,255,255,0.7);
+  --t-rowa-shadow: 0 1px 2px rgba(28,26,24,0.04), 0 4px 12px rgba(28,26,24,0.04);
   --t-rowa-shadow-hover: 0 4px 12px rgba(28,26,24,0.05);
-  --t-layer-border: 2px solid color-mix(in srgb, var(--primary) 82%, transparent);
-  --t-hero-glow-green: color-mix(in srgb, var(--green) 10%, transparent);
-  --t-hero-glow-blue: color-mix(in srgb, var(--blue) 7%, transparent);
-  --t-row-bg: color-mix(in srgb, var(--card) 60%, var(--bg));
-  --t-row-border: color-mix(in srgb, var(--border) 70%, transparent);
+  --t-layer-border: 1.5px solid color-mix(in srgb, var(--primary) 62%, transparent);
+  --t-hero-glow-green: color-mix(in srgb, var(--green) 15%, transparent);
+  --t-hero-glow-blue: color-mix(in srgb, var(--blue) 11%, transparent);
+  --t-row-bg: var(--card);
+  --t-row-border: var(--border);
   --t-cat-lift: -2px;
 }
 .dark {
@@ -80,8 +80,8 @@
   margin-bottom: 10px;
 }
 .tools-hero-title {
-  font-size: 26px;
-  font-weight: 600;
+  font-size: clamp(28px, 2.4vw, 36px);
+  font-weight: 700;
   letter-spacing: -0.5px;
   color: var(--fg);
   line-height: 1.25;
@@ -94,7 +94,7 @@
 .tools-hero-sub {
   font-size: 13px;
   color: var(--fg2);
-  margin-bottom: 14px;
+  margin-bottom: 20px;
 }
 .tools-search {
   height: 40px;
@@ -109,13 +109,14 @@
   transition: border-color 0.15s, box-shadow 0.15s;
 }
 .tools-search:focus-within {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px var(--bg2);
+  border-color: color-mix(in srgb, var(--green) 45%, var(--border));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 10%, transparent);
 }
 .tools-stats {
   display: flex;
-  gap: 18px;
-  margin-top: 14px;
+  gap: 24px;
+  margin-top: 18px;
+  font-variant-numeric: tabular-nums;
   font-size: 11.5px;
   color: var(--fg2);
   flex-wrap: wrap;
@@ -123,7 +124,7 @@
 .tools-stats b {
   color: var(--fg);
   font-weight: 600;
-  font-size: 13px;
+  font-size: 14px;
   margin-right: 2px;
 }
 .tools-stats .sep { color: var(--fg4); }
@@ -134,8 +135,8 @@
   align-items: baseline;
   justify-content: space-between;
   border-bottom: var(--t-layer-border);
-  padding: 12px 4px 10px;
-  margin-bottom: 12px;
+  padding: 14px 4px 10px;
+  margin-bottom: 16px;
   position: relative;
 }
 /* 层头底线右端渐隐（细节感） */
@@ -199,7 +200,7 @@
   transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 .tools-cat:hover {
-  border-color: var(--fg4);
+  border-color: color-mix(in srgb, var(--primary) 18%, var(--border));
   transform: translateY(-2px);
   box-shadow: var(--t-cat-shadow-hover);
 }
@@ -245,8 +246,9 @@
   transition: border-color 0.15s, background 0.15s;
 }
 .tools-row:hover {
-  border-color: var(--fg4);
+  border-color: color-mix(in srgb, var(--primary) 18%, var(--border));
   background: var(--card);
+  box-shadow: 0 2px 8px rgba(28,26,24,0.05);
 }
 .tools-row .n {
   font-weight: 500;
