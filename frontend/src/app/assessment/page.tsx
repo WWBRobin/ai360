@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'AI体检 — ArcDock',
+  title: 'AI体检',
   description:
     '170 项 AI 环境体检：密钥安全、权限风险、成本浪费、性能健康。本地处理，数据不出电脑。桌面端内测报名中。',
 }

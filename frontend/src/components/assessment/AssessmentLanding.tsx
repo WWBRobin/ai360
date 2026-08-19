@@ -253,8 +253,9 @@ export default function AssessmentLanding() {
         </div>
       </SR>
 
-      {/* ━━━━ 全站功能下载引导 ━━━━ */}
+      {/* ━━━━ 全站下载引导（含主 CTA 锚点目标）━━━━ */}
       <SR className="site-cta">
+        <div id="download" className="site-cta-inner">
         <div className="site-cta-eyebrow">ArcDock 桌面端</div>
         <h2 className="site-cta-title">
           一个桌面端，<br />管好你的<em className="accent">整个 AI 世界</em>
@@ -279,6 +280,7 @@ export default function AssessmentLanding() {
         <div className="site-cta-actions">
           <a href="#download" className="site-cta-btn">下载桌面端 →</a>
           <span className="site-cta-hint">桌面端开发中 · 报名内测 <b>享终身免费</b></span>
+        </div>
         </div>
       </SR>
     </div>
