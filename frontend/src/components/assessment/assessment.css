@@ -1142,3 +1142,46 @@
   .cap-overview { flex-direction: column; align-items: flex-start; gap: 12px; }
   .cap-overview-num { text-align: left; }
 }
+
+/* ══ 日间高级感升级（2026-08-20 二轮：暖白高级化）══ */
+:root:not(.dark) .assessment-landing .hero-h1 { font-weight: 300; letter-spacing: -1.2px; }
+:root:not(.dark) .assessment-landing .hero-h1 .num { text-shadow: 0 1px 0 rgba(255,255,255,0.6); }
+:root:not(.dark) .assessment-landing .gap-title { font-weight: 300; }
+:root:not(.dark) .assessment-landing .gap-main { font-weight: 300; }
+:root:not(.dark) .assessment-landing .caps-title { font-weight: 300; }
+:root:not(.dark) .assessment-landing .site-cta-title { font-weight: 300; }
+:root:not(.dark) .assessment-landing .compare-title { font-weight: 300; }
+/* 卡片：细阴影+内高光（与软件管家同语汇） */
+:root:not(.dark) .assessment-landing .cap-item {
+  box-shadow: 0 1px 2px rgba(28,26,24,0.025), inset 0 1px 0 rgba(255,255,255,0.6);
+}
+:root:not(.dark) .assessment-landing .cap-item:hover {
+  box-shadow: 0 2px 4px rgba(28,26,24,0.04), 0 8px 20px rgba(28,26,24,0.06), inset 0 1px 0 rgba(255,255,255,0.6);
+}
+:root:not(.dark) .assessment-landing .site-cta-card {
+  box-shadow: 0 1px 2px rgba(28,26,24,0.025), inset 0 1px 0 rgba(255,255,255,0.6);
+}
+:root:not(.dark) .assessment-landing .compare-grid {
+  box-shadow: 0 1px 2px rgba(28,26,24,0.025), 0 8px 24px rgba(28,26,24,0.04);
+}
+/* 扫描面板：日间浮起感（双层阴影+内高光） */
+:root:not(.dark) .assessment-landing .scan-panel {
+  box-shadow:
+    0 1px 2px rgba(28, 26, 24, 0.04),
+    0 12px 36px rgba(28, 26, 24, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+/* 面板边框日间加深一档，恢复轮廓感 */
+:root:not(.dark) .assessment-landing .scan-panel {
+  border-top-color: color-mix(in srgb, var(--fg4) 45%, var(--border));
+  border-bottom-color: color-mix(in srgb, var(--fg4) 45%, var(--border));
+}
+/* 指标卡日间内凹感 */
+:root:not(.dark) .assessment-landing .metric-card {
+  background: color-mix(in srgb, var(--bg2) 55%, var(--card));
+}
+/* Gap 编号大字日间加细节：轻描边 */
+:root:not(.dark) .assessment-landing .gap-num {
+  color: transparent;
+  -webkit-text-stroke: 1px #b8b2ac;
+}

@@ -17,7 +17,7 @@
   position: relative;
   overflow: hidden;
 }
-/* 右上角淡绿径向光（体检页面板语汇，克制） */
+/* 右上角淡绿径向光（体检页面板语汇，克制）+ 左下暖色反衬 —— 日间高级感 */
 .tools-hero::before {
   content: '';
   position: absolute;
@@ -25,7 +25,17 @@
   right: -60px;
   width: 320px;
   height: 320px;
-  background: radial-gradient(circle, var(--tag-tested-bg) 0%, transparent 70%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--green) 10%, transparent) 0%, transparent 70%);
+  pointer-events: none;
+}
+.tools-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  left: -80px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--blue) 7%, transparent) 0%, transparent 70%);
   pointer-events: none;
 }
 .tools-eyebrow {
@@ -90,9 +100,19 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  border-bottom: 2px solid var(--primary);
+  border-bottom: 2px solid color-mix(in srgb, var(--primary) 82%, transparent);
   padding: 12px 4px 10px;
   margin-bottom: 12px;
+  position: relative;
+}
+/* 层头底线右端渐隐（细节感） */
+.tools-layer-head::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, transparent 78%, var(--bg) 100%);
+  pointer-events: none;
 }
 .tools-layer-title {
   font-size: 16px;
@@ -140,13 +160,20 @@
 .tools-cat {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 12px;
-  transition: border-color 0.2s, transform 0.2s;
+  box-shadow:
+    0 1px 2px rgba(28, 26, 24, 0.025),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 .tools-cat:hover {
   border-color: var(--fg4);
   transform: translateY(-2px);
+  box-shadow:
+    0 2px 4px rgba(28, 26, 24, 0.04),
+    0 8px 20px rgba(28, 26, 24, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 .tools-cat-head {
   display: flex;
@@ -182,14 +209,17 @@
   align-items: center;
   gap: 6px;
   padding: 6px 9px;
-  background: var(--card);
-  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--card) 60%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
   border-radius: 6px;
   margin-bottom: 6px;
   font-size: 12px;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, background 0.15s;
 }
-.tools-row:hover { border-color: var(--fg4); }
+.tools-row:hover {
+  border-color: var(--fg4);
+  background: var(--card);
+}
 .tools-row .n {
   font-weight: 500;
   color: var(--fg);
@@ -240,8 +270,9 @@ a.tools-hk:hover { color: var(--fg); }
   transition: color 0.15s, border-color 0.15s;
 }
 .tools-more:hover {
-  color: var(--fg);
-  border-color: var(--fg2);
+  color: var(--green);
+  border-color: color-mix(in srgb, var(--green) 45%, transparent);
+  background: color-mix(in srgb, var(--green) 4%, var(--card));
 }
 
 /* ══ 图例脚注（线框 .legend）══ */
@@ -281,17 +312,19 @@ a.tools-hk:hover { color: var(--fg); }
 .tools-rowa {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   margin-bottom: 6px;
   display: flex;
   align-items: center;
   padding: 9px 14px;
   gap: 12px;
-  transition: border-color 0.2s, transform 0.2s;
+  box-shadow: 0 1px 2px rgba(28, 26, 24, 0.02);
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 .tools-rowa:hover {
   border-color: var(--fg4);
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(28, 26, 24, 0.05);
 }
 .tools-rowa .nm {
   font-size: 13px;
