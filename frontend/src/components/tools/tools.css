@@ -1,0 +1,384 @@
+/**
+ * 软件管家 · 视觉层（分层版 C 精确对齐 + AI体检视觉元素融合）
+ * 策略：
+ *   结构/比例/密度 = 分层版 C 线框规格（hero灰块/stats行/层带2px黑底线/L徽标/4-3-4网格/工具行小卡/虚线more/三级面包屑/toolbar）
+ *   质感 = AI体检页验证过的视觉语汇：单一绿色强调（--green）、eyebrow小标签、关键词绿高亮、
+ *          数字主次分明带单位、卡片hover轻上浮、层带左端绿色小方块点睛。全部从主站令牌派生（双模式自动跟随）。
+ */
+
+/* ══ Hero：灰底圆角块 + eyebrow + 大标题（体检页语汇）+ stats 数据行 ══ */
+.tools-hero {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 26px 28px 22px;
+  position: relative;
+  overflow: hidden;
+}
+/* 右上角淡绿径向光（体检页面板语汇，克制） */
+.tools-hero::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -60px;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, var(--tag-tested-bg) 0%, transparent 70%);
+  pointer-events: none;
+}
+.tools-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--green);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.tools-hero-title {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  color: var(--fg);
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+.tools-hero-title em {
+  font-style: normal;
+  color: var(--green);
+}
+.tools-hero-sub {
+  font-size: 13px;
+  color: var(--fg2);
+  margin-bottom: 14px;
+}
+.tools-search {
+  height: 40px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  gap: 12px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.tools-search:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--bg2);
+}
+.tools-stats {
+  display: flex;
+  gap: 18px;
+  margin-top: 14px;
+  font-size: 11.5px;
+  color: var(--fg2);
+  flex-wrap: wrap;
+}
+.tools-stats b {
+  color: var(--fg);
+  font-weight: 600;
+  font-size: 13px;
+  margin-right: 2px;
+}
+.tools-stats .sep { color: var(--fg4); }
+
+/* ══ 层带：2px 黑粗底线 + L 徽标 + 层描述 + 右计数（线框 .layer-head）══ */
+.tools-layer-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--primary);
+  padding: 12px 4px 10px;
+  margin-bottom: 12px;
+}
+.tools-layer-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--fg);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+/* L 徽标：黑底白字圆角（线框 .lv）+ 左端绿色小方块点睛（体检页语汇） */
+.tools-layer-badge {
+  font-size: 10px;
+  font-weight: 500;
+  background: var(--primary);
+  color: var(--on-primary);
+  padding: 2px 7px;
+  border-radius: 8px;
+  position: relative;
+}
+.tools-layer-badge::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 1px;
+  background: var(--green);
+}
+.tools-layer-desc {
+  font-size: 11.5px;
+  color: var(--fg2);
+  margin-left: 12px;
+}
+.tools-layer-count {
+  font-size: 11px;
+  color: var(--fg3);
+  white-space: nowrap;
+}
+.tools-layer-count b { color: var(--green); font-weight: 600; }
+
+/* ══ 类卡（线框 .cat）+ hover 轻上浮（体检页语汇）══ */
+.tools-cat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.tools-cat:hover {
+  border-color: var(--fg4);
+  transform: translateY(-2px);
+}
+.tools-cat-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 9px;
+}
+.tools-cat-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--fg);
+}
+.tools-cat-name .cnt {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--green);
+  background: var(--tag-tested-bg);
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  vertical-align: 1px;
+}
+.tools-cat-all {
+  font-size: 11px;
+  color: var(--fg2);
+  white-space: nowrap;
+}
+.tools-cat-all:hover { color: var(--fg); }
+
+/* ══ 工具行：白底圆角小卡（线框 .tool-row）══ */
+.tools-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 9px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 6px;
+  font-size: 12px;
+  transition: border-color 0.15s;
+}
+.tools-row:hover { border-color: var(--fg4); }
+.tools-row .n {
+  font-weight: 500;
+  color: var(--fg);
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-decoration: none;
+}
+.tools-row .n:hover { text-decoration: underline; }
+.tools-row .hk {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.tools-hk {
+  font-size: 10px;
+  color: var(--fg2);
+  background: var(--bg2);
+  border-radius: 3px;
+  padding: 1.5px 6px;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+a.tools-hk:hover { color: var(--fg); }
+.tools-hk.on {
+  color: var(--green);
+  background: var(--green-bg);
+}
+.tools-hk.off {
+  color: var(--fg4);
+  cursor: not-allowed;
+}
+
+/* ══ more：虚线边框居中按钮（线框 .more）══ */
+.tools-more {
+  display: block;
+  text-align: center;
+  padding: 7px;
+  font-size: 12px;
+  color: var(--fg2);
+  background: var(--card);
+  border: 1px dashed var(--fg4);
+  border-radius: 6px;
+  margin-top: 4px;
+  text-decoration: none;
+  transition: color 0.15s, border-color 0.15s;
+}
+.tools-more:hover {
+  color: var(--fg);
+  border-color: var(--fg2);
+}
+
+/* ══ 图例脚注（线框 .legend）══ */
+.tools-legend {
+  display: flex;
+  gap: 18px;
+  padding: 10px 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 11px;
+  color: var(--fg2);
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+/* ══ 二级页 A 形态 ══ */
+.tools-crumb {
+  font-size: 11.5px;
+  color: var(--fg3);
+  margin-bottom: 10px;
+}
+.tools-note {
+  margin-top: 0;
+  margin-bottom: 10px;
+  padding: 10px 14px;
+  background: var(--bg2);
+  border-left: 3px solid var(--primary);
+  border-radius: 0 8px 8px 0;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--fg2);
+}
+.tools-note a { color: var(--blue); }
+
+/* 行卡（线框 .row-a）+ hover 上浮 */
+.tools-rowa {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  padding: 9px 14px;
+  gap: 12px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.tools-rowa:hover {
+  border-color: var(--fg4);
+  transform: translateY(-1px);
+}
+.tools-rowa .nm {
+  font-size: 13px;
+  font-weight: 600;
+  width: 150px;
+  color: var(--fg);
+  flex-shrink: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.tools-rowa .dc {
+  font-size: 11.5px;
+  color: var(--fg3);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.tools-go {
+  padding: 4px 12px;
+  background: var(--bg2);
+  border-radius: 4px;
+  font-size: 11px;
+  color: var(--fg2);
+  white-space: nowrap;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+a.tools-go:hover { color: var(--fg); }
+/* 装机黑实心主按钮（线框 .go.dark） */
+.tools-go.dark {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+a.tools-go.dark:hover { opacity: 0.9; color: var(--on-primary); }
+.tools-go.off {
+  color: var(--fg4);
+  cursor: not-allowed;
+}
+.tools-verdict {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: var(--bg2);
+  border-left: 3px solid var(--primary);
+  border-radius: 0 8px 8px 0;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--fg2);
+}
+
+/* 实测徽标 */
+.tools-verified {
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--green);
+  background: var(--tag-tested-bg);
+  padding: 1px 5px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.tools-verified-no {
+  font-size: 9px;
+  color: var(--fg4);
+  background: var(--bg2);
+  padding: 1px 5px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+/* 空态 */
+.tools-empty {
+  text-align: center;
+  padding: 32px 0;
+  font-size: 13px;
+  color: var(--fg3);
+}
+
+/* 响应式（线框 verdict：≤1100 双栏，≤760 单栏）——阈值放在 lg(1024) 之下避免覆盖 */
+@media (max-width: 1023px) {
+  .tools-grid4 { grid-template-columns: repeat(2, 1fr) !important; }
+  .tools-grid3 { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 760px) {
+  .tools-grid4, .tools-grid3 { grid-template-columns: 1fr !important; }
+  .tools-layer-desc { display: none; }
+  .tools-rowa { flex-wrap: wrap; }
+  .tools-rowa .nm { width: auto; flex: 1; }
+}

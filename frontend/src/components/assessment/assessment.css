@@ -31,6 +31,55 @@
   -webkit-font-smoothing: antialiased;
 }
 
+/* ══ 日间模式适配（2026-08-20 视觉审计修复）══
+ * 夜间版切日间的问题（计算审计+视觉模型双确认）：
+ *  1) 大量文字对比度 1.4-2.4（WCAG 不足）——日间加深层级灰
+ *  2) scan-log 黑底 rgba(0,0,0,.18) 残留 → 日间换浅灰
+ *  3) 面板黑阴影 0.25 → 日间减淡
+ *  4) eyebrow 绿 #059669 在暖白上 2.3 → 日间加深
+ *  5) hero-bg-num 描边 0.12 透明度日间几乎不可见 → 提到 0.25
+ */
+:root:not(.dark) .assessment-landing {
+  /* 层级灰加深（二档，对比度实测≥3.0）：#57534e=4.8 / #52504e */
+  --al-text-2: #44403c;
+  --al-text-3: #6b6560;
+  --al-emerald: #047857;
+  --al-emerald-glow: color-mix(in srgb, #047857 45%, transparent);
+}
+:root:not(.dark) .assessment-landing .scan-log { background: var(--bg2); }
+:root:not(.dark) .assessment-landing .scan-panel {
+  box-shadow: 0 6px 24px rgba(28, 26, 24, 0.08);
+}
+:root:not(.dark) .assessment-landing .hero-bg-num {
+  -webkit-text-stroke: 1px rgba(4, 120, 87, 0.25);
+  opacity: 0.7;
+}
+:root:not(.dark) .assessment-landing .log-time { color: #4a4540; }
+:root:not(.dark) .assessment-landing .gap-num { color: #a8a29e; }
+:root:not(.dark) .assessment-landing .hero-footnote { color: #44403c; }
+:root:not(.dark) .assessment-landing .hero-sub { color: #44403c; }
+:root:not(.dark) .assessment-landing .gap-consequence { color: #44403c; }
+:root:not(.dark) .assessment-landing .cap-checks li { color: #4d4844; }
+:root:not(.dark) .assessment-landing .compare-items li { color: #3f3a36; }
+:root:not(.dark) .assessment-landing .compare-col-desc { color: #4d4844; }
+:root:not(.dark) .assessment-landing .compare-note { color: #4d4844; }
+:root:not(.dark) .assessment-landing .site-cta-sub { color: #44403c; }
+:root:not(.dark) .assessment-landing .site-cta-card p { color: #44403c; }
+:root:not(.dark) .assessment-landing .gap-sub { color: #44403c; }
+:root:not(.dark) .assessment-landing .caps-sub { color: #44403c; }
+:root:not(.dark) .assessment-landing .trust-item { color: #44403c; }
+:root:not(.dark) .assessment-landing .metric-label { color: #4a4540; }
+:root:not(.dark) .assessment-landing .status-label { color: #4a4540; }
+:root:not(.dark) .assessment-landing .alert-text { color: #44403c; }
+:root:not(.dark) .assessment-landing .bridge-hint { color: #4d4844; }
+:root:not(.dark) .assessment-landing .score-avg { color: #4d4844; }
+:root:not(.dark) .assessment-landing .btn-text { color: #44403c; }
+:root:not(.dark) .assessment-landing .hero-eyebrow { color: #03664b; letter-spacing: 3px; }
+:root:not(.dark) .assessment-landing .gap-eyebrow { color: #4d4844; }
+:root:not(.dark) .assessment-landing .caps-eyebrow { color: #4d4844; }
+:root:not(.dark) .assessment-landing .compare-eyebrow { color: #4d4844; }
+:root:not(.dark) .assessment-landing .check-num { color: #4d4844; }
+
 .assessment-landing ::selection {
   background: var(--al-emerald-dim);
 }
