@@ -23,6 +23,19 @@
   --al-emerald-line: color-mix(in srgb, var(--al-emerald) 12%, transparent);
   --al-emerald-glow: color-mix(in srgb, var(--al-emerald) 40%, transparent);
 
+  /* ── 双轨表现层变量（组件零模式判断，模式各自最优）── */
+  /* 语法差异：日间=物理光影(多层阴影+内高光+描边) / 夜间=发光语言(外光晕+透明+渐变) */
+  --al-panel-shadow: 0 1px 2px rgba(28,26,24,0.04), 0 12px 36px rgba(28,26,24,0.07), inset 0 1px 0 rgba(255,255,255,0.7);
+  --al-panel-border-top: color-mix(in srgb, var(--fg4) 45%, var(--border));
+  --al-panel-border-bottom: color-mix(in srgb, var(--fg4) 45%, var(--border));
+  --al-card-shadow: 0 1px 2px rgba(28,26,24,0.025), inset 0 1px 0 rgba(255,255,255,0.6);
+  --al-card-shadow-hover: 0 2px 4px rgba(28,26,24,0.04), 0 8px 20px rgba(28,26,24,0.06), inset 0 1px 0 rgba(255,255,255,0.6);
+  --al-log-bg: var(--bg2);
+  --al-metric-bg: color-mix(in srgb, var(--bg2) 55%, var(--card));
+  --al-heading-weight: 300;
+  --al-num-stroke: 1px rgba(4, 120, 87, 0.25);
+  --al-bgnum-opacity: 0.7;
+
   background: var(--al-bg);
   color: var(--al-text);
   font-weight: 300;
@@ -31,54 +44,19 @@
   -webkit-font-smoothing: antialiased;
 }
 
-/* ══ 日间模式适配（2026-08-20 视觉审计修复）══
- * 夜间版切日间的问题（计算审计+视觉模型双确认）：
- *  1) 大量文字对比度 1.4-2.4（WCAG 不足）——日间加深层级灰
- *  2) scan-log 黑底 rgba(0,0,0,.18) 残留 → 日间换浅灰
- *  3) 面板黑阴影 0.25 → 日间减淡
- *  4) eyebrow 绿 #059669 在暖白上 2.3 → 日间加深
- *  5) hero-bg-num 描边 0.12 透明度日间几乎不可见 → 提到 0.25
- */
-:root:not(.dark) .assessment-landing {
-  /* 层级灰加深（二档，对比度实测≥3.0）：#57534e=4.8 / #52504e */
-  --al-text-2: #44403c;
-  --al-text-3: #6b6560;
-  --al-emerald: #047857;
-  --al-emerald-glow: color-mix(in srgb, #047857 45%, transparent);
+/* ── 夜间轨道：发光语言（v10 原版视觉，保持不变）── */
+.dark .assessment-landing {
+  --al-panel-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(16, 185, 129, 0.03);
+  --al-panel-border-top: var(--border);
+  --al-panel-border-bottom: var(--border);
+  --al-card-shadow: none;
+  --al-card-shadow-hover: none;
+  --al-log-bg: rgba(0, 0, 0, 0.25);
+  --al-metric-bg: var(--bg2);
+  --al-heading-weight: 200;
+  --al-num-stroke: 1px color-mix(in srgb, var(--al-emerald) 12%, transparent);
+  --al-bgnum-opacity: 0.5;
 }
-:root:not(.dark) .assessment-landing .scan-log { background: var(--bg2); }
-:root:not(.dark) .assessment-landing .scan-panel {
-  box-shadow: 0 6px 24px rgba(28, 26, 24, 0.08);
-}
-:root:not(.dark) .assessment-landing .hero-bg-num {
-  -webkit-text-stroke: 1px rgba(4, 120, 87, 0.25);
-  opacity: 0.7;
-}
-:root:not(.dark) .assessment-landing .log-time { color: #4a4540; }
-:root:not(.dark) .assessment-landing .gap-num { color: #a8a29e; }
-:root:not(.dark) .assessment-landing .hero-footnote { color: #44403c; }
-:root:not(.dark) .assessment-landing .hero-sub { color: #44403c; }
-:root:not(.dark) .assessment-landing .gap-consequence { color: #44403c; }
-:root:not(.dark) .assessment-landing .cap-checks li { color: #4d4844; }
-:root:not(.dark) .assessment-landing .compare-items li { color: #3f3a36; }
-:root:not(.dark) .assessment-landing .compare-col-desc { color: #4d4844; }
-:root:not(.dark) .assessment-landing .compare-note { color: #4d4844; }
-:root:not(.dark) .assessment-landing .site-cta-sub { color: #44403c; }
-:root:not(.dark) .assessment-landing .site-cta-card p { color: #44403c; }
-:root:not(.dark) .assessment-landing .gap-sub { color: #44403c; }
-:root:not(.dark) .assessment-landing .caps-sub { color: #44403c; }
-:root:not(.dark) .assessment-landing .trust-item { color: #44403c; }
-:root:not(.dark) .assessment-landing .metric-label { color: #4a4540; }
-:root:not(.dark) .assessment-landing .status-label { color: #4a4540; }
-:root:not(.dark) .assessment-landing .alert-text { color: #44403c; }
-:root:not(.dark) .assessment-landing .bridge-hint { color: #4d4844; }
-:root:not(.dark) .assessment-landing .score-avg { color: #4d4844; }
-:root:not(.dark) .assessment-landing .btn-text { color: #44403c; }
-:root:not(.dark) .assessment-landing .hero-eyebrow { color: #03664b; letter-spacing: 3px; }
-:root:not(.dark) .assessment-landing .gap-eyebrow { color: #4d4844; }
-:root:not(.dark) .assessment-landing .caps-eyebrow { color: #4d4844; }
-:root:not(.dark) .assessment-landing .compare-eyebrow { color: #4d4844; }
-:root:not(.dark) .assessment-landing .check-num { color: #4d4844; }
 
 .assessment-landing ::selection {
   background: var(--al-emerald-dim);
@@ -111,11 +89,11 @@
   font-weight: 700;
   line-height: 0.8;
   color: transparent;
-  -webkit-text-stroke: 1px var(--al-emerald-line);
+  -webkit-text-stroke: var(--al-num-stroke);
   pointer-events: none;
   user-select: none;
   z-index: 0;
-  opacity: 0.5;
+  opacity: var(--al-bgnum-opacity);
 }
 .hero-inner {
   position: relative;
@@ -138,7 +116,7 @@
   margin-bottom: 24px;
 }
 .hero-h1 {
-  font-weight: 200;
+  font-weight: var(--al-heading-weight);
   font-size: clamp(36px, 4.6vw, 68px);
   line-height: 1.08;
   letter-spacing: -2px;
@@ -218,12 +196,12 @@
   width: 100%;
   max-width: 560px;
   background: var(--al-surface);
-  border-top: 1px solid var(--al-border);
-  border-bottom: 1px solid var(--al-border);
+  border-top: 1px solid var(--al-panel-border-top);
+  border-bottom: 1px solid var(--al-panel-border-bottom);
   padding: 0;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--al-panel-shadow);
 }
 .panel-border-glow {
   position: absolute;
@@ -379,7 +357,7 @@
   align-items: center;
   gap: 12px;
   padding: 10px 14px;
-  background: var(--al-surface-2);
+  background: var(--al-metric-bg);
   border-radius: 8px;
   border: 1px solid var(--al-border);
   transition: all 0.3s;
@@ -518,7 +496,7 @@
   gap: 0;
   max-height: 110px;
   overflow: hidden;
-  background: rgba(0, 0, 0, 0.18);
+  background: var(--al-log-bg);
   border-radius: 6px;
   padding: 6px 0;
   font-family: ui-monospace, 'SF Mono', Menlo, monospace;
@@ -665,7 +643,7 @@
   margin-bottom: 16px;
 }
 .gap-title {
-  font-weight: 200;
+  font-weight: var(--al-heading-weight);
   font-size: clamp(24px, 2.8vw, 42px);
   line-height: 1.2;
   letter-spacing: -1.5px;
@@ -710,7 +688,7 @@
   color: var(--al-emerald);
 }
 .gap-main {
-  font-weight: 200;
+  font-weight: var(--al-heading-weight);
   font-size: clamp(18px, 2vw, 26px);
   line-height: 1.25;
   letter-spacing: -0.8px;
@@ -764,7 +742,7 @@
   margin-bottom: 16px;
 }
 .caps-title {
-  font-weight: 200;
+  font-weight: var(--al-heading-weight);
   font-size: clamp(28px, 3.2vw, 52px);
   line-height: 1.1;
   letter-spacing: -1.5px;
@@ -816,6 +794,7 @@
   background: var(--al-surface);
   border: 1px solid var(--al-border);
   border-radius: 12px;
+  box-shadow: var(--al-card-shadow);
   transition: all 0.3s;
 }
 .cap-item:hover { border-color: var(--al-border-light); transform: translateY(-2px); }
@@ -919,7 +898,7 @@
   margin-bottom: 14px;
 }
 .compare-title {
-  font-weight: 200;
+  font-weight: var(--al-heading-weight);
   font-size: clamp(24px, 2.6vw, 40px);
   letter-spacing: -1.5px;
   color: var(--al-text);
@@ -1005,7 +984,7 @@
   margin-bottom: 20px;
 }
 .site-cta-title {
-  font-weight: 200;
+  font-weight: var(--al-heading-weight);
   font-size: clamp(28px, 3.2vw, 50px);
   letter-spacing: -2px;
   margin-bottom: 16px;
@@ -1141,47 +1120,4 @@
   .site-cta-grid { grid-template-columns: 1fr; }
   .cap-overview { flex-direction: column; align-items: flex-start; gap: 12px; }
   .cap-overview-num { text-align: left; }
-}
-
-/* ══ 日间高级感升级（2026-08-20 二轮：暖白高级化）══ */
-:root:not(.dark) .assessment-landing .hero-h1 { font-weight: 300; letter-spacing: -1.2px; }
-:root:not(.dark) .assessment-landing .hero-h1 .num { text-shadow: 0 1px 0 rgba(255,255,255,0.6); }
-:root:not(.dark) .assessment-landing .gap-title { font-weight: 300; }
-:root:not(.dark) .assessment-landing .gap-main { font-weight: 300; }
-:root:not(.dark) .assessment-landing .caps-title { font-weight: 300; }
-:root:not(.dark) .assessment-landing .site-cta-title { font-weight: 300; }
-:root:not(.dark) .assessment-landing .compare-title { font-weight: 300; }
-/* 卡片：细阴影+内高光（与软件管家同语汇） */
-:root:not(.dark) .assessment-landing .cap-item {
-  box-shadow: 0 1px 2px rgba(28,26,24,0.025), inset 0 1px 0 rgba(255,255,255,0.6);
-}
-:root:not(.dark) .assessment-landing .cap-item:hover {
-  box-shadow: 0 2px 4px rgba(28,26,24,0.04), 0 8px 20px rgba(28,26,24,0.06), inset 0 1px 0 rgba(255,255,255,0.6);
-}
-:root:not(.dark) .assessment-landing .site-cta-card {
-  box-shadow: 0 1px 2px rgba(28,26,24,0.025), inset 0 1px 0 rgba(255,255,255,0.6);
-}
-:root:not(.dark) .assessment-landing .compare-grid {
-  box-shadow: 0 1px 2px rgba(28,26,24,0.025), 0 8px 24px rgba(28,26,24,0.04);
-}
-/* 扫描面板：日间浮起感（双层阴影+内高光） */
-:root:not(.dark) .assessment-landing .scan-panel {
-  box-shadow:
-    0 1px 2px rgba(28, 26, 24, 0.04),
-    0 12px 36px rgba(28, 26, 24, 0.07),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
-}
-/* 面板边框日间加深一档，恢复轮廓感 */
-:root:not(.dark) .assessment-landing .scan-panel {
-  border-top-color: color-mix(in srgb, var(--fg4) 45%, var(--border));
-  border-bottom-color: color-mix(in srgb, var(--fg4) 45%, var(--border));
-}
-/* 指标卡日间内凹感 */
-:root:not(.dark) .assessment-landing .metric-card {
-  background: color-mix(in srgb, var(--bg2) 55%, var(--card));
-}
-/* Gap 编号大字日间加细节：轻描边 */
-:root:not(.dark) .assessment-landing .gap-num {
-  color: transparent;
-  -webkit-text-stroke: 1px #b8b2ac;
 }

@@ -1,3 +1,35 @@
+/* ══ 双轨表现层变量（组件零模式判断）══
+ * 日间=物理光影语法(多层阴影+内高光) / 夜间=克制平面+微发光 */
+.tools-hero, .tools-cat, .tools-row, .tools-rowa, .tools-more {
+  /* 占位选择器只为注释锚点 */
+}
+:root {
+  --t-hero-shadow: 0 1px 2px rgba(28,26,24,0.03), 0 8px 24px rgba(28,26,24,0.04), inset 0 1px 0 color-mix(in srgb, var(--card) 80%, #fff);
+  --t-cat-shadow: 0 1px 2px rgba(28,26,24,0.025), inset 0 1px 0 rgba(255,255,255,0.6);
+  --t-cat-shadow-hover: 0 2px 4px rgba(28,26,24,0.04), 0 8px 20px rgba(28,26,24,0.06), inset 0 1px 0 rgba(255,255,255,0.6);
+  --t-rowa-shadow: 0 1px 2px rgba(28,26,24,0.02);
+  --t-rowa-shadow-hover: 0 4px 12px rgba(28,26,24,0.05);
+  --t-layer-border: 2px solid color-mix(in srgb, var(--primary) 82%, transparent);
+  --t-hero-glow-green: color-mix(in srgb, var(--green) 10%, transparent);
+  --t-hero-glow-blue: color-mix(in srgb, var(--blue) 7%, transparent);
+  --t-row-bg: color-mix(in srgb, var(--card) 60%, var(--bg));
+  --t-row-border: color-mix(in srgb, var(--border) 70%, transparent);
+  --t-cat-lift: -2px;
+}
+.dark {
+  --t-hero-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 12px 32px rgba(0,0,0,0.45);
+  --t-cat-shadow: none;
+  --t-cat-shadow-hover: 0 0 0 1px rgba(255,255,255,0.06), 0 8px 24px rgba(0,0,0,0.4);
+  --t-rowa-shadow: none;
+  --t-rowa-shadow-hover: 0 8px 24px rgba(0,0,0,0.35);
+  --t-layer-border: 2px solid color-mix(in srgb, var(--primary) 88%, transparent);
+  --t-hero-glow-green: color-mix(in srgb, var(--green) 14%, transparent);
+  --t-hero-glow-blue: color-mix(in srgb, var(--blue) 10%, transparent);
+  --t-row-bg: color-mix(in srgb, var(--card) 55%, var(--bg));
+  --t-row-border: color-mix(in srgb, var(--border) 60%, transparent);
+  --t-cat-lift: -2px;
+}
+
 /**
  * 软件管家 · 视觉层（分层版 C 精确对齐 + AI体检视觉元素融合）
  * 策略：
@@ -10,9 +42,10 @@
 .tools-hero {
   margin-top: 24px;
   margin-bottom: 16px;
-  border-radius: 12px;
-  background: var(--bg2);
+  border-radius: 14px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--card) 92%, transparent) 0%, var(--bg2) 100%);
   border: 1px solid var(--border);
+  box-shadow: var(--t-hero-shadow);
   padding: 26px 28px 22px;
   position: relative;
   overflow: hidden;
@@ -25,7 +58,7 @@
   right: -60px;
   width: 320px;
   height: 320px;
-  background: radial-gradient(circle, color-mix(in srgb, var(--green) 10%, transparent) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--t-hero-glow-green) 0%, transparent 70%);
   pointer-events: none;
 }
 .tools-hero::after {
@@ -35,7 +68,7 @@
   left: -80px;
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle, color-mix(in srgb, var(--blue) 7%, transparent) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--t-hero-glow-blue) 0%, transparent 70%);
   pointer-events: none;
 }
 .tools-eyebrow {
@@ -100,7 +133,7 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  border-bottom: 2px solid color-mix(in srgb, var(--primary) 82%, transparent);
+  border-bottom: var(--t-layer-border);
   padding: 12px 4px 10px;
   margin-bottom: 12px;
   position: relative;
@@ -162,18 +195,13 @@
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 12px;
-  box-shadow:
-    0 1px 2px rgba(28, 26, 24, 0.025),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  box-shadow: var(--t-cat-shadow);
   transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 .tools-cat:hover {
   border-color: var(--fg4);
   transform: translateY(-2px);
-  box-shadow:
-    0 2px 4px rgba(28, 26, 24, 0.04),
-    0 8px 20px rgba(28, 26, 24, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  box-shadow: var(--t-cat-shadow-hover);
 }
 .tools-cat-head {
   display: flex;
@@ -209,8 +237,8 @@
   align-items: center;
   gap: 6px;
   padding: 6px 9px;
-  background: color-mix(in srgb, var(--card) 60%, var(--bg));
-  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  background: var(--t-row-bg);
+  border: 1px solid var(--t-row-border);
   border-radius: 6px;
   margin-bottom: 6px;
   font-size: 12px;
@@ -318,13 +346,13 @@ a.tools-hk:hover { color: var(--fg); }
   align-items: center;
   padding: 9px 14px;
   gap: 12px;
-  box-shadow: 0 1px 2px rgba(28, 26, 24, 0.02);
+  box-shadow: var(--t-rowa-shadow);
   transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 .tools-rowa:hover {
   border-color: var(--fg4);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(28, 26, 24, 0.05);
+  box-shadow: var(--t-rowa-shadow-hover);
 }
 .tools-rowa .nm {
   font-size: 13px;
