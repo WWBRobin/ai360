@@ -1,26 +1,20 @@
 import type { Metadata } from 'next'
-import AssessmentClient from '@/components/assessment/AssessmentClient'
 
 export const metadata: Metadata = {
-  title: '能力评测 · ArcDock',
+  title: 'AI体检 — ArcDock',
   description:
-    '5 道题测出你的 AI 能力等级（L1-L5）和学习场景，获得个性化学习路径推荐。30 秒完成。',
-  alternates: { canonical: '/assessment' },
-  openGraph: {
-    title: '能力评测 · ArcDock',
-    description: '5 道题测出你的 AI 能力等级，获得个性化学习路径推荐',
-    type: 'website',
-  },
+    '170 项 AI 环境体检：密钥安全、权限风险、成本浪费、性能健康。本地处理，数据不出电脑。桌面端内测报名中。',
 }
 
 /**
- * 能力评测页。
- * 答题阶段全屏居中（不出侧栏，专注答题）；结果出来后切回带侧栏的标准布局。
+ * AI 体检落地页（v10 原型集成）
+ * - 全站 chrome 由 layout/TopNavTabs 接管（AI体检高亮），本页不含顶栏
+ * - 视觉：主站 .dark 令牌为基，科技感集中在 ScanPanel 组件内
+ * - 原评测问卷已挪至 /assessment/quiz（保留资产，无导航入口）
+ * - 'use client' 需求由 AssessmentLanding 内部组件承担，本页保持 Server Component
  */
+import AssessmentLanding from '@/components/assessment/AssessmentLanding'
+
 export default function AssessmentPage() {
-  return (
-    <div className="page-wrapper px-4 sm:px-6 lg:px-8 min-h-screen">
-      <AssessmentClient />
-    </div>
-  )
+  return <AssessmentLanding />
 }
