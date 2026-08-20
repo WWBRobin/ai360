@@ -97,6 +97,9 @@ const PICKS_COPY: Record<string, { i: number; text: string }[]> = {
   ],
 }
 
+const layerCatCount = (l: Layer) => l.cats.length
+const byLayerCount = (l: Layer, byCat: Record<string, ToolItem[]>) => l.cats.reduce((s2, c) => s2 + (byCat[c]?.length ?? 0), 0)
+
 const INSTALLABLE = new Set([
   'DeepSeek', '通义千问', 'Kimi', '扣子 Coze', 'Dify', 'n8n', 'Cursor',
   'Claude', 'ChatGPT', '秘塔 AI 搜索', 'WPS AI', 'Obsidian', 'Notion',
@@ -109,7 +112,6 @@ export default function ToolsClient({ layers, cats, tools }: {
 }) {
   const [q, setQ] = useState('')
   const [active, setActive] = useState('llm')
-  const [showStart, setShowStart] = useState(true)
 
   const catMap = useMemo(() => Object.fromEntries(cats.map((c) => [c.slug, c])), [cats])
   const byCat = useMemo(() => {
@@ -130,7 +132,6 @@ export default function ToolsClient({ layers, cats, tools }: {
 
   const selectCat = (slug: string) => {
     setActive(slug)
-    setShowStart(false)
   }
 
   return (
@@ -199,27 +200,13 @@ export default function ToolsClient({ layers, cats, tools }: {
 
         {/* 右区 */}
         <div className="tools-main">
-          {/* ① 定位条（层叙事带进右区，色随层） */}
+          {/* ① 层主标题（原定位条升级：层名做卡片主标题，层色锚点） */}
           <div className="tools-crumb-am" style={{ ['--lt-color' as string]: TINT_COLOR[activeLayer.tint] }}>
             <span className="l-dot" />
-            你在这里：<b>{activeLayer.tag} · {activeLayer.name}</b> → <b>{catMap[active]?.name}</b>
-            <span className="sub">（{activeLayer.sub}）</span>
+            <b className="layer-title">{activeLayer.tag} · {activeLayer.name}</b>
+            <span className="sub">{activeLayer.sub}</span>
+            <span className="tail-count">{layerCatCount(activeLayer)} 类 · {byLayerCount(activeLayer, byCat)} 个</span>
           </div>
-
-          {/* 从这开始卡（仅首次进入） */}
-          {showStart && (
-            <div className="tools-start-card">
-              <div className="tools-start-title">从这开始</div>
-              {layers.map((l) => (
-                <div key={l.id} className="tools-start-row">
-                  <span className="b" style={{ color: l.tint === 'green' ? '#047857' : l.tint === 'blue' ? '#2563eb' : '#b45309', background: `color-mix(in srgb, ${TINT_COLOR[l.tint]} 13%, transparent)` }}>
-                    {l.tag} {l.name}
-                  </span>
-                  <span className="txt">{l.sub}{l.id < 3 ? <span className="arrow"> → 左栏{l.id === 1 ? '往下' : '底部'}</span> : null}</span>
-                </div>
-              ))}
-            </div>
-          )}
 
           {/* ② 类头 */}
           <div className="tools-cathead-am" style={{ ['--lt-color' as string]: TINT_COLOR[activeLayer.tint] }}>

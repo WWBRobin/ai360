@@ -809,3 +809,37 @@ a.t-hk:hover { color: var(--fg); }
 }
 /* 选中的绿描边(七批hover带出的)也统一中性 */
 .pick:hover { border-color: color-mix(in srgb, var(--fg) 22%, var(--border)); }
+
+/* ═══ 九批(8/20): L组标题放大+删从这开始+定位条改层主标题 ═══ */
+/* ① 左栏组标题: 10px→13px/700, 比Tab(12.5)大且成组锚 */
+.tools-side-group {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fg2);
+  letter-spacing: 0.5px;
+  padding: 10px 4px 6px;
+}
+.tools-side-dot { width: 7px; height: 7px; }
+/* ③ 层主标题(原crumb升级): 11.5px→16px/700 层色 */
+.tools-crumb-am {
+  font-size: 12px;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid color-mix(in srgb, var(--lt-color, var(--green)) 22%, transparent);
+  width: fit-content;
+}
+.tools-crumb-am .layer-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--fg);
+  letter-spacing: -0.2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.tools-crumb-am .l-dot { width: 8px; height: 8px; }
+.tools-crumb-am .sub { margin-left: 10px; }
+.tools-crumb-am .tail-count { margin-left: auto; color: var(--fg4); font-size: 11px; padding-left: 24px; }
+/* 层标题与类头的关系: 层主标题是大标题, 类头降一档避免双标题打架 */
+.tools-cathead-am .name { font-size: 16px; }
+.tools-cathead-am { margin-bottom: 10px; padding-top: 2px; }
