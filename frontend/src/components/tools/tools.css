@@ -696,3 +696,75 @@ a.t-hk:hover { color: var(--fg); }
   .tools-picks { grid-template-columns: 1fr; }
   .tools-picks.four { grid-template-columns: 1fr 1fr; }
 }
+
+/* ═══════════ A- 视觉升级(继承旧版卡墙六轮成果, 2026-08-20 七批) ═══════════ */
+
+/* ① 右区玻璃壳: 与旧版层壳同语言(径向层色光斑16%+渐变+内高光),层色随选中类变 */
+.tools-main {
+  position: relative;
+  border-radius: 14px;
+  padding: 16px;
+  background:
+    radial-gradient(420px 200px at 92% 0%, color-mix(in srgb, var(--lt-color, var(--green)) 16%, transparent) 0%, transparent 60%),
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--card) 55%, transparent) 0%,
+      color-mix(in srgb, var(--bg2) 40%, transparent) 100%);
+  border: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  transition: background .35s;
+}
+.dark .tools-main {
+  background:
+    radial-gradient(420px 200px at 92% 0%, color-mix(in srgb, var(--lt-color, var(--green)) 10%, transparent) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,0.015) 0%, transparent 100%);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+/* 壳内crumb贴顶 */
+.tools-main > .tools-crumb-am { margin-top: 0; }
+
+/* ② 左栏选中态: 层色左条 + 微浮 */
+.tools-side-item { position: relative; border: 1px solid transparent; }
+.tools-side-item.on { border-color: color-mix(in srgb, var(--lt-color, var(--green)) 35%, transparent); }
+.tools-side-item.on::before {
+  content: ''; position: absolute; left: -1px; top: 6px; bottom: 6px;
+  width: 3px; border-radius: 2px; background: var(--lt-color, var(--green));
+}
+/* 层色由组传入(data-tint) */
+.tools-side-groupwrap[data-tint="green"] { --lt-color: var(--green); }
+.tools-side-groupwrap[data-tint="blue"] { --lt-color: var(--blue); }
+.tools-side-groupwrap[data-tint="amber"] { --lt-color: #d97706; }
+
+/* ③ 精选大卡: 顶部层色光晕再提一档+描边双色(继承banner三光斑语言) */
+.pick.big {
+  background:
+    radial-gradient(260px 140px at 12% -10%, color-mix(in srgb, var(--lt-color, var(--green)) 14%, transparent) 0%, transparent 70%),
+    radial-gradient(200px 120px at 95% 110%, color-mix(in srgb, var(--blue) 8%, transparent) 0%, transparent 65%),
+    linear-gradient(135deg, color-mix(in srgb, var(--green) 7%, transparent), var(--card) 55%);
+  border-color: color-mix(in srgb, var(--green) 30%, var(--border));
+}
+.dark .pick.big {
+  background:
+    radial-gradient(260px 140px at 12% -10%, color-mix(in srgb, var(--lt-color, var(--green)) 10%, transparent) 0%, transparent 70%),
+    linear-gradient(135deg, rgba(52,211,153,0.04), var(--card) 55%);
+  border-color: color-mix(in srgb, var(--green) 22%, var(--border));
+}
+/* Top1 序号徽标放大+层色 */
+.pick.big .idx { font-size: 10.5px; padding: 2.5px 8px; }
+
+/* ④ 长尾行: hover 层色染边(替代通用灰) */
+.tools-tail .t-row:hover {
+  border-color: color-mix(in srgb, var(--lt-color, var(--green)) 30%, var(--border));
+}
+
+/* ⑤ 从这开始卡: 三行分别挂各自层色微光(呼应三段) */
+.tools-start-row .b { box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 6%, transparent); }
+
+/* ⑥ 定位条层色字: b 主色加深一档 */
+.tools-crumb-am b { color: color-mix(in srgb, var(--lt-color, var(--green)) 55%, var(--fg)); }
+.dark .tools-crumb-am b { color: color-mix(in srgb, var(--lt-color, var(--green)) 45%, var(--fg)); }
+
+/* ⑦ 类头大标题: 字距收紧+层色下衬(超轻,不回横线) */
+.tools-cathead-am .name {
+  background: linear-gradient(180deg, transparent 78%, color-mix(in srgb, var(--lt-color, var(--green)) 16%, transparent) 78%);
+  border-radius: 2px; padding: 0 2px; margin-left: -2px;
+}

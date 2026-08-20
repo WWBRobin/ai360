@@ -171,7 +171,7 @@ export default function ToolsClient({ layers, cats, tools }: {
         {/* 左栏 */}
         <aside className="tools-side">
           {layers.map((layer) => (
-            <div key={layer.id} className="mb-3">
+            <div key={layer.id} className="mb-3 tools-side-groupwrap" data-tint={layer.tint}>
               <div className="tools-side-group">
                 <span className="tools-side-dot" style={{ background: TINT_COLOR[layer.tint] }} />
                 {layer.tag} · {layer.name}
