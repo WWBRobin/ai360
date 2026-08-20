@@ -114,15 +114,21 @@ export default function ToolsClient({ layers, cats, tools }: {
                 return (
                   <div key={slug} className="tools-cat">
                     <div className="tools-cat-head">
-                      <Link href={isSkill ? '/skills/classic' : CAT_PAGE[slug]} className="tools-cat-name">
+                      <span className="tools-cat-name">
                         {cat.name}
                         <span className="cnt">{list.length}</span>
-                      </Link>
-                      <span className="tools-cat-all">
-                        {isSkill ? 'Skill中心 →' : isRelay ? '官方自营' : `全部 ${list.length} →`}
                       </span>
+                      {/* 唯一跳转入口：右上"全部 N"，点击进二级页/Skill中心 */}
+                      <Link
+                        href={isSkill ? '/skills/classic' : isRelay ? '/essential' : CAT_PAGE[slug]}
+                        className="tools-cat-all"
+                        title={`查看${cat.name}全部 ${list.length} 个`}
+                      >
+                        {isSkill ? 'Skill中心 →' : isRelay ? '官方自营 →' : `全部 ${list.length} →`}
+                      </Link>
                     </div>
-                    {list.slice(0, 4).map((t) => (
+                    <div className="tools-rows-scroll">
+                    {list.slice(0, 10).map((t) => (
                       <div key={t.name} className="tools-row" title={t.desc}>
                         <a href={t.url} target="_blank" rel="noopener noreferrer nofollow" className="n">{t.name}</a>
                         <span className="hk">
@@ -138,11 +144,7 @@ export default function ToolsClient({ layers, cats, tools }: {
                         </span>
                       </div>
                     ))}
-                    {isSkill ? (
-                      <Link href="/skills/classic" className="tools-more">去 Skill中心 找（按平台筛选）→</Link>
-                    ) : isRelay ? null : (
-                      <Link href={CAT_PAGE[slug]} className="tools-more">查看全部 {list.length} 个 →</Link>
-                    )}
+                    </div>
                   </div>
                 )
               })}

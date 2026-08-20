@@ -11,9 +11,9 @@
   --t-rowa-shadow: 0 1px 2px rgba(28,26,24,0.04), 0 4px 12px rgba(28,26,24,0.04);
   --t-rowa-shadow-hover: 0 4px 12px rgba(28,26,24,0.05);
   --t-layer-border: 1.5px solid color-mix(in srgb, var(--primary) 62%, transparent);
-  --t-hero-glow-green: color-mix(in srgb, var(--green) 16%, transparent);
-  --t-hero-glow-blue: color-mix(in srgb, var(--blue) 12%, transparent);
-  --t-hero-glow-amber: color-mix(in srgb, #d97706 7%, transparent);
+  --t-hero-glow-green: color-mix(in srgb, var(--green) 26%, transparent);
+  --t-hero-glow-blue: color-mix(in srgb, var(--blue) 19%, transparent);
+  --t-hero-glow-amber: color-mix(in srgb, #d97706 13%, transparent);
   --t-row-bg: var(--card);
   --t-row-border: var(--border);
   --t-cat-lift: -2px;
@@ -26,9 +26,9 @@
   --t-rowa-shadow: none;
   --t-rowa-shadow-hover: 0 8px 24px rgba(0,0,0,0.35);
   --t-layer-border: 2px solid color-mix(in srgb, var(--primary) 88%, transparent);
-  --t-hero-glow-green: color-mix(in srgb, var(--green) 14%, transparent);
-  --t-hero-glow-blue: color-mix(in srgb, var(--blue) 10%, transparent);
-  --t-hero-glow-amber: color-mix(in srgb, #f59e0b 6%, transparent);
+  --t-hero-glow-green: color-mix(in srgb, var(--green) 18%, transparent);
+  --t-hero-glow-blue: color-mix(in srgb, var(--blue) 13%, transparent);
+  --t-hero-glow-amber: color-mix(in srgb, #f59e0b 9%, transparent);
   --t-row-bg: color-mix(in srgb, var(--card) 55%, var(--bg));
   --t-row-border: color-mix(in srgb, var(--border) 60%, transparent);
   --t-cat-lift: -2px;
@@ -52,11 +52,11 @@
     radial-gradient(480px 320px at -6% 108%, var(--t-hero-glow-blue) 0%, transparent 60%),
     radial-gradient(380px 240px at 8% -12%, var(--t-hero-glow-amber) 0%, transparent 58%),
     linear-gradient(180deg,
-      color-mix(in srgb, var(--card) 95%, transparent) 0%,
-      color-mix(in srgb, var(--card) 60%, var(--bg2)) 55%,
-      var(--bg2) 100%);
+      color-mix(in srgb, var(--card) 100%, transparent) 0%,
+      color-mix(in srgb, var(--card) 55%, var(--bg2)) 50%,
+      color-mix(in srgb, var(--bg2) 88%, #1c1a18) 100%);
   border: 1px solid var(--border);
-  box-shadow: var(--t-hero-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  box-shadow: var(--t-hero-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.85), inset 0 -1px 0 rgba(28, 26, 24, 0.03);
   padding: 26px 28px 22px;
   position: relative;
   overflow: hidden;
@@ -125,20 +125,11 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  border-bottom: var(--t-layer-border);
-  padding: 14px 4px 10px;
-  margin-bottom: 16px;
+  padding: 14px 4px 6px;
+  margin-bottom: 8px;
   position: relative;
 }
-/* 层头底线右端渐隐（细节感） */
-.tools-layer-head::after {
-  content: '';
-  position: absolute;
-  left: 0; right: 0; bottom: -2px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent 0%, transparent 78%, var(--bg) 100%);
-  pointer-events: none;
-}
+/* 层头底线已移除（8/20 用户拍板：线让页面不干净） */
 .tools-layer-title {
   font-size: 16px;
   font-weight: 700;
@@ -461,7 +452,7 @@ a.tools-go.dark:hover { opacity: 0.9; color: var(--on-primary); }
 /* 层头: 徽标用层色 / 底线用层色 / 计数数字用层色 */
 .tools-layer .tools-layer-badge { background: var(--lt-ink); }
 .tools-layer .tools-layer-badge::before { background: var(--lt-color); }
-.tools-layer .tools-layer-head { border-bottom-color: color-mix(in srgb, var(--lt-ink) 55%, transparent); }
+.tools-layer .tools-layer-head { border-bottom: none; padding-bottom: 4px; margin-bottom: 8px; }
 .tools-layer .tools-layer-head::after { display: none; } /* 层色线不需要灰渐隐了 */
 .tools-layer .tools-layer-count b { color: var(--lt-ink); }
 /* 层标题清晰化: 16→17px + 层色前置竖条 + 加深字色 */
@@ -481,8 +472,8 @@ a.tools-go.dark:hover { opacity: 0.9; color: var(--on-primary); }
 /* 层带玻璃壳: 卡组容器 */
 .tools-layer-shell {
   position: relative;
-  border-radius: 16px;
-  padding: 14px;
+  border-radius: 18px;
+  padding: 18px;
   background:
     radial-gradient(420px 200px at 92% 0%, color-mix(in srgb, var(--lt-color) 6%, transparent) 0%, transparent 60%),
     linear-gradient(180deg,
@@ -515,3 +506,30 @@ a.tools-go.dark:hover { opacity: 0.9; color: var(--on-primary); }
 /* 日间钩子颜色再校准 */
 :root:not(.dark) .tools-hk { color: #6b6863; background: #f1efec; }
 :root:not(.dark) .tools-hk.off { color: #8b8781; background: #f5f3f0; }
+
+/* ④ 卡内滚动(替代每卡"查看全部"按钮): 展示10条可上下滑,右上"全部 N"是唯一跳转入口 */
+.tools-rows-scroll {
+  max-height: 340px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #d6d2cc transparent;
+  padding-right: 2px;
+  /* 底部渐隐提示可滚 */
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 88%, transparent 100%);
+}
+.tools-rows-scroll:hover {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.tools-rows-scroll::-webkit-scrollbar { width: 4px; }
+.tools-rows-scroll::-webkit-scrollbar-thumb { background: #d6d2cc; border-radius: 2px; }
+.dark .tools-rows-scroll::-webkit-scrollbar-thumb { background: #3a3a3a; }
+/* 卡头跳转入口强化(唯一入口,要可点感) */
+.tools-cat-all {
+  font-weight: 500;
+  color: var(--fg2);
+  transition: color 0.15s;
+}
+.tools-cat-all:hover { color: var(--lt-ink, var(--fg)); }
