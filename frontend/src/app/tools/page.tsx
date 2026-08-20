@@ -3,7 +3,7 @@ import ToolsClient from '@/components/tools/ToolsClient'
 import { TOOLS_DATA } from '@/lib/tools-data'
 
 export const metadata: Metadata = {
-  title: '软件管家',
+  title: '软件导航',
   description:
     'AI 世界的导航：11 大类 235 款头部工具——大模型、AI 软件、内容生成、Skill、MCP、中转。认识 AI · 用好 AI · 玩透 AI。',
   alternates: { canonical: '/tools' },

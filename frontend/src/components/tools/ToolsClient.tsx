@@ -137,7 +137,7 @@ export default function ToolsClient({ layers, cats, tools }: {
     <div>
       {/* ══ 玻璃 Banner（保留现版视觉，不动）══ */}
       <section className="tools-hero">
-        <div className="tools-eyebrow">ArcDock · 软件管家</div>
+        <div className="tools-eyebrow">ArcDock · 软件导航</div>
         <h1 className="tools-hero-title">
           AI 世界的导航 —— <em>只收知名头部</em>，从大模型到 API 中转
         </h1>

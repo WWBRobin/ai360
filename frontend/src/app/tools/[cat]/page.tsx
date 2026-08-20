@@ -8,7 +8,7 @@ import '@/components/tools/tools.css'
 /**
  * 软件管家二级页（A 形态 · 精确对齐线框视觉规格）
  * - 侧栏：全部工具 + 11 类按 L1/L2/L3 分组（与一层门户同构，认知不跳变），当前类黑底白字
- * - 面包屑：软件管家 / 层名 / 类名（三级，含层）
+ * - 面包屑：软件导航 / 层名 / 类名（三级，含层）
  * - toolbar：类内搜索 + 综合/实测优先/名称排序 + 仅实测筛选
  * - 列表行：行卡（名称定宽 + 描述 + 评分位留槽 + 评测/装机/官网），装机黑色实心=主按钮
  * - 加载更多（默认 8 条，分页展开）
@@ -43,8 +43,8 @@ export async function generateMetadata({ params }: { params: Promise<{ cat: stri
   const meta = CAT_META[cat]
   if (!meta) return {}
   return {
-    title: `${meta.name} · 软件管家`,
-    description: `ArcDock 软件管家 · ${meta.name}——${meta.desc}。头部工具收录与装机指引。`,
+    title: `${meta.name} · 软件导航`,
+    description: `ArcDock 软件导航 · ${meta.name}——${meta.desc}。头部工具收录与装机指引。`,
     alternates: { canonical: `/tools/${cat}` },
   }
 }
@@ -96,9 +96,9 @@ export default async function ToolsCatPage({ params }: { params: Promise<{ cat: 
 
         {/* ===== 主区 ===== */}
         <div className="flex-1 min-w-0">
-          {/* 三级面包屑：软件管家 / 层名 / 类名（线框 .crumb） */}
+          {/* 三级面包屑：软件导航 / 层名 / 类名（线框 .crumb） */}
           <div className="text-[11.5px] text-[var(--fg3)] mb-2.5">
-            <Link href="/tools" className="hover:text-[var(--fg)]">软件管家</Link>
+            <Link href="/tools" className="hover:text-[var(--fg)]">软件导航</Link>
             <span className="mx-1.5">/</span>
             <span>{meta.layer}</span>
             <span className="mx-1.5">/</span>

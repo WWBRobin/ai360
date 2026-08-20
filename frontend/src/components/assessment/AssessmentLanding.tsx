@@ -264,7 +264,7 @@ export default function AssessmentLanding() {
         <div className="site-cta-grid">
           {[
             { cls: 'green', stroke: 'var(--green)', title: 'AI 体检', desc: '170 项全量扫描，发现风险、给出修复方案', path: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z' },
-            { cls: 'blue', stroke: 'var(--blue)', title: '软件管家', desc: 'AI 世界的导航，发现并管理你的每一件装备', path: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z' },
+            { cls: 'blue', stroke: 'var(--blue)', title: '软件管家', desc: 'AI 世界的导航与装备管理', path: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z' },
             { cls: 'violet', stroke: 'var(--violet)', title: '学习中心', desc: '从会找到会用，一步步点亮你的 AI 技能', path: 'M22 10v6M2 10l10-5 10 5-10 5z' },
             { cls: 'amber', stroke: 'var(--amber)', title: '中转站', desc: '一个密钥，调用全部大模型，智能路由更省钱', path: 'M2 5h20v14H2z' },
           ].map((c) => (

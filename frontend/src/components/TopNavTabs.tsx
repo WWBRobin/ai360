@@ -12,8 +12,8 @@ import { usePathname } from 'next/navigation'
 
 const TABS = [
   { label: '装机必备', href: '/essential', match: (p: string) => p.startsWith('/essential') },
-  { label: '软件管家', href: '/tools', match: (p: string) => p.startsWith('/tools') },
-  { label: '我的装备', href: '/equipment', match: (p: string) => p.startsWith('/equipment') },
+  { label: '软件导航', href: '/tools', match: (p: string) => p.startsWith('/tools') },
+  { label: '软件管家', href: '/equipment', match: (p: string) => p.startsWith('/equipment') },
   { label: 'AI体检', href: '/assessment', match: (p: string) => p.startsWith('/assessment') },
   { label: '学习中心', href: '/learn', match: (p: string) => p.startsWith('/learn') },
   { label: 'Skill中心', href: '/skills/classic', match: (p: string) => p.startsWith('/skills') },
