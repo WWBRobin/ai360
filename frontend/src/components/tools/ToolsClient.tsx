@@ -19,6 +19,7 @@ interface Layer {
   name: string
   sub: string
   cats: string[]
+  tint: string
 }
 interface Cat {
   slug: string
@@ -91,7 +92,7 @@ export default function ToolsClient({ layers, cats, tools }: {
       {layers.map((layer) => {
         const layerCount = layer.cats.reduce((s, c) => s + (byCat[c]?.length ?? 0), 0)
         return (
-          <section key={layer.id} className="mb-5">
+          <section key={layer.id} className="mb-5 tools-layer" style={{ '--lt': layer.tint } as React.CSSProperties}>
             <div className="tools-layer-head">
               <div className="flex items-baseline min-w-0">
                 <span className="tools-layer-title">
@@ -103,7 +104,7 @@ export default function ToolsClient({ layers, cats, tools }: {
               <span className="tools-layer-count">{layer.cats.length} 类 · <b>{layerCount}</b> 个</span>
             </div>
 
-            <div className={`grid grid-cols-1 md:grid-cols-2 ${layer.cats.length === 3 ? 'lg:grid-cols-3 tools-grid3' : 'lg:grid-cols-4 tools-grid4'} gap-3`}>
+            <div className={`tools-layer-shell grid grid-cols-1 md:grid-cols-2 ${layer.cats.length === 3 ? 'lg:grid-cols-3 tools-grid3' : 'lg:grid-cols-4 tools-grid4'} gap-3`}>
               {layer.cats.map((slug) => {
                 const cat = catMap[slug]
                 if (!cat) return null

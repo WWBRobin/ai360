@@ -31,9 +31,9 @@ const CATS: { slug: string; name: string; desc: string }[] = [
 ]
 
 const LAYERS = [
-  { id: 1, tag: 'L1', name: '认识 AI', sub: '第一次用 AI，从这里开始', cats: ['llm', 'apps', 'search', 'gen'] },
-  { id: 2, tag: 'L2', name: '用好 AI', sub: '让 AI 进入你的日常', cats: ['office', 'coding', 'agent'] },
-  { id: 3, tag: 'L3', name: '玩透 AI', sub: '组装你自己的 AI 体系', cats: ['skill', 'mcp', 'data', 'relay'] },
+  { id: 1, tag: 'L1', name: '认识 AI', sub: '第一次用 AI，从这里开始', cats: ['llm', 'apps', 'search', 'gen'], tint: 'green' },
+  { id: 2, tag: 'L2', name: '用好 AI', sub: '让 AI 进入你的日常', cats: ['office', 'coding', 'agent'], tint: 'blue' },
+  { id: 3, tag: 'L3', name: '玩透 AI', sub: '组装你自己的 AI 体系', cats: ['skill', 'mcp', 'data', 'relay'], tint: 'amber' },
 ]
 
 export default function ToolsPage() {
