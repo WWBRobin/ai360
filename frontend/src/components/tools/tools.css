@@ -4,6 +4,7 @@
   /* 占位选择器只为注释锚点 */
 }
 :root {
+  --t-green-ink: color-mix(in srgb, var(--green) 85%, #1c1a18); /* DS#10: 日间沉绿 */
   --t-hero-shadow: 0 1px 2px rgba(28,26,24,0.05), 0 10px 30px rgba(28,26,24,0.06), inset 0 1px 0 color-mix(in srgb, var(--card) 80%, #fff);
   --t-cat-shadow: 0 1px 2px rgba(28,26,24,0.06), 0 4px 10px rgba(28,26,24,0.05), inset 0 1px 0 rgba(255,255,255,0.7);
   --t-cat-shadow-hover: 0 2px 4px rgba(28,26,24,0.07), 0 10px 28px rgba(28,26,24,0.09), inset 0 1px 0 rgba(255,255,255,0.7);
@@ -17,6 +18,7 @@
   --t-cat-lift: -2px;
 }
 .dark {
+  --t-green-ink: var(--green);
   --t-hero-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 12px 32px rgba(0,0,0,0.45);
   --t-cat-shadow: none;
   --t-cat-shadow-hover: 0 0 0 1px rgba(255,255,255,0.06), 0 8px 24px rgba(0,0,0,0.4);
@@ -176,7 +178,7 @@
   width: 4px;
   height: 4px;
   border-radius: 1px;
-  background: var(--green);
+  background: var(--t-green-ink, var(--green));
 }
 .tools-layer-desc {
   font-size: 11.5px;
@@ -218,7 +220,7 @@
 .tools-cat-name .cnt {
   font-size: 10px;
   font-weight: 500;
-  color: var(--green);
+  color: var(--t-green-ink, var(--green));
   background: var(--tag-tested-bg);
   padding: 1px 6px;
   border-radius: 4px;
@@ -277,7 +279,7 @@
 }
 a.tools-hk:hover { color: var(--fg); }
 .tools-hk.on {
-  color: var(--green);
+  color: var(--t-green-ink, var(--green));
   background: var(--green-bg);
 }
 .tools-hk.off {
@@ -291,13 +293,17 @@ a.tools-hk:hover { color: var(--fg); }
   text-align: center;
   padding: 7px;
   font-size: 12px;
-  color: var(--fg2);
-  background: var(--card);
-  border: 1px dashed var(--fg4);
+  color: #6b6863;
+  background: #fcfbf9;
+  border: 1px dashed #d6d2cc;
   border-radius: 6px;
   margin-top: 4px;
   text-decoration: none;
-  transition: color 0.15s, border-color 0.15s;
+  transition: color 0.15s, border-color 0.15s, border-style 0.15s, background 0.15s;
+}
+.tools-more:hover {
+  border-style: solid;
+  background: #f7f5f2;
 }
 .tools-more:hover {
   color: var(--green);
@@ -445,3 +451,7 @@ a.tools-go.dark:hover { opacity: 0.9; color: var(--on-primary); }
   .tools-rowa { flex-wrap: wrap; }
   .tools-rowa .nm { width: auto; flex: 1; }
 }
+
+/* #53(HY3-A1): placeholder 冷灰→暖灰 */
+.tools-search input::placeholder { color: #8b8781; }
+.tools-search input { color: var(--fg); }
