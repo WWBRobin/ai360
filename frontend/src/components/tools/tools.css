@@ -12,8 +12,8 @@
   --t-rowa-shadow-hover: 0 4px 12px rgba(28,26,24,0.05);
   --t-layer-border: 1.5px solid color-mix(in srgb, var(--primary) 62%, transparent);
   --t-hero-glow-green: color-mix(in srgb, var(--green) 26%, transparent);
-  --t-hero-glow-blue: color-mix(in srgb, var(--blue) 19%, transparent);
-  --t-hero-glow-amber: color-mix(in srgb, #d97706 13%, transparent);
+  --t-hero-glow-blue: color-mix(in srgb, var(--blue) 15%, transparent);
+  --t-hero-glow-amber: color-mix(in srgb, #d97706 16%, transparent);
   --t-row-bg: var(--card);
   --t-row-border: var(--border);
   --t-cat-lift: -2px;
@@ -176,8 +176,8 @@
 .tools-cat {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px;
+  border-radius: 11px;
+  padding: 10px;
   box-shadow: var(--t-cat-shadow);
   transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
@@ -190,11 +190,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
-  padding-bottom: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
 }
 .tools-cat-name {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--fg);
   letter-spacing: -0.2px;
@@ -234,8 +234,8 @@
 .tools-row {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 9px;
+  gap: 5px;
+  padding: 5px 8px;
   background: var(--t-row-bg);
   border: 1px solid var(--t-row-border);
   border-radius: 6px;
@@ -488,10 +488,10 @@ a.tools-go.dark:hover { opacity: 0.9; color: var(--on-primary); }
 /* 层带玻璃壳: 卡组容器 */
 .tools-layer-shell {
   position: relative;
-  border-radius: 18px;
-  padding: 18px;
+  border-radius: 14px;
+  padding: 14px;
   background:
-    radial-gradient(420px 200px at 92% 0%, color-mix(in srgb, var(--lt-color) 6%, transparent) 0%, transparent 60%),
+    radial-gradient(420px 200px at 92% 0%, color-mix(in srgb, var(--lt-color) 16%, transparent) 0%, transparent 60%),
     linear-gradient(180deg,
       color-mix(in srgb, var(--card) 55%, transparent) 0%,
       color-mix(in srgb, var(--bg2) 40%, transparent) 100%);
@@ -501,7 +501,7 @@ a.tools-go.dark:hover { opacity: 0.9; color: var(--on-primary); }
 /* 夜间壳: 收敛为深色玻璃 */
 .dark .tools-layer-shell {
   background:
-    radial-gradient(420px 200px at 92% 0%, color-mix(in srgb, var(--lt-color) 5%, transparent) 0%, transparent 60%),
+    radial-gradient(420px 200px at 92% 0%, color-mix(in srgb, var(--lt-color) 10%, transparent) 0%, transparent 60%),
     linear-gradient(180deg, rgba(255,255,255,0.015) 0%, transparent 100%);
   border-color: rgba(255, 255, 255, 0.05);
   box-shadow: none;
@@ -510,7 +510,7 @@ a.tools-go.dark:hover { opacity: 0.9; color: var(--on-primary); }
 /* ══ 类卡标题清晰化(修复"全页一个黑") ══ */
 /* 类卡标题统一规则见 .tools-cat-head 区(16px/700+层色锚点) */
 /* 工具名层级: 12→12.5px, 500→550, 色加深一档主色 */
-.tools-row .n { font-size: 12.5px; font-weight: 550; color: var(--fg); }
+.tools-row .n { font-size: 12px; font-weight: 550; color: var(--fg); }
 /* 钩子按钮隐形修复(#c4c1bd→可见暖灰) */
 .tools-hk { color: #6b6863; }
 .tools-hk.off { color: #8b8781; }
@@ -521,7 +521,7 @@ a.tools-go.dark:hover { opacity: 0.9; color: var(--on-primary); }
 
 /* ④ 卡内滚动(替代每卡"查看全部"按钮): 展示10条可上下滑,右上"全部 N"是唯一跳转入口 */
 .tools-rows-scroll {
-  max-height: 340px;
+  max-height: 300px;
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;
