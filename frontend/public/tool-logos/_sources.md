@@ -213,3 +213,6 @@
 | 203 | `metagpt.png` | Agent 平台 / 框架 | —（自绘，无外部来源） | 256×256 | 是 | Pillow 自绘文字标（Helvetica Neue Bold，#1a1a1a，唯一允许自画例外） |
 | 204 | `faiss.png` | 数据源 / 知识库 | —（自绘，无外部来源） | 256×256 | 是 | Pillow 自绘文字标（Helvetica Neue Bold，#1a1a1a，唯一允许自画例外） |
 | 205 | `txtai.png` | 数据源 / 知识库 | —（自绘，无外部来源） | 256×256 | 是 | Pillow 自绘文字标（Helvetica Neue Bold，#1a1a1a，唯一允许自画例外） |
+| 206 | `wb.png` | 容器页品牌标识 / 自家产品 | 本机 `/Applications/WorkBuddy.app/Contents/Resources/icon.icns`（官方 App 图标，sips 1024→512 提取） | 512×512 | 是（官方图标，四角已透明） | W8 容器页品牌标；取自已装 WorkBuddy.app 官方图标，RGBA 透明，非网络抓取 |
+| 207 | `skillhub.png` | 容器页品牌标识 / 生态市场 | https://skillhub.cn（官方高清 logo 资源未公开，采用品牌蓝 #2F6BFF 矢量重绘） | 512×512 | 是 | W8 自绘矢量重绘文字标（skillhub.cn 官方 logo 资源未公开） |
+| 208 | `clawhub.png` | 容器页品牌标识 / 生态市场 | https://clawhub.ai（官方高清 logo 资源未公开，采用品牌橙 #FF6B35 矢量重绘） | 512×512 | 是 | W8 自绘矢量重绘文字标（clawhub.ai 官方 logo 资源未公开） |
