@@ -20,6 +20,27 @@ const INSTALLABLE = new Set([
   'Claude', 'ChatGPT', '秘塔 AI 搜索', 'WPS AI', 'Obsidian', 'Notion',
 ])
 
+/** 工具 logo：20×20 · contain · onError 隐藏防破版；null 用首字母圆形兜底 */
+function ToolLogo({ tool }: { tool: ToolItem }) {
+  if (!tool.logo) {
+    return (
+      <span className="tools-logo-ph" aria-hidden="true">
+        {tool.name.charAt(0)}
+      </span>
+    )
+  }
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={tool.logo}
+      alt=""
+      loading="lazy"
+      className="tools-logo"
+      onError={(e) => { e.currentTarget.style.visibility = 'hidden' }}
+    />
+  )
+}
+
 export default function CatListClient({ cat, list }: { cat: string; list: ToolItem[] }) {
   const [q, setQ] = useState('')
   const [sort, setSort] = useState<SortKey>('sort')
@@ -83,6 +104,7 @@ export default function CatListClient({ cat, list }: { cat: string; list: ToolIt
       <div>
         {visible.map((t) => (
           <div key={t.name} className="tools-rowa">
+            <ToolLogo tool={t} />
             <div className="nm" title={t.name}>
               {t.name}
               {t.verify === 'verified' && <span className="tools-verified" style={{ marginLeft: 6 }}>实测</span>}

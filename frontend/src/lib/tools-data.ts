@@ -12,6 +12,8 @@ export interface ToolItem {
   slug: string
   category: string
   name: string
+  /** logo 图片路径（/tool-logos|/platform-logos|/skill-icons 开头）；null=无图 */
+  logo?: string | null
   desc: string
   url: string
   sort: number

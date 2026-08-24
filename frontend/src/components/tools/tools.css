@@ -843,3 +843,32 @@ a.t-hk:hover { color: var(--fg); }
 /* 层标题与类头的关系: 层主标题是大标题, 类头降一档避免双标题打架 */
 .tools-cathead-am .name { font-size: 16px; }
 .tools-cathead-am { margin-bottom: 10px; padding-top: 2px; }
+
+/* ═══ 十批(8/24): 工具 logo 上屏 #35 ═══ */
+/* 图片标：20×20（大卡 28×28）· 4px 圆角 · contain · 与文字 flex 垂直居中 */
+.tools-logo {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+}
+.tools-logo.big { width: 28px; height: 28px; }
+/* null 兜底：首字母圆形占位（双轨令牌，深浅主题自适应） */
+.tools-logo-ph {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--bg2);
+  color: var(--fg3);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  user-select: none;
+}
+.tools-logo-ph.big { width: 28px; height: 28px; font-size: 12px; }

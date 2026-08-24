@@ -105,6 +105,27 @@ const INSTALLABLE = new Set([
   'Claude', 'ChatGPT', '秘塔 AI 搜索', 'WPS AI', 'Obsidian', 'Notion',
 ])
 
+/** 工具 logo：20×20（大卡 28×28）· contain · onError 隐藏防破版；null 用首字母圆形兜底 */
+function ToolLogo({ tool, big }: { tool: ToolItem; big?: boolean }) {
+  if (!tool.logo) {
+    return (
+      <span className={`tools-logo-ph${big ? ' big' : ''}`} aria-hidden="true">
+        {tool.name.charAt(0)}
+      </span>
+    )
+  }
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={tool.logo}
+      alt=""
+      loading="lazy"
+      className={`tools-logo${big ? ' big' : ''}`}
+      onError={(e) => { e.currentTarget.style.visibility = 'hidden' }}
+    />
+  )
+}
+
 export default function ToolsClient({ layers, cats, tools }: {
   layers: Layer[]
   cats: Cat[]
@@ -231,6 +252,7 @@ export default function ToolsClient({ layers, cats, tools }: {
               <div key={t.name} className={`pick ${idx === 0 ? 'big' : ''}`}>
                 <div className="top">
                   <span className="idx">Top {idx + 1}</span>
+                  <ToolLogo tool={t} big={idx === 0} />
                   <span className="nm">{t.name}</span>
                   {t.verify === 'verified' && <span className="tag ok">实测</span>}
                   {t.verify === 'blocked_local' && idx === 0 && <span className="tag">境内需梯</span>}
@@ -258,6 +280,7 @@ export default function ToolsClient({ layers, cats, tools }: {
                 {tail.slice(0, 8).map((t, i) => (
                   <div key={t.name} className="t-row">
                     <span className="t-num">{i + 4}</span>
+                    <ToolLogo tool={t} />
                     <span className="t-name">{t.name}</span>
                     {t.verify === 'verified' && <span className="t-ver">实测</span>}
                     <span className="t-hks">
