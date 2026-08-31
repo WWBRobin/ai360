@@ -46,7 +46,7 @@ export default function SkillCheckLanding() {
           </h1>
           <p className="skc-lede">
             AI Skill 以<b>完整系统权限</b>运行——读环境变量、执行命令、访问文件，全凭信任。ArcDock
-            给每个 Skill 过 <b>64 类风险安检</b>：装前拦截、装完体检、货架全检，全程<b>本地运行</b>
+            给每个 Skill 过 <b>71 项风险安检</b>（17 类风险）：装前拦截、装完复查、货架全检，全程<b>本地运行</b>
             ，你的内容不上传。
           </p>
           <div className="skc-hstats">
@@ -59,23 +59,23 @@ export default function SkillCheckLanding() {
               <span>明确恶意</span>
             </div>
             <div className="skc-hstat">
-              <b className="good">64 类</b>
-              <span>风险模式全查</span>
+              <b className="good">71 项</b>
+              <span>检测逐项全查</span>
             </div>
           </div>
           <div className="skc-hsrc">数据来源：NVIDIA 对 42,447 个公开 Agent Skill 的安全研究（2026）</div>
           <div className="skc-hacts">
-            <a className="skc-pcta" href="/subscribe">下载桌面端 · 开始 Skill 体检 ▸</a>
-            <span className="skc-scta">先看看体检报告长什么样</span>
+            <a className="skc-pcta" href="/subscribe">下载桌面端 · 开始 Skill 安检 ▸</a>
+            <span className="skc-scta">先看看安检报告长什么样</span>
           </div>
           <div className="skc-hnote">Web 版为演示 · 真实扫描需要读取本地容器，在桌面端完成 · macOS / Windows</div>
         </div>
 
-        {/* 演示面板（桌面端截图位，与体检页 ScanPanel 同家族语法） */}
+        {/* 演示面板（桌面端截图位，与AI体检页 ScanPanel 同家族语法） */}
         <div className="skc-hero-r">
           <div className="skc-panel">
             <div className="skc-cap">
-              <span>Skill 体检 · Hermes</span>
+              <span>Skill 安检 · Hermes</span>
               <span>21 个 Skill</span>
             </div>
             {DEMO_ROWS.map((r) => (
@@ -108,8 +108,8 @@ export default function SkillCheckLanding() {
         <div className="skc-feat">
           <b>存量全检</b>
           <p>
-            已经在用的 Skill 也能体检：一键全量扫描，<b>提示注入 / 数据外传 / 供应链投毒 / 记忆投毒</b>
-            …64 类模式逐一排查，出报告给处置建议。
+            已经在用的 Skill 也能全查：一键全量安检，<b>提示注入 / 数据外传 / 供应链投毒 / 记忆投毒</b>
+            …17 类风险逐一排查，出报告给处置建议。
           </p>
         </div>
         <div className="skc-feat">
@@ -129,7 +129,7 @@ export default function SkillCheckLanding() {
             <div className="skc-fstep">
               <div className="no">STEP 1</div>
               <b>静态扫描</b>
-              <span>64 类模式：正则 + 语法树 + 病毒签名 + 实时 CVE 库，秒级出结果</span>
+              <span>71 项检测 · 17 类风险：正则 + 语法树 + 病毒签名 + 实时 CVE 库，秒级出结果</span>
             </div>
             <div className="skc-fstep">
               <div className="no">STEP 2</div>
@@ -154,9 +154,9 @@ export default function SkillCheckLanding() {
       <SR>
         <section className="skc-tail">
           <div>
-            <b>307 条货架，每一条都带安检分。</b>
+            <b>货架 307 条，42 条已带安检分，全量推进中。</b>
             <br />
-            <span>逛 Skill 中心时，你看到的不只是评分——是安全分。别人不敢保证的事，我们先做到。</span>
+            <span>逛 Skill 中心时，先看安检分再看评分——别人不敢保证的事，我们先做到。</span>
           </div>
           <a className="skc-tcta" href="/subscribe">下载桌面端 ▸</a>
         </section>
