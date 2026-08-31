@@ -1,0 +1,314 @@
+/* Skill 体检落地页 —— 视觉 100% 主站令牌（globals.css），恐惧只作信号红绿克制（双色制立法）
+   前缀 skc- 独立命名空间，零污染全站 */
+.skc-wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 36px 32px 90px;
+  width: 100%;
+}
+
+/* ── Scroll Reveal（同 assessment） ── */
+.skc-wrap .sr {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.skc-wrap .sr.vis {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Hero ── */
+.skc-hero {
+  display: flex;
+  gap: 36px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 38px;
+}
+.skc-hero-l {
+  flex: 1.1;
+  min-width: 320px;
+}
+.skc-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.66rem;
+  color: var(--warn);
+  font-weight: 700;
+  border: 1px solid color-mix(in srgb, var(--warn) 35%, transparent);
+  border-radius: 99px;
+  padding: 3px 11px;
+  margin-bottom: 14px;
+}
+.skc-hero h1 {
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+}
+.skc-hero h1 .em-bad {
+  color: var(--bad);
+}
+.skc-lede {
+  font-size: 0.85rem;
+  color: var(--fg2);
+  line-height: 1.75;
+  margin: 14px 0 20px;
+  max-width: 560px;
+}
+.skc-lede b {
+  color: var(--fg);
+}
+.skc-hstats {
+  display: flex;
+  gap: 26px;
+  margin-bottom: 22px;
+}
+.skc-hstat b {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--fg);
+}
+.skc-hstat b.bad {
+  color: var(--bad);
+}
+.skc-hstat b.good {
+  color: var(--green);
+}
+.skc-hstat span {
+  font-size: 0.62rem;
+  color: var(--fg4);
+}
+.skc-hsrc {
+  font-size: 0.6rem;
+  color: var(--fg4);
+  margin-top: -14px;
+  margin-bottom: 18px;
+}
+.skc-hacts {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.skc-pcta {
+  font-size: 0.82rem;
+  font-weight: 750;
+  color: var(--on-primary);
+  background: var(--primary);
+  border-radius: 10px;
+  padding: 12px 22px;
+  transition: opacity 0.2s ease;
+}
+.skc-pcta:hover {
+  opacity: 0.88;
+}
+.skc-scta {
+  font-size: 0.78rem;
+  font-weight: 650;
+  color: var(--tag-tested-text, var(--green));
+  border: 1px solid color-mix(in srgb, var(--green) 30%, transparent);
+  border-radius: 10px;
+  padding: 11px 18px;
+}
+.skc-hnote {
+  font-size: 0.6rem;
+  color: var(--fg4);
+  width: 100%;
+}
+
+/* ── 演示面板 ── */
+.skc-hero-r {
+  flex: 1;
+  min-width: 320px;
+}
+.skc-panel {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--card);
+  padding: 16px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+.skc-cap {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.6rem;
+  color: var(--fg4);
+  margin-bottom: 10px;
+}
+.skc-pline {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.62rem;
+  color: var(--fg3);
+  padding: 5px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.skc-pline.last,
+.skc-pline:last-of-type {
+  border: none;
+}
+.skc-pline .ok {
+  color: var(--green);
+}
+.skc-pline .warn {
+  color: var(--warn);
+}
+.skc-pline .bad {
+  color: var(--bad);
+  font-weight: 650;
+}
+.skc-pbar {
+  height: 7px;
+  border-radius: 99px;
+  background: var(--bg2);
+  overflow: hidden;
+  margin: 8px 0 4px;
+}
+.skc-pbar i {
+  display: block;
+  height: 100%;
+  width: 64%;
+  background: var(--green);
+  border-radius: 99px;
+}
+.skc-demo-tag {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  font-size: 0.56rem;
+  color: var(--fg4);
+  border: 1px dashed var(--fg4);
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+
+/* ── 三特性 ── */
+.skc-feats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 38px;
+}
+.skc-feat {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  background: var(--card);
+}
+.skc-feat b {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 750;
+  margin-bottom: 6px;
+  color: var(--fg);
+}
+.skc-feat p {
+  font-size: 0.72rem;
+  color: var(--fg3);
+  line-height: 1.65;
+}
+.skc-feat p b {
+  display: inline;
+  font-size: inherit;
+  color: var(--fg2);
+}
+
+/* ── 流程带 ── */
+.skc-flow {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 22px;
+  background: var(--card);
+  margin-bottom: 38px;
+}
+.skc-flow h3 {
+  font-size: 0.95rem;
+  font-weight: 750;
+  margin-bottom: 14px;
+  color: var(--fg);
+}
+.skc-frow {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+.skc-fstep {
+  flex: 1;
+  min-width: 150px;
+  position: relative;
+  padding: 0 18px 0 0;
+}
+.skc-fstep + .skc-fstep {
+  padding-left: 18px;
+  border-left: 1px dashed var(--fg4);
+}
+.skc-fstep .no {
+  font-size: 0.6rem;
+  color: var(--warn);
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.skc-fstep b {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: var(--fg);
+}
+.skc-fstep span {
+  font-size: 0.66rem;
+  color: var(--fg3);
+  line-height: 1.6;
+}
+
+/* ── CTA 尾 ── */
+.skc-tail {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border: 1px solid color-mix(in srgb, var(--green) 30%, transparent);
+  border-radius: 16px;
+  padding: 20px 24px;
+  background: var(--green-bg, color-mix(in srgb, var(--green) 4%, transparent));
+}
+.skc-tail b {
+  font-size: 0.95rem;
+  font-weight: 750;
+  color: var(--fg);
+}
+.skc-tail span {
+  font-size: 0.7rem;
+  color: var(--fg3);
+}
+.skc-tcta {
+  margin-left: auto;
+  font-size: 0.76rem;
+  font-weight: 750;
+  color: var(--on-primary);
+  background: var(--primary);
+  border-radius: 9px;
+  padding: 10px 18px;
+  white-space: nowrap;
+}
+.skc-tcta:hover {
+  opacity: 0.88;
+}
+
+@media (max-width: 900px) {
+  .skc-feats {
+    grid-template-columns: 1fr;
+  }
+  .skc-hero-r {
+    order: -1;
+  }
+}
