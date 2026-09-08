@@ -7,7 +7,7 @@
    "desc": "角色扮演：让 AI 以特定身份为你工作",
    "total": 1094,
    "zh": 154,
-   "tested": 1
+   "tested": 5
   },
   {
    "slug": "commands",
@@ -15,7 +15,7 @@
    "desc": "直接下指令，完成具体任务",
    "total": 902,
    "zh": 351,
-   "tested": 1
+   "tested": 6
   },
   {
    "slug": "templates",
@@ -23,7 +23,7 @@
    "desc": "留空填词的模板框架，占位符一换就是你的",
    "total": 665,
    "zh": 127,
-   "tested": 0
+   "tested": 4
   },
   {
    "slug": "fixes",
@@ -31,7 +31,7 @@
    "desc": "治 AI 的坏毛病：胡编、跑题、格式乱",
    "total": 43,
    "zh": 33,
-   "tested": 1
+   "tested": 5
   },
   {
    "slug": "styles",
@@ -39,10 +39,10 @@
    "desc": "治 AI 八股腔，让输出像人话",
    "total": 204,
    "zh": 8,
-   "tested": 1
+   "tested": 5
   }
  ],
  "totalShelf": 2908,
  "totalZh": 727,
- "totalTested": 4
+ "totalTested": 25
 }
