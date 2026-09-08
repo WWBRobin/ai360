@@ -43,7 +43,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily',
       priority: 0.8,
     },
+    {
+      url: `${SITE_URL}/prompts`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
   ]
+
+  // 提示词详情页（五组 2908 条全量进 sitemap——静态数据真数派生）
+  const { getAllPromptIds } = await import('@/lib/prompts')
+  const promptEntries: MetadataRoute.Sitemap = getAllPromptIds().map((p) => ({
+    url: `${SITE_URL}/prompts/${p.id}`,
+    lastModified: p.collectedAt ? new Date(p.collectedAt) : now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }))
 
   // 并行拉取动态数据；任一失败返回空，不影响其余页面
   const [skills, platforms, scenarios, newsSlugs] = await Promise.all([
@@ -93,5 +108,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }))
 
-  return [...staticEntries, ...skillEntries, ...scenarioEntries, ...platformEntries, ...newsEntries]
+  return [
+    ...staticEntries,
+    ...promptEntries,
+    ...skillEntries,
+    ...scenarioEntries,
+    ...platformEntries,
+    ...newsEntries,
+  ]
 }

@@ -31,6 +31,7 @@ ArcDock = AI 时代的装备管理台（「AI 环境的 360」）：管理你的
 - /essential（装机必备）: 岗位×场景装机清单与组合包
 - /ask（问诊）: 30 症状墙+接诊台
 - /assessment（AI 体检）: Web 演示版；全栈体检在桌面端
+- /prompts（提示词库）: 2908 条被验证的 AI 使用经验，五组（让AI变成某个人1094/任务指令902/填空即用的框架665/治AI的毛病43/写作风格204），每条带出处，未实测标未验证
 - /guide, /compare, /equipment, /admin
 
 # Not included（诚实边界）

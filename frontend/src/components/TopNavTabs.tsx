@@ -17,6 +17,7 @@ const TABS = [
   { label: 'AI体检', href: '/assessment', match: (p: string) => p.startsWith('/assessment') },
   { label: 'Skill安检', href: '/skillcheck', match: (p: string) => p.startsWith('/skillcheck') },
   { label: '学习中心', href: '/learn', match: (p: string) => p.startsWith('/learn') },
+  { label: '提示词库', href: '/prompts', match: (p: string) => p.startsWith('/prompts') },
   { label: 'Skill中心', href: '/skills/classic', match: (p: string) => p.startsWith('/skills') },
   { label: '资讯', href: '/news', match: (p: string) => p.startsWith('/news') },
 ]
