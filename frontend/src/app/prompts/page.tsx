@@ -8,12 +8,12 @@ import PromptShelf, { type ShelfGroup } from '@/components/prompts/PromptShelf'
  * 真数纪律：读数行全部来自 index.json 真数派生。
  */
 export const metadata: Metadata = {
-  title: '提示词库 — 2908 条被验证过的 AI 使用经验 | ArcDock',
+  title: '提示词库 — 被验证过的 AI 使用经验 | ArcDock',
   description:
     '被验证过的 AI 使用经验，每条带出处。五组：让AI变成某个人 / 任务指令 / 填空即用的框架 / 治AI的毛病 / 写作风格。未实测的标「未验证」，不装懂。',
   alternates: { canonical: '/prompts' },
   openGraph: {
-    title: '提示词库 — 2908 条被验证过的 AI 使用经验 | ArcDock',
+    title: '提示词库 — 被验证过的 AI 使用经验 | ArcDock',
     description: '五组提示词：角色扮演 / 任务指令 / 填空框架 / 治AI毛病 / 写作风格。每条带出处。',
     type: 'website',
   },
