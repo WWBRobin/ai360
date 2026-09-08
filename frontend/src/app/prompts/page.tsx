@@ -19,7 +19,12 @@ export const metadata: Metadata = {
   },
 }
 
-export default function PromptsPage() {
+export default async function PromptsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ g?: string }>
+}) {
+  const { g } = await searchParams
   const idx = getIndex()
   const groups: ShelfGroup[] = GROUPS.map((g) => {
     const hit = getGroupHead(g.slug, 30)
@@ -72,7 +77,7 @@ export default function PromptsPage() {
         </div>
       </div>
 
-      <PromptShelf groups={groups} />
+      <PromptShelf groups={groups} initialTab={g && groups.some((x) => x.slug === g) ? g : 'all'} />
 
       <div className="h-16" />
     </div>

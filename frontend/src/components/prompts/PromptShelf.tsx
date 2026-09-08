@@ -156,7 +156,13 @@ function GroupHead({ g, onAll }: { g: ShelfGroup; onAll: () => void }) {
   )
 }
 
-export default function PromptShelf({ groups }: { groups: ShelfGroup[] }) {
+export default function PromptShelf({
+  groups,
+  initialTab = 'all',
+}: {
+  groups: ShelfGroup[]
+  initialTab?: string
+}) {
   const byslug = useMemo(() => Object.fromEntries(groups.map((g) => [g.slug, g])), [groups])
   // 「全部」总览的组序：小组精品在前（43 条治毛病 → 204 风格 → 902 指令 → 665 框架 → 1094 角色）
   const overviewOrder = useMemo(() => {
@@ -164,7 +170,7 @@ export default function PromptShelf({ groups }: { groups: ShelfGroup[] }) {
     return [...groups].sort((a, b) => pref.indexOf(a.slug) - pref.indexOf(b.slug))
   }, [groups])
 
-  const [tab, setTab] = useState('all')
+  const [tab, setTab] = useState(initialTab)
   const [q, setQ] = useState('')
   const [shown, setShown] = useState(30) // 组视图当前显示数
   const [full, setFull] = useState<PromptItem[] | null>(null) // 当前组全量（懒取后）

@@ -106,6 +106,8 @@ export function exitHref(exit: string, ref: string): string | null {
       return `/guide/${ref}`
     case '对比卡':
       return `/compare?slugs=${ref}`
+    case '提示词库':
+      return `/prompts?g=${ref}`
     case '百科自链':
       return null
     default:
@@ -119,5 +121,6 @@ export const EXIT_LABEL: Record<string, string> = {
   灯盏: '灯盏',
   横评: '横评',
   对比卡: '对比卡',
+  提示词库: '提示词库',
   百科自链: '自查',
 }
