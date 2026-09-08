@@ -31,7 +31,7 @@
    "desc": "治 AI 的坏毛病：胡编、跑题、格式乱",
    "total": 43,
    "zh": 33,
-   "tested": 5
+   "tested": 36
   },
   {
    "slug": "styles",
@@ -44,5 +44,5 @@
  ],
  "totalShelf": 2907,
  "totalZh": 726,
- "totalTested": 25
+ "totalTested": 56
 }
