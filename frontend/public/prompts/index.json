@@ -1,5 +1,5 @@
 {
- "totalLibrary": 2984,
+ "totalLibrary": 2983,
  "groups": [
   {
    "slug": "roles",
@@ -21,8 +21,8 @@
    "slug": "templates",
    "name": "填空即用的框架",
    "desc": "留空填词的模板框架，占位符一换就是你的",
-   "total": 665,
-   "zh": 127,
+   "total": 664,
+   "zh": 126,
    "tested": 4
   },
   {
@@ -42,7 +42,7 @@
    "tested": 5
   }
  ],
- "totalShelf": 2908,
- "totalZh": 727,
+ "totalShelf": 2907,
+ "totalZh": 726,
  "totalTested": 25
 }
