@@ -1,0 +1,2121 @@
+[
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "GPT (ChatGPT/OpenAI)",
+  "desc": "OpenAI 的对话与多模态基座模型",
+  "url": "https://openai.com",
+  "sort": 1,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "Claude (Anthropic)",
+  "desc": "Anthropic 的强推理对话模型",
+  "url": "https://claude.ai",
+  "sort": 2,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "Gemini (Google)",
+  "desc": "Google 多模态大模型",
+  "url": "https://gemini.google.com",
+  "sort": 3,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "DeepSeek",
+  "desc": "深度求索开源推理模型",
+  "url": "https://www.deepseek.com",
+  "sort": 4,
+  "verify": "verified"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "通义千问 (阿里)",
+  "desc": "阿里云通义系列大模型",
+  "url": "https://tongyi.aliyun.com",
+  "sort": 5,
+  "verify": "verified"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "Kimi (月之暗面)",
+  "desc": "长上下文对话模型",
+  "url": "https://kimi.moonshot.cn",
+  "sort": 6,
+  "verify": "verified"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "GLM (智谱)",
+  "desc": "智谱华章开源双语模型",
+  "url": "https://www.zhipuai.cn",
+  "sort": 7,
+  "verify": "verified"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "豆包 (字节)",
+  "desc": "字节跳动 AI 对话助手",
+  "url": "https://www.doubao.com",
+  "sort": 8,
+  "verify": "verified"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "Llama (Meta)",
+  "desc": "Meta 开源大模型家族",
+  "url": "https://www.llama.com",
+  "sort": 9,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "文心一言",
+  "desc": "百度自研大模型，中文理解能力强",
+  "url": "https://yiyan.baidu.com",
+  "sort": 10,
+  "verify": "verified"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "腾讯混元",
+  "desc": "腾讯自研大模型，多模态覆盖全场景",
+  "url": "https://hunyuan.tencent.com",
+  "sort": 11,
+  "verify": "verified"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "阶跃星辰",
+  "desc": "国产新锐多模态大模型，具身智能探索",
+  "url": "https://www.stepfun.com",
+  "sort": 12,
+  "verify": "verified"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "百川智能",
+  "desc": "国产大模型独角兽，多领域商业化落地",
+  "url": "https://www.baichuan-ai.com",
+  "sort": 13,
+  "verify": "verified"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "零一万物",
+  "desc": "李开复创办，开源Yi系列大模型",
+  "url": "https://www.lingyiwanwu.com",
+  "sort": 14,
+  "verify": "verified"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "MiniMax",
+  "desc": "国产大模型，视频语音多模态能力突出",
+  "url": "https://www.minimax.io",
+  "sort": 15,
+  "verify": "verified"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "Mistral",
+  "desc": "法国开源大模型，欧洲AI技术代表",
+  "url": "https://mistral.ai",
+  "sort": 16,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "Grok",
+  "desc": "xAI出品大模型，实时信息接入能力强",
+  "url": "https://x.ai",
+  "sort": 17,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "商汤日日新",
+  "desc": "商汤多模态大模型，视觉理解能力突出",
+  "url": "https://www.sensetime.com",
+  "sort": 18,
+  "verify": "verified"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "Cohere",
+  "desc": "企业级大模型，擅长RAG与检索增强",
+  "url": "https://cohere.com",
+  "sort": 19,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "Amazon Nova",
+  "desc": "亚马逊多模态大模型家族",
+  "url": "https://aws.amazon.com/nova/",
+  "sort": 20,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "Gemma (Google)",
+  "desc": "谷歌开源轻量模型家族",
+  "url": "https://ai.google.dev/gemma",
+  "sort": 21,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "llm",
+  "category": "大模型",
+  "name": "Microsoft Phi",
+  "desc": "微软开源小参数高效模型",
+  "url": "https://huggingface.co/microsoft/phi",
+  "sort": 22,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "秘塔搜索",
+  "desc": "无广告 AI 搜索与写作",
+  "url": "https://metaso.cn",
+  "sort": 1,
+  "verify": "verified"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "ChatGPT",
+  "desc": "OpenAI官方对话应用，全球AI助手标杆",
+  "url": "https://chatgpt.com",
+  "sort": 2,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "Notion AI",
+  "desc": "笔记文档智能助手",
+  "url": "https://www.notion.so",
+  "sort": 3,
+  "verify": "verified"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "Gamma",
+  "desc": "AI 生成演示文稿",
+  "url": "https://gamma.app",
+  "sort": 4,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "DeepL",
+  "desc": "神经网络翻译引擎，译文自然流畅",
+  "url": "https://www.deepl.com",
+  "sort": 5,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "QuillBot",
+  "desc": "AI文本改写、润色与语法检查工具",
+  "url": "https://quillbot.com",
+  "sort": 6,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "Jasper",
+  "desc": "AI营销文案生成，模板丰富场景多",
+  "url": "https://www.jasper.ai",
+  "sort": 7,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "Copy.ai",
+  "desc": "AI营销文案生成与自动化工作流",
+  "url": "https://www.copy.ai",
+  "sort": 8,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "Writesonic",
+  "desc": "AI内容创作与SEO优化写作平台",
+  "url": "https://writesonic.com",
+  "sort": 9,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "Character.AI",
+  "desc": "AI角色扮演聊天平台，角色丰富多样",
+  "url": "https://character.ai",
+  "sort": 11,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "Poe",
+  "desc": "多模型AI问答聚合平台，一站多用",
+  "url": "https://poe.com",
+  "sort": 12,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "Otter.ai",
+  "desc": "AI会议实时记录与语音转写工具",
+  "url": "https://otter.ai",
+  "sort": 13,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "Fireflies.ai",
+  "desc": "AI会议助手，自动记录并生成纪要",
+  "url": "https://fireflies.ai",
+  "sort": 14,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "ChatPDF",
+  "desc": "上传PDF文档即可提问，即问即答",
+  "url": "https://www.chatpdf.com",
+  "sort": 15,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "Consensus",
+  "desc": "学术论文AI搜索引擎，结论可溯源",
+  "url": "https://consensus.app",
+  "sort": 16,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "Elicit",
+  "desc": "AI科研文献分析、筛选与综述工具",
+  "url": "https://elicit.com",
+  "sort": 17,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "You.com",
+  "desc": "AI个性化搜索引擎，注重用户隐私",
+  "url": "https://you.com",
+  "sort": 18,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "Phind",
+  "desc": "面向开发者的AI技术问答与搜索",
+  "url": "https://www.phind.com",
+  "sort": 19,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "Monica",
+  "desc": "AI助手聚合，支持插件与客户端",
+  "url": "https://monica.im",
+  "sort": 20,
+  "verify": "verified"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "纳米AI搜索",
+  "desc": "360超级AI搜索引擎，多模态",
+  "url": "https://www.n.cn",
+  "sort": 21,
+  "verify": "verified"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "秘塔写作猫",
+  "desc": "AI中文写作校对、润色与改写工具",
+  "url": "https://xiezuocat.com",
+  "sort": 22,
+  "verify": "verified"
+ },
+ {
+  "slug": "apps",
+  "category": "AI 软件 / 独立产品",
+  "name": "Beautiful.ai",
+  "desc": "AI自动排版，演示文稿秒变精美",
+  "url": "https://www.beautiful.ai",
+  "sort": 23,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "即梦 (字节)",
+  "desc": "字节 AI 图像/视频生成",
+  "url": "https://jimeng.jianying.com",
+  "sort": 1,
+  "verify": "verified"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "可灵 (快手)",
+  "desc": "快手 AI 视频生成",
+  "url": "https://klingai.kuaishou.com",
+  "sort": 2,
+  "verify": "verified"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "Stable Diffusion",
+  "desc": "开源文生图模型，生态庞大应用广",
+  "url": "https://stability.ai",
+  "sort": 3,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "Midjourney",
+  "desc": "高质量 AI 图像生成",
+  "url": "https://www.midjourney.com",
+  "sort": 4,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "Suno",
+  "desc": "AI 音乐生成",
+  "url": "https://suno.com",
+  "sort": 5,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "ElevenLabs",
+  "desc": "AI 语音合成",
+  "url": "https://elevenlabs.io",
+  "sort": 6,
+  "verify": "verified"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "Ideogram",
+  "desc": "AI文生图，文字渲染能力业界领先",
+  "url": "https://ideogram.ai",
+  "sort": 7,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "ComfyUI",
+  "desc": "节点式 AI 图像工作流",
+  "url": "https://www.comfy.org",
+  "sort": 8,
+  "verify": "verified"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "Leonardo AI",
+  "desc": "AI绘画创作平台，风格模型众多",
+  "url": "https://leonardo.ai",
+  "sort": 9,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "Flux (Black Forest)",
+  "desc": "开源图像生成模型",
+  "url": "https://blackforestlabs.ai",
+  "sort": 10,
+  "verify": "verified"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "Krea",
+  "desc": "AI图像生成，支持实时绘画增强",
+  "url": "https://www.krea.ai",
+  "sort": 11,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "海螺AI",
+  "desc": "MiniMax视频生成与对话平台",
+  "url": "https://hailuoai.com",
+  "sort": 12,
+  "verify": "verified"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "通义万相",
+  "desc": "阿里AI绘画与视频创作，风格多样",
+  "url": "https://tongyi.aliyun.com/wanxiang",
+  "sort": 13,
+  "verify": "verified"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "Runway",
+  "desc": "AI视频生成与专业级编辑制作平台",
+  "url": "https://runwayml.com",
+  "sort": 14,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "Pika",
+  "desc": "AI视频生成工具，创意玩法丰富",
+  "url": "https://pika.art",
+  "sort": 15,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "Luma Dream Machine",
+  "desc": "AI视频生成，画面质感非常出色",
+  "url": "https://lumalabs.ai",
+  "sort": 16,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "Sora",
+  "desc": "OpenAI文生视频大模型，效果惊艳",
+  "url": "https://sora.com",
+  "sort": 17,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "Veo",
+  "desc": "谷歌文生视频大模型，画面真实细腻",
+  "url": "https://deepmind.google/technologies/veo/",
+  "sort": 18,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "Vidu",
+  "desc": "生数科技国产AI视频生成，效果强",
+  "url": "https://www.vidu.cn",
+  "sort": 19,
+  "verify": "verified"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "PixVerse",
+  "desc": "AI视频生成平台，多模板上手简单",
+  "url": "https://pixverse.ai",
+  "sort": 20,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "HeyGen",
+  "desc": "AI数字人视频生成，多语言配音",
+  "url": "https://www.heygen.com",
+  "sort": 21,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "Synthesia",
+  "desc": "企业级AI数字人视频，多语言支持",
+  "url": "https://www.synthesia.io",
+  "sort": 22,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "D-ID",
+  "desc": "AI数字人照片说话视频生成工具",
+  "url": "https://www.d-id.com",
+  "sort": 23,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "Viggle",
+  "desc": "AI角色动画生成，视频趣味创作",
+  "url": "https://viggle.ai",
+  "sort": 24,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "Udio",
+  "desc": "AI音乐生成，人声旋律音质出色",
+  "url": "https://www.udio.com",
+  "sort": 25,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "海绵音乐",
+  "desc": "字节AI音乐生成，一键改编热曲",
+  "url": "https://www.haimian.com",
+  "sort": 26,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "Meshy",
+  "desc": "AI 3D模型生成，文本图片直出",
+  "url": "https://www.meshy.ai",
+  "sort": 27,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "Tripo",
+  "desc": "AI 3D模型生成，速度快质量高",
+  "url": "https://www.tripo3d.ai",
+  "sort": 28,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "gen",
+  "category": "内容生成",
+  "name": "Rodin",
+  "desc": "Hyper3D AI 3D模型生成",
+  "url": "https://hyper3d.ai",
+  "sort": 29,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "Coze Skills",
+  "desc": "扣子平台技能包",
+  "url": "https://www.coze.cn",
+  "sort": 1,
+  "verify": "verified",
+  "skillPlatform": "coze"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "GPTs",
+  "desc": "OpenAI自定义GPT应用商店",
+  "url": "https://chatgpt.com/gpts",
+  "sort": 2,
+  "verify": "blocked_local",
+  "skillPlatform": "gpts"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "Claude Skills",
+  "desc": "Claude 官方技能扩展",
+  "url": "https://docs.anthropic.com",
+  "sort": 3,
+  "verify": "blocked_local",
+  "skillPlatform": "claude"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "Cursor 插件",
+  "desc": "编辑器 AI 扩展生态",
+  "url": "https://cursor.com",
+  "sort": 4,
+  "verify": "verified"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "n8n",
+  "desc": "可视化工作流自动化，支持AI节点",
+  "url": "https://n8n.io",
+  "sort": 5,
+  "verify": "blocked_local",
+  "skillPlatform": "n8n"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "Zapier",
+  "desc": "应用集成自动化平台，连接数千应用",
+  "url": "https://zapier.com",
+  "sort": 6,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "Make",
+  "desc": "可视化自动化集成，拖拽式低代码编排",
+  "url": "https://www.make.com",
+  "sort": 7,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "LlamaIndex",
+  "desc": "RAG检索增强应用数据开发框架",
+  "url": "https://www.llamaindex.ai",
+  "sort": 8,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "CrewAI",
+  "desc": "多智能体协作开发，任务自动分配",
+  "url": "https://www.crewai.com",
+  "sort": 9,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "Cline",
+  "desc": "VS Code开源AI编程插件",
+  "url": "https://cline.bot",
+  "sort": 10,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "Roo Code",
+  "desc": "开源自主AI编程插件，能力强大",
+  "url": "https://roocode.com",
+  "sort": 11,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "Continue",
+  "desc": "开源AI编程助手，VS Code插件",
+  "url": "https://www.continue.dev",
+  "sort": 12,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "Windsurf",
+  "desc": "AI编程IDE，Codeium出品",
+  "url": "https://windsurf.com",
+  "sort": 13,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "Codeium",
+  "desc": "免费AI代码补全，支持聊天问答",
+  "url": "https://codeium.com",
+  "sort": 14,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "Trae",
+  "desc": "字节出品的AI编程IDE，免费好用",
+  "url": "https://www.trae.ai",
+  "sort": 15,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "Augment Code",
+  "desc": "企业级AI编程助手，代码理解强",
+  "url": "https://www.augmentcode.com",
+  "sort": 16,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "Glarity",
+  "desc": "浏览器AI网页总结、翻译与问答",
+  "url": "https://glarity.app",
+  "sort": 17,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "Sider",
+  "desc": "浏览器AI侧边栏助手，阅读写作全能",
+  "url": "https://sider.ai",
+  "sort": 18,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "Merlin",
+  "desc": "浏览器AI助手插件，功能丰富多样",
+  "url": "https://www.getmerlin.io",
+  "sort": 19,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "MaxAI",
+  "desc": "浏览器AI快捷功能合集，一键调用",
+  "url": "https://www.maxai.me",
+  "sort": 20,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "AIPRM",
+  "desc": "ChatGPT提示词模板库插件",
+  "url": "https://www.aiprm.com",
+  "sort": 21,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "沉浸式翻译",
+  "desc": "双语对照翻译插件，浏览器阅读神器",
+  "url": "https://immersivetranslate.com",
+  "sort": 22,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "WebPilot",
+  "desc": "网页AI阅读写作助手，全能集成",
+  "url": "https://webpilot.ai",
+  "sort": 23,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "MCP 官方",
+  "desc": "模型上下文协议规范",
+  "url": "https://modelcontextprotocol.io",
+  "sort": 1,
+  "verify": "verified"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "MCP 官方 Servers 仓库",
+  "desc": "GitHub 官方维护的 MCP Server 合集",
+  "url": "https://github.com/modelcontextprotocol/servers",
+  "sort": 2,
+  "verify": "verified"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "高德 MCP",
+  "desc": "地图与位置服务协议",
+  "url": "https://lbs.amap.com",
+  "sort": 3,
+  "verify": "verified"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "Playwright MCP",
+  "desc": "浏览器自动化协议",
+  "url": "https://github.com/microsoft/playwright-mcp",
+  "sort": 4,
+  "verify": "verified"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "Chrome DevTools MCP",
+  "desc": "浏览器调试与页面自动化操作的MCP服务",
+  "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+  "sort": 5,
+  "verify": "verified"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "阿里云 MCP",
+  "desc": "阿里云官方MCP，云资源管理与运维接入AI",
+  "url": "https://github.com/aliyun/alibabacloud-mcp-server",
+  "sort": 6,
+  "verify": "verified"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "飞书 MCP",
+  "desc": "飞书开放平台MCP，文档消息会议能力接入AI",
+  "url": "https://open.feishu.cn",
+  "sort": 7,
+  "verify": "verified"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "Notion MCP",
+  "desc": "Notion官方MCP，知识库页面与数据接入AI",
+  "url": "https://github.com/makenotion/notion-mcp-server",
+  "sort": 8,
+  "verify": "verified"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "Sentry MCP",
+  "desc": "Sentry官方MCP，错误监控与事件数据接入AI",
+  "url": "https://github.com/getsentry/sentry-mcp",
+  "sort": 9,
+  "verify": "verified"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "Supabase MCP",
+  "desc": "Supabase官方MCP，数据库存储接入AI",
+  "url": "https://github.com/supabase-community/supabase-mcp",
+  "sort": 10,
+  "verify": "verified"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "MongoDB MCP",
+  "desc": "MongoDB官方MCP，文档数据库操作接入AI",
+  "url": "https://github.com/mongodb-js/mongodb-mcp-server",
+  "sort": 11,
+  "verify": "verified"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "Docker MCP",
+  "desc": "Docker官方MCP注册表，容器编排能力接入AI",
+  "url": "https://github.com/docker/mcp-registry",
+  "sort": 12,
+  "verify": "verified"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "Kubernetes MCP",
+  "desc": "K8s官方MCP，集群资源管理接入AI",
+  "url": "https://github.com/containers/kubernetes-mcp-server",
+  "sort": 13,
+  "verify": "verified"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "Git MCP",
+  "desc": "GitMCP开源服务，代码仓库读写操作接入AI",
+  "url": "https://github.com/idosal/git-mcp",
+  "sort": 14,
+  "verify": "verified"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "Brave Search MCP",
+  "desc": "Brave官方MCP，隐私搜索能力接入AI应用",
+  "url": "https://github.com/brave/brave-search-mcp-server",
+  "sort": 15,
+  "verify": "verified"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "Cloudflare MCP",
+  "desc": "Cloudflare MCP，网站Worker管理",
+  "url": "https://developers.cloudflare.com/agents",
+  "sort": 16,
+  "verify": "verified"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "Firecrawl MCP",
+  "desc": "网页抓取转Markdown的MCP服务，供AI调用",
+  "url": "https://github.com/firecrawl/firecrawl-mcp-server",
+  "sort": 17,
+  "verify": "verified"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "Tavily MCP",
+  "desc": "Tavily MCP，AI搜索能力接入Agent",
+  "url": "https://github.com/tavily-ai/tavily-mcp",
+  "sort": 18,
+  "verify": "verified"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "火山引擎 MCP",
+  "desc": "火山引擎官方MCP，云服务能力接入AI应用",
+  "url": "https://github.com/volcengine/mcp-server",
+  "sort": 19,
+  "verify": "verified"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "Context7",
+  "desc": "自动获取最新技术文档的MCP服务，助AI写码",
+  "url": "https://context7.com",
+  "sort": 20,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "mcp.so",
+  "desc": "MCP服务器聚合目录与搜索平台，一站发现",
+  "url": "https://mcp.so",
+  "sort": 21,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "Smithery",
+  "desc": "MCP服务器注册表，支持一键安装与配置",
+  "url": "https://smithery.ai",
+  "sort": 22,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "Glama",
+  "desc": "MCP服务器聚合检索与运行监控平台",
+  "url": "https://glama.ai",
+  "sort": 23,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "Composio",
+  "desc": "AI Agent 工具集成平台，连接百+ SaaS",
+  "url": "https://composio.dev",
+  "sort": 24,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "mcp",
+  "category": "MCP / 工具协议",
+  "name": "Zapier MCP",
+  "desc": "Zapier 官方 MCP，连接数千应用",
+  "url": "https://zapier.com/mcp",
+  "sort": 25,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "Dify",
+  "desc": "开源 LLM 应用开发平台",
+  "url": "https://dify.ai",
+  "sort": 1,
+  "verify": "verified"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "Coze Studio",
+  "desc": "扣子国际版，面向全球用户的Agent开发平台",
+  "url": "https://www.coze.com",
+  "sort": 2,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "LangChain",
+  "desc": "LLM 应用开发框架",
+  "url": "https://www.langchain.com",
+  "sort": 3,
+  "verify": "verified"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "Flowise",
+  "desc": "低代码 AI 流程搭建",
+  "url": "https://flowiseai.com",
+  "sort": 4,
+  "verify": "verified"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "LangGraph",
+  "desc": "LangChain图编排框架，构建复杂Agent",
+  "url": "https://langchain.com/langgraph",
+  "sort": 5,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "AutoGPT",
+  "desc": "自主 Agent 实验项目",
+  "url": "https://github.com/Significant-Gravitas/AutoGPT",
+  "sort": 6,
+  "verify": "verified"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "LangSmith",
+  "desc": "LLM应用调试、监控与评测的官方平台",
+  "url": "https://smith.langchain.com",
+  "sort": 7,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "Microsoft AutoGen",
+  "desc": "微软多Agent对话协作框架，灵活编排",
+  "url": "https://microsoft.github.io/autogen",
+  "sort": 8,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "OpenAI Agents SDK",
+  "desc": "OpenAI官方多Agent开发SDK，轻量易用",
+  "url": "https://openai.github.io/openai-agents-python",
+  "sort": 9,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "Pydantic AI",
+  "desc": "基于Pydantic的类型安全Agent开发框架",
+  "url": "https://ai.pydantic.dev",
+  "sort": 10,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "smolagents",
+  "desc": "HuggingFace轻量Agent框架",
+  "url": "https://github.com/huggingface/smolagents",
+  "sort": 11,
+  "verify": "verified"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "Semantic Kernel",
+  "desc": "微软跨语言AI编排SDK，支持插件与Agent",
+  "url": "https://learn.microsoft.com/semantic-kernel",
+  "sort": 12,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "Google ADK",
+  "desc": "Google官方Agent开发套件，多模态支持",
+  "url": "https://google.github.io/adk-docs",
+  "sort": 13,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "Botpress",
+  "desc": "企业级对话式Agent平台，可视化流程编排",
+  "url": "https://botpress.com",
+  "sort": 14,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "Rasa",
+  "desc": "开源对话式AI框架，构建智能客服机器人",
+  "url": "https://rasa.com",
+  "sort": 15,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "Dialogflow",
+  "desc": "Google对话Agent构建平台，NLU开箱即用",
+  "url": "https://cloud.google.com/dialogflow",
+  "sort": 16,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "Microsoft Copilot Studio",
+  "desc": "微软自定义Copilot与Agent构建平台",
+  "url": "https://copilotstudio.microsoft.com",
+  "sort": 17,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "百度千帆AppBuilder",
+  "desc": "百度智能体开发平台，零代码搭建AI应用",
+  "url": "https://appbuilder.cloud.baidu.com",
+  "sort": 18,
+  "verify": "verified"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "腾讯元器",
+  "desc": "腾讯AI智能体创作与发布平台，支持微信生态",
+  "url": "https://yuanqi.tencent.com",
+  "sort": 19,
+  "verify": "verified"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "Haystack",
+  "desc": "开源RAG与Agent构建框架，生产级管道",
+  "url": "https://haystack.deepset.ai",
+  "sort": 20,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "MetaGPT",
+  "desc": "多Agent协作框架，模拟软件公司流程开发",
+  "url": "https://github.com/geekan/MetaGPT",
+  "sort": 21,
+  "verify": "verified"
+ },
+ {
+  "slug": "agent",
+  "category": "Agent 平台 / 框架",
+  "name": "DSPy",
+  "desc": "声明式编程框架，自动优化提示与Agent流程",
+  "url": "https://github.com/stanfordnlp/dspy",
+  "sort": 22,
+  "verify": "verified"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "WPS AI",
+  "desc": "金山办公 AI 助手",
+  "url": "https://ai.wps.cn",
+  "sort": 1,
+  "verify": "verified"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "Microsoft 365 Copilot",
+  "desc": "微软办公套件全场景AI助手，办公智能化",
+  "url": "https://www.microsoft.com/microsoft-365/copilot",
+  "sort": 2,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "Grammarly",
+  "desc": "英文写作润色助手",
+  "url": "https://www.grammarly.com",
+  "sort": 3,
+  "verify": "verified"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "讯飞星火",
+  "desc": "科大讯飞 AI 助手",
+  "url": "https://xinghuo.xfyun.cn",
+  "sort": 4,
+  "verify": "verified"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "Google Workspace",
+  "desc": "Google全家桶办公套件，深度集成Gemini",
+  "url": "https://workspace.google.com",
+  "sort": 5,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "飞书智能伙伴",
+  "desc": "字节企业协作 AI",
+  "url": "https://www.feishu.cn",
+  "sort": 6,
+  "verify": "verified"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "钉钉",
+  "desc": "阿里巴巴企业办公平台，内置AI助理能力",
+  "url": "https://www.dingtalk.com",
+  "sort": 7,
+  "verify": "verified"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "腾讯文档",
+  "desc": "腾讯在线协作文档，AI辅助写作与总结",
+  "url": "https://docs.qq.com",
+  "sort": 8,
+  "verify": "verified"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "腾讯会议",
+  "desc": "腾讯视频会议，AI实时纪要转写助手",
+  "url": "https://meeting.tencent.com",
+  "sort": 9,
+  "verify": "verified"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "讯飞听见",
+  "desc": "讯飞语音转文字工具，会议记录首选",
+  "url": "https://www.iflyrec.com",
+  "sort": 10,
+  "verify": "verified"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "通义听悟",
+  "desc": "阿里AI会议记录，音视频转写与摘要",
+  "url": "https://tingwu.aliyun.com",
+  "sort": 11,
+  "verify": "verified"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "印象笔记",
+  "desc": "经典笔记应用，AI写作与智能整理",
+  "url": "https://www.yinxiang.com",
+  "sort": 12,
+  "verify": "verified"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "石墨文档",
+  "desc": "在线协作文档表格，AI辅助办公提效",
+  "url": "https://shimo.im",
+  "sort": 13,
+  "verify": "verified"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "语雀",
+  "desc": "阿里知识库笔记工具，AI搜索与问答",
+  "url": "https://www.yuque.com",
+  "sort": 14,
+  "verify": "verified"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "百度文库",
+  "desc": "文档资源平台，AI写作与PPT智能生成",
+  "url": "https://wenku.baidu.com",
+  "sort": 15,
+  "verify": "verified"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "Canva",
+  "desc": "在线设计平台，AI一键生成海报与文档",
+  "url": "https://www.canva.com",
+  "sort": 16,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "Adobe Acrobat",
+  "desc": "PDF处理与阅读工具，AI摘要问答",
+  "url": "https://acrobat.adobe.com",
+  "sort": 17,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "Microsoft Teams",
+  "desc": "微软团队协作平台，Copilot会议赋能",
+  "url": "https://www.microsoft.com/microsoft-teams",
+  "sort": 18,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "Slack",
+  "desc": "团队沟通协作平台，AI消息摘要整理",
+  "url": "https://slack.com",
+  "sort": 19,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "Zoom",
+  "desc": "视频会议平台，AI Companion智能助手",
+  "url": "https://zoom.com",
+  "sort": 20,
+  "verify": "verified"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "Obsidian",
+  "desc": "本地Markdown笔记工具，AI插件生态丰富",
+  "url": "https://obsidian.md",
+  "sort": 21,
+  "verify": "verified"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "Xmind",
+  "desc": "思维导图工具，AI辅助生成导图",
+  "url": "https://xmind.app",
+  "sort": 22,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "有道",
+  "desc": "网易AI翻译与学习办公工具，词典翻译",
+  "url": "https://www.youdao.com",
+  "sort": 23,
+  "verify": "verified"
+ },
+ {
+  "slug": "office",
+  "category": "办公生产力",
+  "name": "企业微信",
+  "desc": "腾讯企业沟通协作平台，连接微信生态",
+  "url": "https://work.weixin.qq.com",
+  "sort": 24,
+  "verify": "verified"
+ },
+ {
+  "slug": "search",
+  "category": "AI 搜索",
+  "name": "Perplexity",
+  "desc": "对话式 AI 搜索引擎",
+  "url": "https://www.perplexity.ai",
+  "sort": 1,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "search",
+  "category": "AI 搜索",
+  "name": "360 AI 搜索",
+  "desc": "360 智能搜索",
+  "url": "https://so.360.com",
+  "sort": 2,
+  "verify": "verified"
+ },
+ {
+  "slug": "search",
+  "category": "AI 搜索",
+  "name": "天工 (昆仑万维)",
+  "desc": "AI 搜索与创作",
+  "url": "https://www.tiangong.cn",
+  "sort": 3,
+  "verify": "verified"
+ },
+ {
+  "slug": "search",
+  "category": "AI 搜索",
+  "name": "Kagi",
+  "desc": "付费无广告搜索引擎",
+  "url": "https://kagi.com",
+  "sort": 4,
+  "verify": "verified"
+ },
+ {
+  "slug": "search",
+  "category": "AI 搜索",
+  "name": "夸克AI搜索",
+  "desc": "夸克浏览器AI搜索，多模态问答",
+  "url": "https://www.quark.cn",
+  "sort": 5,
+  "verify": "verified"
+ },
+ {
+  "slug": "search",
+  "category": "AI 搜索",
+  "name": "腾讯元宝",
+  "desc": "腾讯AI助手，联网搜索与多模态对话",
+  "url": "https://yuanbao.tencent.com",
+  "sort": 6,
+  "verify": "verified"
+ },
+ {
+  "slug": "search",
+  "category": "AI 搜索",
+  "name": "百度AI搜索",
+  "desc": "百度AI搜索聚合入口，智能问答体验",
+  "url": "https://ai.baidu.com",
+  "sort": 7,
+  "verify": "verified"
+ },
+ {
+  "slug": "search",
+  "category": "AI 搜索",
+  "name": "智谱清言",
+  "desc": "智谱AI助手，联网搜索与推理问答",
+  "url": "https://chatglm.cn",
+  "sort": 8,
+  "verify": "verified"
+ },
+ {
+  "slug": "search",
+  "category": "AI 搜索",
+  "name": "Devv",
+  "desc": "面向开发者的AI搜索，技术问答精准",
+  "url": "https://devv.ai",
+  "sort": 10,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "search",
+  "category": "AI 搜索",
+  "name": "Exa",
+  "desc": "AI搜索API，语义级网页检索能力",
+  "url": "https://exa.ai",
+  "sort": 11,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "search",
+  "category": "AI 搜索",
+  "name": "Tavily",
+  "desc": "Agent专用AI搜索API，实时联网检索",
+  "url": "https://tavily.com",
+  "sort": 12,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "search",
+  "category": "AI 搜索",
+  "name": "Brave Search",
+  "desc": "隐私搜索引擎，内置AI回答功能",
+  "url": "https://search.brave.com",
+  "sort": 13,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "search",
+  "category": "AI 搜索",
+  "name": "Genspark",
+  "desc": "AI生成式搜索，结果页智能聚合",
+  "url": "https://www.genspark.ai",
+  "sort": 14,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "search",
+  "category": "AI 搜索",
+  "name": "Felo",
+  "desc": "AI 学术研究搜索，多语种摘要",
+  "url": "https://felo.ai",
+  "sort": 16,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "search",
+  "category": "AI 搜索",
+  "name": "Morphic",
+  "desc": "开源 AI 搜索，结果页智能聚合",
+  "url": "https://www.morphic.sh",
+  "sort": 17,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "search",
+  "category": "AI 搜索",
+  "name": "ThinkAny",
+  "desc": "AI 搜索与问答聚合工具",
+  "url": "https://www.thinkany.ai",
+  "sort": 18,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "search",
+  "category": "AI 搜索",
+  "name": "Yep",
+  "desc": "Ahrefs 出品 AI 搜索，隐私友好",
+  "url": "https://yep.com",
+  "sort": 19,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "search",
+  "category": "AI 搜索",
+  "name": "iAsk AI",
+  "desc": "问答式 AI 搜索引擎",
+  "url": "https://iask.ai",
+  "sort": 20,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "GitHub Copilot",
+  "desc": "GitHub 编程助手",
+  "url": "https://github.com/features/copilot",
+  "sort": 1,
+  "verify": "verified"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "OpenAI Codex",
+  "desc": "OpenAI编程智能体，云端沙箱自动写代码",
+  "url": "https://openai.com/codex/",
+  "sort": 3,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "Claude Code",
+  "desc": "终端编程助手",
+  "url": "https://claude.com/claude-code",
+  "sort": 4,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "通义灵码 (阿里)",
+  "desc": "阿里 AI 编程助手",
+  "url": "https://tongyi.aliyun.com/lingma",
+  "sort": 5,
+  "verify": "verified"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "Tabnine",
+  "desc": "本地优先的AI代码补全助手",
+  "url": "https://www.tabnine.com",
+  "sort": 6,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "Replit",
+  "desc": "云端IDE，AI Agent一键构建应用",
+  "url": "https://replit.com",
+  "sort": 7,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "Sourcegraph Cody",
+  "desc": "基于代码库上下文的AI编程助手",
+  "url": "https://sourcegraph.com/cody",
+  "sort": 8,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "Bolt.new",
+  "desc": "浏览器内AI全栈应用生成器",
+  "url": "https://bolt.new",
+  "sort": 9,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "v0.dev",
+  "desc": "Vercel出品的AI生成UI组件工具",
+  "url": "https://v0.dev",
+  "sort": 10,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "Lovable",
+  "desc": "AI应用构建平台，自然语言生成全栈应用",
+  "url": "https://lovable.dev",
+  "sort": 11,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "文心快码Comate",
+  "desc": "百度AI编程助手，IDE插件式补全",
+  "url": "https://comate.baidu.com",
+  "sort": 12,
+  "verify": "verified"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "腾讯云AI代码助手",
+  "desc": "腾讯AI编程助手，智能补全与对话",
+  "url": "https://copilot.tencent.com",
+  "sort": 13,
+  "verify": "verified"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "豆包MarsCode",
+  "desc": "字节AI编程助手与云端IDE",
+  "url": "https://www.marscode.com",
+  "sort": 14,
+  "verify": "verified"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "Devin",
+  "desc": "Cognition自主编程智能体，独立完成任务",
+  "url": "https://devin.ai",
+  "sort": 15,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "Aider",
+  "desc": "终端开源AI结对编程工具",
+  "url": "https://aider.chat",
+  "sort": 16,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "OpenCode",
+  "desc": "开源终端AI编码代理",
+  "url": "https://opencode.ai",
+  "sort": 17,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "Google Antigravity",
+  "desc": "Google AI编程智能体与云端IDE",
+  "url": "https://antigravity.google",
+  "sort": 18,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "Gemini Code Assist",
+  "desc": "Google AI代码补全与助手",
+  "url": "https://codeassist.google",
+  "sort": 19,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "Amazon Q Developer",
+  "desc": "AWS AI开发助手，前身CodeWhisperer",
+  "url": "https://aws.amazon.com/q/developer/",
+  "sort": 20,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "JetBrains AI Assistant",
+  "desc": "JetBrains IDE内置AI编程助手",
+  "url": "https://www.jetbrains.com/ai/",
+  "sort": 21,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "Zed",
+  "desc": "高性能开源编辑器，内置AI能力",
+  "url": "https://zed.dev",
+  "sort": 22,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "CodeRabbit",
+  "desc": "AI 代码审查助手，PR 自动点评",
+  "url": "https://coderabbit.ai",
+  "sort": 23,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "coding",
+  "category": "编程开发",
+  "name": "Sourcery",
+  "desc": "AI 重构与代码质量助手",
+  "url": "https://sourcery.ai",
+  "sort": 24,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "Pinecone",
+  "desc": "托管向量数据库",
+  "url": "https://www.pinecone.io",
+  "sort": 1,
+  "verify": "verified"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "Milvus",
+  "desc": "开源向量数据库",
+  "url": "https://milvus.io",
+  "sort": 2,
+  "verify": "verified"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "Zilliz Cloud",
+  "desc": "Milvus全托管云服务",
+  "url": "https://zilliz.com",
+  "sort": 3,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "Firecrawl",
+  "desc": "AI 爬虫数据提取",
+  "url": "https://www.firecrawl.dev",
+  "sort": 4,
+  "verify": "verified"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "Qdrant",
+  "desc": "高性能开源向量数据库",
+  "url": "https://qdrant.tech",
+  "sort": 5,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "Weaviate",
+  "desc": "开源向量数据库，内置混合检索",
+  "url": "https://weaviate.io",
+  "sort": 6,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "Chroma",
+  "desc": "轻量开源向量数据库，Python生态首选",
+  "url": "https://www.trychroma.com",
+  "sort": 7,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "Elasticsearch",
+  "desc": "搜索引擎兼向量检索，支持RAG",
+  "url": "https://www.elastic.co",
+  "sort": 8,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "OpenSearch",
+  "desc": "AWS开源搜索与向量引擎",
+  "url": "https://opensearch.org",
+  "sort": 9,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "Redis",
+  "desc": "内存数据库内置向量检索模块",
+  "url": "https://redis.io",
+  "sort": 10,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "Neo4j",
+  "desc": "图数据库，支持向量索引与RAG",
+  "url": "https://neo4j.com",
+  "sort": 11,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "pgvector",
+  "desc": "PostgreSQL开源向量检索扩展",
+  "url": "https://github.com/pgvector/pgvector",
+  "sort": 12,
+  "verify": "verified"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "FAISS",
+  "desc": "Meta开源向量相似度搜索库",
+  "url": "https://github.com/facebookresearch/faiss",
+  "sort": 13,
+  "verify": "verified"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "LanceDB",
+  "desc": "嵌入式向量数据库，开发者友好",
+  "url": "https://lancedb.com",
+  "sort": 14,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "MongoDB Atlas",
+  "desc": "文档数据库内置向量搜索",
+  "url": "https://www.mongodb.com",
+  "sort": 15,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "Vespa",
+  "desc": "高性能开源搜索引擎兼向量数据库",
+  "url": "https://vespa.ai",
+  "sort": 16,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "Typesense",
+  "desc": "开源模糊搜索与向量检索引擎",
+  "url": "https://typesense.org",
+  "sort": 17,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "RAGFlow",
+  "desc": "深度文档理解的开源RAG引擎",
+  "url": "https://ragflow.io",
+  "sort": 18,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "FastGPT",
+  "desc": "开源知识库问答与工作流平台",
+  "url": "https://fastgpt.in",
+  "sort": 19,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "MaxKB",
+  "desc": "开源知识库问答系统，开箱即用",
+  "url": "https://maxkb.cn",
+  "sort": 20,
+  "verify": "verified"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "AnythingLLM",
+  "desc": "开源AI知识库桌面与云端应用",
+  "url": "https://anythingllm.com",
+  "sort": 21,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "Jina AI",
+  "desc": "多模态嵌入模型与Reader API",
+  "url": "https://jina.ai",
+  "sort": 22,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "Apify",
+  "desc": "云爬虫与网页数据采集平台",
+  "url": "https://apify.com",
+  "sort": 23,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "txtai",
+  "desc": "嵌入式语义搜索与RAG引擎",
+  "url": "https://neuml.github.io/txtai/",
+  "sort": 24,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "Databricks",
+  "desc": "数据湖仓平台，Unity Catalog 向量检索",
+  "url": "https://www.databricks.com",
+  "sort": 25,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "data",
+  "category": "数据源 / 知识库",
+  "name": "ClickHouse",
+  "desc": "高性能列式数据库，支持向量检索",
+  "url": "https://clickhouse.com",
+  "sort": 26,
+  "verify": "blocked_local"
+ },
+ {
+  "slug": "relay",
+  "category": "中转 / API 网关",
+  "name": "ArcDock 中转站",
+  "desc": "ArcDock 自有 API 中转",
+  "url": "https://arcdock.cn",
+  "sort": 1,
+  "verify": "verified"
+ }
+]

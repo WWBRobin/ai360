@@ -25,6 +25,8 @@
   --green-bg: #f0fdf4;
   --blue: #006fd6;
   --blue-bg: #eff6ff;
+  --red: #dc2626;
+  --red-bg: #fef2f2;
 }
 .dark {
   --bg: #0a0a0a;
@@ -49,6 +51,8 @@
   --green-bg: rgba(52,211,153,0.12);
   --blue: #60a5fa;
   --blue-bg: rgba(96,165,250,0.12);
+  --red: #f87171;
+  --red-bg: rgba(248,113,113,0.12);
 }
 
 /* ===== ArcDock 全局样式 ===== */

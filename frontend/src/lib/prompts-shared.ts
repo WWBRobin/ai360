@@ -23,6 +23,9 @@ export type PromptGroupMeta = {
 /** 冒烟通过的状态值（已实测✓徽章判据） */
 export const SMOKE_OK = new Set(['machine_pass', 'human_pass'])
 
+/** 冒烟未通过（9/8 用户裁定保留在库带徽章——诚实纪律：实测未通过≠条目无用） */
+export const SMOKE_FAIL = new Set(['machine_fail'])
+
 /** 五组静态元数据（组名/描述——与 split_web_json.py 的 SLUG/DESC 同源） */
 export const GROUPS: PromptGroupMeta[] = [
   { slug: 'roles', name: '让AI变成某个人', desc: '角色扮演：让 AI 以特定身份为你工作' },

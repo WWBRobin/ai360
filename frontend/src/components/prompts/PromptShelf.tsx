@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { PromptItem } from '@/lib/prompts-shared'
-import { SMOKE_OK } from '@/lib/prompts-shared'
+import { SMOKE_FAIL, SMOKE_OK } from '@/lib/prompts-shared'
 
 /**
  * 提示词库货架（v1 线框 α 拍板版）
@@ -109,6 +109,11 @@ export function Badge({ item }: { item: PromptItem }) {
       {SMOKE_OK.has(item.smoke) && (
         <span className="inline-flex h-[22px] items-center rounded-full bg-[var(--green-bg)] px-[9px] text-[11px] font-semibold whitespace-nowrap text-[var(--green)]">
           已实测✓
+        </span>
+      )}
+      {SMOKE_FAIL.has(item.smoke) && (
+        <span className="inline-flex h-[22px] items-center rounded-full bg-[var(--red-bg)] px-[9px] text-[11px] font-semibold whitespace-nowrap text-[var(--red)]" title="机器冒烟判卷未通过：保留在库作诚实记录，使用前请自行验证">
+          实测未过
         </span>
       )}
     </>
