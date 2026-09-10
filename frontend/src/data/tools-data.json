@@ -2352,5 +2352,49 @@
   "url": "https://arcdock.cn",
   "sort": 1,
   "verify": "verified"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "Skill Vetter",
+  "logo": "/platform-logos/openclaw.png",
+  "desc": "OpenClaw安全审查员：安装社区Skill前后自动扫描红旗（必装第一个）",
+  "url": "https://clawhub.com/skills/skill-vetter",
+  "sort": 1,
+  "verify": "verified",
+  "skillPlatform": "openclaw"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "Skill Scanner",
+  "logo": "/platform-logos/workbuddy.png",
+  "desc": "WorkBuddy内置：Skill安全扫描，装前查风险",
+  "url": "https://www.codebuddy.cn/work/",
+  "sort": 2,
+  "verify": "verified",
+  "skillPlatform": "workbuddy"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "Trail of Bits Security",
+  "logo": "/platform-logos/claude.png",
+  "desc": "顶级安全公司开源的Claude Code安全审计技能集",
+  "url": "https://github.com/trailofbits/skills",
+  "sort": 3,
+  "verify": "verified",
+  "skillPlatform": "claude"
+ },
+ {
+  "slug": "skill",
+  "category": "Skill / 插件",
+  "name": "Write Tests Skill",
+  "logo": "/platform-logos/claude-code.png",
+  "desc": "Claude Code社区高人气：自动编写测试，防改坏",
+  "url": "https://github.com/anthropics/skills",
+  "sort": 4,
+  "verify": "verified",
+  "skillPlatform": "claude-code"
  }
 ]
