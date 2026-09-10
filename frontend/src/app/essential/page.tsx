@@ -30,6 +30,7 @@ const TAB_CONFIG: Array<{
   { id: 'memory', label: '记忆知识', icon: '🧠', desc: '让 Agent 拥有长期记忆', slugs: ['memory'] },
   { id: 'search', label: '搜索检索', icon: '🔍', desc: '实时获取互联网信息', slugs: ['search'] },
   { id: 'file', label: '文件处理', icon: '📁', desc: '读写本地文件和文档', slugs: ['file', 'document'] },
+  { id: 'security', label: '治理安检', icon: '🛡️', desc: '装前审查·安全扫描·防改坏', slugs: ['security'] },
   { id: 'connect', label: '外部连接', icon: '🔗', desc: '对接 API 和 SaaS 服务', slugs: ['connect'] },
   { id: 'code', label: '代码开发', icon: '💻', desc: '工程级代码能力', slugs: ['code'] },
 ]
