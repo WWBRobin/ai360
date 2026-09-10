@@ -126,8 +126,11 @@ export default function InstallWizard({ categories }: { categories: { label: str
 
   const recommendedSkills = (() => {
     if (!selectedAgent) return []
-    // 办公 Agent（豆包/WB）：联网/文档/PPT/浏览器全原生（三源法），推荐走固定 slug 清单——
-    // 模糊匹配会把 Claude Code 专属插件（claude-code-review/claude-mem）推给豆包用户=命令跑不了的文不对题
+    // 平台兼容红线（三源法）：Claude 专属插件推给非 Claude 平台用户=命令跑不了的文不对题——
+    // 全卡统一排除（子代理审查#9 抓的根因：模糊匹配对 Hermes/扣子/Cursor/通用卡同样首中 claude-mem）
+    const CLAUDE_ONLY = ['claude-mem', 'claude-code-review']
+    const isClaudeAgent = selectedAgent.id === 'claude-code'
+    // 办公 Agent（豆包/WB）：联网/文档/PPT/浏览器全原生（三源法），推荐走固定 slug 清单
     const OFFICE_FIXED: Record<string, string[]> = {
       governance: ['openclaw-skill-vetter'],
       memory: ['supermemory', 'mem0', 'openclaw-supermemory'],
@@ -141,12 +144,14 @@ export default function InstallWizard({ categories }: { categories: { label: str
       const cap = CAPABILITIES[need]
       if (!cap) continue
       let matched: SkillCard | undefined
-      // 办公 Agent 推荐走固定 slug 清单（Supabase 源里跨平台件存在但模糊匹配首中 Claude 专属件）
+      // 办公 Agent 推荐走固定 slug 清单；固定清单全脱靶=跳过该 need（宁空勿错，禁落回会错配的模糊匹配）
       if (OFFICE_AGENTS.includes(selectedAgent.id) && OFFICE_FIXED[need]) {
         matched = allSkills.find(s => OFFICE_FIXED[need].includes(String(s.slug)))
+        if (!matched) continue
       }
       if (!matched) matched = allSkills.find(s => {
         if (seen.has(s.id)) return false
+        if (!isClaudeAgent && CLAUDE_ONLY.includes(String(s.slug))) return false
         const name = s.name.toLowerCase()
         const tagline = (s.tagline || '').toLowerCase()
         if (need === 'memory') return name.includes('mem') || name.includes('记忆') || tagline.includes('记忆') || tagline.includes('memory')
