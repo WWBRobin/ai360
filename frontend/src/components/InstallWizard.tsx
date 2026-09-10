@@ -20,16 +20,18 @@ interface Agent {
 }
 
 const AGENTS: Agent[] = [
-  { id: 'claude-code', name: 'Claude Code', logo: '/platform-logos/claude-code.png', desc: 'Anthropic 的编程 Agent', needs: ['memory', 'search', 'github', 'filesystem'] },
-  { id: 'hermes', name: 'Hermes', logo: '/platform-logos/hermes.png', desc: 'Nous Research 全能 Agent', needs: ['search', 'memory', 'browser', 'code'] },
-  { id: 'coze', name: '扣子 Coze', logo: '/platform-logos/coze.png', desc: '字节跳动的 Bot 平台', needs: ['memory', 'search', 'files', 'automation'] },
+  { id: 'claude-code', name: 'Claude Code', logo: '/platform-logos/claude-code.png', desc: 'Anthropic 的编程 Agent', needs: ['memory', 'search', 'github'] },
+  { id: 'hermes', name: 'Hermes', logo: '/platform-logos/hermes.png', desc: 'Nous Research 全能 Agent · 联网/浏览器原生', needs: ['memory', 'governance', 'search'] },
+  { id: 'coze', name: '扣子 Coze', logo: '/platform-logos/coze.png', desc: '字节跳动的 Bot 平台 · 联网插件内置', needs: ['memory', 'governance'] },
   { id: 'cursor', name: 'Cursor', logo: '/platform-logos/codex.png', desc: 'AI 编程编辑器', needs: ['memory', 'search', 'github'] },
-  { id: 'general', name: '通用 / 其他', logo: '', desc: '不确定？选这个看全部推荐', needs: ['memory', 'search', 'files', 'code', 'connect'] },
+  { id: 'doubao', name: '豆包办公', logo: '/tool-logos/doubao.png', desc: '字节的办公 Agent · 联网/PPT 原生', needs: ['governance', 'memory'] },
+  { id: 'workbuddy', name: 'WorkBuddy', logo: '/platform-logos/workbuddy.png', desc: '腾讯的办公 Agent · 浏览器/文档内置', needs: ['governance', 'memory'] },
+  { id: 'general', name: '通用 / 其他', logo: '', desc: '不确定？选这个看全部推荐', needs: ['memory', 'search', 'governance'] },
 ]
 
 const CAPABILITIES: Record<string, { label: string; icon: string; desc: string }> = {
   memory: { label: '记忆增强', icon: '🧠', desc: '让 AI 记住你的偏好和历史' },
-  search: { label: '联网搜索', icon: '🔍', desc: '让 AI 能上网查最新信息' },
+  search: { label: '搜索通道', icon: '🔍', desc: '多数 AI 已能联网——加通道是补索引盲区（跨系防漏），不是补缺失' },
   github: { label: '代码协作', icon: '🐙', desc: 'GitHub PR/Issue 自动处理' },
   filesystem: { label: '文件系统', icon: '📁', desc: '读写本地文件' },
   browser: { label: '浏览器控制', icon: '🌐', desc: '自动化网页操作' },
@@ -37,6 +39,7 @@ const CAPABILITIES: Record<string, { label: string; icon: string; desc: string }
   files: { label: '文件处理', icon: '📄', desc: '文档/表格/图片处理' },
   automation: { label: '自动化', icon: '⚙️', desc: '工作流和定时任务' },
   connect: { label: '外部连接', icon: '🔌', desc: '连接 1000+ 外部应用' },
+  governance: { label: '治理与安检', icon: '🛡️', desc: '装前审查 · 防幻觉 · 密钥保护 · 改动前快照' },
 }
 
 // === 核心新增：每个能力的"装完第一件事"验证引导 ===
@@ -136,6 +139,7 @@ export default function InstallWizard({ categories }: { categories: { label: str
         const tagline = (s.tagline || '').toLowerCase()
         if (need === 'memory') return name.includes('mem') || name.includes('记忆') || tagline.includes('记忆') || tagline.includes('memory')
         if (need === 'search') return name.includes('search') || name.includes('tavily') || name.includes('brave') || name.includes('firecrawl') || (tagline.includes('搜索') && !tagline.includes('知识库') && !tagline.includes('向量'))
+        if (need === 'governance') return name.includes('vetter') || name.includes('scanner') || name.includes('安检') || tagline.includes('审查') || tagline.includes('安全扫描') || tagline.includes('防幻觉')
         if (need === 'github') return name.includes('github') || name.includes('git') || tagline.includes('git')
         if (need === 'filesystem' || need === 'files') return name.includes('file') || name.includes('文件') || tagline.includes('文件')
         if (need === 'browser') return name.includes('browser') || name.includes('playwright') || tagline.includes('浏览器')
